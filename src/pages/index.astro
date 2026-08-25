@@ -1,0 +1,95 @@
+---
+/**
+ * GEÇİCİ yer tutucu ana sayfa.
+ *
+ * Faz A kurulumunun uçtan uca çalıştığını doğrular: tokenler, fontlar, header,
+ * footer, mobil iletişim çubuğu ve video alanı. Gerçek ana sayfa Faz B'de
+ * yazılacak — bu dosyanın içeriği o zaman tamamen değişecek.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import VideoSlot from '../components/VideoSlot.astro';
+import { ATTORNEY, PRACTICE_AREAS, SITE } from '../lib/site';
+---
+
+<PageLayout title={SITE.name} path="/">
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Faz A — kurulum tamamlandı</p>
+      <h1>{SITE.name}</h1>
+      <p class="lead">
+        {`${ATTORNEY.title} ${ATTORNEY.name}`} — {ATTORNEY.bar}, Sicil No: {
+          ATTORNEY.barRegistrationNumber
+        }
+      </p>
+      <p class="note">
+        Bu geçici bir yer tutucu sayfadır. Gerçek ana sayfa Faz B kapsamında hazırlanacaktır.
+      </p>
+
+      {
+        /* Sarmalayıcı şart: Astro'nun kapsamlı (scoped) stilleri alt bileşenin kök
+          öğesine uygulanmaz, bu yüzden .hero-video sınıfı VideoSlot'a doğrudan
+          verildiğinde max-width uygulanmıyordu. */
+      }
+      <div class="hero-video">
+        <VideoSlot title="Ana sayfa tanıtım videosu" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Çalışma Alanları</h2>
+      <p class="note">Her biri Faz B'de kendi sayfasını alacak.</p>
+      <ul class="area-list">
+        {PRACTICE_AREAS.map((area) => <li>{area.title}</li>)}
+      </ul>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .eyebrow {
+    margin-bottom: var(--space-3);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .lead {
+    margin-block: var(--space-4) var(--space-4);
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+  }
+
+  .note {
+    max-width: 60ch;
+    color: var(--text-muted);
+  }
+
+  .hero-video {
+    max-width: 46rem;
+    margin-top: var(--space-6);
+  }
+
+  .area-list {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+    padding: 0;
+    list-style: none;
+  }
+
+  .area-list li {
+    padding-block: var(--space-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  @media (min-width: 640px) {
+    .area-list {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-3) var(--space-6);
+    }
+  }
+</style>

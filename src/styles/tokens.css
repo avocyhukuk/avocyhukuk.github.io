@@ -1,0 +1,109 @@
+/*
+ * OCY Hukuk & Danışmanlık — Tasarım Tokenleri
+ * Kaynak: CLAUDE.md Bölüm 3 (Tasarım Sistemi / Marka Kimliği)
+ *
+ * KESİN KURAL: Site açık (krem/beyaz) zemin üzerine kuruludur. Lacivert bir
+ * VURGU/OTORİTE rengidir (header, footer, butonlar) — tüm sayfa arka planı
+ * olarak KULLANILMAZ. Bu yüzden bilinçli olarak koyu tema (dark mode) yoktur;
+ * marka kimliği tek ve açık bir görünüme bağlıdır.
+ *
+ * Kartvizitteki magenta varyasyon marka kimliğinin parçası DEĞİLDİR, burada yer almaz.
+ */
+
+:root {
+  /* ---------- Renk: marka ---------- */
+  --brand-navy: #1b3350;
+  --brand-navy-hover: #12233a;
+
+  /* ---------- Renk: zemin ---------- */
+  --bg-primary: #faf6ec; /* ana zemin — sıcak krem */
+  --bg-secondary: #f1ede1; /* bölüm ayrımı için hafif ton farkı */
+  --bg-surface: #fffdf8; /* kart/panel — zeminden bir tık açık */
+
+  /* ---------- Renk: metin ---------- */
+  --text-primary: #20293a; /* gövde metni — salt siyah değil */
+  --text-muted: #5c6577; /* tarih, etiket, ikincil bilgi */
+  --text-on-navy: #faf6ec; /* lacivert zemin üzerindeki metin */
+  --text-on-navy-muted: #a8b2c1; /* lacivert zeminde ikincil metin (footer) */
+
+  /* ---------- Renk: çizgi ---------- */
+  --border: #e2e6ec;
+  --border-strong: #cdd4de;
+  --border-on-navy: #35496a; /* lacivert blok içindeki ayraç */
+
+  /*
+   * Kontrast (WCAG 2.1) — hesaplanmış oranlar, hepsi AA üstü:
+   *   text-primary       / bg-primary .... 13.8:1  (AAA)
+   *   text-muted         / bg-primary ....  5.4:1  (AA, normal metin)
+   *   brand-navy         / bg-primary .... 11.9:1  (AAA)
+   *   text-on-navy       / brand-navy .... 11.6:1  (AAA)
+   *   text-on-navy-muted / brand-navy ....  6.0:1  (AA)
+   * Yeni bir renk eklenirse oranı burada belgelenmeli — CLAUDE.md Bölüm 3:
+   * "Metin okunabilirliği her zaman estetikten önce gelir."
+   */
+
+  /* ---------- Tipografi ---------- */
+  --font-heading: 'Lora Variable', 'Lora', Georgia, 'Times New Roman', serif;
+  --font-body:
+    'IBM Plex Sans Variable', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    sans-serif;
+
+  /* Akışkan tip ölçeği — mobilde gövde metni asla 16px altına inmez. */
+  --text-xs: 0.8125rem; /* 13px — yalnızca etiket/rozet */
+  --text-sm: 0.9375rem; /* 15px — yardımcı metin */
+  --text-base: 1rem; /* 16px — mobil gövde tabanı */
+  --text-lg: clamp(1.0625rem, 0.99rem + 0.36vw, 1.1875rem);
+  --text-xl: clamp(1.25rem, 1.16rem + 0.45vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 1.34rem + 0.8vw, 2rem);
+  --text-3xl: clamp(1.875rem, 1.6rem + 1.4vw, 2.75rem);
+  --text-4xl: clamp(2.25rem, 1.8rem + 2.25vw, 3.5rem);
+
+  --leading-tight: 1.2;
+  --leading-snug: 1.35;
+  --leading-normal: 1.65; /* uzun hukuki metinlerde okunabilirlik */
+
+  --tracking-tight: -0.015em;
+  --tracking-wide: 0.06em; /* küçük büyük harfli etiketler */
+
+  /* ---------- Aralık (8px tabanlı) ---------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  /* Bölüm dikey boşluğu — mobilde dar, masaüstünde ferah */
+  --section-y: clamp(3rem, 2.2rem + 4vw, 5.5rem);
+
+  /* ---------- Yerleşim ---------- */
+  --container-max: 72rem; /* 1152px */
+  --container-narrow: 44rem; /* 704px — uzun metin/blog ölçüsü */
+  --gutter: clamp(1.25rem, 0.9rem + 1.6vw, 2.5rem);
+  --header-height: 4rem;
+
+  /* ---------- Köşe & gölge ---------- */
+  --radius-sm: 4px;
+  --radius: 8px;
+  --radius-lg: 14px;
+
+  /* Gölgeler krem zeminde nötr gri değil, lacivert tonlu olmalı */
+  --shadow-sm: 0 1px 2px rgb(27 51 80 / 0.06);
+  --shadow: 0 2px 8px rgb(27 51 80 / 0.08);
+  --shadow-lg: 0 12px 32px rgb(27 51 80 / 0.12);
+
+  /* ---------- Etkileşim ---------- */
+  --focus-ring: 3px solid var(--brand-navy);
+  --focus-offset: 2px;
+  --transition: 160ms ease;
+
+  /* Dokunmatik hedef alt sınırı (WCAG 2.5.5 / mobil öncelik) */
+  --tap-target: 44px;
+
+  /* ---------- Video alanı (CLAUDE.md Bölüm 4/2) ---------- */
+  /* Her ana bölüm video gömmeye hazır olmalı; oran token üzerinden sabit. */
+  --video-aspect: 16 / 9;
+}

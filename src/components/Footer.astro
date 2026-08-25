@@ -1,0 +1,240 @@
+---
+/**
+ * Site altbilgisi.
+ *
+ * Lacivert blok: CLAUDE.md Bölüm 3, laciverti "header, footer, butonlar" için
+ * vurgu/otorite rengi olarak açıkça izin veriyor. Sayfa gövdesi krem kalıyor,
+ * site karanlık hissettirmiyor — koyu alan yalnızca kapanış bloğu.
+ *
+ * Metinler salt tanıtıcı: üstünlük iddiası, başarı oranı veya müvekkil
+ * referansı içermez (Avukatlık Kanunu m.55 / TBB Reklam Yasağı Yönetmeliği —
+ * CLAUDE.md Bölüm 4/3).
+ */
+import { ATTORNEY, CONTACT, NAV_LINKS, PRACTICE_AREAS, SITE } from '../lib/site';
+import { mailtoHref, telHref } from '../lib/contact';
+import Logo from './Logo.astro';
+
+// Telif yılı derleme anında sabitlenir — statik site olduğu için her yıl
+// yeniden derlenmesi gerekir; bu yüzden kuruluş yılı yerine tek yıl yazılıyor.
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="footer-brand__link" href="/" aria-label={`${SITE.name} — ana sayfa`}>
+        <Logo size={52} />
+        <span class="footer-brand__text">
+          <span class="footer-brand__name">OCY Hukuk</span>
+          <span class="footer-brand__sub">&amp; Danışmanlık</span>
+        </span>
+      </a>
+      <p class="footer-brand__desc">
+        Ankara Çankaya merkezli hukuk bürosu. Danışmanlık ve dava takibi hizmeti verilmektedir.
+      </p>
+    </div>
+
+    <nav class="footer-col" aria-labelledby="footer-alanlar">
+      <h2 class="footer-col__title" id="footer-alanlar">Çalışma Alanları</h2>
+      <ul class="footer-list">
+        {
+          PRACTICE_AREAS.map((area) => (
+            <li>
+              <a href={`/calisma-alanlari/${area.slug}`}>{area.title}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-labelledby="footer-site">
+      <h2 class="footer-col__title" id="footer-site">Site</h2>
+      <ul class="footer-list">
+        {
+          NAV_LINKS.filter((link) => link.href !== '/').map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="footer-col">
+      <h2 class="footer-col__title">İletişim</h2>
+      {/* NAP: site.ts'ten okunur — şema ve sayfalarla birebir aynı kalması şart */}
+      <address class="footer-contact">
+        <a href={telHref()}>{CONTACT.phone.display}</a>
+        <a href={mailtoHref()}>{CONTACT.email}</a>
+        <span>{CONTACT.address.full}</span>
+      </address>
+    </div>
+  </div>
+
+  <div class="container footer-bottom">
+    {
+      /* Şablon değişmezi bilinçli: iki ifade alt alta yazıldığında Astro
+        aradaki boşluğu yutuyor ve "AvukatOnur Can" gibi birleşiyor. */
+    }
+    <p class="footer-legal">
+      {`${ATTORNEY.title} ${ATTORNEY.name}`} — {ATTORNEY.bar}, Sicil No: {
+        ATTORNEY.barRegistrationNumber
+      }
+    </p>
+    <p class="footer-note">
+      Bu sitedeki içerikler genel bilgilendirme amaçlıdır; hukuki görüş veya danışmanlık niteliği
+      taşımaz. Somut uyuşmazlığınız için avukata başvurunuz.
+    </p>
+    <p class="footer-copy">© {year} {SITE.name}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: var(--section-y);
+    padding-top: var(--space-8);
+    background-color: var(--brand-navy);
+    color: var(--text-on-navy);
+  }
+
+  .footer-grid {
+    display: grid;
+    gap: var(--space-7);
+    padding-bottom: var(--space-7);
+  }
+
+  /* ---------- Marka bloğu ---------- */
+
+  .footer-brand__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    color: var(--text-on-navy);
+    text-decoration: none;
+  }
+
+  .footer-brand__text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+  }
+
+  .footer-brand__name {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    font-weight: 600;
+  }
+
+  .footer-brand__sub {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-on-navy-muted);
+  }
+
+  .footer-brand__desc {
+    max-width: 34ch;
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-on-navy-muted);
+  }
+
+  /* ---------- Sütunlar ---------- */
+
+  .footer-col__title {
+    margin-bottom: var(--space-4);
+    color: var(--text-on-navy);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+  }
+
+  .footer-list {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .footer-list a,
+  .footer-contact a {
+    color: var(--text-on-navy-muted);
+    font-size: var(--text-sm);
+    text-decoration: none;
+  }
+
+  .footer-list a:hover,
+  .footer-contact a:hover {
+    color: var(--text-on-navy);
+    text-decoration: underline;
+  }
+
+  .footer-contact {
+    display: grid;
+    gap: var(--space-3);
+    font-style: normal; /* <address> varsayılan italiğini iptal et */
+    font-size: var(--text-sm);
+    color: var(--text-on-navy-muted);
+  }
+
+  /* ---------- Alt şerit ---------- */
+
+  .footer-bottom {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-5) var(--space-6);
+    border-top: 1px solid var(--border-on-navy);
+  }
+
+  .footer-legal {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .footer-note,
+  .footer-copy {
+    max-width: 68ch;
+    font-size: var(--text-xs);
+    line-height: var(--leading-snug);
+    color: var(--text-on-navy-muted);
+  }
+
+  /* Odak halkası lacivert zeminde görünmez kalmasın */
+  .site-footer :focus-visible {
+    outline-color: var(--text-on-navy);
+  }
+
+  /* ---------- Genişleme ---------- */
+
+  @media (min-width: 640px) {
+    .footer-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1.4fr 1fr 1fr 1.2fr;
+      gap: var(--space-6);
+    }
+
+    .footer-bottom {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+
+    .footer-note {
+      grid-column: 1;
+    }
+
+    .footer-copy {
+      grid-column: 2;
+      grid-row: 1;
+      text-align: right;
+    }
+  }
+</style>

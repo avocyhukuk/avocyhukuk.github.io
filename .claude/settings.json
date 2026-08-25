@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git clone *)",
+      "Read(//opt/homebrew/bin/**)",
+      "Bash(xcode-select -p)",
+      "Read(//Users/onurcanyilmaz/.claude/plugins/**)",
+      "Read(//Users/onurcanyilmaz/.claude/plugins/marketplaces/**)",
+      "Read(//Users/onurcanyilmaz/Desktop/**)"
+    ]
+  }
+}

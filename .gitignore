@@ -1,0 +1,27 @@
+# Bağımlılıklar
+node_modules/
+
+# Astro / build çıktıları
+dist/
+.astro/
+
+# Ortam değişkenleri (gerçek değerler asla commit'lenmez)
+.env
+.env.local
+.env.*.local
+
+# Test / kapsama
+coverage/
+
+# Editör / işletim sistemi
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+*.log
+npm-debug.log*
+
+# Claude Code — makineye özel yerel ayarlar (paylaşılan .claude/ kalabilir)
+.claude/settings.local.json
+
+# Cloudflare Pages
+.wrangler/

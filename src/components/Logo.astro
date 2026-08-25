@@ -1,0 +1,49 @@
+---
+/**
+ * Marka amblemi — public/logo-mark.svg dosyasını satır içi gömer.
+ *
+ * Neden <img> değil: satır içi SVG `currentColor`'ı miras alır, böylece aynı
+ * bileşen krem header'da lacivert, lacivert footer'da krem çizilir. Harici
+ * <img src="...svg"> ise sayfanın rengini alamaz.
+ *
+ * Neden geometri burada tekrar yazılmadı: tek doğruluk kaynağı logo-mark.svg.
+ * OG görselini üreten script de aynı dosyayı okuyor; amblem değişirse iki yer
+ * birden güncellenmiş oluyor.
+ */
+import markRaw from '../../public/logo-mark.svg?raw';
+
+interface Props {
+  /** Piksel cinsinden yükseklik. Genişlik orana göre hesaplanır. */
+  size?: number;
+  /**
+   * Amblem tek başına anlam taşıyorsa erişilebilir ad verilir. Yanında zaten
+   * marka adı yazıyorsa boş bırakılır — ekran okuyucu aynı bilgiyi iki kez
+   * okumasın diye amblem o durumda aria-hidden olur.
+   */
+  label?: string;
+  class?: string;
+}
+
+const { size = 36, label, class: className } = Astro.props;
+
+// Kök <svg> etiketini ve içindeki <title>'ı at: etiket öznitelikleri burada
+// yeniden kuruluyor, <title> ise sayfada iki kez kullanılınca id çakışırdı.
+const inner = markRaw
+  .slice(markRaw.indexOf('>') + 1, markRaw.lastIndexOf('</svg>'))
+  .replace(/<title[\s\S]*?<\/title>/, '');
+
+// Amblemin en/boy oranı: viewBox 448x552
+const width = Math.round((size * 448) / 552);
+---
+
+<svg
+  viewBox="0 0 448 552"
+  width={width}
+  height={size}
+  fill="none"
+  class={className}
+  role={label ? 'img' : undefined}
+  aria-label={label}
+  aria-hidden={label ? undefined : 'true'}
+  focusable="false"><Fragment set:html={inner} /></svg
+>

@@ -1,0 +1,61 @@
+---
+/**
+ * PageLayout — normal sayfaların iskeleti.
+ *
+ * BaseLayout yalnızca <head> ve <body> kabuğunu kurar; görünen çerçeve
+ * (header + main + footer + mobil iletişim çubuğu) burada birleşir. Sayfalar
+ * neredeyse her zaman bunu kullanır, BaseLayout'u doğrudan kullanmaz.
+ */
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppCTA from '../components/WhatsAppCTA.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  path?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  /** Uzun metin sayfaları (blog, hukuki metinler) için dar ölçü. */
+  narrow?: boolean;
+}
+
+const { narrow = false, ...seo } = Astro.props;
+---
+
+<BaseLayout {...seo}>
+  <slot name="head" slot="head" />
+
+  <Header />
+
+  <main id="icerik" class:list={['page-main', { 'page-main--narrow': narrow }]}>
+    <slot />
+  </main>
+
+  <Footer />
+
+  <!-- Mobilde ekranın altına sabitlenen WhatsApp + arama çubuğu -->
+  <WhatsAppCTA variant="bar" />
+</BaseLayout>
+
+<style>
+  /*
+   * Mobildeki sabit iletişim çubuğu içeriğin son satırını kapatmasın diye
+   * gövdeye onun yüksekliği kadar boşluk bırakılır. Çubuk masaüstünde
+   * gizlendiği için bu boşluk da orada sıfırlanır.
+   */
+  .page-main {
+    padding-bottom: calc(54px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .page-main--narrow :global(.container) {
+    max-width: var(--container-narrow);
+  }
+
+  @media (min-width: 1024px) {
+    .page-main {
+      padding-bottom: 0;
+    }
+  }
+</style>

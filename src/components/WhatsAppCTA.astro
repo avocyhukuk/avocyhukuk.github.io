@@ -1,0 +1,132 @@
+---
+/**
+ * İletişim çağrısı — iki biçimde çalışır:
+ *
+ *  variant="button" → satır içi tek buton (header'da, masaüstünde)
+ *  variant="bar"    → mobilde ekranın altına sabitlenen iki eylemli çubuk
+ *
+ * Neden mobilde sağ altta yuvarlak bir balon değil: bir hukuk bürosunun mobil
+ * ziyaretçisinin iki gerçek eylemi var — yazmak ve aramak. Tek balon bunlardan
+ * birini gizler; sabit çubuk ikisini de eşit erişilebilir kılar ve baş parmak
+ * bölgesinde durur. Ayrıca balon, içeriğin üstünü kapatır.
+ *
+ * Renk notu: WhatsApp'ın kurumsal yeşili KULLANILMIYOR. CLAUDE.md Bölüm 3
+ * paletinde yeşil yok ve "kesin kural" olarak lacivert vurgu rengi tanımlanmış.
+ * Simge zaten tanınırlığı sağlıyor.
+ */
+import { CONTACT } from '../lib/site';
+import { telHref, whatsappUrl } from '../lib/contact';
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
+import PhoneIcon from './icons/PhoneIcon.astro';
+
+interface Props {
+  variant?: 'button' | 'bar';
+  /**
+   * DİKKAT: Buraya verilen sınıf, çağıran bileşenin KAPSAMLI (scoped) stiliyle
+   * biçimlendirilemez — Astro kapsam damgasını alt bileşenin kök öğesine
+   * geçirmez. Konumlandırma için bu bileşeni bir sarmalayıcıya alın.
+   * Yalnızca global sınıflar için kullanılabilir.
+   */
+  class?: string;
+}
+
+const { variant = 'button', class: className } = Astro.props;
+
+// Sohbet açılırken kutuda hazır duran metin — ziyaretçinin ilk cümleyi
+// kurma yükünü kaldırır, dönüşümü artıran en ucuz iyileştirme.
+const waHref = whatsappUrl('Merhaba, hukuki danışmanlık hakkında bilgi almak istiyorum.');
+---
+
+{
+  variant === 'button' ? (
+    <a class:list={['btn', 'btn--primary', 'wa-button', className]} href={waHref} rel="noopener">
+      <WhatsAppIcon size={18} />
+      WhatsApp'tan yazın
+    </a>
+  ) : (
+    <div class:list={['contact-bar', className]}>
+      {/* aria-label: ekran okuyucu iki bağlantıyı bağlamıyla duysun */}
+      <nav class="contact-bar__inner" aria-label="Hızlı iletişim">
+        <a class="contact-bar__action" href={waHref} rel="noopener">
+          <WhatsAppIcon size={20} />
+          <span>WhatsApp</span>
+        </a>
+        <a class="contact-bar__action contact-bar__action--alt" href={telHref()}>
+          <PhoneIcon size={20} />
+          <span>{CONTACT.phone.display}</span>
+        </a>
+      </nav>
+    </div>
+  )
+}
+
+<style>
+  .wa-button {
+    white-space: nowrap;
+  }
+
+  /* ---------- Mobil sabit iletişim çubuğu ---------- */
+
+  .contact-bar {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 40;
+    background-color: var(--bg-primary);
+    border-top: 1px solid var(--border);
+    /* iPhone'un alt çubuğunun altında kalmasın */
+    padding-bottom: env(safe-area-inset-bottom, 0);
+    box-shadow: 0 -2px 12px rgb(27 51 80 / 0.07);
+  }
+
+  .contact-bar__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background-color: var(--border);
+  }
+
+  .contact-bar__action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    min-height: 54px; /* --tap-target üstü: baş parmakla ıskalanmaması için */
+    padding: var(--space-3);
+    background-color: var(--brand-navy);
+    color: var(--text-on-navy);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color var(--transition);
+  }
+
+  .contact-bar__action:hover {
+    background-color: var(--brand-navy-hover);
+    color: var(--text-on-navy);
+  }
+
+  /* İkinci eylem tersine çevrilir: iki buton eşit ağırlıkta görünmesin,
+     birincil eylem (yazmak) baskın kalsın. */
+  .contact-bar__action--alt {
+    background-color: var(--bg-surface);
+    color: var(--brand-navy);
+  }
+
+  .contact-bar__action--alt:hover {
+    background-color: var(--bg-secondary);
+    color: var(--brand-navy);
+  }
+
+  /* Odak halkası çubuğun kenarında kırpılmasın */
+  .contact-bar__action:focus-visible {
+    outline-offset: -4px;
+  }
+
+  /* Masaüstünde çubuk yok — header'daki buton görevi devralır. */
+  @media (min-width: 1024px) {
+    .contact-bar {
+      display: none;
+    }
+  }
+</style>

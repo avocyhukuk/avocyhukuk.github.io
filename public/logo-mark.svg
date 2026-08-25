@@ -1,0 +1,112 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 448 552"
+  fill="none"
+  role="img"
+  aria-labelledby="ocy-logo-mark-title"
+>
+  <title id="ocy-logo-mark-title">OCY Hukuk &amp; Danışmanlık — adalet terazisi ve sütun amblemi</title>
+
+  <!--
+    Kartvizit amblemi (logokartvizit.png) referans alınarak yeniden çizildi.
+    Orijinal geometri ve oranlar korundu — CLAUDE.md Bölüm 3.
+
+    TEK RENK: Tüm çizim `currentColor` kullanır ve zemini şeffaftır. Böylece
+    aynı dosya krem zeminde lacivert, lacivert zeminde krem olarak çalışır;
+    ikinci bir renk varyantı dosyası tutmaya gerek kalmaz.
+
+    Bunun bir sonucu: sütunun yivleri ve terazi halkalarının içi "boya" değil,
+    ZEMİNİN GÖRÜNDÜĞÜ BOŞLUKLAR olarak çizilmiştir (gövde tek parça doldurulup
+    üzerine çizgi atılmamıştır). Aksi hâlde yivlerin rengi zemine göre elle
+    değiştirilmek zorunda kalırdı.
+  -->
+
+  <g fill="currentColor">
+    <!-- ===== Elmas çerçeve (devre kartı hattı) ===== -->
+    <path
+      d="M224 21 L427 276 L224 531 L21 276 Z"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+      stroke-linejoin="round"
+    />
+
+    <!-- Çerçeve düğümleri -->
+    <circle cx="224" cy="21" r="14" />
+    <circle cx="427" cy="276" r="14" />
+    <circle cx="21" cy="276" r="14" />
+    <circle cx="224" cy="531" r="14" />
+
+    <!-- ===== Terazi ===== -->
+    <!-- Kol: uçları halkalara değecek şekilde kesilir, halkanın içinden geçmez -->
+    <rect x="100" y="106.5" width="248" height="11" rx="5.5" />
+
+    <!-- Kol uçlarındaki halkalar — içi boş (zemin görünür) -->
+    <circle cx="87" cy="112" r="13" fill="none" stroke="currentColor" stroke-width="4" />
+    <circle cx="361" cy="112" r="13" fill="none" stroke="currentColor" stroke-width="4" />
+
+    <!-- Merkez mili -->
+    <circle cx="224" cy="112" r="8" fill="none" stroke="currentColor" stroke-width="3.5" />
+
+    <!-- Kefe askıları -->
+    <path d="M87 125 V186 M361 125 V186" stroke="currentColor" stroke-width="2.5" />
+
+    <!-- Sol kefe: dış çerçeve + iç dolu bant -->
+    <rect
+      x="36"
+      y="186"
+      width="102"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+    />
+    <rect x="41" y="192" width="92" height="8" />
+
+    <!-- Sağ kefe -->
+    <rect
+      x="310"
+      y="186"
+      width="102"
+      height="20"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2.5"
+    />
+    <rect x="315" y="192" width="92" height="8" />
+
+    <!-- ===== Sütun ===== -->
+    <!-- Terazi milinden başlığa inen gövde -->
+    <rect x="218" y="112" width="12" height="87" />
+
+    <!-- Başlık (abaküs): üstte geniş levha, altında daralan eşkenar dörtgen -->
+    <rect x="160" y="199" width="128" height="19" />
+    <path d="M160 218 H288 L256 248 H192 Z" />
+
+    <!--
+      Gövde: 5 ayrı çubuk + aralarındaki 4 boşluk = yiv etkisi.
+      Çubuklar sütunun hafif daralmasını (entasis) izler: üstte 64, altta 54 birim.
+    -->
+    <path d="M192 248 H202.8 L204.6 476 H195 Z" />
+    <path d="M205.3 248 H216.1 L216.7 476 H207.1 Z" />
+    <path d="M218.6 248 H229.4 L228.8 476 H219.2 Z" />
+    <path d="M231.9 248 H242.7 L240.9 476 H231.3 Z" />
+    <path d="M245.2 248 H256 L253 476 H243.4 Z" />
+
+    <!-- Kaide -->
+    <rect x="154" y="476" width="140" height="50" />
+
+    <!-- ===== Devre izleri: sütunun iki yanında 3'er nokta + hat ===== -->
+    <g stroke="currentColor" stroke-width="5">
+      <path d="M158 316 H192.9 M255.1 316 H290" />
+      <path d="M158 364 H193.5 M254.5 364 H290" />
+      <path d="M158 410 H194.1 M253.9 410 H290" />
+    </g>
+    <circle cx="158" cy="316" r="7" />
+    <circle cx="290" cy="316" r="7" />
+    <circle cx="158" cy="364" r="7" />
+    <circle cx="290" cy="364" r="7" />
+    <circle cx="158" cy="410" r="7" />
+    <circle cx="290" cy="410" r="7" />
+  </g>
+</svg>

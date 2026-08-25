@@ -1,0 +1,92 @@
+---
+/**
+ * BaseLayout — her sayfanın ortak <head> iskeleti.
+ * CLAUDE.md Bölüm 2: head/meta/OG/JSON-LD ortak iskeleti burada tutulur.
+ *
+ * JSON-LD Attorney/LegalService şeması Faz B'de bu dosyaya eklenecek.
+ */
+
+// Fontlar self-host ediliyor (Google Fonts'a istek ATILMIYOR):
+//  - Performans: üçüncü taraf bağlantı kurulumu (DNS+TLS) ortadan kalkar.
+//  - KVKK: ziyaretçinin IP'si Google'a gönderilmez.
+// Her iki paket de unicode-range kullandığından tarayıcı yalnızca gereken
+// alt kümeyi indirir — Türkçe için latin + latin-ext, kiril/matematik inmez.
+import '@fontsource-variable/lora/wght.css';
+import '@fontsource-variable/ibm-plex-sans/wght.css';
+import '../styles/global.css';
+
+import { SITE } from '../lib/site';
+
+interface Props {
+  /** Sayfa başlığı — site adı otomatik eklenir. */
+  title: string;
+  /** Meta description. Verilmezse sitenin genel açıklaması kullanılır. */
+  description?: string;
+  /** Bu sayfanın kök dizine göre yolu (ör. "/hakkinda"). Canonical için. */
+  path?: string;
+  /** OG görseli yolu. Varsayılan: site geneli paylaşım görseli. */
+  ogImage?: string;
+  /** Arama motorlarından gizlenmesi gereken sayfalar için. */
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = SITE.description,
+  path = Astro.url.pathname,
+  ogImage = '/og-image.png',
+  noindex = false,
+} = Astro.props;
+
+// Başlık zaten site adını içeriyorsa iki kez yazmayalım.
+const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+
+// Astro.site astro.config.mjs'teki `site` alanından gelir; canonical ve OG
+// mutlak URL gerektirir (göreli yol verilirse sosyal medya önizlemesi çalışmaz).
+const canonicalUrl = new URL(path, Astro.site).href;
+const ogImageUrl = new URL(ogImage, Astro.site).href;
+---
+
+<!doctype html>
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Favicon seti — varlıklar public/ altında (Faz A, logo vektörleştirme adımı) -->
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#1B3350" />
+
+    <!-- Open Graph — WhatsApp/LinkedIn paylaşım önizlemesi -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="tr_TR" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <slot name="head" />
+  </head>
+
+  <body>
+    <!-- Klavye kullanıcısının navigasyonu atlayıp içeriğe geçmesi için (WCAG 2.4.1) -->
+    <a class="skip-link" href="#icerik">İçeriğe geç</a>
+
+    <slot />
+  </body>
+</html>

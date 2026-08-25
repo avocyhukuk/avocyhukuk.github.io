@@ -1,0 +1,354 @@
+---
+/**
+ * Site başlığı — mobil öncelikli.
+ *
+ * MOBİL MENÜ / İLERLEMELİ GELİŞTİRME:
+ * Menü, JavaScript olmadan da tam çalışır. HTML'de gezinti listesi açıktır ve
+ * aç/kapa düğmesi `hidden` gelir. Sayfadaki küçük satır içi betik düğmeyi
+ * görünür yapıp menüyü katlanabilir hâle getirir. Betik çalışmazsa ziyaretçi
+ * yalnızca daha uzun bir başlık görür — hiçbir bağlantı erişilemez olmaz.
+ * (Ayrı bir .js dosyası indirilmediği için `is:inline` kullanıldı; Bölüm 4/5.)
+ *
+ * İMZA ÖĞESİ — "devre düğümü":
+ * Amblemdeki devre izi/düğüm motifi, bulunulan sayfayı işaretlemek için
+ * kullanılıyor: etkin bağlantının altında (mobilde solunda) küçük dolu bir
+ * daire, başlığın alt çizgisinin üzerinde bir "düğüm" gibi oturuyor. Süs değil,
+ * işlevi var — hangi sayfada olunduğunu gösteriyor. Site genelinde bilinçli
+ * olarak TEK bir yerde kullanılıyor.
+ */
+import { NAV_LINKS, SITE } from '../lib/site';
+import Logo from './Logo.astro';
+import WhatsAppCTA from './WhatsAppCTA.astro';
+
+// Sondaki eğik çizgi normalleştirilir: "/blog" ile "/blog/" aynı sayılmalı.
+const current = Astro.url.pathname.replace(/\/+$/, '') || '/';
+
+/** Alt sayfalar da üst bağlantıyı etkin sayar: /calisma-alanlari/ceza-hukuku → Çalışma Alanları */
+function isActive(href: string): boolean {
+  if (href === '/') return current === '/';
+  return current === href || current.startsWith(`${href}/`);
+}
+---
+
+<header class="site-header" data-site-header>
+  <div class="container header-inner">
+    <a class="brand" href="/" aria-label={`${SITE.name} — ana sayfa`}>
+      <Logo size={38} />
+      <span class="brand-text">
+        <span class="brand-name">OCY Hukuk</span>
+        <span class="brand-sub">&amp; Danışmanlık</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" type="button" data-nav-toggle aria-controls="ana-menu" hidden>
+      <span class="nav-toggle__bars" aria-hidden="true"
+        ><span></span><span></span><span></span></span
+      >
+      Menü
+    </button>
+
+    <nav class="nav" id="ana-menu" data-nav aria-label="Ana menü">
+      <ul class="nav-list">
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <a
+                class:list={['nav-link', { 'is-active': isActive(link.href) }]}
+                href={link.href}
+                aria-current={isActive(link.href) ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    {
+      /* Sarmalayıcı şart: Astro'nun kapsamlı stilleri alt bileşenin kök öğesine
+        uygulanmıyor. Sınıf doğrudan WhatsAppCTA'ya verildiğinde buradaki
+        .header-cta kuralı eşleşmiyor ve buton mobilde de görünüyordu. */
+    }
+    <div class="header-cta">
+      <WhatsAppCTA variant="button" />
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (() => {
+    const header = document.querySelector('[data-site-header]');
+    if (!header) return;
+
+    const toggle = header.querySelector('[data-nav-toggle]');
+    const nav = header.querySelector('[data-nav]');
+    if (!toggle || !nav) return;
+
+    // Betik çalıştı: CSS artık menüyü katlanabilir kabul edebilir.
+    header.dataset.js = 'on';
+    toggle.hidden = false;
+    toggle.setAttribute('aria-expanded', 'false');
+
+    const setOpen = (open) => {
+      header.dataset.open = String(open);
+      toggle.setAttribute('aria-expanded', String(open));
+    };
+
+    toggle.addEventListener('click', () => setOpen(header.dataset.open !== 'true'));
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && header.dataset.open === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  })();
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: var(--bg-primary);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--header-height);
+    /* Etkin bağlantının düğümü alt çizginin üzerine taşabilsin */
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  /* ---------- Marka kilidi ---------- */
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    color: var(--brand-navy);
+    text-decoration: none;
+    padding-block: var(--space-2);
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+  }
+
+  .brand-name {
+    font-family: var(--font-heading);
+    font-size: 1.0625rem;
+    font-weight: 600;
+    letter-spacing: var(--tracking-tight);
+  }
+
+  .brand-sub {
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ---------- Menü düğmesi (yalnız mobil + JS varken) ---------- */
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: var(--tap-target);
+    padding: var(--space-2) var(--space-3);
+    background: none;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    color: var(--brand-navy);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .nav-toggle[hidden] {
+    display: none;
+  }
+
+  .nav-toggle__bars {
+    display: grid;
+    gap: 3px;
+    width: 16px;
+  }
+
+  .nav-toggle__bars span {
+    display: block;
+    height: 2px;
+    background-color: currentColor;
+    border-radius: 1px;
+  }
+
+  /* ---------- Gezinti ---------- */
+
+  .nav {
+    /* Mobilde marka satırının ALTINA tam genişlik geçer */
+    flex-basis: 100%;
+    order: 3;
+  }
+
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap-target);
+    padding: var(--space-3) 0 var(--space-3) var(--space-5);
+    position: relative;
+    color: var(--text-primary);
+    font-size: var(--text-base);
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .nav-link:hover {
+    color: var(--brand-navy);
+  }
+
+  /*
+   * İmza: etkin sayfanın düğümü. Mobilde bağlantının solunda bir nokta ve
+   * ondan çıkan kısa bir iz — amblemdeki devre hattının aynısı.
+   */
+  .nav-link.is-active {
+    color: var(--brand-navy);
+    font-weight: 600;
+  }
+
+  .nav-link.is-active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    background-color: var(--brand-navy);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+
+  .nav-link.is-active::after {
+    content: '';
+    position: absolute;
+    left: 6px;
+    top: 50%;
+    width: 10px;
+    height: 2px;
+    background-color: var(--brand-navy);
+    transform: translateY(-50%);
+  }
+
+  .header-cta {
+    /* Mobilde header'da yer kaplamaz — alttaki sabit çubuk devralır */
+    display: none;
+  }
+
+  /* ---------- JS varken: mobil menü katlanır ---------- */
+
+  .site-header[data-js='on'] .nav {
+    display: none;
+  }
+
+  .site-header[data-js='on'][data-open='true'] .nav {
+    display: block;
+  }
+
+  /* ---------- Masaüstü ----------
+   *
+   * Kırılma noktası 1024px (900px değil): altı menü başlığı + marka kilidi +
+   * WhatsApp butonu yan yana ölçüldüğünde ~960px yer istiyor. 900px'te
+   * başlıklar iki satıra kırılıyordu. Tablet dikey (900–1023px) bu yüzden
+   * mobil menüyü kullanmaya devam eder. Aynı değer WhatsAppCTA ve
+   * PageLayout'ta da geçerli — üçü birlikte değiştirilmeli.
+   */
+
+  @media (min-width: 1024px) {
+    /* stretch: menü bağlantıları başlığın tam yüksekliğini kaplasın ki
+       etkin sayfa düğümü alt çizgiye güvenilir biçimde otursun. */
+    .header-inner {
+      flex-wrap: nowrap;
+      align-items: stretch;
+    }
+
+    .brand,
+    .header-cta {
+      align-self: center;
+    }
+
+    .nav-toggle {
+      display: none;
+    }
+
+    /* Masaüstünde menü her zaman açık — JS durumundan bağımsız */
+    .site-header .nav,
+    .site-header[data-js='on'] .nav {
+      display: flex;
+      align-items: stretch;
+      flex-basis: auto;
+      order: 0;
+      margin-inline-start: auto;
+    }
+
+    .nav-list {
+      flex-direction: row;
+      align-items: stretch;
+      gap: var(--space-4);
+      border-top: 0;
+    }
+
+    .nav-link {
+      min-height: auto;
+      height: 100%;
+      padding: 0;
+      font-size: var(--text-sm);
+      /* Başlıklar iki satıra kırılmasın */
+      white-space: nowrap;
+    }
+
+    /* Düğüm: bağlantının altında, başlığın alt çizgisinin üzerinde */
+    .nav-link.is-active::before {
+      left: 50%;
+      top: auto;
+      bottom: -4px;
+      width: 7px;
+      height: 7px;
+      transform: translateX(-50%);
+    }
+
+    /* Kısa iz yalnızca mobildeki dikey listede anlamlı */
+    .nav-link.is-active::after {
+      display: none;
+    }
+
+    .header-cta {
+      display: block;
+      margin-inline-start: var(--space-5);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .nav-list {
+      gap: var(--space-5);
+    }
+  }
+</style>
