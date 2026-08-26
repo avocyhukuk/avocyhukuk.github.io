@@ -1,0 +1,101 @@
+---
+/**
+ * Sayfa sonu iletişim bloğu.
+ *
+ * Metin bilinçli olarak sade ve tanıtıcı: "hemen arayın, çözelim" gibi ikna
+ * edici bir dil kullanılmıyor (Avukatlık Kanunu m.55 — CLAUDE.md Bölüm 4/3).
+ * Yalnızca hangi kanaldan ulaşılabileceği bildiriliyor.
+ */
+import { CONTACT } from '../lib/site';
+import { mailtoHref, telHref, whatsappUrl } from '../lib/contact';
+import WhatsAppIcon from './icons/WhatsAppIcon.astro';
+import PhoneIcon from './icons/PhoneIcon.astro';
+
+interface Props {
+  title?: string;
+  /** WhatsApp sohbetine önceden yazılacak metin — sayfaya göre özelleştirilir. */
+  message?: string;
+}
+
+const {
+  title = 'Dosyanızı değerlendirelim',
+  message = 'Merhaba, hukuki danışmanlık hakkında bilgi almak istiyorum.',
+} = Astro.props;
+---
+
+<section class="callout">
+  <div class="container callout__inner">
+    <div class="callout__text">
+      <h2 class="callout__title">{title}</h2>
+      <p class="callout__desc">
+        Somut olayınızı aktarmak için aşağıdaki kanallardan ulaşabilirsiniz. İlk görüşmede dosyanın
+        kapsamı ve izlenecek yol değerlendirilir.
+      </p>
+      {
+        /* E-posta satırı metin bloğunun İÇİNDE: ayrı bir ızgara satırında
+          durduğunda yanındaki buton sütunu daha uzun olduğu için altında
+          büyük bir boşluk kalıyordu. */
+      }
+      <p class="callout__mail">
+        E-posta: <a href={mailtoHref()}>{CONTACT.email}</a>
+      </p>
+    </div>
+
+    <div class="callout__actions">
+      <a class="btn btn--primary" href={whatsappUrl(message)} rel="noopener">
+        <WhatsAppIcon size={18} />
+        WhatsApp'tan yazın
+      </a>
+      <a class="btn btn--secondary" href={telHref()}>
+        <PhoneIcon size={18} />
+        {CONTACT.phone.display}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .callout {
+    padding-block: var(--section-y);
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+  }
+
+  .callout__title {
+    font-size: var(--text-2xl);
+  }
+
+  .callout__desc {
+    max-width: 52ch;
+    margin-top: var(--space-3);
+    color: var(--text-muted);
+  }
+
+  .callout__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+  }
+
+  .callout__mail {
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 900px) {
+    .callout__inner {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: start;
+      gap: var(--space-6);
+    }
+
+    .callout__actions {
+      margin-top: 0;
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

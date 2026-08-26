@@ -48,22 +48,11 @@ export const CONTACT = {
   },
 } as const;
 
-/**
- * Çalışma alanları — CLAUDE.md Bölüm 5.
- * Her biri ayrı route alacak (Faz B). `slug` URL'i belirler, sonradan
- * değiştirilirse SEO'da kırık link olur; bu yüzden baştan Türkçe ve kalıcı seçildi.
+/*
+ * Çalışma alanları burada TUTULMUYOR — CLAUDE.md Bölüm 5'teki yedi alanın
+ * tek doğruluk kaynağı src/content/practice-areas/ koleksiyonudur.
+ * Erişim için: src/lib/practice-areas.ts → getPracticeAreas()
  */
-export const PRACTICE_AREAS = [
-  { slug: 'ceza-hukuku', title: 'Ceza Hukuku' },
-  { slug: 'ticaret-sirketler-hukuku', title: 'Ticaret & Şirketler Hukuku' },
-  { slug: 'gayrimenkul-hukuku', title: 'Gayrimenkul Hukuku' },
-  { slug: 'icra-iflas-hukuku', title: 'İcra & İflas Hukuku' },
-  { slug: 'sigorta-hukuku', title: 'Sigorta Hukuku' },
-  { slug: 'startup-girisim-hukuku', title: 'Startup & Girişim Hukuku' },
-  { slug: 'fikri-mulkiyet-hukuku', title: 'Fikri Mülkiyet Hukuku' },
-] as const;
-
-export type PracticeAreaSlug = (typeof PRACTICE_AREAS)[number]['slug'];
 
 /** Ana navigasyon — Header ve Footer aynı listeden beslenir. */
 export const NAV_LINKS = [
@@ -83,3 +72,38 @@ export const NAV_LINKS = [
 export const CALCULATOR_DISCLAIMER =
   'Bu hesaplama tahminidir ve bilgilendirme amaçlıdır. Somut olayınız için hukuki ' +
   'değerlendirme gereklidir; bağlayıcı bir sonuç doğurmaz.';
+
+/**
+ * Büro çalışma saatleri.
+ *
+ * Hem İletişim sayfasında gösterilir hem de JSON-LD'de
+ * openingHoursSpecification olarak yayımlanır — Google'ın işletme kartında
+ * "Açık / Kapalı" bilgisi bu alandan okunur. İki yerde ayrı yazılırsa
+ * biri güncellenip diğeri unutulur, o yüzden tek kaynak burasıdır.
+ *
+ * `schemaDays`: schema.org gün adları (İngilizce olmak ZORUNDA).
+ */
+export const OFFICE_HOURS = {
+  opens: '09:00',
+  closes: '18:00',
+  /** İnsana gösterilen hâli */
+  display: 'Hafta içi 09.00 – 18.00',
+  daysDisplay: 'Pazartesi – Cuma',
+  schemaDays: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as readonly string[],
+} as const;
+
+/**
+ * Bilinen diller.
+ *
+ * `service: true` yalnızca hizmetin fiilen yürütüldüğü dil içindir. Site şu an
+ * Türkçe; İngilizce ve Gürcüce bilinen diller olarak belirtilir ama hizmet dili
+ * olarak DUYURULMAZ — CLAUDE.md Bölüm 1'de bu diller ayrı bir faz olarak
+ * planlanmış durumda.
+ */
+export const LANGUAGES = [
+  // `code`: JSON-LD knowsLanguage için ISO 639-1. Şemayı okuyan makineye
+  // Türkçe ad değil, standart kod verilmeli.
+  { code: 'tr', name: 'Türkçe', service: true },
+  { code: 'en', name: 'İngilizce', service: false },
+  { code: 'ka', name: 'Gürcüce', service: false },
+] as const;

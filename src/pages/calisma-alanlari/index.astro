@@ -1,0 +1,81 @@
+---
+/**
+ * Çalışma alanları liste sayfası.
+ */
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import PracticeAreaCard from '../../components/PracticeAreaCard.astro';
+import ContactCallout from '../../components/ContactCallout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getPracticeAreas, practiceAreaPath } from '../../lib/practice-areas';
+import { breadcrumbSchema, type BreadcrumbItem } from '../../lib/schema';
+
+const practiceAreas = await getPracticeAreas();
+
+const crumbs: BreadcrumbItem[] = [
+  { name: 'Ana Sayfa', path: '/' },
+  { name: 'Çalışma Alanları', path: '/calisma-alanlari' },
+];
+
+const description =
+  'Ceza, ticaret ve şirketler, gayrimenkul, icra ve iflas, sigorta, girişim ile fikri mülkiyet hukuku alanlarında verilen hizmetler.';
+---
+
+<PageLayout
+  title="Çalışma Alanları"
+  description={description}
+  path="/calisma-alanlari"
+  schemas={[breadcrumbSchema(crumbs)]}
+>
+  <PageHero
+    title="Çalışma Alanları"
+    lead="Yedi alanda danışmanlık ve dava takibi yürütülmektedir. Her alanın sayfasında ele alınan başlıca işler ve dayanak mevzuat yer alır."
+  >
+    <Breadcrumbs slot="before" items={crumbs} />
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <ul class="area-grid">
+        {
+          practiceAreas.map((area) => (
+            <li>
+              <PracticeAreaCard
+                href={practiceAreaPath(area.id)}
+                title={area.data.title}
+                summary={area.data.summary}
+                image={area.data.image}
+                imageAlt={area.data.imageAlt}
+                headingLevel="h2"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <ContactCallout />
+</PageLayout>
+
+<style>
+  .area-grid {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  @media (min-width: 640px) {
+    .area-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .area-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

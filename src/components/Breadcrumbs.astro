@@ -1,0 +1,77 @@
+---
+/**
+ * Yol göstergesi.
+ *
+ * Görsel karşılığı olan JSON-LD BreadcrumbList şeması sayfa tarafından ayrıca
+ * gömülür (bkz. src/lib/schema.ts) — Google, şemadaki yolun sayfada gerçekten
+ * görünmesini bekler, yalnız şemada kalan yol göstergesi yok sayılabilir.
+ *
+ * Son öğe bağlantı DEĞİLDİR: bulunulan sayfaya bağlantı vermek gereksiz bir
+ * odak durağı yaratır. Bunun yerine aria-current ile işaretlenir.
+ */
+import type { BreadcrumbItem } from '../lib/schema';
+
+interface Props {
+  items: readonly BreadcrumbItem[];
+}
+
+const { items } = Astro.props;
+const lastIndex = items.length - 1;
+---
+
+<nav class="breadcrumbs" aria-label="Neredesiniz">
+  <ol class="breadcrumbs__list">
+    {
+      items.map((item, index) => (
+        <li class="breadcrumbs__item">
+          {index === lastIndex ? (
+            <span aria-current="page">{item.name}</span>
+          ) : (
+            <a href={item.path}>{item.name}</a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .breadcrumbs {
+    margin-bottom: var(--space-5);
+  }
+
+  .breadcrumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  /* Ayraç CSS ile üretiliyor: metin akışına girmediği için ekran okuyucu
+     "büyüktür işareti" diye okumuyor. */
+  .breadcrumbs__item + .breadcrumbs__item::before {
+    content: '/';
+    margin-inline-end: var(--space-2);
+    color: var(--border-strong);
+  }
+
+  .breadcrumbs__item a {
+    color: var(--text-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumbs__item a:hover {
+    color: var(--brand-navy);
+    text-decoration: underline;
+  }
+
+  .breadcrumbs__item [aria-current='page'] {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+</style>

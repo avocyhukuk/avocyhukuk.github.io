@@ -1,0 +1,9 @@
+# OCY Hukuk & Danışmanlık — https://ocyhukuk.com
+# Site tamamen kamuya açıktır; gizlenmesi gereken bir bölüm yoktur.
+
+User-agent: *
+Allow: /
+
+# Sitemap, @astrojs/sitemap tarafından derleme sırasında üretilir.
+# Giriş noktası indeks dosyasıdır; alt sitemap'lere oradan ulaşılır.
+Sitemap: https://ocyhukuk.com/sitemap-index.xml

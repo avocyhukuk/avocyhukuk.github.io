@@ -1,10 +1,21 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://ocyhukuk.com',
   output: 'static',
+
+  integrations: [
+    sitemap({
+      // public/ altındaki eski yer tutucu HTML'ler sitemap'e girmemeli:
+      // arama motoruna sunulacak sayfalar değiller, yalnızca eski
+      // adreslerin kırılmaması için tutuluyorlar.
+      filter: (page) => !page.includes('/privacy-policy') && !page.includes('/terms'),
+      i18n: undefined,
+    }),
+  ],
 
   // Cloudflare Pages varsayılan olarak /yol/ biçimini temiz servis eder.
   build: {

@@ -106,4 +106,19 @@
   /* ---------- Video alanı (CLAUDE.md Bölüm 4/2) ---------- */
   /* Her ana bölüm video gömmeye hazır olmalı; oran token üzerinden sabit. */
   --video-aspect: 16 / 9;
+
+  /*
+   * Ana sayfa hero'sunun oranı ayrı tutuluyor. Hero, site açıldığında ilk
+   * görülen alandır ve buraya bir animasyon gelecek. 16/9 masaüstünde
+   * ekranın tamamını yiyip başlığı katlamanın altına itiyor; bu yüzden geniş
+   * ekranda sinematik 21/9'a geçilir. Mobilde 21/9 çok alçak kalacağından
+   * (390px'te ~167px) 16/9 korunur.
+   */
+  --video-aspect-hero: 16 / 9;
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --video-aspect-hero: 21 / 9;
+  }
 }

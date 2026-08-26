@@ -20,6 +20,7 @@
     "assets": "node scripts/gorsel-varliklar.mjs"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@fontsource-variable/ibm-plex-sans": "^5.3.0",
     "@fontsource-variable/lora": "^5.3.0",
     "astro": "^7.2.5"

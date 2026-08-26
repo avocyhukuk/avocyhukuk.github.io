@@ -92,7 +92,8 @@ Kartvizitin arka yüzündeki "adalet terazisi + sütun" ikonu ve "AVUKAT Onur Ca
 ## 4. Mimari Kurallar (Baştan Doğru Yapılmalı — Sonradan Revize Edilmeyecek)
 
 1. **Mobil öncelikli (mobile-first) responsive tasarım zorunlu.** Her bileşen önce mobil genişlikte tasarlanıp test edilmeli, sonra tablet/masaüstüne genişletilmeli. "Sonradan mobil uyumlu hale getirme" işi yapılmayacak — baştan doğru kurulacak.
-2. **Her ana bölüm video gömme alanına hazır olmalı.** Site sahibi ileride her ana bölüm için (ana sayfa hero, her çalışma alanı sayfası vb.) yapay zeka video araçlarıyla üretilmiş tanıtım videoları ekleyecek. Bu yüzden her ana bölümün layout'u, video embed edildiğinde düzenin bozulmayacağı şekilde tasarlanmalı (örn. responsive `aspect-ratio` kullanan, video eklenmeden önce de bir görsel/placeholder ile düzgün görünen bir konteyner). Video eklenmesi geldiğinde sayfa yeniden tasarlanmayacak, sadece konteynere video konacak.
+2. **Video yalnızca ana sayfa hero'sunda.** Site açıldığında ilk görülen öğe, ana sayfanın hero bölümüne eklenecek animasyondur. Diğer sayfalara video gömülmeyecektir. Bu bölümün layout'u, animasyon eklendiğinde düzenin bozulmayacağı şekilde kurulmuştur: yükseklik `aspect-ratio` ile önceden rezerve edilmiştir (mobilde 16/9, masaüstünde 21/9), üzerine `max-height: 60vh` tavanı konmuştur ki başlık ve sicil bilgisi katlamanın altında kalmasın. Animasyon geldiğinde sayfa yeniden tasarlanmayacak, yalnızca `VideoSlot`'a `src` verilecektir.
+   Diğer sayfalarda video yerine, konu başlığına ilişkin **stok görseller** çalışma alanı kartlarında kullanılabilir. Kart görseli koleksiyon şemasındaki isteğe bağlı `image` alanından gelir, Astro tarafından optimize edilir ve yüksekliği yine önceden rezerve edilir. Görsel verilmeyen kart eksik görünmez.
 3. **Reklam yasağına uyum zorunlu:** İkna edici/üstünlük iddiası içeren dil yok ("en iyi", "garantili sonuç" vb.), müvekkil referansı/başarı oranı paylaşımı yok. Hesaplama araçlarının sonuç ekranında "bu hesaplama tahminidir, somut olayınız için hukuki değerlendirme gereklidir" uyarısı zorunlu. Blog yazılarında da her hukuki iddia bir kanun maddesine/karara dayandırılmalı.
 4. **Erişilebilirlik (a11y) temel şart:** Tüm görsellerde anlamlı `alt` metni, semantik HTML (`<nav>`, `<main>`, `<footer>` vb.), tüm interaktif öğeler (hesaplama formları dahil) klavye ile kullanılabilir, form alanlarında `<label>` eşleşmesi zorunlu.
 5. **Performans hedefi:** Mevcut site çok hızlı yükleniyor (~0,5 saniye) — yeni site bu seviyeyi korumalı veya iyileştirmeli. Lighthouse Performance skoru hedefi: 90+. Gereksiz JS/kütüphane eklemekten kaçınılmalı, Astro'nun "sıfır JS varsayılan" avantajı korunmalı (hesaplama araçları gibi gerçekten interaktif olan yerler dışında).
@@ -137,12 +138,16 @@ Kartvizitin arka yüzündeki "adalet terazisi + sütun" ikonu ve "AVUKAT Onur Ca
 - [x] Logoyu temiz SVG olarak vektörleştir, favicon/OG görselini üret (Bölüm 3'teki boyutlarda) — *amblem `logokartvizit.png` referans alınarak yeniden çizildi, Av. Onur Can Yılmaz onayı bekliyor*
 
 ### Faz B — Temel sayfalar ve teknik SEO
-- [ ] Ana sayfa, Hakkında, İletişim sayfaları
-- [ ] 7 çalışma alanı için ayrı sayfa/route
-- [ ] Meta description, Open Graph etiketleri her sayfada
-- [ ] JSON-LD Attorney/LegalService şeması (sicil no, adres, telefon dahil)
-- [ ] `sitemap.xml`, `robots.txt`
-- [ ] Gerçek cihaz genişliklerinde mobil test
+- [x] Ana sayfa, Hakkında, İletişim sayfaları — *Hakkında'daki mesleki geçmiş ve eğitim `ONURCANYILMAZ-CV.pdf`ten yazıldı; metin Av. Onur Can Yılmaz'ın onayını bekliyor*
+- [x] 7 çalışma alanı için ayrı sayfa/route
+- [x] Meta description, Open Graph etiketleri her sayfada
+- [x] JSON-LD Attorney/LegalService şeması (sicil no, adres, telefon, çalışma saatleri dahil)
+- [x] `sitemap.xml`, `robots.txt`
+- [ ] Gerçek cihaz genişliklerinde mobil test — *390/1024/1280 px genişliklerde render ile doğrulandı; gerçek cihazda ve JavaScript etkinken test EDİLMEDİ*
+
+Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak için gerekliydi):
+- Hesaplama araçları ve Blog için liste sayfaları (araçlar "Hazırlanıyor" olarak işaretli)
+- 404 sayfası
 
 ### Faz B.5 — Cloudflare Pages'e bağlama
 - [ ] Cloudflare Pages'e repo bağlantısı, build ayarları (Astro static output)

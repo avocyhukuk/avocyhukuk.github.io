@@ -10,9 +10,12 @@
  * referansı içermez (Avukatlık Kanunu m.55 / TBB Reklam Yasağı Yönetmeliği —
  * CLAUDE.md Bölüm 4/3).
  */
-import { ATTORNEY, CONTACT, NAV_LINKS, PRACTICE_AREAS, SITE } from '../lib/site';
+import { ATTORNEY, CONTACT, NAV_LINKS, SITE } from '../lib/site';
 import { mailtoHref, telHref } from '../lib/contact';
+import { getPracticeAreas, practiceAreaPath } from '../lib/practice-areas';
 import Logo from './Logo.astro';
+
+const practiceAreas = await getPracticeAreas();
 
 // Telif yılı derleme anında sabitlenir — statik site olduğu için her yıl
 // yeniden derlenmesi gerekir; bu yüzden kuruluş yılı yerine tek yıl yazılıyor.
@@ -38,9 +41,9 @@ const year = new Date().getFullYear();
       <h2 class="footer-col__title" id="footer-alanlar">Çalışma Alanları</h2>
       <ul class="footer-list">
         {
-          PRACTICE_AREAS.map((area) => (
+          practiceAreas.map((area) => (
             <li>
-              <a href={`/calisma-alanlari/${area.slug}`}>{area.title}</a>
+              <a href={practiceAreaPath(area.id)}>{area.data.title}</a>
             </li>
           ))
         }

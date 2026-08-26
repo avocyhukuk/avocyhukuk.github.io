@@ -1,0 +1,247 @@
+---
+/**
+ * İletişim sayfası.
+ *
+ * Harita GÖMÜLMEDİ, bunun yerine haritaya bağlantı verildi. Gömülü bir harita
+ * iframe'i sayfa açılır açılmaz üçüncü tarafa istek atar; ziyaretçinin IP'si
+ * ve sayfa adresi rızası olmadan aktarılmış olur (KVKK) ve Lighthouse
+ * performans skoru düşer. Bağlantı, kullanıcı isterse tıklar.
+ *
+ * Çalışma saatleri site.ts'teki OFFICE_HOURS'tan okunur; aynı veri JSON-LD'de
+ * openingHoursSpecification olarak da yayımlanır.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ContactCallout from '../components/ContactCallout.astro';
+import WhatsAppIcon from '../components/icons/WhatsAppIcon.astro';
+import PhoneIcon from '../components/icons/PhoneIcon.astro';
+import { CONTACT, OFFICE_HOURS } from '../lib/site';
+import { mailtoHref, telHref, whatsappUrl } from '../lib/contact';
+import { breadcrumbSchema, type BreadcrumbItem } from '../lib/schema';
+
+const crumbs: BreadcrumbItem[] = [
+  { name: 'Ana Sayfa', path: '/' },
+  { name: 'İletişim', path: '/iletisim' },
+];
+
+const description = `OCY Hukuk & Danışmanlık iletişim bilgileri: ${CONTACT.phone.display}, ${CONTACT.email}, ${CONTACT.address.district}/${CONTACT.address.city}.`;
+
+// Adres, harita servisine arama sorgusu olarak gönderilir — koordinat
+// tutmaya gerek kalmaz, adres değişirse bağlantı kendiliğinden güncellenir.
+const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  CONTACT.address.full
+)}`;
+---
+
+<PageLayout
+  title="İletişim"
+  description={description}
+  path="/iletisim"
+  schemas={[breadcrumbSchema(crumbs)]}
+>
+  {/* Eyebrow yok: başlık zaten "İletişim", üstüne bir kez daha yazmak tekrar olurdu. */}
+  <PageHero
+    title="İletişim"
+    lead="Dosyanızı değerlendirmek için aşağıdaki kanallardan ulaşabilirsiniz."
+  >
+    <Breadcrumbs slot="before" items={crumbs} />
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <ul class="channels">
+        <li class="channel">
+          <span class="channel__icon" aria-hidden="true"><WhatsAppIcon size={22} /></span>
+          <span class="channel__label">WhatsApp</span>
+          <a
+            class="channel__value"
+            href={whatsappUrl('Merhaba, hukuki danışmanlık hakkında bilgi almak istiyorum.')}
+            rel="noopener">Sohbet başlatın</a
+          >
+          <span class="channel__note">Mesajınıza en kısa sürede dönüş yapılır.</span>
+        </li>
+
+        <li class="channel">
+          <span class="channel__icon" aria-hidden="true"><PhoneIcon size={22} /></span>
+          <span class="channel__label">Telefon</span>
+          <a class="channel__value" href={telHref()}>{CONTACT.phone.display}</a>
+        </li>
+
+        <li class="channel">
+          <span class="channel__icon" aria-hidden="true">
+            <svg
+              viewBox="0 0 24 24"
+              width="22"
+              height="22"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <rect x="2.5" y="4.5" width="19" height="15" rx="2"></rect>
+              <path d="m3 6 9 6 9-6"></path>
+            </svg>
+          </span>
+          <span class="channel__label">E-posta</span>
+          <a class="channel__value" href={mailtoHref('Danışmanlık talebi')}>{CONTACT.email}</a>
+        </li>
+      </ul>
+
+      <div class="address-block">
+        <h2 class="block-title">Büro adresi</h2>
+        {/* <address> semantik olarak iletişim bilgisi bloğudur */}
+        <address class="address">
+          {CONTACT.address.street}<br />
+          {CONTACT.address.district}/{CONTACT.address.city}
+        </address>
+        <dl class="hours">
+          <dt>Çalışma saatleri</dt>
+          <dd>{OFFICE_HOURS.daysDisplay}</dd>
+          <dd>{`${OFFICE_HOURS.opens} – ${OFFICE_HOURS.closes}`}</dd>
+        </dl>
+
+        <a class="text-link" href={mapsUrl} target="_blank" rel="noopener noreferrer">
+          Haritada açın →
+          <span class="visually-hidden">(yeni sekmede açılır)</span>
+        </a>
+        <p class="address__note">
+          Görüşmeler randevu ile yapılmaktadır. Gelmeden önce telefon veya WhatsApp üzerinden
+          randevu alınması önerilir.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <ContactCallout title="Dosyanızı aktarın" />
+</PageLayout>
+
+<style>
+  .channels {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .channel {
+    display: grid;
+    /* İkon sol sütunda sabit, metin sağda akıyor */
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      'icon label'
+      'icon value'
+      'icon note';
+    gap: 0 var(--space-4);
+    /*
+     * align-content: start ŞART. Kartlar ızgarada eşit yüksekliğe uzuyor;
+     * varsayılan `stretch` ile artan boşluk üç satıra dağıtılıyor ve notu
+     * olmayan kartlarda (telefon, e-posta) değer aşağı kayıyordu. Böylece
+     * üç kartın etiket ve değerleri aynı hizada kalır.
+     */
+    align-content: start;
+    padding: var(--space-5);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .channel__icon {
+    grid-area: icon;
+    align-self: start;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: var(--bg-secondary);
+    border-radius: 50%;
+    color: var(--brand-navy);
+  }
+
+  .channel__label {
+    grid-area: label;
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .channel__value {
+    grid-area: value;
+    margin-top: var(--space-1);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .channel__value:hover {
+    text-decoration: underline;
+  }
+
+  .channel__note {
+    grid-area: note;
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .address-block {
+    margin-top: var(--space-7);
+  }
+
+  .block-title {
+    margin-bottom: var(--space-4);
+    font-size: var(--text-xl);
+  }
+
+  .address {
+    font-style: normal;
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+  }
+
+  .hours {
+    display: grid;
+    gap: var(--space-1);
+    margin: var(--space-5) 0 0;
+  }
+
+  .hours dt {
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .hours dd {
+    margin: 0;
+    font-size: var(--text-lg);
+    line-height: var(--leading-snug);
+  }
+
+  .text-link {
+    display: inline-block;
+    margin-top: var(--space-4);
+    font-weight: 600;
+  }
+
+  .address__note {
+    max-width: 54ch;
+    margin-top: var(--space-4);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  @media (min-width: 768px) {
+    .channels {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

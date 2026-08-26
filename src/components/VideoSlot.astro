@@ -2,9 +2,12 @@
 /**
  * Video alanı — CLAUDE.md Bölüm 4/2.
  *
- * Site sahibi ileride her ana bölüme yapay zekâ araçlarıyla üretilmiş tanıtım
- * videoları ekleyecek. Kural: video geldiğinde sayfa YENİDEN TASARLANMAYACAK,
- * yalnızca bu konteynere video konacak.
+ * KAPSAM: Sitede video YALNIZCA ana sayfanın hero bölümünde bulunur. Diğer
+ * sayfalara video gömülmeyecektir (Av. Onur Can Yılmaz'ın kararı); oralarda
+ * konu başlığına ilişkin stok görseller kartlar üzerinde kullanılacaktır.
+ *
+ * Kural: video geldiğinde sayfa YENİDEN TASARLANMAYACAK, yalnızca bu
+ * konteynere video konacak.
  *
  * Bunu mümkün kılan şey, yüksekliğin `aspect-ratio` ile ÖNCEDEN rezerve
  * edilmesi: alan, video henüz yokken de tam olarak videonun kaplayacağı yeri
@@ -13,6 +16,7 @@
  * Kullanım:
  *   <VideoSlot title="Ceza hukuku süreci" />                    → yer tutucu
  *   <VideoSlot title="..." src="https://www.youtube.com/embed/ID" />  → gömülü video
+ *   <VideoSlot title="..." variant="hero" />                    → ana sayfa açılışı
  */
 
 interface Props {
@@ -27,14 +31,19 @@ interface Props {
   poster?: string;
   /** Videonun altına düşülecek açıklama. */
   caption?: string;
+  /**
+   * 'hero': ana sayfanın açılış alanı — kenardan kenara, geniş orana geçer.
+   * Site açıldığında ilk görülen öğe budur.
+   */
+  variant?: 'default' | 'hero';
   class?: string;
 }
 
-const { title, src, poster, caption, class: className } = Astro.props;
+const { title, src, poster, caption, variant = 'default', class: className } = Astro.props;
 ---
 
 <figure class:list={['video-slot', className]}>
-  <div class="video-frame">
+  <div class:list={['video-frame', { 'video-frame--hero': variant === 'hero' }]}>
     {
       src ? (
         <iframe

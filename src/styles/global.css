@@ -220,6 +220,27 @@ small {
   border-radius: var(--radius-lg);
 }
 
+/*
+ * Hero varyantı: kenardan kenara (full-bleed) durur. Yuvarlatılmış köşe ve
+ * yan kenarlık tam genişlikte tuhaf göründüğü için kaldırılır.
+ */
+.video-frame--hero {
+  aspect-ratio: var(--video-aspect-hero);
+  border-inline: 0;
+  border-radius: 0;
+
+  /*
+   * Yükseklik tavanı. Oran tek başına bırakılırsa geniş ekranda bant
+   * görüntü alanının tamamını kaplıyor ve başlık, isim, sicil numarası
+   * katlamanın tamamen altında kalıyordu. 60vh'de animasyon ekrana hâkim
+   * olmayı sürdürür ama başlığın ilk satırı görünür kalıp aşağı kaydırmaya
+   * davet eder. İçerideki medya object-fit: cover olduğu için kırpılır,
+   * boşluk oluşmaz. Mobilde bant zaten bu tavanın altında kaldığından
+   * bu kural orada devreye girmez.
+   */
+  max-height: 60vh;
+}
+
 .video-frame > iframe,
 .video-frame > video,
 .video-frame > img {
@@ -278,7 +299,57 @@ small {
 }
 
 /* ============================================================
-   7. Baskı (print) — vekaletname/bilgi çıktısı alan müvekkil için
+   7. Uzun metin (.prose)
+   ============================================================
+   Markdown'dan üretilen içerik için. Global tutuluyor çünkü Astro'nun
+   kapsamlı stilleri <Content /> ile basılan HTML'e ulaşmaz — hem çalışma
+   alanı sayfaları hem de blog yazıları buradan beslenir.
+*/
+
+.prose {
+  max-width: var(--container-narrow);
+}
+
+.prose > * + * {
+  margin-top: var(--space-4);
+}
+
+.prose h2 {
+  margin-top: var(--space-7);
+  font-size: var(--text-2xl);
+}
+
+.prose h3 {
+  margin-top: var(--space-6);
+  font-size: var(--text-xl);
+}
+
+.prose ul,
+.prose ol {
+  padding-inline-start: var(--space-5);
+}
+
+.prose li + li {
+  margin-top: var(--space-2);
+}
+
+.prose blockquote {
+  padding-inline-start: var(--space-4);
+  border-inline-start: 3px solid var(--border-strong);
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* Kanun maddesi alıntıları ve tanımlar için */
+.prose code {
+  padding: 0.1em 0.35em;
+  background-color: var(--bg-secondary);
+  border-radius: var(--radius-sm);
+  font-size: 0.9em;
+}
+
+/* ============================================================
+   8. Baskı (print) — vekaletname/bilgi çıktısı alan müvekkil için
    ============================================================ */
 
 @media print {

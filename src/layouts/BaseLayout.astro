@@ -16,6 +16,7 @@ import '@fontsource-variable/ibm-plex-sans/wght.css';
 import '../styles/global.css';
 
 import { SITE } from '../lib/site';
+import { serializeSchema } from '../lib/schema';
 
 interface Props {
   /** Sayfa başlığı — site adı otomatik eklenir. */
@@ -28,6 +29,8 @@ interface Props {
   ogImage?: string;
   /** Arama motorlarından gizlenmesi gereken sayfalar için. */
   noindex?: boolean;
+  /** Bu sayfaya gömülecek JSON-LD şemaları (bkz. src/lib/schema.ts). */
+  schemas?: readonly object[];
 }
 
 const {
@@ -36,6 +39,7 @@ const {
   path = Astro.url.pathname,
   ogImage = '/og-image.png',
   noindex = false,
+  schemas = [],
 } = Astro.props;
 
 // Başlık zaten site adını içeriyorsa iki kez yazmayalım.
@@ -79,6 +83,16 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageUrl} />
+
+    {
+      /* JSON-LD yapılandırılmış veri — is:inline, Astro'nun betiği paketlemeye
+        çalışmaması için (bu bir JavaScript değil, veri bloğu). */
+    }
+    {
+      schemas.map((schema) => (
+        <script type="application/ld+json" is:inline set:html={serializeSchema(schema)} />
+      ))
+    }
 
     <slot name="head" />
   </head>

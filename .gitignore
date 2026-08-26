@@ -25,3 +25,9 @@ npm-debug.log*
 
 # Cloudflare Pages
 .wrangler/
+
+# Kişisel veri — bu depo HERKESE AÇIK (GitHub Pages deposu).
+# CV; fotoğraf, telefon, LinkedIn ve özlük bilgileri içeriyor. Yerelde
+# durabilir (Hakkında metni buradan yazıldı) ama commit'lenmemeli:
+# git geçmişine giren dosyayı sonradan temizlemek zordur.
+ONURCANYILMAZ-CV.pdf
