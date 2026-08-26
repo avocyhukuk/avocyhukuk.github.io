@@ -4,6 +4,9 @@
   "version": "0.1.0",
   "private": true,
   "description": "OCY Hukuk & Danışmanlık — Av. Onur Can Yılmaz web sitesi",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -39,6 +42,7 @@
     "prettier-plugin-astro": "^0.14.1",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.67.0",
-    "vitest": "^4.1.11"
+    "vitest": "^4.1.11",
+    "wrangler": "^4.126.0"
   }
 }
