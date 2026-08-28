@@ -17,11 +17,11 @@ Bu dosya, bu repo üzerinde çalışan her Claude Code oturumunun uyması gereke
 
 ## 2. Teknoloji Yığını
 
-- **Framework:** Astro (statik site generator, statik çıktı → Cloudflare Pages)
+- **Framework:** Astro (statik site generator, statik çıktı → Cloudflare Workers)
 - **Dil:** TypeScript
 - **Kod kalitesi:** ESLint + Prettier + Vitest (test) — özellikle hesaplama araçlarının formülleri için birim testleri zorunlu
-- **Barındırma:** Cloudflare Pages (ücretsiz plan)
-- **Versiyon kontrolü:** Bu GitHub reposu, Cloudflare Pages ile bağlı (push → otomatik deploy)
+- **Barındırma:** Cloudflare Workers — statik varlık (static assets) olarak, ücretsiz plan. Yapılandırma: depo kökündeki `wrangler.jsonc`
+- **Versiyon kontrolü:** Bu GitHub reposu, Cloudflare Workers Builds ile bağlı (push → otomatik deploy)
 
 ### Frontend Geliştirme Kuralı — ÖNEMLİ
 
@@ -52,8 +52,8 @@ Kural: Her hesaplama aracının matematiksel/hukuki mantığı `src/lib/` altın
 ### Git & Deploy İş Akışı
 
 - Commit mesajları kısa ve açıklayıcı, Türkçe veya İngilizce tutarlı bir dilde (ör. `feat: yatar hesaplama aracı eklendi`, `fix: mobil header taşması düzeltildi`).
-- Solo proje olduğu için doğrudan `main` branch'e push edilebilir; her push Cloudflare Pages'te otomatik bir deploy tetikler.
-- Yeni bir hesaplama aracı veya büyük bir tasarım değişikliği gibi riskli işlerde, canlıya almadan önce Cloudflare Pages'in ürettiği "preview deployment" linkiyle kontrol edilmesi önerilir.
+- Solo proje olduğu için doğrudan `main` branch'e push edilebilir; her push Cloudflare Workers Builds'te otomatik bir deploy tetikler.
+- Yeni bir hesaplama aracı veya büyük bir tasarım değişikliği gibi riskli işlerde, canlıya almadan önce önizleme sürümüyle kontrol edilmesi önerilir. `main` dışındaki dallarda Cloudflare varsayılan olarak `npx wrangler versions upload` çalıştırır ve üretime almadan bir önizleme adresi üretir.
 
 ## 3. Tasarım Sistemi (Marka Kimliği)
 
@@ -149,11 +149,23 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - Hesaplama araçları ve Blog için liste sayfaları (araçlar "Hazırlanıyor" olarak işaretli)
 - 404 sayfası
 
-### Faz B.5 — Cloudflare Pages'e bağlama
-- [ ] Cloudflare Pages'e repo bağlantısı, build ayarları (Astro static output)
+### Faz B.5 — Cloudflare Workers'a bağlama
+- [x] Cloudflare Workers'a repo bağlantısı, build ayarları — `wrangler.jsonc` (Worker adı `ocyhukuk`, varlık dizini `./dist`, `not_found_handling: "404-page"`), build komutu `npm run build`, deploy komutu `npx wrangler deploy`, Node sürümü `.nvmrc` ile 24.18.0'a sabit
 - [ ] `ocyhukuk.com` özel alan adını bağlama — DNS yöntemi (nameserver taşıma / CNAME) bu adımda karara bağlanacak, MX (e-posta) kayıtlarına dokunulmayacak
-- [ ] SSL doğrulama
+- [ ] SSL doğrulama — özel alan adına bağlı; `*.workers.dev` önizlemesinde sertifika zaten hazır
 - [ ] Eski site (Natro) yeni site tamamen test edilip onaylanana kadar canlı kalacak — geçiş en son adım
+
+### Açık İş — Depoya Push
+
+Yerel `main`, `origin/main`'in **önünde**. Push edilemedi: bu makinede GitHub kimlik bilgisi yok (`osxkeychain` yardımcısı tanımlı ama kayıt yok, SSH anahtarı yok). Push'u Av. Onur Can Yılmaz kendi terminalinden yapacak:
+
+```bash
+git push origin main
+```
+
+Kullanıcı adı `avocyhukuk`, parola yerine `repo` yetkili bir Personal Access Token (github.com/settings/tokens). İlk girişte keychain'e kaydolur. **Push tamamlandığında bu bölüm silinebilir.**
+
+Bu gerçekleşene kadar projenin tek kopyası bu bilgisayarda.
 
 ### Faz C — Hesaplama araçları (Bölüm 6'daki sıraya göre, her biri ayrı görev)
 - [ ] Yatar hesaplama — formül doğrulama → geliştirme → test → yayın

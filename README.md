@@ -1,9 +1,9 @@
 # OCY Hukuk & Danışmanlık — Web Sitesi
 
-Av. Onur Can Yılmaz'ın hukuk bürosu için Astro ile geliştirilen, Cloudflare Pages üzerinde barındırılan statik web sitesi.
+Av. Onur Can Yılmaz'ın hukuk bürosu için Astro ile geliştirilen, Cloudflare Workers üzerinde barındırılan statik web sitesi.
 
 - **Canlı site:** https://ocyhukuk.com
-- **Barındırma:** Cloudflare Pages
+- **Barındırma:** Cloudflare Workers (statik varlık)
 - **Framework:** [Astro](https://astro.build) + TypeScript
 
 ## Geliştirme
