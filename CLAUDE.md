@@ -155,18 +155,6 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - [ ] SSL doğrulama — özel alan adına bağlı; `*.workers.dev` önizlemesinde sertifika zaten hazır
 - [ ] Eski site (Natro) yeni site tamamen test edilip onaylanana kadar canlı kalacak — geçiş en son adım
 
-### Açık İş — Depoya Push
-
-Yerel `main`, `origin/main`'in **önünde**. Push edilemedi: bu makinede GitHub kimlik bilgisi yok (`osxkeychain` yardımcısı tanımlı ama kayıt yok, SSH anahtarı yok). Push'u Av. Onur Can Yılmaz kendi terminalinden yapacak:
-
-```bash
-git push origin main
-```
-
-Kullanıcı adı `avocyhukuk`, parola yerine `repo` yetkili bir Personal Access Token (github.com/settings/tokens). İlk girişte keychain'e kaydolur. **Push tamamlandığında bu bölüm silinebilir.**
-
-Bu gerçekleşene kadar projenin tek kopyası bu bilgisayarda.
-
 ### Faz C — Hesaplama araçları (Bölüm 6'daki sıraya göre, her biri ayrı görev)
 - [ ] Yatar hesaplama — formül doğrulama → geliştirme → test → yayın
 - [ ] Araç değer kaybı hesaplama — formül doğrulama → geliştirme → test → yayın
