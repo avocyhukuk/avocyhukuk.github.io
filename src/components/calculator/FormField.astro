@@ -1,0 +1,194 @@
+---
+/**
+ * Hesaplama formlarının tek alan bileşeni.
+ *
+ * Neden ayrı bileşen: CLAUDE.md Bölüm 4/4 form alanlarında `<label>`
+ * eşleşmesini ZORUNLU kılıyor. Bunu her araçta elle tekrarlamak yerine tek
+ * yerde garantiye alıyoruz — `id` zorunlu bir prop ve hem `<label for>` hem
+ * de kontrolün `id`'si ondan türüyor, dolayısıyla eşleşmeyi unutmak mümkün
+ * değil.
+ *
+ * Kullanım:
+ *   <FormField id="ceza-yil" label="Ceza süresi" type="number" unit="yıl" />
+ *
+ *   <FormField id="suc-turu" label="Suç kategorisi">
+ *     <select id="suc-turu" name="sucTuru">…</select>
+ *   </FormField>
+ *
+ * Slot verildiğinde kendi `<input>`unu basmaz; kontrolü çağıran sağlar ve
+ * `id`'yi kendisi vermek zorundadır (aksi hâlde label eşleşmez).
+ */
+
+interface Props {
+  /** Hem `<label for>` hem kontrolün `id`'si. Sayfada benzersiz olmalı. */
+  id: string;
+  label: string;
+  /** Alanın altına düşülen açıklama; `aria-describedby` ile bağlanır. */
+  hint?: string;
+  /** Kendi input'unu basarken kullanılır. Slot verilirse yok sayılır. */
+  type?: 'text' | 'number' | 'date';
+  name?: string;
+  required?: boolean;
+  min?: number | string;
+  max?: number | string;
+  step?: number | string;
+  placeholder?: string;
+  inputmode?: 'numeric' | 'decimal' | 'text';
+  /** Alanın sağındaki birim etiketi (gün, yıl, TL…). Sadece görsel. */
+  unit?: string;
+}
+
+const {
+  id,
+  label,
+  hint,
+  type = 'text',
+  name,
+  required = false,
+  min,
+  max,
+  step,
+  placeholder,
+  inputmode,
+  unit,
+} = Astro.props;
+
+const hintId = hint ? `${id}-aciklama` : undefined;
+const hasCustomControl = Astro.slots.has('default');
+---
+
+<div class="field">
+  <label class="field__label" for={id}>
+    {label}
+    {
+      required && (
+        <span class="field__required" aria-hidden="true">
+          *
+        </span>
+      )
+    }
+    {required && <span class="visually-hidden">(zorunlu)</span>}
+  </label>
+
+  {
+    hasCustomControl ? (
+      <slot />
+    ) : (
+      <div class="field__control">
+        <input
+          class="field__input"
+          id={id}
+          name={name ?? id}
+          type={type}
+          required={required}
+          min={min}
+          max={max}
+          step={step}
+          placeholder={placeholder}
+          inputmode={inputmode}
+          aria-describedby={hintId}
+        />
+        {unit && (
+          <span class="field__unit" aria-hidden="true">
+            {unit}
+          </span>
+        )}
+      </div>
+    )
+  }
+
+  {
+    hint && (
+      <p class="field__hint" id={hintId}>
+        {hint}
+      </p>
+    )
+  }
+</div>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .field__label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .field__required {
+    color: var(--brand-navy);
+  }
+
+  /* Birim etiketi input'un içine oturur; ayrı bir kutu gibi görünmez. */
+  .field__control {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .field__unit {
+    position: absolute;
+    inset-inline-end: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+
+  .field__hint {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  /*
+   * Kontrol stilleri :global çünkü `<select>` gibi kontroller slot üzerinden
+   * ÇAĞIRAN tarafından basılıyor; Astro'nun kapsamlı stili oraya ulaşmaz.
+   * Kapsam, .field altıyla sınırlı tutuluyor.
+   */
+  .field :global(input),
+  .field :global(select),
+  .field :global(textarea) {
+    width: 100%;
+    /* Dokunmatik hedef alt sınırı — CLAUDE.md Bölüm 4/1 mobil öncelik */
+    min-height: var(--tap-target);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    font-size: var(--text-base); /* 16px: iOS'ta odaklanınca sayfa zoom'lamasın */
+    color: var(--text-primary);
+    transition:
+      border-color var(--transition),
+      box-shadow var(--transition);
+  }
+
+  .field :global(input:hover),
+  .field :global(select:hover) {
+    border-color: var(--brand-navy);
+  }
+
+  .field :global(input:focus-visible),
+  .field :global(select:focus-visible),
+  .field :global(textarea:focus-visible) {
+    border-color: var(--brand-navy);
+    box-shadow: 0 0 0 3px rgb(27 51 80 / 0.15);
+  }
+
+  /* Birim etiketi varken metin onun altına girmesin */
+  .field__control:has(.field__unit) :global(input) {
+    padding-inline-end: var(--space-8);
+  }
+
+  /* Sayı alanlarında rakamlar hizalı dursun */
+  .field :global(input[type='number']) {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .field :global(select) {
+    /* Yerel ok işaretinin üstüne binmemek için sağda pay */
+    padding-inline-end: var(--space-7);
+  }
+</style>

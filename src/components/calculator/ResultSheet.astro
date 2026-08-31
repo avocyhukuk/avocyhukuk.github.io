@@ -1,0 +1,265 @@
+---
+/**
+ * Hesap cetveli — hesaplama araçlarının sonuç ekranı.
+ *
+ * TASARIM KARARI: Sonuç, tek bir büyük sayı olarak DEĞİL, adım adım bir
+ * hesap dökümü olarak gösteriliyor. Bunun iki gerekçesi var:
+ *
+ * 1. CLAUDE.md Bölüm 4/3 — sonuç ekranında dayanılan kanun maddesi açıkça
+ *    gösterilmek zorunda. Büyük bir sayı + altına küçük dipnot, sayıyı
+ *    otorite, kanunu teferruat hâline getirir; reklam yasağı çerçevesinde
+ *    tam tersi gerekiyor. Burada her satır kendi dayanağını yanında taşır.
+ * 2. Kullanıcı yanlış girdi verdiğinde hatanın hangi adımda oluştuğu
+ *    görünür oluyor. Tek sayı gösteren araç, yanlış sonucu da aynı
+ *    güvenle gösterir.
+ *
+ * Kapanış satırı (`total`), muhasebe cetvellerindeki gibi çift çizgiyle
+ * ayrılır — cevabın nerede olduğu bir bakışta bulunur, ama gerekçeden
+ * kopmaz.
+ *
+ * İKİ KULLANIM BİÇİMİ:
+ * - `rows` verilirse satırlar sunucuda basılır (JS'siz önizleme/test için).
+ * - `rows` verilmezse boş durum + `<template>` basılır; hesaplama betiği
+ *   şablonu klonlayarak satırları doldurur. Böylece satır işaretlemesi
+ *   sunucu ve istemci arasında ÇOĞALTILMAZ, tek kaynakta kalır.
+ */
+import { uniqueReferences, type SheetRow } from '../../lib/calculator-ui';
+
+interface Props {
+  /** Cetvel başlığı. */
+  title?: string;
+  /** Sunucuda basılacak satırlar. Boşsa boş durum gösterilir. */
+  rows?: readonly SheetRow[];
+  /** Boş durumda gösterilecek yönlendirme. */
+  emptyText?: string;
+}
+
+const {
+  title = 'Hesap dökümü',
+  rows = [],
+  emptyText = 'Formu doldurup "Hesapla"ya basın. Sonuç burada adım adım, her adımın dayanağıyla birlikte gösterilir.',
+} = Astro.props;
+
+const references = uniqueReferences(rows);
+const hasRows = rows.length > 0;
+---
+
+<section class="sheet" aria-labelledby="hesap-dokumu">
+  <h2 class="sheet__title" id="hesap-dokumu">{title}</h2>
+
+  <!-- aria-live: betik satırları doldurduğunda ekran okuyucu sonucu duyurur -->
+  <div class="sheet__body" data-sheet-body aria-live="polite">
+    <p class="sheet__empty" data-sheet-empty hidden={hasRows}>{emptyText}</p>
+
+    <ol class="sheet__rows" data-sheet-rows>
+      {
+        rows.map((row, index) => (
+          <li class:list={['row', { 'row--total': row.total }]}>
+            <span class="row__index" aria-hidden="true">
+              {row.total ? '=' : index + 1}
+            </span>
+            <span class="row__label">{row.label}</span>
+            <span class="row__value">{row.value}</span>
+            {row.detail && <span class="row__detail">{row.detail}</span>}
+            {row.basis && <span class="row__basis">{row.basis.short}</span>}
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+
+  <div class="sheet__basis" data-sheet-basis hidden={references.length === 0}>
+    <h3 class="sheet__basis-title">Dayanak mevzuat</h3>
+    <ul class="basis-list" data-sheet-basis-list>
+      {references.map((reference) => <li>{reference.full}</li>)}
+    </ul>
+  </div>
+</section>
+
+{/* Betiğin klonlayacağı satır şablonu — işaretleme tek kaynakta kalsın diye */}
+<template data-sheet-row-template>
+  <li class="row">
+    <span class="row__index" aria-hidden="true"></span>
+    <span class="row__label" data-slot="label"></span>
+    <span class="row__value" data-slot="value"></span>
+    <span class="row__detail" data-slot="detail" hidden></span>
+    <span class="row__basis" data-slot="basis" hidden></span>
+  </li>
+</template>
+
+<style>
+  .sheet {
+    padding: var(--space-5);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+
+  .sheet__title {
+    margin-bottom: var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-xs);
+    font-family: var(--font-body);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .sheet__empty {
+    max-width: 46ch;
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .sheet__rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* ---------- Satır ---------- */
+
+  /*
+   * Mobil ızgara:
+   *   [sıra] [etiket .......] [değer]
+   *   [    ] [açıklama ............]
+   *   [    ] [dayanak .............]
+   * Sıra sütunu sabit genişlikte ki rakamlar alt alta hizalansın.
+   */
+  .row {
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-3);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .row:last-child {
+    border-bottom: 0;
+  }
+
+  .row__index {
+    font-size: var(--text-xs);
+    font-variant-numeric: tabular-nums;
+    color: var(--text-muted);
+  }
+
+  .row__label {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+
+  .row__value {
+    /* tabular-nums: rakamlar eşit genişlikte, sütun kaymaz */
+    font-variant-numeric: tabular-nums;
+    font-size: var(--text-base);
+    font-weight: 600;
+    text-align: end;
+    white-space: nowrap;
+    color: var(--text-primary);
+  }
+
+  .row__detail,
+  .row__basis {
+    grid-column: 2 / -1;
+    font-size: var(--text-xs);
+  }
+
+  .row__detail {
+    color: var(--text-muted);
+  }
+
+  .row__basis {
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--brand-navy);
+  }
+
+  /* ---------- Kapanış satırı ---------- */
+
+  /*
+   * Çift çizgi, muhasebe/hesap cetvellerinin kendi dilinden geliyor:
+   * "buradan aşağısı sonuçtur" demenin, renk veya boyut büyütmekten daha
+   * sessiz ve daha yerinde yolu.
+   */
+  .row--total {
+    margin-top: var(--space-2);
+    padding-top: var(--space-4);
+    border-top: 3px double var(--border-strong);
+    border-bottom: 0;
+  }
+
+  .row--total .row__index {
+    color: var(--brand-navy);
+  }
+
+  .row--total .row__label {
+    font-weight: 600;
+    color: var(--brand-navy);
+  }
+
+  .row--total .row__value {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    color: var(--brand-navy);
+  }
+
+  /* ---------- Dayanak listesi ---------- */
+
+  .sheet__basis {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--border);
+  }
+
+  .sheet__basis-title {
+    margin-bottom: var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .basis-list {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+
+  /* ---------- Geniş ekran ---------- */
+
+  /*
+   * 640px üstünde dayanak, satırın sağ kenarına kendi sütununa taşınır:
+   * göz aşağı indikçe hangi adımın hangi maddeye dayandığı tek sütunda
+   * okunur. Mobilde bu sütun için yer yok, satırın altına düşer.
+   */
+  @media (min-width: 640px) {
+    /* 8.5rem, "5275 m.107/2" gibi en uzun kısa gösterime yetiyor. Daha geniş
+       tutulduğunda etiket sütunu daralıp "Koşullu salıverilme tarihi" gibi
+       başlıklar gereksiz yere iki satıra kırılıyordu. */
+    .row {
+      grid-template-columns: 1.75rem minmax(0, 1fr) auto 8.5rem;
+    }
+
+    .row__detail {
+      grid-column: 2 / 4;
+    }
+
+    .row__basis {
+      grid-column: 4;
+      grid-row: 1;
+      text-align: end;
+      align-self: baseline;
+    }
+  }
+</style>

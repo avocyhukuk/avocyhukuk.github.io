@@ -104,7 +104,7 @@
   --tap-target: 44px;
 
   /* ---------- Video alanı (CLAUDE.md Bölüm 4/2) ---------- */
-  /* Her ana bölüm video gömmeye hazır olmalı; oran token üzerinden sabit. */
+  /* Video YALNIZCA ana sayfa hero'sunda; oran token üzerinden sabit. */
   --video-aspect: 16 / 9;
 
   /*
