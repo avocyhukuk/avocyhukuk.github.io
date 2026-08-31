@@ -104,6 +104,42 @@ export function serviceSchema(input: { name: string; description: string; url: s
   };
 }
 
+/**
+ * Blog yazısı için BlogPosting şeması.
+ *
+ * `author` ve `publisher` aynı kurum: büro tek avukatlı. Yazar, kuruma `@id`
+ * ile bağlanmak yerine adıyla veriliyor — Google yazar adını metin olarak
+ * bekliyor, referans verilen düğümden çözmüyor.
+ */
+export function articleSchema(input: {
+  title: string;
+  description: string;
+  url: string;
+  publishedAt: Date;
+  updatedAt?: Date;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: input.title,
+    description: input.description,
+    url: input.url,
+    mainEntityOfPage: input.url,
+    datePublished: input.publishedAt.toISOString(),
+    // Değişiklik tarihi verilmemişse yayın tarihi kullanılır: alanı boş
+    // bırakmak, Google'ın tarihi kendi tahmin etmesine yol açıyor.
+    dateModified: (input.updatedAt ?? input.publishedAt).toISOString(),
+    author: {
+      '@type': 'Person',
+      name: ATTORNEY.name,
+      jobTitle: ATTORNEY.title,
+      url: `${SITE.url}/hakkinda`,
+    },
+    publisher: organizationReference(),
+    inLanguage: 'tr-TR',
+  };
+}
+
 export interface BreadcrumbItem {
   name: string;
   /** Kök dizine göre yol (ör. "/calisma-alanlari"). */

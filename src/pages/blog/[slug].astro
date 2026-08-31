@@ -1,0 +1,131 @@
+---
+/**
+ * Tek bir blog yazısı — koleksiyondaki her Markdown dosyası için derleme
+ * sırasında statik olarak üretilir.
+ *
+ * Ölçü bilinçli olarak dar (`narrow`): uzun hukuki metinde satır uzunluğu
+ * okunabilirliğin belirleyicisi. Yan sütun yok, yazının kendisi var.
+ */
+import { getCollection, render } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import PageLayout from '../../layouts/PageLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ContactCallout from '../../components/ContactCallout.astro';
+import { formatDateTR } from '../../lib/format';
+import { articleSchema, breadcrumbSchema, type BreadcrumbItem } from '../../lib/schema';
+import { SITE } from '../../lib/site';
+
+export async function getStaticPaths() {
+  // Taslaklar yayına çıkmaz — liste sayfasındaki süzgeçle aynı kural.
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const path = `/blog/${post.id}`;
+const url = new URL(path, SITE.url).href;
+
+const crumbs: BreadcrumbItem[] = [
+  { name: 'Ana Sayfa', path: '/' },
+  { name: 'Blog', path: '/blog' },
+  { name: post.data.title, path },
+];
+
+const schemas = [
+  articleSchema({
+    title: post.data.title,
+    description: post.data.description,
+    url,
+    publishedAt: post.data.publishedAt,
+    updatedAt: post.data.updatedAt,
+  }),
+  breadcrumbSchema(crumbs),
+];
+---
+
+<PageLayout
+  title={post.data.title}
+  description={post.data.description}
+  path={path}
+  schemas={schemas}
+  narrow
+>
+  <PageHero eyebrow="Blog" title={post.data.title}>
+    <Breadcrumbs slot="before" items={crumbs} />
+
+    <p class="meta">
+      <time datetime={post.data.publishedAt.toISOString()}>
+        {formatDateTR(post.data.publishedAt)}
+      </time>
+      {
+        post.data.updatedAt && (
+          <>
+            <span aria-hidden="true"> · </span>
+            <span>
+              Güncelleme:{' '}
+              <time datetime={post.data.updatedAt.toISOString()}>
+                {formatDateTR(post.data.updatedAt)}
+              </time>
+            </span>
+          </>
+        )
+      }
+    </p>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <article class="prose"><Content /></article>
+
+      <p class="notice">
+        Bu yazı genel bilgilendirme amacıyla kaleme alınmıştır ve yayımlandığı tarihteki mevzuata
+        dayanır. Somut olayınıza ilişkin hukuki değerlendirme yerine geçmez.
+      </p>
+
+      <p class="back"><a href="/blog">← Tüm yazılar</a></p>
+    </div>
+  </section>
+
+  <ContactCallout />
+</PageLayout>
+
+<style>
+  .meta {
+    margin-top: var(--space-4);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /*
+   * Yazının sonundaki uyarı, gövde metninden ayrılmalı ama dipnot gibi
+   * silikleşmemeli — CLAUDE.md Bölüm 4/3 kapsamında görülmesi gereken bir
+   * metin. Hesaplama araçlarındaki uyarıyla aynı görsel dil.
+   */
+  .notice {
+    margin-top: var(--space-7);
+    padding: var(--space-4);
+    background-color: var(--bg-secondary);
+    border-inline-start: 3px solid var(--brand-navy);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+
+  .back {
+    margin-top: var(--space-6);
+    font-size: var(--text-sm);
+  }
+</style>

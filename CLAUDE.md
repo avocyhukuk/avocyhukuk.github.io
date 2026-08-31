@@ -166,8 +166,9 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - [ ] Marka tescil süreç takvimi — geliştirme → test → yayın
 
 ### Faz D — Blog / içerik
-- [ ] Mevcut blog yazılarını Markdown formatına taşı
-- [ ] Yeni yazı şablonu (frontmatter, SEO alanları dahil)
+- [x] Mevcut blog yazılarını Markdown formatına taşı — eski Natro sitesindeki iki yazı (`iran-savasi.html`, `arac-ici-multimedya.html`) `src/content/blog/` altına alındı. *Araç içi multimedya yazısının yayın tarihi eski sitede yalnızca "2026" olarak geçiyordu; 15.03.2026 varsayıldı, Av. Onur Can Yılmaz doğrulamalı.*
+- [x] Yeni yazı şablonu (frontmatter, SEO alanları dahil) — `src/content.config.ts` içindeki `blog` şeması: `title`, `description` (≤160), `publishedAt`, `updatedAt?`, `area?`, `draft`. Yazı sayfası `src/pages/blog/[slug].astro`, BlogPosting JSON-LD dahil.
+- [ ] Alan adı geçişinde eski yazı adreslerinin yönlendirilmesi — `ocyhukuk.com/iran-savasi.html` ve `ocyhukuk.com/arac-ici-multimedya.html` yeni adreslerine yönlendirilmeli, aksi hâlde paylaşılmış bağlantılar kırılır
 
 ### Faz E — Yayına alma ve izleme
 - [ ] Google Search Console kurulumu, sitemap gönderimi
