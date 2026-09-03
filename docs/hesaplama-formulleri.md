@@ -48,9 +48,11 @@ Bunu baştan yazıyorum çünkü tasarım kararlarını bu belirliyor:
 | **Mahsup edilecek süre** | gün | TCK m.63 — gözaltı + tutuklulukta geçen süre. |
 | **Birden fazla ceza var mı** | evet/hayır | m.107/3 üst sınırları (28/32 yıl) devreye girer. |
 
-**Kapsam dışı bırakılması önerilenler (ilk sürümde):** 65/70/75/80 yaş üstü ve ağır hastalık hâlinde konutta infaz (m.110), hamile/0-6 yaş çocuklu kadın hükümlüler, çocuk hükümlülere özgü indirimler. Bunlar somut olaya çok bağlı; ilk sürümde "durumunuz bu istisnalardan birine giriyorsa sonuç geçerli değildir, görüşelim" uyarısı vermek, yanlış hesaplamaktan iyidir.
+**Kapsam dışı — ONAYLANDI (ilk sürümde):** 65/70/75/80 yaş üstü ve ağır hastalık hâlinde konutta infaz (m.110), hamile/0-6 yaş çocuklu kadın hükümlüler, çocuk hükümlülere özgü indirimler. Bunlar somut olaya çok bağlı; ilk sürümde "durumunuz bu istisnalardan birine giriyorsa sonuç geçerli değildir, görüşelim" uyarısı vermek, yanlış hesaplamaktan iyidir.
 
-### 1.4. Koşullu salıverilme oranları — derlenen tablo (DOĞRULANMALI)
+### 1.4. Koşullu salıverilme oranları — ONAYLANDI
+
+Av. Onur Can Yılmaz tarafından doğrulandı; 1.4'teki üç çelişki çözüldü.
 
 **Süreli hapis:**
 
@@ -59,22 +61,42 @@ Bunu baştan yazıyorum çünkü tasarım kararlarını bu belirliyor:
 | Genel kural (adi suçlar) | **1/2** |
 | Kasten öldürme (TCK 81-83), neticesi sebebiyle ağırlaşmış yaralama (TCK 87/2-d), işkence-eziyet (TCK 94-96), temel cinsel suçlar (TCK 102/1, 104/1, 105), Devlet sırları-casusluk (TCK 326-339) | **2/3** |
 | Örgüt kurmak/yönetmek veya örgüt faaliyeti çerçevesinde işlenen suçlar (m.107/4) | **2/3** |
-| Nitelikli cinsel suçlar (TCK 102/2, 103, 104/2-3), uyuşturucu imal ve ticareti (TCK 188), terör suçları (3713 m.17) | **3/4** |
-| Birinci defa mükerrir (m.108) | **2/3** |
-| İkinci defa mükerrir (m.108, 7550 s.K. sonrası) | **3/4** |
+| Nitelikli cinsel suçlar (TCK 102/2, 103, 104/2-3) | **3/4** |
+| Uyuşturucu imal ve ticareti (TCK 188) — **yetişkin** hükümlü | **3/4** |
+| Uyuşturucu imal ve ticareti (TCK 188) — suçu işlediği sırada **çocuk** olan hükümlü | **2/3** |
+| Terör suçları (3713 m.17 özel düzenlemesi) | **3/4** |
+| Mükerrir — süreli hapis (m.108) | **2/3** |
+| İkinci defa mükerrir ve bazı katalog suçlar (m.108, 7550 s.K. sonrası) | **3/4** |
 
-**Müebbet ve ağırlaştırılmış müebbet (fiilen infaz süresi):**
+**Müebbet ve ağırlaştırılmış müebbet — kurumda geçirilecek SABİT süre:**
 
-| Kategori | Ağırlaştırılmış müebbet | Müebbet | Birden fazla cezada üst sınır |
-|---|---|---|---|
-| Genel (m.107/2-3) | 30 yıl | 24 yıl | 28 yıl |
-| Örgüt suçları (m.107/4) | 36 yıl | 30 yıl | 32 yıl |
-| Mükerrir (m.108) | 39 yıl | 33 yıl | 32 yıl |
+Bu rakamlar ceza üst sınırı değildir; koşullu salıverilmeden yararlanabilmek
+için kurumda kesintisiz geçirilmesi gereken sürelerdir.
 
-> ⚠️ **Kaynaklar arasında çelişki var, çözülmeli:**
-> 1. **Örgüt suçlarında süreli hapis oranı** — bir kaynak 2/3, başka bir kaynak 3/4 diyor. m.107/4'ün lafzı belirleyici.
-> 2. **Uyuşturucu imal ve ticareti (TCK m.188)** — bir kaynak yetişkinler için 3/4, başka bir kaynak yalnızca "çocuklar bakımından" 2/3 diyor. İki ayrı hükmün karıştırılmış olması muhtemel.
-> 3. **Mükerrir üst sınırı** — hem 32 yıl hem 39/33 yıl geçiyor; hangisinin hangi hâlde uygulandığı netleştirilmeli.
+| Kategori | Ağırlaştırılmış müebbet | Müebbet |
+|---|---|---|
+| Genel (m.107/2) | 30 yıl | 24 yıl |
+| Örgüt suçları (m.107/4) | 36 yıl | 30 yıl |
+| Mükerrir (m.108) | **39 yıl** | **33 yıl** |
+
+**Birden fazla süreli hapis cezasında tavan:**
+
+| Kategori | Tavan |
+|---|---|
+| Genel (m.107/3) | 28 yıl |
+| Örgüt suçları (m.107/4) | 32 yıl |
+| Mükerrir (m.108) | **32 yıl** |
+
+Tavanın anlamı: cezalar toplanıp oran uygulandığında çıkan süre ne kadar
+yüksek olursa olsun, kurumda geçirilecek süre tavanı aşamaz.
+
+> ⚠️ **Cevaplardan doğan YENİ soru — oranların çakışması.**
+> Bir hükümlü hem katalog suçtan (ör. TCK m.188 → 3/4) hüküm giymiş hem de
+> mükerrirse (→ 2/3), hangi oran uygulanır? Kodun bu durumda ne yapacağı
+> belirsiz. Üç olasılık var: (a) her zaman yüksek olan oran, (b) suç türü
+> oranı esas, mükerrirlik yalnızca kendi başına bir katalog oluşturuyor,
+> (c) mükerrirlik oranı suç türü oranını eziyor. Bu netleşmeden kod bu dalı
+> yazamaz — şu an en olası yorum (a) ama varsayımla ilerlenmemeli.
 
 ### 1.5. Denetimli serbestlik (m.105/A) — taslak
 
@@ -103,7 +125,13 @@ Bunu baştan yazıyorum çünkü tasarım kararlarını bu belirliyor:
 8. Hiçbir tarih, infaza başlama tarihinden önce olamaz (alt sınır kontrolü).
 ```
 
-> ⚠️ **Çözülmemiş temel soru — süre aritmetiği.** İnfaz hesabında "1 yıl" ve "1 ay" nasıl ele alınıyor? Takvim esaslı mı (tarihe yıl/ay ekleme), yoksa 1 yıl = 365 gün / 1 ay = 30 gün sabiti mi? Bu, sonucu günler mertebesinde kaydırır ve **formülün en kritik parçasıdır** — testler de buna göre yazılacak. Bu netleşmeden kod yazılamaz.
+> ✅ **Süre aritmetiği — ONAYLANDI.** İnfaz hesabında (müddetname
+> düzenlenirken) süreler tamamen güne çevrilir:
+> **1 yıl = 365 gün, 1 ay = 30 gün.** Takvim esaslı hesap YAPILMAZ.
+> Testler bu sabitler üzerine yazılacak.
+>
+> Kodda sonucu: `toplamGun = yil * 365 + ay * 30 + gun`. Tarihler ise bu
+> gün sayısı infaza başlama tarihine eklenerek bulunur.
 
 ### 1.7. Kaynaklar
 
@@ -119,13 +147,32 @@ Aşağıdakilerin tamamı **ikincil kaynaktır.** Birincil kaynak `mevzuat.gov.t
 - [7242 s.K.'ya göre koşullu salıverilme oranları tablosu (TBB)](https://d.barobirlik.org.tr/2020/kosullusaliverilmeoranlari/3/)
 - [İnfaz Kanunu m.108 — Mükerrirlere Özgü İnfaz Rejimi (Başbuğ & Zanbak)](https://basbugzanbak.av.tr/infaz-kanunu-108-madde-mukerrirlere-ozgu-infaz-rejimi-2025/)
 
-### 1.8. Onaydan önce cevaplanması gereken sorular
+### 1.8. Onay durumu — cevaplananlar ve kalanlar
 
-1. 1.4'teki üç çelişki (örgüt oranı, TCK m.188, mükerrir üst sınırı) nasıl çözülüyor?
-2. Süre aritmetiği takvim esaslı mı, 365/30 gün sabiti mi? (1.6'daki uyarı)
-3. Geçici m.6 ve geçici m.10 bugün hangi suçlar için hâlâ sonuç doğuruyor?
-4. Suç kategorisi listesi kullanıcıya nasıl sunulmalı — TCK madde numarasıyla mı, sade dille mi? (Yanlış kategori seçimi en olası kullanıcı hatası.)
-5. 1.3'te kapsam dışı bırakılması önerilenler gerçekten dışarıda mı kalsın?
+**✅ Cevaplandı:**
+
+| Soru | Cevap |
+|---|---|
+| Örgüt suçlarında süreli hapis oranı | 2/3; terör suçları 3713 m.17 gereği 3/4 |
+| TCK m.188 uyuşturucu | Yetişkin 3/4, suçu işlediği sırada çocuk olan 2/3 |
+| Mükerrir 39/33/32 yıl | 39 = ağırlaştırılmış müebbet, 33 = müebbet, 32 = birden fazla süreli hapiste tavan |
+| Süre aritmetiği | 1 yıl = 365 gün, 1 ay = 30 gün; tamamen güne çevrilir |
+| Suç kategorisi sunumu | Sade dille (TCK madde numarası birincil etiket değil) |
+| Kapsam dışı bırakılanlar | Onaylandı — yaş/hamile/çocuk hükümlü istisnaları ilk sürümde yok |
+
+**⬜ Hâlâ bekleyen — kod bu ikisi olmadan tamamlanamaz:**
+
+1. **Geçici m.6 ve geçici m.10 bugün hangi suçlar için sonuç doğuruyor?**
+   Denetimli serbestlik süresi buna bağlı: standart 1 yıl mı, geçici m.6
+   kapsamındaki suçlarda 3 yıl mı? Suç tarihi eşikleri (30.03.2020 /
+   31.07.2023) hâlâ işliyor mu, işliyorsa hangi suçlar istisna? Koşullu
+   salıverilme tarafı bu cevap olmadan da yazılabilir; **denetimli
+   serbestlik tarafı yazılamaz.**
+
+2. **Oran çakışması** (1.4'ün sonundaki yeni soru) — katalog suç oranı ile
+   mükerrirlik oranı çatıştığında hangisi uygulanır?
+
+3. **Test senaryoları** (1.9) — 3-5 somut dosya ve beklenen sonuçları.
 
 ### 1.9. Test örnekleri
 
