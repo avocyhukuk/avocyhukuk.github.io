@@ -1,0 +1,194 @@
+---
+/**
+ * Çalışma alanı ikonları — yedi alanın tamamı tek bileşende.
+ *
+ * NEDEN TEK DOSYA: Bir ailenin "aile" gibi görünmesi, üyelerinin aynı
+ * kurallara uymasına bağlı. Yedi ayrı dosyada çizgi kalınlığı, viewBox ve
+ * oranlar zamanla birbirinden ayrışır. Burada bu değerler tek yerde sabit.
+ *
+ * ─── AİLE KURALLARI ───────────────────────────────────────────────────
+ * viewBox      48 × 48, yaşam alanı ~6..42 — formlar çerçeveyi dolduruyor
+ * çizgi        stroke-width 1.6, uçlar ve köşeler yuvarlatılmış
+ * duotone      her ikonda TEK dolu şekil, %15 opaklıkta; gerisi çizgi
+ * renk         yalnızca currentColor — ikinci renk yok, gradyan yok
+ *
+ * ─── YÖN: GRAVÜR ──────────────────────────────────────────────────────
+ * İlk deneme amblemin "devre düğümü" motifini yedi ikona taşımıştı ve
+ * reddedildi: ikonlar devre şemasına benziyordu, hukuk bürosuna değil.
+ * Bu sürüm bambaşka bir yerden geliyor — markanın serif tipografisiyle
+ * (Lora) ve sütunun klasik oranlarıyla aynı kayıt: eski hukuk kitaplarının,
+ * mühürlerin ve kabartma antetlerin gravür dili.
+ *
+ * Pratikte üç fark yaratıyor:
+ * 1. EĞRİ. Yayları ve kavisleri şemaya tercih ediyoruz; düz çizgiden
+ *    kurulu diyagramlar teknik görünüyordu.
+ * 2. DOLULUK. Her ikonda tek bir şekil %15 opaklıkta dolu. Derinliği
+ *    ikinci bir renk kullanmadan veriyor; brief'in izin verdiği duotone.
+ * 3. ÖLÇEK. Formlar 6..42 aralığını dolduruyor. Öncekiler çerçevenin
+ *    ortasında küçük kalıyordu, bu da onları cılız gösteriyordu.
+ *
+ * Bilinçli olarak KULLANILMAYANLAR: tokmak (Türk mahkemelerinde tokmak
+ * kullanılmaz, Anglo-Amerikan bir nesnedir), roket, ampul, çatılı ev.
+ */
+
+interface Props {
+  /** Çalışma alanı slug'ı — src/content/practice-areas/ dosya adlarıyla aynı. */
+  area: string;
+  /** Piksel cinsinden kenar uzunluğu. */
+  size?: number;
+  /**
+   * Erişilebilir ad. Logo.astro ile aynı kural: verilirse ikon `role="img"`
+   * olur ve <title> basılır; verilmezse yanındaki başlık zaten aynı bilgiyi
+   * taşıdığı için ikon `aria-hidden` olur ve ekran okuyucu tekrar etmez.
+   */
+  label?: string;
+  class?: string;
+}
+
+const { area, size = 40, label, class: className } = Astro.props;
+
+/*
+ * `fill`: ikonun tek dolu şekli, çizgilerin ARKASINA %15 opaklıkta basılır.
+ * `paths`: çizgiyle çizilen her şey.
+ */
+const ICONS: Record<string, { fill?: string; paths: string[] }> = {
+  /*
+   * Ceza Hukuku — TERAZİ.
+   * Kol düz değil, hafif yay: gerçek terazi kolları da öyledir ve düz
+   * çizgi bu ikonu diyagrama çeviriyordu. Kefeler sığ kâse, tepede küçük
+   * bir topuz — simetrik ve sakin bir kompozisyon.
+   */
+  'ceza-hukuku': {
+    fill: 'M6 23q5 5.5 10 0ZM32 23q5 5.5 10 0Z',
+    paths: [
+      'M24 37V14', // dikme
+      'M24 11.6a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4Z', // topuz
+      'M11 18q13-4 26 0', // yay biçimli kol
+      'M11 18v5M37 18v5', // askılar
+      'M6 23q5 5.5 10 0M32 23q5 5.5 10 0', // kefeler
+      'M17 41h14l-3-4h-8Z', // kaide
+    ],
+  },
+
+  /*
+   * Ticaret & Şirketler — SÖZLEŞME.
+   * Şemalı organizasyon ağacı yerine, alanın gerçek nesnesi: katlanmış
+   * köşesiyle bir sözleşme. Kıvrılan köşe dolu şekil.
+   */
+  'ticaret-sirketler-hukuku': {
+    fill: 'M28 7l7 7h-7Z',
+    paths: [
+      'M13 7h15l7 7v27H13Z', // sayfa
+      'M28 7v7h7', // katlanan köşe
+      'M18 22h12M18 27h12M18 32h7', // metin satırları
+    ],
+  },
+
+  /*
+   * Gayrimenkul — ANAHTAR.
+   * Dikey duruş yatay olandan daha zarif; sap yuvarlak, gövdede boncuk,
+   * altta iki diş. Sapın içi dolu, deliği üstüne çizgiyle oyulmuş.
+   */
+  'gayrimenkul-hukuku': {
+    fill: 'M24 6.5a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13Z',
+    paths: [
+      'M24 6.5a6.5 6.5 0 1 1 0 13 6.5 6.5 0 0 1 0-13Z', // sap
+      'M24 10.4a2.6 2.6 0 1 1 0 5.2 2.6 2.6 0 0 1 0-5.2Z', // delik
+      'M24 19.5V41', // gövde
+      'M21 26h6', // boncuk
+      'M24 33h6M24 38h4', // dişler
+    ],
+  },
+
+  /*
+   * İcra & İflas — MÜHÜRLÜ KURDELE.
+   * Kilit klişesi bırakıldı. İcra dosyasının nesnesi mühürdür; iki uçlu
+   * kurdele onu resmî evrak diline oturtuyor. İç halka dolu.
+   */
+  'icra-iflas-hukuku': {
+    fill: 'M24 11.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11Z',
+    paths: [
+      'M24 8a9 9 0 1 1 0 18 9 9 0 0 1 0-18Z', // dış halka
+      'M24 11.5a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11Z', // iç halka
+      'M19 25.4 15 41l6-3.5', // sol kurdele
+      'M29 25.4 33 41l-6-3.5', // sağ kurdele
+    ],
+  },
+
+  /*
+   * Sigorta — KALKAN.
+   * Köşeli değil, alt kenarları kavisli klasik kalkan; içinde tek bir
+   * çevron. Kalkanın tamamı dolu şekil.
+   */
+  'sigorta-hukuku': {
+    fill: 'M11 10h26v14c0 9-6 15-13 18-7-3-13-9-13-18Z',
+    paths: [
+      'M11 10h26v14c0 9-6 15-13 18-7-3-13-9-13-18Z', // kalkan
+      'M17 21l7 5 7-5', // çevron
+    ],
+  },
+
+  /*
+   * Startup & Girişim — FİLİZ.
+   * Roket yok. İki yaprak asimetrik yerleşiyor — botanik gravürlerde
+   * olduğu gibi; simetrik yerleştirmek onu logoya değil, clipart'a
+   * yaklaştırıyordu. Üstteki yaprak dolu.
+   */
+  'startup-girisim-hukuku': {
+    fill: 'M24 23c0-6 4-10 10-10 0 6-4 10-10 10Z',
+    paths: [
+      'M24 41c-.5-7 0-14 0-23', // sap
+      'M24 23c0-6 4-10 10-10 0 6-4 10-10 10Z', // üst yaprak
+      'M24 31c-7 0-11-4-11-10 6 0 11 4 11 10Z', // alt yaprak
+      'M17 41h14', // toprak çizgisi
+    ],
+  },
+
+  /*
+   * Fikri Mülkiyet — UÇ (KALEM UCU).
+   * Ampul de patent çizimi de denendi; ampul klişe, çizim ise "bayrak
+   * direkli kare" gibi okunuyordu. Kalem ucu, fikrî mülkiyetin çekirdeği
+   * olan eser sahipliğini doğrudan söylüyor ve gravür diline en yakın
+   * form. Gövde dolu, yarık ve hava deliği üstüne çizgiyle işleniyor.
+   */
+  'fikri-mulkiyet-hukuku': {
+    // Üst kenar DÜZ: yuvarlak tepeli ilk deneme harita pinine benziyordu.
+    // Ucun karakteri omuzlarının düz bir kenardan içe daralmasında.
+    fill: 'M16 11h16c0 11-3 21-8 30-5-9-8-19-8-30Z',
+    paths: [
+      'M16 11h16c0 11-3 21-8 30-5-9-8-19-8-30Z', // uç gövdesi
+      'M24 41V22.4', // yarık
+      'M24 17.6a2.4 2.4 0 1 1 0 4.8 2.4 2.4 0 0 1 0-4.8Z', // hava deliği
+    ],
+  },
+};
+
+const icon = ICONS[area];
+---
+
+{
+  icon && (
+    <svg
+      viewBox="0 0 48 48"
+      width={size}
+      height={size}
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      class={className}
+      role={label ? 'img' : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : 'true'}
+      focusable="false"
+    >
+      {label && <title>{label}</title>}
+      {/* Dolu şekil önce basılır: çizgiler onun üstünde kalır */}
+      {icon.fill && <path d={icon.fill} fill="currentColor" stroke="none" opacity="0.15" />}
+      {icon.paths.map((d) => (
+        <path d={d} />
+      ))}
+    </svg>
+  )
+}

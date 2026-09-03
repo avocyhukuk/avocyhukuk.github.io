@@ -14,9 +14,15 @@
  */
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
+import AreaIcon from './icons/AreaIcon.astro';
 
 interface Props {
   href: string;
+  /**
+   * Çalışma alanı slug'ı — ikonu seçer. `href`ten türetilmiyor çünkü adres
+   * yapısı değişirse ikon sessizce kaybolur; ayrı prop bunu görünür kılar.
+   */
+  area: string;
   title: string;
   summary: string;
   /** Kart görseli. Koleksiyon şemasındaki `image()` alanından gelir. */
@@ -27,7 +33,7 @@ interface Props {
   headingLevel?: 'h2' | 'h3';
 }
 
-const { href, title, summary, image, imageAlt = '', headingLevel = 'h3' } = Astro.props;
+const { href, area, title, summary, image, imageAlt = '', headingLevel = 'h3' } = Astro.props;
 const Heading = headingLevel;
 ---
 
@@ -48,6 +54,20 @@ const Heading = headingLevel;
   }
 
   <div class="area-card__body">
+    {
+      /*
+      Düz <div> ile sarmalanıyor: Astro'nun kapsamlı stilleri alt BİLEŞENİN
+      kök öğesine ulaşmaz, dolayısıyla sınıfı doğrudan <AreaIcon>'a vermek
+      stilsiz bırakırdı (bu tuzağa bu projede daha önce üç kez düşüldü).
+
+      label verilmiyor: başlık zaten alanın adını söylüyor, ekran okuyucu
+      aynı bilgiyi iki kez okumasın diye ikon aria-hidden kalıyor.
+    */
+    }
+    <div class="area-card__icon">
+      <AreaIcon area={area} size={40} />
+    </div>
+
     <Heading class="area-card__title">{title}</Heading>
     <p class="area-card__summary">{summary}</p>
     <span class="area-card__more" aria-hidden="true">Ayrıntı →</span>
@@ -106,6 +126,11 @@ const Heading = headingLevel;
     flex-direction: column;
     flex: 1; /* görselsiz ve görselli kartlar aynı yükseklikte hizalanır */
     padding: var(--space-5);
+  }
+
+  .area-card__icon {
+    margin-bottom: var(--space-4);
+    color: var(--brand-navy);
   }
 
   .area-card__title {
