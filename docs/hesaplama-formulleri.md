@@ -71,7 +71,7 @@ metin birebir budur):
 | 30.03.2020'ye kadar işlenen suçlar (DS 3 yıl) | 5275 s.K. **geçici m.6** |
 | 31.07.2023'e kadar işlenen suçlar | 5275 s.K. **geçici m.10** (7456 s.K.) |
 | 04.06.2025 öncesi suçlarda 1/10 şartının uygulanmaması | 5275 s.K. **geçici m.11** (7550 s.K.) |
-| 31.07.2023'e kadar işlenen suçlarda 3 yıl erken DS/açık kurum | 5275 s.K. **geçici madde** (7571 s.K.) |
+| 31.07.2023'e kadar işlenen suçlarda 3 yıl erken DS/açık kurum | 5275 s.K. **geçici m.10/6** (7571 s.K.) |
 | Terör suçlarında KS oranı | **3713 s.K. m.17** |
 
 #### Mevzuat değişiklik zinciri
@@ -83,7 +83,7 @@ Bu aracın en büyük riski burada görünüyor — altı yılda **beş** deği�
 | **7242** | 15.04.2020 | Genel KS oranı 2/3 → **1/2**; geçici m.6 ile DS 3 yıla çıktı |
 | **7456** | 15.07.2023 | Geçici m.10 — 31.07.2023 eşiği |
 | **7550** (10. paket) | 04.06.2025 | m.108: ikinci defa tekerrürde KS artık mümkün (3/4); m.105/A'ya **1/10 + asgari 5 gün** şartı; geçici m.11 ile geriye yürümüyor |
-| **7571** (11. paket) | 25.12.2025 | 5275'e geçici madde: **31.07.2023 ve öncesi** suçlarda açık kuruma ve DS'ye **3 yıl erken** ayrılma; en az **3 ay** açık kurumda kalmış olma şartı |
+| **7571** (11. paket) | 25.12.2025 | **Geçici m.10/6**: 31.07.2023 ve öncesi suçlarda açık kuruma ve DS'ye **3 yıl erken** ayrılma; en az **3 ay** açık kurumda kalmış olma şartı. *(Yeni geçici madde mi, m.10'a fıkra mı — resmî metinde teyit edilecek.)* |
 | **7589** (12. paket) | 31.07.2026 | **5275'in infaz rejimine dokunmuyor.** Genel af veya infaz indirimi yok. Kontrol edildi, bu araç açısından etkisiz. |
 
 > ⚠️ **7571'in kapsam dışı bıraktığı suçlar** (ikincil kaynaklardan): terör,
@@ -182,25 +182,22 @@ yüksek olursa olsun, kurumda geçirilecek süre tavanı aşamaz.
 > araç zaten yalnızca 18 yaş üstü için hesap yapıyor. Bu ayrım v2'de,
 > SSÇ ele alınırken çözülecek.
 
-> ⚠️ **Açık soru — oranların çakışması.**
-> Bir hükümlü hem katalog suçtan (ör. TCK m.188 → 3/4) hüküm giymiş hem de
-> mükerrirse (→ 2/3), hangi oran uygulanır? Kodun bu durumda ne yapacağı
-> belirsiz. Üç olasılık var: (a) her zaman yüksek olan oran, (b) suç türü
-> oranı esas, mükerrirlik yalnızca kendi başına bir katalog oluşturuyor,
-> (c) mükerrirlik oranı suç türü oranını eziyor. Bu netleşmeden kod bu dalı
-> yazamaz — şu an en olası yorum (a) ama varsayımla ilerlenmemeli.
+> ✅ **Oran çakışması — ÇÖZÜLDÜ.** Katalog suç oranı ile mükerrirlik
+> oranı çakıştığında **yüksek olan (hükümlü aleyhine olan) oran**
+> uygulanır. Örnek: TCK m.188 (3/4) + birinci defa mükerrir (2/3) → **3/4**.
+>
+> Kodda sonucu tek satır: `oran = max(katalogOrani, mukerrirlikOrani)`.
+> İkinci defa tekerrür zaten 3/4 olduğu için aynı kural onu da kapsıyor.
 
-### 1.5. Denetimli serbestlik (m.105/A)
+### 1.5. Denetimli serbestlik (m.105/A) — ONAYLANDI
 
-**Süre:**
+**Temel süre:**
 
 | Durum | DS süresi |
 |---|---|
 | Standart | KS tarihine **1 yıl** kala |
 | **0-6 yaş çocuklu kadın hükümlü** | **4 yıl** |
 | **70 yaş üstü hükümlü** | **4 yıl** |
-| Geçici m.6 kapsamı (30.03.2020'ye kadar işlenen suçlar, istisnalar hariç) | **3 yıl** |
-| 7571 s.K. (31.07.2023 ve öncesi suçlar, istisnalar hariç) | Yukarıdaki süreye **+3 yıl erken**, en az 3 ay açık kurumda kalmış olmak şartıyla |
 
 **Ek şart (7550 s.K., yürürlük 04.06.2025):** Hükümlünün DS'den
 yararlanabilmesi için, KS tarihine kadar kurumda geçirmesi gereken sürenin
@@ -208,11 +205,44 @@ yararlanabilmesi için, KS tarihine kadar kurumda geçirmesi gereken sürenin
 geçirmiş olması gerekir. **Geçici m.11:** bu şart 04.06.2025'ten önce
 işlenen suçlara uygulanmaz.
 
-> ⚠️ **Geçici maddelerin birleşimi hâlâ açık.** Geçici m.6 (3 yıl), geçici
-> m.10 ve 7571'in getirdiği 3 yıl erkenlik üst üste biniyor. Bunlar
-> **toplanıyor mu, yoksa en lehe olan mı uygulanıyor?** Bir hükümlü hem
-> geçici m.6 hem 7571 kapsamındaysa DS süresi 3 mü, 6 mı, yoksa başka bir
-> şey mi? Kodun bu dalı bu cevap olmadan yazılamaz.
+#### Geçici maddelerin birleşimi — ÇÖZÜLDÜ
+
+> **Süreler TOPLANMAZ.** Türk ceza adalet sisteminde infaz sürelerinde
+> kümülatif indirim mantığı yoktur. Geçici maddeler üst üste bindiğinde,
+> TCK m.7'deki **lehe kanun** ilkesi uyarınca hükümlüye en erken tahliyeyi
+> veren kombinasyon uygulanır ("karma uyum").
+
+Suç tarihine ve geçici m.6 istisnası olup olmadığına göre üç hâl:
+
+| Hâl | Koşul | DS süresi |
+|---|---|---|
+| **A** | 30.03.2020 öncesi işlenmiş **ve** geçici m.6 istisnası **değil** | **3 yıl** — doğrudan geçici m.6 rejimi. m.10/6'nın 3 yıllık erkenliği AYRICA EKLENMEZ. |
+| **B** | 30.03.2020 öncesi işlenmiş **ama** geçici m.6 istisnası, buna karşın geçici m.10/6 kapsamında | **1 + 3 = 4 yıl** |
+| **C** | Yalnızca geçici m.10/6 kapsamında (30.03.2020 – 31.07.2023 arası işlenmiş) | **1 + 3 = 4 yıl**, açık kurumda en az **3 ay** kalmış olmak şartıyla |
+
+Hâl A'da koşullu salıverilme oranı da (istisnalar hariç) 1/2'dir — bu
+zaten 7242 sonrası genel kural, ayrı bir dal gerektirmiyor.
+
+Uygulamada infaz hâkimlikleri her dosya için ayrı müddetname düzenleyip
+en erken tahliye tarihini veren maddeyi uygular. Aracın yaptığı da bu:
+uygulanabilir hâlleri hesaplayıp **en erken tarihi** seçmek.
+
+> ⚠️ **Kodlamadan önce netleşmesi gereken iki ayrıntı** (soru değil,
+> uygulama detayı — resmî metin kontrolünde bakılacak):
+>
+> 1. **4 yıllık DS ile erkenliğin çakışması.** 0-6 yaş çocuklu kadın veya
+>    70+ hükümlü zaten 4 yıl DS alıyor. Bu kişi aynı zamanda hâl B/C
+>    kapsamındaysa süre 4 mü kalır, 4+3 = 7 mi olur? "Toplanmaz" ilkesi
+>    gereği en lehe olan seçilecekse 7 çıkmamalı; ama hâl B/C'deki
+>    "1 + 3" de bir toplama. Kodun bu iki kuralı nasıl sıralayacağı
+>    belirsiz. **Şimdilik varsayım:** iki sonuç ayrı ayrı hesaplanıp en
+>    erken tarihi veren seçilecek (yani `max(4, 4)` = 4 yıl). Bu varsayım
+>    teyit edilmeli.
+> 2. **"Açık kurumda en az 3 ay" şartı** (hâl C) araç tarafından
+>    bilinemez — bu bir vakıa. İki seçenek: (a) forma "açık kurumda en az
+>    3 ay kaldı mı?" onay kutusu eklemek, (b) şartın sağlandığını
+>    varsayıp kapsam notunda belirtmek. **Öneri: (a)** — sessiz varsayım
+>    hâl C'de tarihi 3 yıl erkene kaydırır ve bu ciddi bir sapma.
 
 ### 1.6. Sonuç ekranı — üç tarih birlikte
 
@@ -235,13 +265,16 @@ Bu üçünün altında, `CALCULATOR_DISCLAIMER` ile birlikte 1.1b'deki
 2. Mahsup (TCK m.63) → net infaz edilecek süre
 3. Suç tarihi eşiklerini belirle: 30.03.2020 / 31.07.2023 / 04.06.2025
 4. Suç kategorisi + tekerrür → KS oranını seç
+   · çakışma hâlinde YÜKSEK oran (bkz. 1.4 sonu)
 5. Kurumda geçirilecek süre:
    · süreli hapis  → net süre × KS oranı
    · müebbet       → tablodaki sabit yıl (orana bakılmaz)
    · mükerrir + önceki ilam verilmişse → m.108/2 tavanını uygula
 6. KS tarihi          = infaza başlama + (5)
 7. Bihakkın tahliye   = infaza başlama + net süre
-8. DS başlangıcı      = KS tarihi − DS süresi (1 / 3 / 4 yıl + 7571 erkenliği)
+8. DS başlangıcı      = KS tarihi − DS süresi
+   · DS süresi: 1.5'teki hâl A/B/C tablosundan; süreler TOPLANMAZ,
+     uygulanabilir hâller hesaplanıp EN ERKEN tarih seçilir
    · suç tarihi ≥ 04.06.2025 ise kurumda en az (5)×1/10 ve en az 5 gün
      geçmiş olacak şekilde ileri kaydır
 9. Hiçbir tarih infaza başlama tarihinden önce olamaz (alt sınır kontrolü)
@@ -283,34 +316,33 @@ kaynak değildir** — yalnızca resmî metinde neye bakılacağını gösterir.
 
 ### 1.9. Onay durumu
 
-**✅ Kapandı:**
+**✅ Formülün tamamı kapandı — açık hukuki soru kalmadı.**
 
-| Soru | Cevap |
+| Konu | Cevap |
 |---|---|
-| Örgüt suçlarında süreli hapis oranı | 2/3 (m.107/4); terör 3713 m.17 gereği 3/4 — *resmî metinle son teyit bekliyor* |
+| Örgüt suçlarında süreli hapis oranı | 2/3 (m.107/4); terör 3713 m.17 gereği 3/4 |
 | TCK m.188 | Ayrım **fıkra değil tarih** bazlı: 30.03.2020 sonrası 3/4, öncesi 2/3 |
-| Mükerrir 33/39 yıl | Doğru — müebbet 33, ağırlaştırılmış müebbet 39 (sabit süre) |
-| Mükerrir "32 yıl tavan" | **Yanlıştı, kaldırıldı.** m.108/2 dinamik kuralı geçerli |
-| Süre aritmetiği | 1 yıl = 365, 1 ay = 30 — örnekle teyit edildi (5 yıl = 1825 gün) |
+| Mükerrir 33/39 yıl | Müebbet 33, ağırlaştırılmış müebbet 39 (sabit süre) |
+| Mükerrir "32 yıl tavan" | Yanlıştı, kaldırıldı — m.108/2 dinamik kuralı geçerli |
+| Süre aritmetiği | 1 yıl = 365, 1 ay = 30 — örnekle teyit edildi |
 | Suç kategorisi sunumu | Sade dil |
-| 7571 (11. paket) | Belgeye işlendi |
-| 7589 (12. paket) | 5275'e dokunmuyor — kontrol edildi, etkisiz |
-| **v1 kapsamı** | Karara bağlandı — bkz. 1.1b |
+| 7571 (11. paket) | Geçici m.10/6 — belgeye işlendi |
+| 7589 (12. paket) | 5275'e dokunmuyor — etkisiz |
+| v1 kapsamı | Karara bağlandı (1.1b) |
+| **Geçici maddelerin birleşimi** | **Toplanmaz** — lehe olan / karma uyum; hâl A/B/C tablosu (1.5) |
+| **Oran çakışması** | **Yüksek oran uygulanır** — `max(katalog, mükerrirlik)` |
 
-**⬜ Yayın öncesi çözülmesi gereken — sadece iki soru kaldı:**
+**⬜ Yayın için kalan üç adım:**
 
-1. **Geçici maddelerin birleşimi.** Geçici m.6 (DS 3 yıl), geçici m.10 ve
-   7571'in 3 yıl erkenliği üst üste biniyor. **Toplanıyor mu, en lehe
-   olan mı uygulanıyor?** Bir hükümlü hem geçici m.6 hem 7571
-   kapsamındaysa DS süresi 3 mü, 6 mı? *(1.5'teki uyarı)*
+1. **Test senaryoları** (1.10) — soru değil, malzeme. Bunlar olmadan
+   Vitest fikstürü yazılamaz.
+2. **Resmî metin kontrolü** (1.12) — `mevzuat.gov.tr` üzerinden.
+3. **Onay Durumu'nun "Onaylandı"ya çevrilmesi** — bundan sonra kod yazılır.
 
-2. **Oran çakışması.** Katalog suç oranı (ör. TCK m.188 → 3/4) ile
-   mükerrirlik oranı (2/3) çatıştığında hangisi uygulanır? *(1.4'ün sonu)*
-
-Ayrıca **test senaryoları** (1.10) gerekiyor — bunlar soru değil, malzeme.
-
-**⏸ v2'ye ertelendi:** SSÇ katsayılarının neye uygulandığı, açık kuruma
-geçişte 7 yıl / 5 yıl belirsizliği. Bu ikisi v1'i bloke etmiyor.
+Ayrıca 1.5'in sonunda kodlamayı etkileyen **iki uygulama ayrıntısı** var
+(4 yıllık DS ile erkenliğin çakışması, "açık kurumda 3 ay" şartının nasıl
+sorulacağı). Bunlar hukuki soru değil, tasarım kararı — resmî metin
+kontrolünde birlikte bakılabilir.
 
 ### 1.10. Test örnekleri (fikstür adayları) — v1 çekirdek
 
@@ -372,8 +404,9 @@ listesi:
 - [ ] m.108 tam metni — 33/39 yıl ve m.108/2'nin lafzı
 - [ ] m.105/A tam metni — 1/10 + 5 gün şartı
 - [ ] TCK m.188 — tarih bazlı ayrımın doğrulanması
-- [ ] Geçici m.6, m.10, m.11 ve 7571'in geçici maddesi — birleşim kuralı **(açık soru 1)**
-- [ ] m.107 ile m.108 oranı çatıştığında hangisi uygulanır **(açık soru 2)**
+- [ ] Geçici m.6, m.10/6, m.11 — hâl A/B/C tablosunun (1.5) doğrulanması
+- [ ] 7571 yeni bir geçici madde mi ekledi, yoksa m.10'a 6. fıkra mı
+- [ ] m.107/m.108 çakışmasında yüksek oranın uygulandığının teyidi
 - [ ] 13. Yargı Paketi yürürlüğe girdi mi
 
 - **Onay Durumu:** ⬜ Bekliyor
