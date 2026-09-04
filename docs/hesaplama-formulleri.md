@@ -21,6 +21,42 @@ Bunu baştan yazıyorum çünkü tasarım kararlarını bu belirliyor:
 
 **Tasarım sonucu:** Araç bir "tahliye tarihi" vaat etmemeli; "mevcut mevzuata göre en erken olası tarih" demeli. Sonuç ekranında hem `CALCULATOR_DISCLAIMER` hem de hesabın dayandığı mevzuat sürümü ve son güncelleme tarihi görünmeli.
 
+### 1.1b. v1 kapsamı — KARARA BAĞLANDI
+
+Av. Onur Can Yılmaz'ın kapsam kararı. Bu sınır, aracın ne zaman
+"bitmiş" sayılacağını belirler; genişletme talebi v2'ye yazılır.
+
+**v1'de VAR:**
+
+- 18 yaş üstü (yetişkin) hükümlü
+- **Tek** kesinleşmiş ilam
+- Standart infaz rejimi
+- Çıktı: **koşullu salıverilme (KS)** ve **denetimli serbestlik (DS)** tarihleri
+- Tekerrür (m.108) — mükerrir oranları ve m.108/2 tavanı dahil
+- Suç kategorisine göre oranlar, mahsup, geçici madde eşikleri
+
+**v1'de YOK — v2'ye bırakıldı:**
+
+| Kapsam dışı | Neden buradan çıktı |
+|---|---|
+| **SSÇ / çocuk hükümlü** | Katsayıların neye uygulandığı (KS oranı mı, TCK m.31 ceza indirimi mi) netleşmedi; yanlış kodlamak yerine kapsam dışı bırakıldı |
+| **Açık ceza infaz kurumuna geçiş tarihi** | Dayanağı kanun değil yönetmelik; 10 yıl üstü eşiği kaynaklarda 7 yıl / 5 yıl olarak çelişiyor |
+| **Birden fazla ilam / içtima** | m.107/3 tavanları (28 / 32 yıl) v1'de devrede değil |
+| **Konutta infaz (m.110)**, ağır hastalık/engellilik | Somut olaya çok bağlı |
+
+**Araçta gösterilecek kapsam notu** (sonuç ekranında, uyarının yanında —
+metin birebir budur):
+
+> Bu araç 18 yaş üstü, tek kesinleşmiş ilam ve standart infaz rejimi için
+> tahmini hesaplama yapar; çocuk hükümlüler ve açık cezaevine geçiş
+> hesaplaması bu sürümde kapsam dışıdır.
+
+> ⚠️ **Yoruma açık bırakılan iki alan.** "0-6 yaş çocuklu kadın hükümlü"
+> ve "70 yaş üstü" hâlleri v1'de TUTULDU: ikisi de yetişkin ve standart
+> rejim içinde, yalnızca DS süresini 1 yıldan 4 yıla çıkarıyorlar.
+> Çıkarılsalardı araç bu kişiler için sessizce yanlış tarih verirdi.
+> Kapsam dışı sayılmalarını istersen tek satırlık değişiklik.
+
 ### 1.2. Kanuni dayanak
 
 | Konu | Dayanak |
@@ -28,10 +64,10 @@ Bunu baştan yazıyorum çünkü tasarım kararlarını bu belirliyor:
 | Koşullu salıverilme (KS) oranları ve süreleri | 5275 s.K. **m.107** |
 | Mükerrirlere özgü infaz rejimi | 5275 s.K. **m.108** |
 | Denetimli serbestlik (DS) ile infaz | 5275 s.K. **m.105/A** |
-| Açık kuruma ayrılma | Açık Ceza İnfaz Kurumlarına Ayrılma Yönetmeliği |
+| Açık kuruma ayrılma *(v2)* | Açık Ceza İnfaz Kurumlarına Ayrılma Yönetmeliği |
 | İyi hâl / idare ve gözlem kurulu | 5275 s.K. **m.89** |
 | Gözaltı ve tutuklulukta geçen sürenin mahsubu | **TCK m.63** |
-| Yaş küçüklüğü (SSÇ) | **TCK m.31** |
+| Yaş küçüklüğü (SSÇ) *(v2)* | **TCK m.31** |
 | 30.03.2020'ye kadar işlenen suçlar (DS 3 yıl) | 5275 s.K. **geçici m.6** |
 | 31.07.2023'e kadar işlenen suçlar | 5275 s.K. **geçici m.10** (7456 s.K.) |
 | 04.06.2025 öncesi suçlarda 1/10 şartının uygulanmaması | 5275 s.K. **geçici m.11** (7550 s.K.) |
@@ -68,26 +104,16 @@ Bu aracın en büyük riski burada görünüyor — altı yılda **beş** deği�
 | **Suç kategorisi** | seçim — **sade dille** (bkz. 1.4 sonu) | KS oranını belirler. |
 | **Tekerrür durumu** | seçim: yok / birinci defa mükerrir / ikinci defa mükerrir | m.108 rejimi. |
 | **Tekerrüre esas önceki ilam cezası** | yıl + ay + gün (**opsiyonel**) | m.108/2 tavanı: eklenecek miktar, tekerrüre esas cezanın en ağırından fazla olamaz. Boş bırakılırsa tavan uygulanmaz ve sonuç hükümlü aleyhine sapabilir — bu durumda uyarı gösterilmeli. |
-| **Suç tarihindeki yaş** | seçim: 18+ / 15-18 / 15 altı | SSÇ katsayısı (bkz. aşağıdaki uyarı). |
 | **İnfaza başlama tarihi** | tarih | Takvim hesabının başlangıcı. |
 | **Mahsup edilecek süre** | gün | TCK m.63 — gözaltı + tutuklulukta geçen süre. |
-| **Birden fazla ceza var mı** | evet/hayır | m.107/3 tavanları devreye girer. |
 | **0-6 yaş çocuklu kadın hükümlü** | evet/hayır | DS süresi 1 yıl yerine 4 yıl. |
 | **70 yaş üstü** | evet/hayır | DS süresi 1 yıl yerine 4 yıl. |
 
-> ⚠️ **KAPSAM GENİŞLEDİ.** Önceki turda SSÇ, 0-6 yaş çocuklu kadın ve
-> yaşlı hükümlü istisnaları ilk sürüm dışında bırakılmıştı; rakip araç
-> incelemesi sonrası bu karar geri alındı ve üçü de girdi listesine
-> girdi. Kapsam dışı kalanlar artık yalnızca: konutta infaz (m.110),
-> ağır hastalık/engellilik hâlleri.
-
-> ⚠️ **SSÇ katsayıları netleştirilmeli.** Rakip araçlardan gelen bilgi:
-> 15 yaş altı → **1/3**, 15-18 yaş → **1/2**. Ama bu katsayıların NEYE
-> uygulandığı belirsiz ve formülü tamamen değiştirir:
-> (a) koşullu salıverilme ORANI mı (yani 1/2 yerine 1/3 mü infaz edilecek),
-> (b) yoksa TCK m.31'deki CEZA indirimi mi (ceza süresinin kendisi mi
->     küçülüyor, oran sonra ayrıca mı uygulanıyor)?
-> İkisi çok farklı sonuç verir. Resmî metinle netleşmeden kodlanamaz.
+> **Kapsam notu (1.1b).** Yaş alanı yok: araç yalnızca 18 yaş üstü için
+> hesap yapıyor, SSÇ v2'ye bırakıldı. "Birden fazla ceza" alanı da yok:
+> v1 tek ilam varsayıyor, m.107/3 tavanları devrede değil. Formun başında
+> bu iki varsayım kullanıcıya açıkça söylenmeli — sessiz varsayım, yanlış
+> sonuçtan daha kötüdür.
 
 ### 1.4. Koşullu salıverilme oranları — ONAYLANDI
 
@@ -152,10 +178,9 @@ yüksek olursa olsun, kurumda geçirilecek süre tavanı aşamaz.
 > "Bir kaynak 2/3 diyor" durumunun sebebi bu — o kaynak 2020 öncesi
 > uygulamayı anlatıyor. Fıkraları tek tek ayırmaya gerek kalmadı.
 >
-> ⚠️ Bunun bir sonucu: "yetişkin 3/4, çocuk 2/3" biçimindeki önceki kayıt
-> da bu ışıkta yeniden okunmalı. SSÇ farkı ayrı bir hükümden geliyorsa
-> tabloda ayrı satır olarak durmalı; yok eğer o da tarih farkının yanlış
-> okunmasıysa kaldırılmalı. Resmî metinle teyit edilecek.
+> Önceki turdaki "yetişkin 3/4, çocuk 2/3" kaydı v1'i ilgilendirmiyor:
+> araç zaten yalnızca 18 yaş üstü için hesap yapıyor. Bu ayrım v2'de,
+> SSÇ ele alınırken çözülecek.
 
 > ⚠️ **Açık soru — oranların çakışması.**
 > Bir hükümlü hem katalog suçtan (ör. TCK m.188 → 3/4) hüküm giymiş hem de
@@ -189,39 +214,27 @@ işlenen suçlara uygulanmaz.
 > geçici m.6 hem 7571 kapsamındaysa DS süresi 3 mü, 6 mı, yoksa başka bir
 > şey mi? Kodun bu dalı bu cevap olmadan yazılamaz.
 
-### 1.6. Açık ceza infaz kurumuna ayrılma
+### 1.6. Sonuç ekranı — üç tarih birlikte
 
-Rakip araçların hepsi bu tarihi de veriyor; kullanıcı için KS kadar önemli.
-
-| Ceza süresi | Açık kuruma geçiş |
-|---|---|
-| **3 yıldan az** | Doğrudan açık kurumda infaz |
-| **3-10 yıl arası** | KS tarihine **7 yıl** kala |
-| **10 yıldan fazla** | Cezanın **1/10'u** kapalıda geçtikten sonra, KS tarihine **7 yıl** kala *(bazı kaynaklarda 5 yıl)* |
-
-> ⚠️ 10 yıl üstü kategoride "7 yıl" ve "5 yıl" iki farklı değer geçiyor.
-> Dayanak Açık Ceza İnfaz Kurumlarına Ayrılma Yönetmeliği; resmî metinden
-> teyit edilmeli. Ayrıca bu tablo bir yönetmeliğe dayandığı için kanun
-> değişmeden de değişebilir — mevzuat tarihi göstergesi bunu da kapsamalı.
-
-### 1.6b. Sonuç ekranı — dört tarih birlikte
-
-Cetvel şu dördünü aynı anda göstermeli:
+Cetvel şu üçünü aynı anda göstermeli. (Açık kuruma geçiş dördüncü satır
+olacaktı; v1 kapsamı dışına alındı — bkz. 1.1b.)
 
 | Satır | Ne | Dayanak |
 |---|---|---|
 | 1 | **Koşullu salıverilme tarihi** | 5275 m.107 / m.108 |
 | 2 | **Denetimli serbestlik başlangıcı** ve süresi | 5275 m.105/A |
-| 3 | **Açık kuruma geçiş tarihi** | Açık Kuruma Ayrılma Yönetmeliği |
-| 4 | **Bihakkın (hak ederek) tahliye tarihi** | Cezanın tamamı |
+| 3 | **Bihakkın (hak ederek) tahliye tarihi** | Cezanın tamamı |
 
-### 1.6c. Hesaplama adımları (taslak akış)
+Bu üçünün altında, `CALCULATOR_DISCLAIMER` ile birlikte 1.1b'deki
+**kapsam notu** da görünecek.
+
+### 1.7. Hesaplama adımları (taslak akış)
 
 ```
 1. Toplam ceza süresini güne çevir  (1 yıl = 365, 1 ay = 30)
 2. Mahsup (TCK m.63) → net infaz edilecek süre
 3. Suç tarihi eşiklerini belirle: 30.03.2020 / 31.07.2023 / 04.06.2025
-4. Suç kategorisi + tekerrür + yaş → KS oranını seç
+4. Suç kategorisi + tekerrür → KS oranını seç
 5. Kurumda geçirilecek süre:
    · süreli hapis  → net süre × KS oranı
    · müebbet       → tablodaki sabit yıl (orana bakılmaz)
@@ -231,8 +244,7 @@ Cetvel şu dördünü aynı anda göstermeli:
 8. DS başlangıcı      = KS tarihi − DS süresi (1 / 3 / 4 yıl + 7571 erkenliği)
    · suç tarihi ≥ 04.06.2025 ise kurumda en az (5)×1/10 ve en az 5 gün
      geçmiş olacak şekilde ileri kaydır
-9. Açık kuruma geçiş  = 1.6'daki tabloya göre
-10. Hiçbir tarih infaza başlama tarihinden önce olamaz (alt sınır kontrolü)
+9. Hiçbir tarih infaza başlama tarihinden önce olamaz (alt sınır kontrolü)
 ```
 
 > ✅ **Süre aritmetiği — ONAYLANDI ve ÖRNEKLE TEYİT EDİLDİ.** İnfaz
@@ -246,7 +258,7 @@ Cetvel şu dördünü aynı anda göstermeli:
 > Kodda sonucu: `toplamGun = yil * 365 + ay * 30 + gun`. Tarihler bu gün
 > sayısının infaza başlama tarihine eklenmesiyle bulunur.
 
-### 1.7. Kaynaklar
+### 1.8. Kaynaklar
 
 Aşağıdakilerin tamamı **ikincil kaynaktır.** Birincil kaynak `mevzuat.gov.tr` üzerindeki 5275 sayılı Kanun'un güncel metnidir; bu ortamdan erişilemedi (bağlantı zaman aşımına uğruyor), doğrulamada esas alınacak metin odur.
 
@@ -265,11 +277,11 @@ Aşağıdakilerin tamamı **ikincil kaynaktır.** Birincil kaynak `mevzuat.gov.t
 - [TCK 188 fıkraları ve infaz oranları (Ulus Hukuk)](https://ulus.av.tr/tck-188/)
 
 **Rakip araç incelemesi (Av. Onur Can Yılmaz, beş araç):** kadimhukuk,
-kararara, dcahukuk, ayboga, topaktas. Bu araçlar 1.6'daki açık kurum
-tablosunun ve 365 gün konvansiyonunun kaynağı. **Rakip aracın çıktısı
+kararara, dcahukuk, ayboga, topaktas. Bu araçlar 365 gün
+konvansiyonunun ve v2'ye bırakılan açık kurum tablosunun kaynağı. **Rakip aracın çıktısı
 kaynak değildir** — yalnızca resmî metinde neye bakılacağını gösterir.
 
-### 1.8. Onay durumu — cevaplananlar ve kalanlar
+### 1.9. Onay durumu
 
 **✅ Kapandı:**
 
@@ -278,60 +290,79 @@ kaynak değildir** — yalnızca resmî metinde neye bakılacağını gösterir.
 | Örgüt suçlarında süreli hapis oranı | 2/3 (m.107/4); terör 3713 m.17 gereği 3/4 — *resmî metinle son teyit bekliyor* |
 | TCK m.188 | Ayrım **fıkra değil tarih** bazlı: 30.03.2020 sonrası 3/4, öncesi 2/3 |
 | Mükerrir 33/39 yıl | Doğru — müebbet 33, ağırlaştırılmış müebbet 39 (sabit süre) |
-| Mükerrir "32 yıl tavan" | **Yanlıştı, kaldırıldı.** Süreli hapiste sabit tavan yok; m.108/2 dinamik kuralı geçerli |
+| Mükerrir "32 yıl tavan" | **Yanlıştı, kaldırıldı.** m.108/2 dinamik kuralı geçerli |
 | Süre aritmetiği | 1 yıl = 365, 1 ay = 30 — örnekle teyit edildi (5 yıl = 1825 gün) |
 | Suç kategorisi sunumu | Sade dil |
 | 7571 (11. paket) | Belgeye işlendi |
 | 7589 (12. paket) | 5275'e dokunmuyor — kontrol edildi, etkisiz |
+| **v1 kapsamı** | Karara bağlandı — bkz. 1.1b |
 
-**⬜ Kod bunlar olmadan tamamlanamaz:**
+**⬜ Yayın öncesi çözülmesi gereken — sadece iki soru kaldı:**
 
-1. **Geçici maddelerin birleşimi** — geçici m.6 (3 yıl), geçici m.10 ve
-   7571'in 3 yıl erkenliği üst üste biniyor. Toplanıyor mu, en lehe olan
-   mı uygulanıyor? *(1.5'teki uyarı)*
-2. **SSÇ katsayıları neye uygulanıyor** — 1/3 ve 1/2, koşullu salıverilme
-   oranı mı yoksa TCK m.31 ceza indirimi mi? İkisi çok farklı sonuç
-   veriyor. *(1.3'teki uyarı)*
-3. **Oran çakışması** — katalog suç oranı ile mükerrirlik oranı
-   çatıştığında hangisi uygulanır? *(1.4'ün sonu)*
-4. **Açık kurum: 10 yıl üstünde 7 yıl mı 5 yıl mı?** *(1.6'daki uyarı)*
-5. **Test senaryoları** — 1.9'daki biçimde 3-5 senaryo.
+1. **Geçici maddelerin birleşimi.** Geçici m.6 (DS 3 yıl), geçici m.10 ve
+   7571'in 3 yıl erkenliği üst üste biniyor. **Toplanıyor mu, en lehe
+   olan mı uygulanıyor?** Bir hükümlü hem geçici m.6 hem 7571
+   kapsamındaysa DS süresi 3 mü, 6 mı? *(1.5'teki uyarı)*
 
-### 1.9. Test örnekleri (fikstür adayları)
+2. **Oran çakışması.** Katalog suç oranı (ör. TCK m.188 → 3/4) ile
+   mükerrirlik oranı (2/3) çatıştığında hangisi uygulanır? *(1.4'ün sonu)*
 
-> ⚠️ **Bunlar rakip araçların çıktılarından derlendi ve resmî metinle
-> teyit edilmeden KESİN DOĞRU SAYILMAZ.** Beş aracın hepsi aynı sonucu
-> veriyor olsa bile hepsi aynı hatayı yapıyor olabilir. Teyitten sonra
-> Vitest fikstürüne dönüşecekler.
+Ayrıca **test senaryoları** (1.10) gerekiyor — bunlar soru değil, malzeme.
 
-Av. Onur Can Yılmaz'ın derlediği senaryolar buraya yazılacak. Her senaryo
-şu alanları içermeli — eksik alan testi yazılamaz hâle getirir:
+**⏸ v2'ye ertelendi:** SSÇ katsayılarının neye uygulandığı, açık kuruma
+geçişte 7 yıl / 5 yıl belirsizliği. Bu ikisi v1'i bloke etmiyor.
+
+### 1.10. Test örnekleri (fikstür adayları) — v1 çekirdek
+
+> ⚠️ **Rakip araçların çıktılarından derlendi; resmî metinle teyit
+> edilmeden KESİN DOĞRU SAYILMAZ.** Beş aracın hepsi aynı sonucu veriyor
+> olsa bile hepsi aynı hatayı yapıyor olabilir.
+
+Senaryolar **yalnızca v1 kapsamından** olmalı: 18 yaş üstü, tek ilam,
+KS + DS. Her senaryo şu alanları içermeli — eksik alan testi yazılamaz
+hâle getirir:
 
 ```
 Girdi:
   suç tarihi          :
   ceza türü ve süresi :
   suç kategorisi      :
-  tekerrür            :
-  yaş (suç tarihinde) :
+  tekerrür            : yok / birinci defa / ikinci defa
+  tekerrüre esas ilam : (mükerrirse)
   infaza başlama      :
   mahsup (gün)        :
-  özel durum          : (0-6 yaş çocuklu kadın / 70+ / yok)
+  özel durum          : 0-6 yaş çocuklu kadın / 70+ / yok
 
 Beklenen çıktı:
   kurumda geçecek süre :
   koşullu salıverilme  :
   denetimli serbestlik :
-  açık kuruma geçiş    :
   bihakkın tahliye     :
 
 Kaynak: hangi araç(lar) bu sonucu verdi
 ```
 
-**Teyit edilmiş tek veri noktası:** 5 yıllık ceza = **1825 gün**
-(5 × 365). Bu, 365 gün konvansiyonunu doğruluyor (bkz. 1.6c).
+**Kapsanması istenen çekirdek durumlar** (en az bu beşi):
 
-### 1.10. Kapanmadan önce yapılacak son kontrol
+1. Adi suç, tekerrür yok, mahsup yok — en sade hâl (oran 1/2)
+2. Adi suç, mahsup var — TCK m.63 dalını doğrular
+3. Katalog suç (2/3 veya 3/4) — oran seçimini doğrular
+4. Mükerrir, tekerrüre esas ilam verilmiş — m.108/2 tavanını doğrular
+5. Suç tarihi 04.06.2025 **sonrası** — DS'deki 1/10 + 5 gün şartını doğrular
+
+Sınır durumları da faydalı: müebbet (sabit 24 yıl), ağırlaştırılmış
+müebbet (30 yıl), suç tarihi tam eşik gününde olan bir dosya.
+
+**Teyit edilmiş tek veri noktası:** 5 yıllık ceza = **1825 gün**
+(5 × 365). Bu, 365 gün konvansiyonunu doğruluyor (bkz. 1.7).
+
+### 1.11. v2 senaryoları — şimdilik toplanmayacak
+
+SSÇ (çocuk hükümlü) ve açık cezaevine geçiş senaryoları v1 kapsamı
+dışında (bkz. 1.1b). v2 açıldığında bu başlık altında toplanacak;
+şu an boş bırakılması bilinçlidir — v1 fikstürüne karışmasınlar.
+
+### 1.12. Kapanmadan önce yapılacak son kontrol
 
 Onay, `mevzuat.gov.tr` üzerindeki **resmî metinle** yapılacak. Kontrol
 listesi:
@@ -340,10 +371,9 @@ listesi:
 - [ ] m.107/4 örgüt oranı (2/3 olarak işaretlendi, teyit bekliyor)
 - [ ] m.108 tam metni — 33/39 yıl ve m.108/2'nin lafzı
 - [ ] m.105/A tam metni — 1/10 + 5 gün şartı
-- [ ] TCK m.188 — tarih bazlı ayrımın doğrulanması, SSÇ farkı var mı
-- [ ] TCK m.31 — SSÇ katsayılarının neye uygulandığı
-- [ ] Geçici m.6, m.10, m.11 ve 7571'in geçici maddesi — birleşim kuralı
-- [ ] Açık Ceza İnfaz Kurumlarına Ayrılma Yönetmeliği — 7 yıl / 5 yıl
+- [ ] TCK m.188 — tarih bazlı ayrımın doğrulanması
+- [ ] Geçici m.6, m.10, m.11 ve 7571'in geçici maddesi — birleşim kuralı **(açık soru 1)**
+- [ ] m.107 ile m.108 oranı çatıştığında hangisi uygulanır **(açık soru 2)**
 - [ ] 13. Yargı Paketi yürürlüğe girdi mi
 
 - **Onay Durumu:** ⬜ Bekliyor
