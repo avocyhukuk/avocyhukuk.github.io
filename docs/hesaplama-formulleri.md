@@ -108,6 +108,7 @@ Bu aracın en büyük riski burada görünüyor — altı yılda **beş** deği�
 | **Mahsup edilecek süre** | gün | TCK m.63 — gözaltı + tutuklulukta geçen süre. |
 | **0-6 yaş çocuklu kadın hükümlü** | evet/hayır | DS süresi 1 yıl yerine 4 yıl. |
 | **70 yaş üstü** | evet/hayır | DS süresi 1 yıl yerine 4 yıl. |
+| **Açık kurumda en az 3 ay kaldı** | evet/hayır (**koşullu**) | Hâl C'nin (1.5) şartı. Yalnızca suç tarihi hâl C aralığına düşerse gösterilir. İşaretlenmezse hâl C uygulanmaz. |
 
 > **Kapsam notu (1.1b).** Yaş alanı yok: araç yalnızca 18 yaş üstü için
 > hesap yapıyor, SSÇ v2'ye bırakıldı. "Birden fazla ceza" alanı da yok:
@@ -227,22 +228,24 @@ Uygulamada infaz hâkimlikleri her dosya için ayrı müddetname düzenleyip
 en erken tahliye tarihini veren maddeyi uygular. Aracın yaptığı da bu:
 uygulanabilir hâlleri hesaplayıp **en erken tarihi** seçmek.
 
-> ⚠️ **Kodlamadan önce netleşmesi gereken iki ayrıntı** (soru değil,
-> uygulama detayı — resmî metin kontrolünde bakılacak):
+> ✅ **İki uygulama kararı — ONAYLANDI.**
 >
-> 1. **4 yıllık DS ile erkenliğin çakışması.** 0-6 yaş çocuklu kadın veya
->    70+ hükümlü zaten 4 yıl DS alıyor. Bu kişi aynı zamanda hâl B/C
->    kapsamındaysa süre 4 mü kalır, 4+3 = 7 mi olur? "Toplanmaz" ilkesi
->    gereği en lehe olan seçilecekse 7 çıkmamalı; ama hâl B/C'deki
->    "1 + 3" de bir toplama. Kodun bu iki kuralı nasıl sıralayacağı
->    belirsiz. **Şimdilik varsayım:** iki sonuç ayrı ayrı hesaplanıp en
->    erken tarihi veren seçilecek (yani `max(4, 4)` = 4 yıl). Bu varsayım
->    teyit edilmeli.
-> 2. **"Açık kurumda en az 3 ay" şartı** (hâl C) araç tarafından
->    bilinemez — bu bir vakıa. İki seçenek: (a) forma "açık kurumda en az
->    3 ay kaldı mı?" onay kutusu eklemek, (b) şartın sağlandığını
->    varsayıp kapsam notunda belirtmek. **Öneri: (a)** — sessiz varsayım
->    hâl C'de tarihi 3 yıl erkene kaydırır ve bu ciddi bir sapma.
+> **1. DS çakışmasında en erken tarih seçilir.** 0-6 yaş çocuklu kadın
+> veya 70+ hükümlü zaten 4 yıl DS alıyor; aynı kişi hâl B/C kapsamına da
+> giriyorsa süreler toplanmaz. Uygulanabilir her hâl ayrı ayrı hesaplanır
+> ve **en erken DS tarihini veren** sonuç seçilir. "Toplanmaz, lehe olan
+> uygulanır" ilkesinin kodda karşılığı budur.
+>
+> Kodda: `dsTarihi = min(...uygulanabilirHallerinTarihleri)`
+>
+> **2. "Açık kurumda en az 3 ay" formda sorulur.** Bu bir vakıa; araç
+> hesaplayamaz. Hâl C'de forma bir onay kutusu konur:
+> *"Açık ceza infaz kurumunda en az 3 ay kaldı"*. İşaretlenmezse hâl C
+> uygulanmaz ve sonuç standart rejime göre verilir. Sessiz varsayım
+> yapılmaz — hâl C'yi varsaymak tarihi 3 yıl erkene kaydırırdı.
+>
+> Onay kutusu yalnızca hâl C'nin devreye girebileceği suç tarihi
+> aralığında gösterilir; diğer hâllerde formda yer kaplamaz.
 
 ### 1.6. Sonuç ekranı — üç tarih birlikte
 
@@ -272,9 +275,11 @@ Bu üçünün altında, `CALCULATOR_DISCLAIMER` ile birlikte 1.1b'deki
    · mükerrir + önceki ilam verilmişse → m.108/2 tavanını uygula
 6. KS tarihi          = infaza başlama + (5)
 7. Bihakkın tahliye   = infaza başlama + net süre
-8. DS başlangıcı      = KS tarihi − DS süresi
-   · DS süresi: 1.5'teki hâl A/B/C tablosundan; süreler TOPLANMAZ,
-     uygulanabilir hâller hesaplanıp EN ERKEN tarih seçilir
+8. DS başlangıcı:
+   · uygulanabilir her hâl için ayrı tarih hesapla
+     (standart 1 yıl · 4 yıl özel durum · hâl A 3 yıl · hâl B/C 4 yıl)
+   · hâl C yalnızca "açık kurumda 3 ay" onay kutusu işaretliyse dahil edilir
+   · DS tarihi = bu tarihlerin EN ERKENİ (süreler toplanmaz)
    · suç tarihi ≥ 04.06.2025 ise kurumda en az (5)×1/10 ve en az 5 gün
      geçmiş olacak şekilde ileri kaydır
 9. Hiçbir tarih infaza başlama tarihinden önce olamaz (alt sınır kontrolü)
@@ -334,59 +339,101 @@ kaynak değildir** — yalnızca resmî metinde neye bakılacağını gösterir.
 
 **⬜ Yayın için kalan üç adım:**
 
-1. **Test senaryoları** (1.10) — soru değil, malzeme. Bunlar olmadan
-   Vitest fikstürü yazılamaz.
+1. **Test senaryolarının beklenen tarihleri** (1.10) — girdi tarafı
+   dolduruldu (24 senaryo), beklenen dört tarih boş. Mevzuat kontrolü
+   sonrası birlikte hesaplanacak.
 2. **Resmî metin kontrolü** (1.12) — `mevzuat.gov.tr` üzerinden.
 3. **Onay Durumu'nun "Onaylandı"ya çevrilmesi** — bundan sonra kod yazılır.
 
-Ayrıca 1.5'in sonunda kodlamayı etkileyen **iki uygulama ayrıntısı** var
-(4 yıllık DS ile erkenliğin çakışması, "açık kurumda 3 ay" şartının nasıl
-sorulacağı). Bunlar hukuki soru değil, tasarım kararı — resmî metin
-kontrolünde birlikte bakılabilir.
+1.5'teki iki uygulama kararı (DS çakışmasında en erken tarih, "açık
+kurumda 3 ay" için onay kutusu) **onaylandı** ve belgeye işlendi.
 
-### 1.10. Test örnekleri (fikstür adayları) — v1 çekirdek
+### 1.10. Test senaryoları — v1 çekirdek
 
-> ⚠️ **Rakip araçların çıktılarından derlendi; resmî metinle teyit
-> edilmeden KESİN DOĞRU SAYILMAZ.** Beş aracın hepsi aynı sonucu veriyor
-> olsa bile hepsi aynı hatayı yapıyor olabilir.
+**Girdi tarafı dolduruldu. Beklenen tarihler BİLİNÇLİ OLARAK BOŞ** —
+mevzuat kontrolü bitince Av. Onur Can Yılmaz ile birlikte hesaplanıp
+doldurulacak, sonra Vitest fikstürüne çevrilecek.
 
-Senaryolar **yalnızca v1 kapsamından** olmalı: 18 yaş üstü, tek ilam,
-KS + DS. Her senaryo şu alanları içermeli — eksik alan testi yazılamaz
-hâle getirir:
+Senaryolar tek tek bir dalı zorlamak için seçildi; "gerçekçi dosya"
+olmaları değil, **kapsama** amaçlanıyor. Hepsi v1 kapsamında: 18 yaş
+üstü, tek ilam.
 
-```
-Girdi:
-  suç tarihi          :
-  ceza türü ve süresi :
-  suç kategorisi      :
-  tekerrür            : yok / birinci defa / ikinci defa
-  tekerrüre esas ilam : (mükerrirse)
-  infaza başlama      :
-  mahsup (gün)        :
-  özel durum          : 0-6 yaş çocuklu kadın / 70+ / yok
+Kısaltmalar: **T** = tekerrür, **M** = mahsup (gün), **İB** = infaza
+başlama.
 
-Beklenen çıktı:
-  kurumda geçecek süre :
-  koşullu salıverilme  :
-  denetimli serbestlik :
-  bihakkın tahliye     :
+#### Temel dallar
 
-Kaynak: hangi araç(lar) bu sonucu verdi
-```
+| # | Suç tarihi | Ceza | Kategori | T | İB | M | Neyi doğrular |
+|---|---|---|---|---|---|---|---|
+| 1 | 10.09.2024 | 5 yıl | Adi suç | yok | 01.03.2026 | 0 | En sade hâl: oran 1/2, DS standart 1 yıl, 1/10 şartı yok |
+| 2 | 10.09.2024 | 5 yıl | Adi suç | yok | 01.03.2026 | 90 | TCK m.63 mahsup dalı (1 numaradan tek farkı bu) |
+| 3 | 15.11.2024 | 18 yıl | Kasten öldürme (TCK 81) | yok | 20.01.2026 | 240 | Katalog oran 2/3 |
+| 4 | 05.06.2021 | 10 yıl | Uyuşturucu ticareti (TCK 188) | yok | 12.04.2026 | 150 | TCK 188 → 3/4 (suç tarihi 30.03.2020 sonrası) **ve** DS hâl C |
+| 5 | 12.01.2019 | 10 yıl | Uyuşturucu ticareti (TCK 188) | yok | 03.02.2026 | 0 | Aynı suç, 30.03.2020 **öncesi** → 2/3. Tarih bazlı ayrımı doğrular |
 
-**Kapsanması istenen çekirdek durumlar** (en az bu beşi):
+#### Tekerrür ve oran çakışması
 
-1. Adi suç, tekerrür yok, mahsup yok — en sade hâl (oran 1/2)
-2. Adi suç, mahsup var — TCK m.63 dalını doğrular
-3. Katalog suç (2/3 veya 3/4) — oran seçimini doğrular
-4. Mükerrir, tekerrüre esas ilam verilmiş — m.108/2 tavanını doğrular
-5. Suç tarihi 04.06.2025 **sonrası** — DS'deki 1/10 + 5 gün şartını doğrular
+| # | Suç tarihi | Ceza | Kategori | T | Önceki ilam | İB | M | Neyi doğrular |
+|---|---|---|---|---|---|---|---|---|
+| 6 | 20.03.2024 | 6 yıl | Adi suç (hırsızlık) | 1. defa mükerrir | 2 yıl | 10.05.2026 | 0 | Mükerrir oranı 2/3 **ve** m.108/2 tavanı |
+| 7 | 08.02.2024 | 12 yıl | Uyuşturucu ticareti (TCK 188) | 1. defa mükerrir | 3 yıl | 01.06.2026 | 0 | **Oran çakışması**: max(3/4, 2/3) = 3/4 |
+| 8 | 19.05.2024 | 9 yıl | Adi suç | 2. defa mükerrir | — | 15.07.2026 | 60 | İkinci tekerrür 3/4; m.108/2 tavanı UYGULANMAZ |
 
-Sınır durumları da faydalı: müebbet (sabit 24 yıl), ağırlaştırılmış
-müebbet (30 yıl), suç tarihi tam eşik gününde olan bir dosya.
+#### Denetimli serbestlik hâlleri (1.5 tablosu)
+
+| # | Suç tarihi | Ceza | Kategori | Özel durum | İB | M | Neyi doğrular |
+|---|---|---|---|---|---|---|---|
+| 9 | 18.06.2018 | 7 yıl | Adi suç | — | 04.02.2026 | 0 | **Hâl A**: geçici m.6 → DS 3 yıl, erkenlik eklenmez |
+| 10 | 22.02.2022 | 6 yıl | Adi suç | açık kurumda 3 ay: **evet** | 08.03.2026 | 0 | **Hâl C**: DS 1+3 = 4 yıl |
+| 11 | 22.02.2022 | 6 yıl | Adi suç | açık kurumda 3 ay: **hayır** | 08.03.2026 | 0 | 10 ile aynı, kutu işaretsiz → hâl C uygulanmaz, standart 1 yıl |
+| 12 | 14.10.2024 | 8 yıl | Adi suç | 70 yaş üstü | 20.02.2026 | 0 | DS 4 yıl |
+| 13 | 25.12.2024 | 4 yıl | Adi suç | 0-6 yaş çocuklu kadın | 11.03.2026 | 0 | DS 4 yıl |
+| 14 | 22.02.2022 | 6 yıl | Adi suç | 70 yaş üstü + açık kurumda 3 ay: evet | 08.03.2026 | 0 | **DS çakışması**: 4 yıl ile hâl C birlikte → en erken tarih seçilmeli, süreler toplanmamalı |
+
+#### 7550 şartı (1/10 + asgari 5 gün)
+
+| # | Suç tarihi | Ceza | Kategori | İB | M | Neyi doğrular |
+|---|---|---|---|---|---|---|
+| 15 | 15.09.2025 | 3 yıl | Adi suç | 02.02.2026 | 0 | Suç tarihi 04.06.2025 **sonrası** → 1/10 şartı devrede |
+| 16 | 15.09.2025 | 3 ay | Adi suç | 05.01.2026 | 0 | 1/10 hesabı 5 günün altına düşüyor → **asgari 5 gün tabanı** devreye girer |
+| 17 | 20.05.2025 | 3 yıl | Adi suç | 02.02.2026 | 0 | Suç tarihi 04.06.2025 **öncesi** → geçici m.11, şart uygulanmaz (15 ile karşılaştırmalı) |
+
+#### Müebbet ve ağırlaştırılmış müebbet
+
+| # | Suç tarihi | Ceza | Kategori | T | İB | M | Neyi doğrular |
+|---|---|---|---|---|---|---|---|
+| 18 | 11.11.2024 | Müebbet | Kasten öldürme | yok | 03.03.2026 | 420 | Sabit 24 yıl; orana bakılmaz |
+| 19 | 02.05.2024 | Ağırlaştırılmış müebbet | Nitelikli kasten öldürme | yok | 15.09.2026 | 300 | Sabit 30 yıl |
+| 20 | 07.07.2024 | Müebbet | Kasten öldürme | 1. defa mükerrir | 01.10.2026 | 0 | Mükerrir müebbet → 33 yıl |
+| 21 | 07.07.2024 | Ağırlaştırılmış müebbet | Nitelikli kasten öldürme | 1. defa mükerrir | 01.10.2026 | 0 | Mükerrir ağ. müebbet → 39 yıl |
+
+#### Eşik günü sınır testleri
+
+Bu üçü, "tarihe kadar" ifadesinin o günü **içerip içermediğini** ayırmak
+için var. Resmî metin kontrolünde özellikle bakılmalı: eşik günü hangi
+tarafa düşüyor?
+
+| # | Suç tarihi | Ceza | Kategori | İB | Neyi doğrular |
+|---|---|---|---|---|---|
+| 22 | 30.03.2020 | 5 yıl | Adi suç | 01.04.2026 | Geçici m.6 eşiğinin tam günü |
+| 23 | 31.07.2023 | 5 yıl | Adi suç | 01.04.2026 | Geçici m.10/6 eşiğinin tam günü |
+| 24 | 04.06.2025 | 3 yıl | Adi suç | 01.04.2026 | 7550 / geçici m.11 eşiğinin tam günü |
+
+#### Doldurulurken dikkat
+
+- **4 ve 5 numara aynı suçu farklı tarihlerde** kullanıyor; ikisinin
+  oranı farklı çıkmazsa tarih bazlı ayrım yanlış kodlanmış demektir.
+- **10 ve 11 numara yalnızca onay kutusunda ayrılıyor**; sonuçları aynı
+  çıkarsa kutu hiç okunmuyor demektir.
+- **14 numara en kritik senaryo**: süreler toplanırsa 7 yıl çıkar,
+  doğru davranışta 4 yıl çıkmalı.
+- **Uyuşturucu ticaretinin geçici m.6 istisnası olup olmadığı**
+  netleşmeli — 5 numaranın DS hâli buna bağlı (hâl A mı, hâl B mi).
+- Her senaryoda hangi rakip aracın hangi sonucu verdiği not edilirse,
+  araçlar çeliştiğinde hangisinin resmî metinle uyuştuğu ayırt edilebilir.
 
 **Teyit edilmiş tek veri noktası:** 5 yıllık ceza = **1825 gün**
-(5 × 365). Bu, 365 gün konvansiyonunu doğruluyor (bkz. 1.7).
+(5 × 365) — 365 gün konvansiyonunu doğruluyor (bkz. 1.7).
 
 ### 1.11. v2 senaryoları — şimdilik toplanmayacak
 
