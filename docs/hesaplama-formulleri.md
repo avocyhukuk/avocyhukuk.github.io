@@ -635,6 +635,19 @@ yapmaz.** Bu bilinçli — yanlış rakam vermektense hesap yapmamak
 yeğleniyor. Yani unutulan bir ay hukuki risk değil, yalnızca geçici bir
 kullanılamazlık.
 
+**Aylık güncelleme — hatırlatıcı kuruldu.** Her ayın 4'ünde (10.00,
+Europe/Istanbul) çalışan bir bulut ajanı, TÜİK'in o ayki bültenindeki
+"on iki aylık ortalamalara göre değişim" oranını bulup rapor ediyor.
+Ajan **yalnızca haber veriyor**; depoda değişiklik yapmıyor, commit
+atmıyor. Rakam TÜİK bülteninden teyit edildikten sonra tabloya elle
+(Claude Code oturumunda) işleniyor.
+
+Otomatik yayına bağlanmamasının gerekçesi 3.8'de: bültende dört ayrı
+oran yan yana duruyor ve yanlış satırı okumak kolay. Yanlış bir yasal
+tavanı sessizce yayınlamaktansa insan gözü tercih edildi.
+
+Ajanın adresi: https://claude.ai/code/routines/trig_01B8VEn4Z6NmYvjEzRLuX411
+
 **Bayatlama koruması — zorunlu:** Seçilen yenileme ayı için tabloda veri
 yoksa araç **tahmin etmemeli**; "bu ayın oranı henüz açıklanmadı"
 deyip hesap yapmamalı. Sessizce en son bilinen oranı kullanmak bu araçta
