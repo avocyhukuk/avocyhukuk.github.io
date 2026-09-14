@@ -625,14 +625,34 @@ Bu senaryo doğrudan test fikstürüne girecek.
 TÜİK'in açıkladığı tarih. Geçmiş dönem kapsam dışı olduğu için tablo
 kısa kalacak — yalnızca açıklanmış güncel aylar.
 
-**Tablo hangi aylarla başlayacak — KARARA BAĞLANDI:** Yalnızca **güncel
-ay**. Geçmiş dönem kapsam dışı olduğu için geriye dönük oran girilmiyor;
-tablo her ay bir satır büyüyor.
+**Tablo hangi ayları tutuyor — KARARA BAĞLANDI:** **2026 yılının
+tamamı** (Ocak–Eylül, her ay bir satır büyüyor). 2026 öncesine
+inilmiyor: %25 tavanının yürürlükte olduğu dönem (11.06.2022 –
+01.07.2024) v1 kapsamı dışında ve ayrı bir tavan mantığı gerektirir.
 
-Bunun doğrudan sonucu: **tablo güncellenmezse araç o ay hiç hesap
-yapmaz.** Bu bilinçli — yanlış rakam vermektense hesap yapmamak
-yeğleniyor. Yani unutulan bir ay hukuki risk değil, yalnızca geçici bir
-kullanılamazlık.
+Girilen seri:
+
+| Yenileme ayı | Oran | Kaynak bülten |
+|---|---|---|
+| Ocak 2026 | %34,88 | Aralık 2025 |
+| Şubat 2026 | %33,98 | Ocak 2026 |
+| Mart 2026 | %33,39 | Şubat 2026 |
+| Nisan 2026 | %32,82 | Mart 2026 |
+| Mayıs 2026 | %32,43 | Nisan 2026 |
+| Haziran 2026 | %32,24 | Mayıs 2026 |
+| Temmuz 2026 | %32,03 | Haziran 2026 |
+| Ağustos 2026 | %31,90 | Temmuz 2026 |
+| **Eylül 2026** | **%31,79** | **Ağustos 2026** |
+
+> ⚠️ **Doğrulama düzeyi eşit değil.** Eylül 2026 kaydı TÜİK Ağustos
+> bülteninden doğrudan doğrulandı. Ocak–Ağustos kayıtları ikincil
+> kaynaklardan derlenip Av. Onur Can Yılmaz tarafından onaylandı;
+> bültenden tek tek teyit EDİLMEDİ. Seri monoton azalıyor ve
+> doğrulanmış Eylül değerinde bitiyor — tutarlılık göstergesi, kanıt
+> değil. Bir uyuşmazlıkta bültene bakılmalı.
+
+Tabloya oranı işlenmemiş bir ay seçilemiyor: form yalnızca tablodaki
+ayları listeliyor.
 
 **Aylık güncelleme — hatırlatıcı kuruldu.** Her ayın 4'ünde (10.00,
 Europe/Istanbul) çalışan bir bulut ajanı, TÜİK'in o ayki bültenindeki

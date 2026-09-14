@@ -84,6 +84,18 @@ describe('kiraArtisiHesapla', () => {
     expect(sonuc.uygulanacakBedel).toBe(13_179);
   });
 
+  it('farklı ay farklı oran uygular — Ocak 2026 (%34,88)', () => {
+    const sonuc = kiraArtisiHesapla({ mevcutKira: 10_000, yenilemeAyi: '2026-01' });
+
+    expect(sonuc.durum).toBe('hesaplandi');
+    if (sonuc.durum !== 'hesaplandi') return;
+
+    expect(sonuc.tavanOrani).toBe(34.88);
+    expect(sonuc.azamiArtis).toBe(3488);
+    expect(sonuc.azamiBedel).toBe(13_488);
+    expect(sonuc.kaynakBulten).toBe('2025-12');
+  });
+
   it('senaryo 6 — tabloda olmayan ay: hesap yapılmaz', () => {
     const sonuc = kiraArtisiHesapla({ mevcutKira: 10_000, yenilemeAyi: '2027-04' });
 
@@ -150,6 +162,49 @@ describe('tufe tablosu', () => {
     expect(kayit?.oran).toBe(31.79);
     // Oran, bir önceki ayın bülteninden geliyor
     expect(kayit?.kaynakBulten).toBe('2026-08');
+  });
+
+  it('2026 serisinin tamamı tabloda ve beklenen değerlerde', () => {
+    const beklenen: Record<string, number> = {
+      '2026-01': 34.88,
+      '2026-02': 33.98,
+      '2026-03': 33.39,
+      '2026-04': 32.82,
+      '2026-05': 32.43,
+      '2026-06': 32.24,
+      '2026-07': 32.03,
+      '2026-08': 31.9,
+      '2026-09': 31.79,
+    };
+
+    for (const [ay, oran] of Object.entries(beklenen)) {
+      expect(oranBul(ay)?.oran, `${ay} oranı`).toBe(oran);
+    }
+  });
+
+  it('her kaydın kaynak bülteni, yenileme ayından bir önceki aydır', () => {
+    // Kuralın kendisi: bir ayın bülteni, TAKİP EDEN ayda yenilenen
+    // sözleşmelere uygulanır. Yeni satır eklenirken en olası hata bu
+    // alanın yanlış yazılması.
+    for (const kayit of oranliAylar()) {
+      const [yil, ay] = kayit.yenilemeAyi.split('-').map(Number);
+      const oncekiAy = ay === 1 ? 12 : ay! - 1;
+      const oncekiYil = ay === 1 ? yil! - 1 : yil!;
+      const beklenen = `${oncekiYil}-${String(oncekiAy).padStart(2, '0')}`;
+
+      expect(kayit.kaynakBulten, `${kayit.yenilemeAyi} kaynak bülteni`).toBe(beklenen);
+    }
+  });
+
+  it('tabloda 2026 öncesi kayıt yok — %25 tavanı dönemi kapsam dışı', () => {
+    for (const kayit of oranliAylar()) {
+      expect(kayit.yenilemeAyi >= '2026-01', kayit.yenilemeAyi).toBe(true);
+    }
+  });
+
+  it('aynı yenileme ayı iki kez girilmemiş', () => {
+    const aylar = oranliAylar().map((k) => k.yenilemeAyi);
+    expect(new Set(aylar).size).toBe(aylar.length);
   });
 
   it('oranliAylar en yeniden eskiye sıralar', () => {
