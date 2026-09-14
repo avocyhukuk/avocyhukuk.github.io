@@ -888,14 +888,16 @@ yok — oran kendiliğinden güncelleniyor.
 > ticari faizi kapsayacaksa o tablo da gerekiyor (TCMB her yıl ilan
 > ediyor).
 
-> ⚠️ Kanuni faizle ilgili **Anayasa Mahkemesi iptal kararları** olduğu
-> görüldü. İçerikleri incelenmedi; oran tablosunu etkileyip
-> etkilemediği resmî kontrolde bakılmalı.
+> ⏸ Kanuni faizle ilgili **Anayasa Mahkemesi iptal kararları** olduğu
+> görüldü. Av. Onur Can Yılmaz'ın kararıyla şimdilik göz ardı ediliyor;
+> izleme maddesi olarak duruyor. İleride oran tablosunu etkilediği
+> anlaşılırsa tablo yeniden gözden geçirilecek.
 
-### 4.4. Formül
+### 4.4. Formül ve sayım kuralları — KARARA BAĞLANDI
 
 Basit faiz — **anatosizm yasağı** (3095 m.3) gereği bileşik faiz
-uygulanmıyor; birikmiş faiz anaparaya eklenip üzerine faiz yürütülmüyor.
+uygulanmıyor; birikmiş faiz anaparaya eklenip üzerine faiz
+yürütülmüyor.
 
 ```
 dilimFaizi = anapara × (oran / 100) × (gunSayisi / 365)
@@ -907,7 +909,49 @@ Dikkat: her dilimde çarpan **anapara**, bir önceki dilimin sonucu değil.
 Bu, anatosizm yasağının koddaki karşılığı ve gözden kaçarsa sonuç
 sessizce şişer.
 
-**Gün sayımı:** Başlangıç günü sayılmaz, bitiş günü sayılır.
+**Onaylanan üç kural:**
+
+| Konu | Karar |
+|---|---|
+| Yıl paydası | **Her hâlde 365.** Artık yılda da 365; 360 kullanılmıyor. |
+| Gün sayımı | Başlangıç günü sayılmaz, bitiş günü sayılır → `gün = bitiş − başlangıç` |
+| Dilim sınırı | Sınır günü **eski (önceki) döneme** yazılır |
+
+> ⚠️ **Sınır kuralında bir belirsizlik kaldı.** Karar "31'inci günü
+> düşük faiz oranı olan eski tarihli faize göre hesapla" biçiminde
+> verildi. Mevcut tabloda eski dönem aynı zamanda **düşük** oranlı
+> (9 → 24 → 31), yani iki okuma da aynı sonucu veriyor. Kod
+> **"eski döneme yaz"** kuralını uyguluyor; tarih tabanlı, deterministik
+> ve dönem tablosuyla uyumlu olduğu için.
+>
+> Ama 7589 sonrası kanuni faiz TCMB reeskontuna bağlı ve **düşebilir.**
+> Oran düştüğü bir sınırda "eski dönem" ile "düşük oran" ayrışacak.
+> O gün geldiğinde hangisinin geçerli olduğu netleşmeli. Şimdilik
+> ayrışma yok.
+
+#### Doğrulanmış örnek hesap
+
+100.000 TL anapara, 01.01.2024 – 01.10.2026, kanuni faiz:
+
+| Dilim | Gün | Oran | Faiz |
+|---|---|---|---|
+| 01.01.2024 – 31.05.2024 | 151 | %9 | 3.723,29 TL |
+| 31.05.2024 – 30.07.2026 | 790 | %24 | 51.945,21 TL |
+| 30.07.2026 – 01.10.2026 | 63 | %31 | 5.350,68 TL |
+| **Toplam** | **1.004** | | **61.019,18 TL** |
+
+Toplam borç: **161.019,18 TL**
+
+Sağlama: 01.01.2024 ile 01.10.2026 arası 1.004 gün; dilim günleri
+151 + 790 + 63 = 1.004. Sınır günleri ne iki kez sayılıyor ne de
+düşüyor.
+
+> **Yuvarlama önerisi:** Her dilim ayrı ayrı kuruşa yuvarlanıp
+> toplanıyor (yukarıdaki tablo böyle hesaplandı). Gerekçe: cetvel
+> dilimleri kullanıcıya tek tek gösteriyor; satırlar toplamı tutmazsa
+> araç güvenilirliğini kaybeder. Alternatif (tam hassasiyette toplayıp
+> sonda yuvarlamak) birkaç kuruş farkla satırların toplamını bozardı.
+> Onayınıza sunulur.
 
 ### 4.5. Girdi alanları (taslak)
 
@@ -944,22 +988,26 @@ faiz işler" sorusunu cevaplıyor — en sık sorulan soru bu.
 
 ### 4.7. Açık sorular
 
-1. **Kapsam önerisi (4.6) kabul mü?** Özellikle ticari faizin dışarıda
-   kalması — dışarıdaysa "faiz türü" alanı ikiye iniyor ve tablo
-   sadeleşiyor.
-2. **Dilim sınırlarında gün sayımı.** Oran 31.05.2024'te bitip
-   01.06.2024'te başlıyorsa, 31 Mayıs hangi dilime yazılıyor? İki dilim
-   arasında bir günün iki kez sayılması ya da hiç sayılmaması, uzun
-   aralıklarda gözle görülür sapma yaratır.
-3. **Artık yıl.** 2024 artık yıl (366 gün). Payda her hâlde 365 mi
-   kalıyor, yoksa artık yılda 366 mı oluyor? Kaynaklar "hukuki
-   hesaplamada genelde 365" diyor ama "genelde" kodlanamaz.
-4. **365 mi 360 mı?** Bankacılıkta 360, mahkeme hesaplarında 365
-   kullanıldığı geçiyor. Araç mahkeme hesabını hedeflediğine göre 365
-   olmalı; teyit gerekiyor.
-5. **Kanuni faizde AYM iptal kararları** oran tablosunu etkiliyor mu?
-6. **Ticari oranların geçmiş tablosu** — v1'e alınırsa TCMB'nin yıllara
-   göre ilan ettiği oranlar derlenmeli.
+**✅ Cevaplandı:**
+
+| Soru | Cevap |
+|---|---|
+| Dilim sınırında gün | Sınır günü eski döneme yazılır |
+| Artık yıl | Payda her hâlde 365 |
+| 365 mi 360 mı | 365 |
+| AYM iptal kararları | Şimdilik göz ardı ediliyor — izleme maddesi olarak duruyor |
+
+**⬜ Kalan:**
+
+1. **Kapsam önerisi (4.6) kabul mü?** Özellikle **ticari faizin
+   dışarıda kalması.** Dışarıdaysa "faiz türü" alanı kanuni +
+   sözleşmesel olarak ikiye iniyor, ticari oranların geçmiş tablosu
+   gerekmiyor ve araç bugün yazılabilir. İçerideyse TCMB'nin yıllara
+   göre ilan ettiği avans ve TTK 1530 oranları derlenmeli.
+2. **Dilim yuvarlaması** (4.4 sonundaki öneri) — her dilim ayrı
+   yuvarlansın mı, yoksa sonda tek yuvarlama mı?
+3. **Test senaryoları** — 4.9'daki dallar için beklenen değerler.
+   4.4'teki örnek hesap ilk fikstür olarak hazır.
 
 ### 4.8. Kaynaklar
 
