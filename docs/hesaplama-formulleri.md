@@ -441,6 +441,89 @@ SSÇ (çocuk hükümlü) ve açık cezaevine geçiş senaryoları v1 kapsamı
 dışında (bkz. 1.1b). v2 açıldığında bu başlık altında toplanacak;
 şu an boş bırakılması bilinçlidir — v1 fikstürüne karışmasınlar.
 
+### 1.11b. Rakip araç karşılaştırması — 14 Eylül 2026
+
+Üç aracın yayımladığı kurallar tek tek çıkarılıp belgemizle
+karşılaştırıldı: **kadimhukuk**, **ayboga**, **topaktas**.
+(dcahukuk sayfası 403 verdi, kararara taranmadı.)
+
+> **Yöntem notu:** Bu araçların JavaScript'i çalıştırılamadı; yayımladıkları
+> kural metinleri ve çözülmüş örnekler okundu. Uyuşma doğruluk kanıtı
+> değil — TÜFE serisinde birden çok kaynak aynı yanlışı yazıyordu.
+> Değerli olan **ayrışma**: hangi kuralın tartışmalı olduğunu gösteriyor.
+
+#### ✅ Üç kaynakta da doğrulanan (bizimle uyumlu)
+
+| Konu | Durum |
+|---|---|
+| 1 yıl = 365 gün, 1 ay = 30 gün | Üçü de aynı — en temel varsayımımız bağımsız olarak doğrulandı |
+| Müebbet 24 yıl, ağırlaştırılmış müebbet 30 yıl | Üçü de aynı |
+| Mükerrir müebbet 33 / ağ. müebbet 39 | topaktas aynı |
+| TCK 188 → 3/4 (30.03.2020 sonrası) | Uyumlu |
+| m.108/2 tavanı | topaktas'ın örneği bizim anlayışımızla birebir: 10 yıl ceza, 1. tekerrür → tekerrürlü KS 6 yıl 8 ay, ekleme 1 yıl 8 ay; önceki ilam 1 yıl ise ekleme 1 yılı geçemez → gerçek KS 6 yıl |
+
+#### ⚠️ Ayrışmalar — mevzuat kontrolünde bakılacak
+
+**1. Hâl A'da DS süresi: 3 yıl mı, 6 yıl mı?**
+
+| Kaynak | 30.03.2020 öncesi adi suç |
+|---|---|
+| **Belgemiz (hâl A)** | **3 yıl** — m.10/6 erkenliği ayrıca eklenmez |
+| kadimhukuk | 3 yıl |
+| topaktas | 3 yıl (geçici m.6), 7571 erkenliğini ayrı mekanizma sayıyor |
+| **ayboga** | **6 yıl (3+3)** — geçici m.6 + m.10/6 toplanıyor |
+
+ayboga doğrudan **topluyor.** Bu, "süreler toplanmaz, en lehe olan
+uygulanır" kararımızla çelişiyor. Üç yıllık fark, tahliye tarihini üç
+yıl kaydırır — karşılaştırmanın en ağır bulgusu.
+
+**2. Açık kurumda kalma şartı: tek eşik mi, ceza süresine bağlı mı?**
+
+| Kaynak | Şart |
+|---|---|
+| **Belgemiz (hâl C)** | En az **3 ay** |
+| ayboga | <10 yıl → **1 ay**, ≥10 yıl → cezanın **1/10'u** |
+| topaktas | <10 yıl → **1 ay**, ≥10 yıl → **3 ay** |
+
+İki kaynak da şartı **ceza süresine bağlıyor**, bizim belge tek bir
+"3 ay" diyor. Doğruysa formdaki onay kutusu yeniden tasarlanmalı: tek
+kutu yetmez, eşik cezaya göre değişir.
+
+**3. Küsurat kuralı — belgemizde HİÇ YOK**
+
+Oran uygulandığında yarım gün çıkabiliyor (1.665 gün × 1/2 = 832,5).
+Belgemiz bu durumu hiç ele almıyor; kod yazılırken keyfî bir karar
+vermek zorunda kalırdık.
+
+| Kaynak | Kural |
+|---|---|
+| ayboga | "Küsuratlar hükümlü lehine yorumlanır", yukarı yuvarlanır |
+| kadimhukuk | Metinde "hükümlü lehine" diyor, ama kendi örneğinde 832,5 → **833** gün kurumda kalma çıkarıyor — bu hükümlü **aleyhine**. Kaynak kendi içinde tutarsız. |
+| topaktas | Belirtmiyor |
+
+**4. İkinci defa tekerrürde tarih penceresi**
+
+ayboga, ikinci tekerrürde 3/4 oranının **01.06.2024 – 04.06.2025**
+aralığıyla sınırlı olduğunu söylüyor. Belgemizde böyle bir pencere yok;
+7550 sonrası genel kural olarak kaydettik. Diğer iki kaynak da pencere
+belirtmiyor.
+
+**5. Katalog listeleri birbirini tutmuyor**
+
+| Suç grubu | Belgemiz | Ayrışma |
+|---|---|---|
+| TCK 132-138 (özel hayata karşı) | Yok | kadimhukuk 2/3'e koyuyor |
+| TCK 302-325 (devlet güvenliği) | Yok | kadimhukuk 3/4'e, topaktas 2/3'e koyuyor |
+| TCK 326-339 (devlet sırları) | 2/3 | kadimhukuk'ta yok |
+| TCK 220 (örgüt) | m.107/4 üzerinden 2/3 | topaktas açıkça 2/3 listesinde |
+
+**6. Açık kuruma geçiş (v1 kapsamı dışı, not olarak)**
+
+topaktas bizim v2 notumuzla uyuşuyor (≤3 yıl doğrudan, 3-10 yıl KS'ye
+7 yıl kala, >10 yıl 1/10 + 7/5 yıl). **kadimhukuk tamamen farklı** bir
+kural veriyor: kapalıda 1/3 + KS'ye 1 yıl kala. Muhtemelen güncellenmemiş.
+v2'ye geçildiğinde bu ayrışma çözülmeli.
+
 ### 1.12. Kapanmadan önce yapılacak son kontrol
 
 Onay, `mevzuat.gov.tr` üzerindeki **resmî metinle** yapılacak. Kontrol
@@ -455,6 +538,11 @@ listesi:
 - [ ] 7571 yeni bir geçici madde mi ekledi, yoksa m.10'a 6. fıkra mı
 - [ ] m.107/m.108 çakışmasında yüksek oranın uygulandığının teyidi
 - [ ] 13. Yargı Paketi yürürlüğe girdi mi
+- [ ] **Hâl A'da DS 3 yıl mı 6 yıl mı** — ayboga topluyor, biz toplamıyoruz (1.11b/1)
+- [ ] **Açık kurum şartı** tek eşik mi, ceza süresine bağlı mı (1.11b/2)
+- [ ] **Küsurat kuralı** — belgede hiç yok, karara bağlanmalı (1.11b/3)
+- [ ] **İkinci tekerrürde 3/4** bir tarih penceresiyle sınırlı mı (1.11b/4)
+- [ ] **Katalog listeleri** — TCK 132-138, 302-325, 326-339, 220 (1.11b/5)
 
 - **Onay Durumu:** ⬜ Bekliyor
 
