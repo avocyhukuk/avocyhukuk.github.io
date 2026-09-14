@@ -515,112 +515,151 @@ hâlâ sonuç doğurur (bkz. 3.6 kapsam sorusu).
 
 TBK m. 344 hem konut hem **çatılı işyeri** kiralarını kapsıyor.
 
-### 3.3. İki şey aracın söyleyemeyeceği
+### 3.3. v1 kapsamı — KARARA BAĞLANDI
 
-Bunlar sınır; araç bunları hesaplamaya çalışırsa yanlış yapar.
+Av. Onur Can Yılmaz'ın kapsam kararı. Araç bilinçli olarak dar tutuldu.
 
-**a) Beş yıl kuralı (m. 344/3) — hesaplanamaz.** Beş yıldan uzun süreli
-veya beşinci yıldan sonra yenilenen sözleşmelerde kira bedeli endeksle
-sınırlı değil; **emsal kira bedelleri, taşınmazın durumu ve hakkaniyet**
-birlikte değerlendirilerek hâkim tarafından belirleniyor. Bu bir takdir;
-formülü yok. İnfaz aracındaki "iyi hâl" ile aynı nitelikte.
+**v1'de VAR:**
 
-> **Tasarım sonucu:** Araç bu hâli **tespit edip sayı vermeyi
-> reddetmeli.** Sözleşme başlangıç tarihi ile yenileme tarihi arasında
-> beş yıl geçmişse, TÜFE tavanını bilgi olarak gösterip "bu dönemde
-> bedel endeksle sınırlı değildir, hâkim takdir eder" demeli. Sayı
-> vermek, kullanıcıya olmayan bir kesinlik satmak olur.
+- Güncel (ve tabloda oranı bulunan) bir yenileme ayı için azami kira bedeli
+- Konut ve çatılı işyeri — ikisi de aynı orana tabi
+- Sözleşmede kararlaştırılmış oran verilirse tavanla karşılaştırma
 
-**b) Sonuç "yeni kiranız" değil, "yasal üst sınır".** TBK m. 344/1
-anlaşmayı *"...oranını geçmemek koşuluyla"* geçerli sayıyor. Sözleşmede
-daha düşük bir artış kararlaştırılmışsa o geçerlidir; tavan otomatik
-uygulanmaz. Sözleşmede hiç hüküm yoksa m. 344/2 devreye girer ve bedeli
-**hâkim** belirler — yine tavanı aşmamak üzere.
+**v1'de YOK:**
+
+| Kapsam dışı | Karar |
+|---|---|
+| **Beş yıl ayrımı (m. 344/3)** | Araç beş yıl kuralını ayırt etmeyecek |
+| **Geçmiş dönem hesabı** | Yalnız güncel/yaklaşan yenilemeler; %25 tavanı dönemi (11.06.2022 – 01.07.2024) hiç kodlanmayacak |
+| Yabancı para kira (m. 344/4), uyarlama davası (m. 138), emsal kira analizi | Kapsam dışı |
+
+**Bu iki kararın sadeleştirdiği şeyler:**
+
+- **Sözleşme başlangıç tarihi** girdi olmaktan çıktı — yalnızca beş yıl
+  kuralı için gerekiyordu.
+- **Kira türü (konut/işyeri)** girdi olmaktan çıktı — %25 tavanı sona
+  erdiği ve geçmiş dönem kapsam dışı olduğu için ikisi bugün aynı orana
+  tabi. Sonucu değiştirmeyen bir alan formda gürültüden başka bir şey
+  değil.
+- Geçmiş oran tablosu gerekmiyor; tablo yalnızca açıklanmış güncel
+  ayları tutacak.
+
+> ⚠️ **Beş yıl kararının bir sonucu var, kapsam notuyla karşılanacak.**
+> Beş yıldan uzun süren kira ilişkilerinde bedel TÜFE ile sınırlı
+> değildir; emsal kira, taşınmazın durumu ve hakkaniyet birlikte
+> değerlendirilerek hâkim belirler (TBK m. 344/3). Araç bu hâli ayırt
+> etmeyeceği için o kullanıcıya da endeks tabanlı bir sayı gösterecek.
+>
+> Bunu sessiz bırakmamak adına, `CalculatorShell`'in `scopeNote` alanına
+> şu metin konacak:
+>
+> > Bu araç, kira bedelinin TÜFE tavanına tabi olduğu durumlar için
+> > tahmini hesaplama yapar. Beş yıldan uzun süren kira ilişkilerinde
+> > bedel endeksle sınırlı olmayıp hâkim tarafından belirlenebilir; bu
+> > araç söz konusu ayrımı yapmaz.
+>
+> Böylece araç sade kalıyor ama kullanıcı kendi durumunun kapsam dışı
+> olabileceğini görüyor.
+
+### 3.4. Sonuç "yeni kira" değil, "azami bedel"
+
+TBK m. 344/1 anlaşmayı *"...oranını geçmemek koşuluyla"* geçerli sayıyor.
+Sözleşmede daha düşük bir artış kararlaştırılmışsa **o** geçerlidir;
+tavan otomatik uygulanmaz. Sözleşmede hüküm yoksa m. 344/2 devreye girer
+ve bedeli hâkim belirler — yine tavanı aşmamak üzere.
 
 > **Tasarım sonucu:** Sonuç satırının etiketi "Yeni kira bedeli" değil,
-> **"Uygulanabilecek azami kira bedeli"** olmalı. Bu ayrım hem hukuken
-> doğru hem de reklam yasağı açısından güvenli.
+> **"Uygulanabilecek azami kira bedeli"** olmalı. Hem hukuken doğru hem
+> reklam yasağı açısından güvenli.
 
-### 3.4. Girdi alanları (taslak)
+### 3.5. Girdi alanları
 
 | Alan | Tip | Neden gerekli |
 |---|---|---|
 | **Mevcut kira bedeli** | TL | Hesabın tabanı |
-| **Yenileme tarihi** | ay + yıl | Hangi ayın TÜFE oranının uygulanacağını belirler |
-| **Sözleşme başlangıç tarihi** | ay + yıl | Beş yıl kuralının (m. 344/3) devreye girip girmediğini belirler — **bu alan olmadan araç yanlış cevap verir** |
-| **Kira türü** | konut / çatılı işyeri | %25 tavanı geçmiş dönemlerde yalnız konutta uygulanıyordu |
-| **Sözleşmedeki artış oranı** | % (**opsiyonel**) | Verilirse araç, sözleşme oranı ile yasal tavanı karşılaştırıp hangisinin uygulanacağını gösterir |
+| **Yenileme ayı** | ay + yıl | Hangi oranın uygulanacağını belirler |
+| **Sözleşmedeki artış oranı** | % (**opsiyonel**) | Verilirse tavanla karşılaştırılır ve hangisinin uygulanacağı gösterilir |
 
-**Kapsam dışı (v1):** yabancı para kira bedelleri (m. 344/4), uyarlama
-davası (m. 138), emsal kira analizi.
+Üç alan. Beş yıl ve geçmiş dönem kapsam dışı kaldığı için form bu kadar
+sade kalabiliyor.
 
-### 3.5. TÜFE verisi — mekanizma önerisi
+### 3.6. Oran — ONAYLANDI
+
+**Uygulanacak oran:** Yenileme ayından **bir önceki ay** açıklanan
+**TÜFE on iki aylık ortalamalara göre değişim oranı.** Konut ve çatılı
+işyerinde aynı.
+
+**Formül:**
+
+```
+artisTutari = mevcutKira × oran / 100
+azamiBedel  = mevcutKira + artisTutari
+```
+
+**Onaylanmış veri noktası ve örnek hesap:**
+
+| | |
+|---|---|
+| Yenileme ayı | Eylül 2026 |
+| Oran | **%31,79** |
+| Mevcut kira | 10.000 TL |
+| Artış tutarı | 10.000 × 31,79 / 100 = **3.179 TL** |
+| Azami bedel | **13.179 TL** |
+
+Bu senaryo doğrudan test fikstürüne girecek.
+
+> **Not:** Oran yenileme **ayına** bağlı; ayın kaçında yenilendiği
+> sonucu değiştirmiyor. Aynı ay içinde yenilenen tüm sözleşmeler aynı
+> oranı kullanıyor.
+
+#### TÜFE verisi — mekanizma
 
 Üç seçenek değerlendirildi:
 
 | Seçenek | Artı | Eksi |
 |---|---|---|
-| **A. Depoda elle tutulan tablo** | Sıfır JS, sıfır ağ isteği; her değişiklik git geçmişinde görünür ve denetlenebilir | Aylık disiplin gerektirir; unutulursa bayatlar |
-| B. Derleme sırasında TÜİK'ten çekme | Otomatik | Aylık yeniden derleme gerekir; TÜİK ucu değişirse derleme kırılır |
-| C. Tarayıcıda çekme | Her zaman güncel | Sıfır JS ilkesini bozar, üçüncü tarafa istek atar (KVKK), TÜİK erişilemezse araç çalışmaz |
+| **A. Depoda elle tutulan tablo** | Sıfır JS, sıfır ağ isteği; her değişiklik git geçmişinde denetlenebilir | Aylık disiplin gerektirir |
+| B. Derleme sırasında TÜİK'ten çekme | Otomatik | Aylık yeniden derleme gerekir; uç değişirse derleme kırılır |
+| C. Tarayıcıda çekme | Her zaman güncel | Sıfır JS ilkesini bozar, üçüncü tarafa istek (KVKK), TÜİK erişilemezse araç çalışmaz |
 
-**Öneri: A.** Tablo `src/lib/tufe.ts` içinde, her satırda ay + oran +
-TÜİK'in açıkladığı tarih. Gerekçe: bu sitenin tamamı statik ve sıfır JS;
-bir hesaplama aracı için üçüncü taraf çalışma zamanı bağımlılığı
-eklemek, kazandırdığından fazlasını götürür. Elle güncelleme, git
-geçmişinde "hangi oran ne zaman girildi" kaydını da bırakır — hukuki bir
-araçta bu denetlenebilirlik değerli.
+**Öneri: A.** Tablo `src/lib/tufe.ts` içinde; her satırda ay, oran ve
+TÜİK'in açıkladığı tarih. Geçmiş dönem kapsam dışı olduğu için tablo
+kısa kalacak — yalnızca açıklanmış güncel aylar.
 
-**Bayatlama koruması — zorunlu:** Kullanıcının seçtiği yenileme ayı için
-tabloda veri yoksa araç **tahmin etmemeli**; "bu ayın oranı henüz
-açıklanmadı / tabloya işlenmedi" deyip hesap yapmamalı. Sessizce en son
-bilinen oranı kullanmak, bu araçta yapılabilecek en kötü hata.
+**Bayatlama koruması — zorunlu:** Seçilen yenileme ayı için tabloda veri
+yoksa araç **tahmin etmemeli**; "bu ayın oranı henüz açıklanmadı"
+deyip hesap yapmamalı. Sessizce en son bilinen oranı kullanmak bu araçta
+yapılabilecek en kötü hata. Aynı şekilde, kapsam dışı kalan eski bir ay
+seçilirse hesap yapmayıp kapsam uyarısı vermeli.
 
-Sonuç ekranında hangi ayın oranının kullanıldığı ve o oranın açıklanma
-tarihi görünmeli — `CalculatorShell`'in `lawAsOf` alanı bunun için zaten
-var.
+Kullanılan oranın hangi aya ait olduğu ve açıklanma tarihi sonuç
+ekranında görünmeli — `CalculatorShell`'in `lawAsOf` alanı bunun için var.
 
-### 3.6. Hesaplama adımları (taslak akış)
+### 3.7. Hesaplama adımları
 
 ```
-1. Sözleşme başlangıcı ile yenileme tarihi arasındaki süreyi bul
-2. Beş yıl geçmişse → m. 344/3 dalı:
-   · TÜFE oranını BİLGİ olarak göster
-   · azami bedel HESAPLAMA, hâkim takdirine yönlendir  → BİTİR
-3. Yenileme ayına karşılık gelen TÜFE on iki aylık ortalama oranını bul
-   · tabloda yoksa → hesaplama yapma, eksik veri uyarısı ver → BİTİR
-4. Geçmiş dönem ve konut ise %25 tavanının yürürlükte olduğu aralığı
-   kontrol et (11.06.2022 – 01.07.2024); tavan daha düşükse onu uygula
-5. azamiBedel = mevcutKira × (1 + oran)
-6. Sözleşme oranı verilmişse:
+1. Yenileme ayına karşılık gelen oranı tabloda ara
+   · yoksa → hesaplama yapma, eksik veri uyarısı ver  → BİTİR
+2. artisTutari = mevcutKira × oran / 100
+3. azamiBedel  = mevcutKira + artisTutari
+4. Sözleşme oranı verilmişse:
    · sözleşme oranı ≤ tavan  → uygulanacak olan sözleşme oranıdır
    · sözleşme oranı > tavan  → tavan uygulanır, aşan kısım geçersiz
-7. Sonucu "azami" olarak etiketle
+5. Sonucu "azami" olarak etiketle
 ```
 
-### 3.7. Açık sorular
+### 3.8. Açık soru — bir tane kaldı
 
-1. **Hangi ayın oranı uygulanır?** Kaynaklar "yenileme ayından bir önceki
-   ay için açıklanan oran" diyor ama bunu net bir örnekle doğrulamak
-   gerekiyor. TÜİK, bir ayın endeksini takip eden ayın ilk günlerinde
-   açıklıyor; sözleşme ayın 1'inde yenilenen bir kiracı ile ayın 25'inde
-   yenilenen kiracı aynı oranı mı kullanıyor?
-2. **Beş yıl nasıl sayılıyor?** İlk sözleşme tarihinden mi, yoksa
-   yenilemelerle uzayan kira ilişkisinin toplam süresinden mi? "Beş
-   yıldan uzun süreli" ile "beş yıldan sonra yenilenen" ifadeleri iki
-   ayrı hâl mi tarif ediyor?
-3. **Geçmiş dönem hesabı v1 kapsamında mı?** Kullanıcı 2023'teki bir
-   yenilemeyi hesaplamak isterse araç %25 tavanını da bilmek zorunda.
-   Kapsam dışı bırakılırsa tablo ve mantık sadeleşir; içeride kalırsa
-   geçmiş oranların tamamı tabloya girmeli.
-4. **İşyeri kiralarında geçmişte ayrı bir düzenleme var mıydı?** %25
-   tavanının yalnız konuta uygulandığı kaynaklarda geçiyor; işyeri için
-   ayrı bir sınırlama olup olmadığı netleşmeli.
-5. **Oran kaynağı hangisi olacak?** TÜİK'in resmî bülteni esas alınacak;
-   hangi tablo/seri adının kullanıldığı kayda geçmeli ki ileride
-   güncelleyen kişi aynı yerden baksın.
+**Oran kaynağı hangi TÜİK serisi olacak?** Tabloyu güncelleyen kişinin
+her ay aynı yerden bakması için bültenin/tablonun adı kayda geçmeli.
+Aksi hâlde altı ay sonra yanlış seriden okunma riski var — araştırmada
+kaynakların aynı ay için %31,79 ile 1,79 gibi rakamları karıştırdığı
+görüldü; ikincisi aylık değişim, birincisi on iki aylık ortalama.
 
-### 3.8. Kaynaklar
+**Cevaplananlar:** hangi ayın oranı (bir önceki ay), beş yıl ayrımı
+(yok), geçmiş dönem (yok), işyerinde ayrı düzenleme (yok).
+
+### 3.9. Kaynaklar
 
 Tamamı **ikincil**. Birincil kaynak TÜİK bülteni ve `mevzuat.gov.tr`
 üzerindeki TBK metni.
@@ -630,13 +669,29 @@ Tamamı **ikincil**. Birincil kaynak TÜİK bülteni ve `mevzuat.gov.tr`
 - [Konut kiralarındaki güncel artış oranları (Lexology)](https://www.lexology.com/library/detail.aspx?g=22756e96-612a-4dd6-b776-bbaa60887782)
 - [Kira artış oranı 2026 — konut ve işyeri (Tahancı)](https://www.tahanci.av.tr/kira-artis-hesaplama/)
 
-### 3.9. Test senaryoları
+### 3.10. Test senaryoları
 
-_TODO — 3.7'deki sorular cevaplandıktan sonra doldurulacak. Kapsanması
-gereken dallar: beş yıl altı normal hesap, beş yıl üstü (sayı
-vermemeli), sözleşme oranı tavanın altında, sözleşme oranı tavanın
-üstünde, tabloda veri olmayan ay, %25 tavanının yürürlükte olduğu geçmiş
-dönem (kapsama alınırsa)._
+Girdi tarafı dolduruldu. Beklenen çıktılar, oran tablosu kurulduktan
+sonra doldurulacak — **1 numaralı senaryo hariç**, o onaylanmış veri
+noktasından geliyor ve şimdiden kesin.
+
+| # | Mevcut kira | Yenileme ayı | Sözleşme oranı | Beklenen | Neyi doğrular |
+|---|---|---|---|---|---|
+| 1 | 10.000 TL | Eylül 2026 (%31,79) | — | artış **3.179 TL**, azami **13.179 TL** | Onaylanmış temel hesap |
+| 2 | 27.500 TL | Eylül 2026 (%31,79) | — | _(doldurulacak)_ | Yuvarlama: küsuratlı taban |
+| 3 | 10.000 TL | Eylül 2026 (%31,79) | %20 | Sözleşme oranı uygulanır → 12.000 TL | Sözleşme oranı **tavanın altında** |
+| 4 | 10.000 TL | Eylül 2026 (%31,79) | %45 | Tavan uygulanır → 13.179 TL, aşan kısım geçersiz | Sözleşme oranı **tavanın üstünde** |
+| 5 | 10.000 TL | Eylül 2026 (%31,79) | %31,79 | Tavana eşit → 13.179 TL | Sınır: oran tavana **tam eşit** |
+| 6 | 10.000 TL | Tabloda olmayan bir ay | — | **Hesap yok**, eksik veri uyarısı | Bayatlama koruması |
+| 7 | 10.000 TL | %25 tavanı dönemi (ör. Ocak 2023) | — | **Hesap yok**, kapsam dışı uyarısı | Geçmiş dönem kapsam dışı |
+| 8 | 0 TL / negatif | Eylül 2026 | — | Girdi hatası | Doğrulama |
+
+**Yuvarlama kuralı netleşmeli:** 2 numaralı senaryo bunun için var.
+27.500 × 31,79 / 100 = 8.742,25 TL. Kuruş korunacak mı, yukarı mı
+yuvarlanacak, tam liraya mı inilecek? Uygulamada kira bedelleri genelde
+tam liraya yuvarlanıyor ama bu bir zorunluluk değil — araç ham sonucu
+göstermeli, yuvarlamayı kullanıcıya bırakmalı gibi görünüyor. Karar
+gerekiyor.
 
 - **Onay Durumu:** ⬜ Bekliyor
 
