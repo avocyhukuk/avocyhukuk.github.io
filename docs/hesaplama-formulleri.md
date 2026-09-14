@@ -626,6 +626,15 @@ Bu senaryo doğrudan test fikstürüne girecek.
 TÜİK'in açıkladığı tarih. Geçmiş dönem kapsam dışı olduğu için tablo
 kısa kalacak — yalnızca açıklanmış güncel aylar.
 
+**Tablo hangi aylarla başlayacak — KARARA BAĞLANDI:** Yalnızca **güncel
+ay**. Geçmiş dönem kapsam dışı olduğu için geriye dönük oran girilmiyor;
+tablo her ay bir satır büyüyor.
+
+Bunun doğrudan sonucu: **tablo güncellenmezse araç o ay hiç hesap
+yapmaz.** Bu bilinçli — yanlış rakam vermektense hesap yapmamak
+yeğleniyor. Yani unutulan bir ay hukuki risk değil, yalnızca geçici bir
+kullanılamazlık.
+
 **Bayatlama koruması — zorunlu:** Seçilen yenileme ayı için tabloda veri
 yoksa araç **tahmin etmemeli**; "bu ayın oranı henüz açıklanmadı"
 deyip hesap yapmamalı. Sessizce en son bilinen oranı kullanmak bu araçta
