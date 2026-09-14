@@ -648,16 +648,62 @@ ekranında görünmeli — `CalculatorShell`'in `lawAsOf` alanı bunun için var
 5. Sonucu "azami" olarak etiketle
 ```
 
-### 3.8. Açık soru — bir tane kaldı
+### 3.8. Oranın okunacağı yer — ÇÖZÜLDÜ
 
-**Oran kaynağı hangi TÜİK serisi olacak?** Tabloyu güncelleyen kişinin
-her ay aynı yerden bakması için bültenin/tablonun adı kayda geçmeli.
-Aksi hâlde altı ay sonra yanlış seriden okunma riski var — araştırmada
-kaynakların aynı ay için %31,79 ile 1,79 gibi rakamları karıştırdığı
-görüldü; ikincisi aylık değişim, birincisi on iki aylık ortalama.
+**Ayrı bir "seri" yok; aranan rakam standart aylık TÜFE bülteninin
+içindeki bir satır.** TÜİK her ay yayımladığı *Tüketici Fiyat Endeksi*
+bülteninde aynı ay için birden fazla değişim oranı veriyor:
 
-**Cevaplananlar:** hangi ayın oranı (bir önceki ay), beş yıl ayrımı
-(yok), geçmiş dönem (yok), işyerinde ayrı düzenleme (yok).
+| Bültendeki satır | Ne anlatır | Kira artışında |
+|---|---|---|
+| Aylık değişim | Bir önceki aya göre | ❌ |
+| **Yıllık değişim** | Geçen yılın aynı ayına göre — **manşet enflasyon** | ❌ |
+| **On iki aylık ortalamalara göre değişim** | Son 12 ayın ortalamasının, önceki 12 ayın ortalamasına oranı | ✅ **Bu** |
+| Yılbaşına göre değişim | Aralık'a göre | ❌ |
+
+Kanunun (TBK m. 344/1) işaret ettiği rakam üçüncüsü. Haberlerde
+duyurulan "enflasyon açıklandı" rakamı ise ikincisi.
+
+#### İkisinin farkı somut ve büyük
+
+Aralık 2025 bülteninden, aynı ay için:
+
+| Satır | Oran |
+|---|---|
+| Aylık değişim | %0,89 |
+| **Yıllık değişim (manşet)** | **%30,89** |
+| **On iki aylık ortalamalara göre değişim** | **%34,88** |
+
+Ocak 2026'da yenilenen sözleşmelerde uygulanan tavan **%34,88** oldu —
+manşet %30,89 değil. 10.000 TL'lik bir kirada aradaki fark aylık
+**399 TL**, yıllık yaklaşık 4.800 TL.
+
+> ⚠️ **Tabloyu güncelleyecek kişi için kural:** TÜİK bülteninde
+> **"on iki aylık ortalamalara göre değişim"** satırı okunacak. Manşette
+> duyurulan yıllık oran KULLANILMAYACAK. Bu satır, TÜİK'in aylık TÜFE
+> haber bülteninde yıllık ve aylık oranlarla yan yana duruyor.
+>
+> Araştırmada ikincil kaynakların bu rakamı sık sık kırptığı da görüldü
+> — "%34,88" yerine "4,88", "%31,79" yerine "1,79" yazan sayfalar var.
+> Rakam TÜİK bülteninden okunmalı, haber sitesinden değil.
+
+**Kaynak:** TÜİK — Tüketici Fiyat Endeksi aylık haber bülteni
+(`data.tuik.gov.tr`). Her ayın rakamı, takip eden ayın ilk günlerinde
+açıklanıyor.
+
+### 3.8b. Yuvarlama — KARARA BAĞLANDI
+
+**Yuvarlama yapılmayacak; taraflara bırakılacak.** Araç ham sonucu
+gösterir.
+
+Örnek: 27.500 × 31,79 / 100 = **8.742,25 TL** artış → azami bedel
+**36.242,25 TL**. Araç bu rakamı olduğu gibi yazar, tam liraya
+yuvarlamaz.
+
+Gerekçe kayıt için: yuvarlama hukuki bir zorunluluk değil, tarafların
+anlaşmasına bağlı bir pratik. Araç yuvarlarsa, yuvarlanmış rakamı yasal
+tavan sanan bir kullanıcı tavanı birkaç kuruş aşabilir ya da hakkını
+eksik kullanabilir. Ham sonuç her iki hatayı da önlüyor.
 
 ### 3.9. Kaynaklar
 
@@ -668,6 +714,8 @@ Tamamı **ikincil**. Birincil kaynak TÜİK bülteni ve `mevzuat.gov.tr`
 - [Kira artış oranı hesaplama (Kadim Hukuk)](https://kadimhukuk.com.tr/kira-artis-orani-hesaplama/)
 - [Konut kiralarındaki güncel artış oranları (Lexology)](https://www.lexology.com/library/detail.aspx?g=22756e96-612a-4dd6-b776-bbaa60887782)
 - [Kira artış oranı 2026 — konut ve işyeri (Tahancı)](https://www.tahanci.av.tr/kira-artis-hesaplama/)
+- [TÜİK — Tüketici Fiyat Endeksi haber bülteni](https://data.tuik.gov.tr/) *(birincil kaynak: "on iki aylık ortalamalara göre değişim" satırı)*
+- [Ocak 2026 kira artış oranı ve Aralık 2025 TÜFE verileri (CNN Türk)](https://www.cnnturk.com/ekonomi/ocak-2026-kira-artis-orani-hesaplama-kira-artis-orani-tufe-yuzde-kac-oldu-aralik-ayi-enflasyon-rakamlari-tuik-2381226)
 
 ### 3.10. Test senaryoları
 
@@ -678,7 +726,7 @@ noktasından geliyor ve şimdiden kesin.
 | # | Mevcut kira | Yenileme ayı | Sözleşme oranı | Beklenen | Neyi doğrular |
 |---|---|---|---|---|---|
 | 1 | 10.000 TL | Eylül 2026 (%31,79) | — | artış **3.179 TL**, azami **13.179 TL** | Onaylanmış temel hesap |
-| 2 | 27.500 TL | Eylül 2026 (%31,79) | — | _(doldurulacak)_ | Yuvarlama: küsuratlı taban |
+| 2 | 27.500 TL | Eylül 2026 (%31,79) | — | artış **8.742,25 TL**, azami **36.242,25 TL** | Küsurat korunuyor, yuvarlama yok |
 | 3 | 10.000 TL | Eylül 2026 (%31,79) | %20 | Sözleşme oranı uygulanır → 12.000 TL | Sözleşme oranı **tavanın altında** |
 | 4 | 10.000 TL | Eylül 2026 (%31,79) | %45 | Tavan uygulanır → 13.179 TL, aşan kısım geçersiz | Sözleşme oranı **tavanın üstünde** |
 | 5 | 10.000 TL | Eylül 2026 (%31,79) | %31,79 | Tavana eşit → 13.179 TL | Sınır: oran tavana **tam eşit** |
@@ -686,12 +734,8 @@ noktasından geliyor ve şimdiden kesin.
 | 7 | 10.000 TL | %25 tavanı dönemi (ör. Ocak 2023) | — | **Hesap yok**, kapsam dışı uyarısı | Geçmiş dönem kapsam dışı |
 | 8 | 0 TL / negatif | Eylül 2026 | — | Girdi hatası | Doğrulama |
 
-**Yuvarlama kuralı netleşmeli:** 2 numaralı senaryo bunun için var.
-27.500 × 31,79 / 100 = 8.742,25 TL. Kuruş korunacak mı, yukarı mı
-yuvarlanacak, tam liraya mı inilecek? Uygulamada kira bedelleri genelde
-tam liraya yuvarlanıyor ama bu bir zorunluluk değil — araç ham sonucu
-göstermeli, yuvarlamayı kullanıcıya bırakmalı gibi görünüyor. Karar
-gerekiyor.
+**Yuvarlama:** yapılmıyor (3.8b). 2 numaralı senaryo bunu doğruluyor —
+küsurat korunmalı, tam liraya inilmemeli.
 
 - **Onay Durumu:** ⬜ Bekliyor
 
