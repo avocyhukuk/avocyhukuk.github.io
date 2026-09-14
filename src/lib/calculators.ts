@@ -51,7 +51,7 @@ export const CALCULATORS: readonly Calculator[] = [
     title: 'İcra / Gecikme Faizi Hesaplama',
     summary: 'Takip tarihinden ödeme tarihine kadar işleyen faizi ve toplam borcu hesaplar.',
     areas: ['icra-iflas-hukuku'],
-    status: 'planned',
+    status: 'ready',
   },
   {
     slug: 'arac-mahrumiyet-bedeli',

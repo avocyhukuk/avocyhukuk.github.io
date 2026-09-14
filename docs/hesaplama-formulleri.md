@@ -809,8 +809,7 @@ küsurat korunmalı, tam liraya inilmemeli.
 
 ## 4. İcra / Gecikme Faizi Hesaplama
 
-> **Durum: TASLAK — kodlanmadı.** İkincil kaynaklardan derlendi.
-> Av. Onur Can Yılmaz'ın onayı olmadan `src/lib/` altına kod yazılmaz.
+> **Durum: ONAYLANDI ve YAYINDA.** Kod yazıldı, testler geçiyor.
 
 ### 4.1. Bu araç kiradan yapısal olarak farklı
 
@@ -997,17 +996,10 @@ faiz işler" sorusunu cevaplıyor — en sık sorulan soru bu.
 | 365 mi 360 mı | 365 |
 | AYM iptal kararları | Şimdilik göz ardı ediliyor — izleme maddesi olarak duruyor |
 
-**⬜ Kalan:**
+| Kapsam (4.6) | **Kabul** — ticari faiz (avans, TTK 1530) v1 dışında |
+| Dilim yuvarlaması | **Her dilim ayrı ayrı kuruşa yuvarlanır**, sonra toplanır |
 
-1. **Kapsam önerisi (4.6) kabul mü?** Özellikle **ticari faizin
-   dışarıda kalması.** Dışarıdaysa "faiz türü" alanı kanuni +
-   sözleşmesel olarak ikiye iniyor, ticari oranların geçmiş tablosu
-   gerekmiyor ve araç bugün yazılabilir. İçerideyse TCMB'nin yıllara
-   göre ilan ettiği avans ve TTK 1530 oranları derlenmeli.
-2. **Dilim yuvarlaması** (4.4 sonundaki öneri) — her dilim ayrı
-   yuvarlansın mı, yoksa sonda tek yuvarlama mı?
-3. **Test senaryoları** — 4.9'daki dallar için beklenen değerler.
-   4.4'teki örnek hesap ilk fikstür olarak hazır.
+Açık soru kalmadı.
 
 ### 4.8. Kaynaklar
 
@@ -1022,13 +1014,25 @@ TCMB'nin reeskont/avans oranları duyurusu.
 
 ### 4.9. Test senaryoları
 
-_TODO — 4.7'deki sorular cevaplandıktan sonra doldurulacak. Kapsanması
-gereken dallar: tek dönem içinde kalan aralık, iki oranı kesen aralık,
-üç oranı kesen aralık (4.1'deki örnek), artık yıl içeren aralık, dilim
-sınırına tam denk gelen tarih, bitiş tarihi başlangıçtan önce (hata),
-sözleşmesel oran._
+Kodlandı — `src/lib/gecikme-faizi.test.ts`, 17 test. Kapsanan dallar:
 
-- **Onay Durumu:** ⬜ Bekliyor
+| Dal | Doğrulanan |
+|---|---|
+| Üç oranı kesen aralık | 4.4'teki örnek, birebir |
+| Dilim günleri toplamı | Aralığın toplam gününe eşit — sınır günü ne çift sayılıyor ne düşüyor |
+| Dilim faizleri toplamı | Gösterilen toplama eşit (yuvarlama kuralı) |
+| Tek dönem içinde kalan aralık | Tek dilim üretiliyor |
+| Sınıra tam denk gelen bitiş | Gün eski döneme yazılıyor, yeni dilim açılmıyor |
+| Sınırın ertesinde başlayan aralık | Yeni oran kullanılıyor |
+| Artık yıl | Payda 365 kalıyor; tam bir yıl → tam yıllık oran |
+| Anatosizm | Her dilim anapara üzerinden hesaplanıyor |
+| Sözleşmesel oran | Tek dilim; tablo kısıtı uygulanmıyor |
+| Girdi doğrulama | Anapara, tarih sırası, var olmayan tarih (31 Nisan, 29 Şubat 2023), 2006 öncesi |
+| Oran tablosu | Sıralı, yalnız sonuncusu açık uçlu, belgedeki değerlerle birebir |
+
+- **Onay Durumu:** ✅ **Onaylandı** — Av. Onur Can Yılmaz, 14 Eylül 2026.
+  Kod: `src/lib/gecikme-faizi.ts` + `src/lib/faiz-oranlari.ts`, sayfa
+  `src/pages/hesaplama-araclari/icra-gecikme-faizi.astro`.
 
 ## 5. Araç Mahrumiyet Bedeli Hesaplama
 

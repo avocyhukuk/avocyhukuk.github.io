@@ -159,7 +159,7 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - [ ] Yatar hesaplama — formül doğrulama → geliştirme → test → yayın
 - [ ] Araç değer kaybı hesaplama — formül doğrulama → geliştirme → test → yayın
 - [x] Kira artış hesaplama — formül doğrulama → geliştirme → test → yayın. *TÜFE oranı elle tutulan tabloda (`src/lib/tufe.ts`); her ayın 4'ünde bir bulut ajanı hatırlatıyor, oran TÜİK bülteninden teyit edilip elle işleniyor.*
-- [ ] İcra/gecikme faizi hesaplama — formül doğrulama → geliştirme → test → yayın
+- [x] İcra/gecikme faizi hesaplama — formül doğrulama → geliştirme → test → yayın. *Kanuni faiz dönem tablosu `src/lib/faiz-oranlari.ts`; 7589 s.K. sonrası oran TCMB reeskontunun %80'i olduğu için yılda bir-iki kez değişiyor, yeni dönem başlayınca satır eklenmeli.*
 - [ ] Araç mahrumiyet bedeli hesaplama — formül doğrulama → geliştirme → test → yayın
 - [ ] Dava/icra harç ve masraf hesaplama — formül doğrulama → geliştirme → test → yayın
 - [ ] Şirket kuruluş maliyeti hesaplama — formül doğrulama → geliştirme → test → yayın

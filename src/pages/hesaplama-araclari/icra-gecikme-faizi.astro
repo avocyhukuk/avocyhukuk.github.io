@@ -1,0 +1,238 @@
+---
+/**
+ * İcra / Gecikme Faizi Hesaplama.
+ *
+ * Formül, oran tablosu ve kapsam: docs/hesaplama-formulleri.md § 4.
+ * Hesap src/lib/gecikme-faizi.ts içinde, saf ve test edilmiş.
+ *
+ * Cetvel burada gerçek işini yapıyor: faiz bir tarih aralığı boyunca
+ * işlediği ve aralıkta oran değişebildiği için, kullanıcıya toplam değil
+ * hangi dönemde hangi oranın kaç gün işlediği gösteriliyor.
+ */
+import CalculatorShell from '../../components/calculator/CalculatorShell.astro';
+import ResultSheet from '../../components/calculator/ResultSheet.astro';
+import FormField from '../../components/calculator/FormField.astro';
+import { CALCULATORS } from '../../lib/calculators';
+
+const calculator = CALCULATORS.find((tool) => tool.slug === 'icra-gecikme-faizi')!;
+
+const scopeNote =
+  'Bu araç, tek bir alacak için kanuni faizi veya sözleşmede kararlaştırılmış ' +
+  'oranı hesaplar. Ticari işlerde uygulanan avans faizi ile TTK m. 1530 geç ödeme ' +
+  'faizi, kısmi ödemeler, yabancı para borçları ve takip masrafları bu sürümde ' +
+  'kapsam dışıdır.';
+---
+
+<CalculatorShell calculator={calculator} lawAsOf="14 Eylül 2026" scopeNote={scopeNote}>
+  <Fragment slot="form">
+    <FormField
+      id="anapara"
+      label="Anapara"
+      type="number"
+      unit="TL"
+      required
+      min={0}
+      step="0.01"
+      inputmode="decimal"
+    />
+
+    <FormField
+      id="baslangic"
+      label="Faiz başlangıç tarihi"
+      type="date"
+      required
+      hint="Temerrüt, vade veya ihtarname tarihi. Bu gün sayılmaz."
+    />
+
+    <FormField
+      id="bitis"
+      label="Faiz bitiş tarihi"
+      type="date"
+      required
+      hint="Takip veya ödeme tarihi. Bu gün sayılır."
+    />
+
+    <FormField id="tur" label="Faiz türü">
+      <select id="tur" name="tur">
+        <option value="kanuni">Kanuni faiz</option>
+        <option value="sozlesmesel">Sözleşmede kararlaştırılan oran</option>
+      </select>
+    </FormField>
+
+    {/* JS kapalıyken de görünür kalır; betik "kanuni" seçiliyken gizler. */}
+    <div id="oran-alani">
+      <FormField
+        id="sozlesme-orani"
+        label="Sözleşmedeki yıllık oran"
+        type="number"
+        unit="%"
+        min={0}
+        step="0.01"
+        inputmode="decimal"
+      />
+    </div>
+
+    <button class="btn btn--primary" type="button" id="hesapla">Hesapla</button>
+
+    <p class="form-note">
+      Faiz her dönemde <strong>anapara</strong> üzerinden işler; birikmiş faize faiz yürütülmez (3095
+      s.K. m. 3).
+    </p>
+  </Fragment>
+
+  <div class="result-region">
+    <p class="alert" id="uyari" role="alert" hidden></p>
+    <ResultSheet />
+  </div>
+</CalculatorShell>
+
+<style>
+  .form-note {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  .result-region {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .alert {
+    padding: var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-inline-start: 3px solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+</style>
+
+<script>
+  import { gecikmeFaiziHesapla, type FaizTuru } from '../../lib/gecikme-faizi';
+  import type { SheetRow } from '../../lib/calculator-ui';
+  import { formatTRY, formatNumber, formatPercent } from '../../lib/format';
+  import { clearSheet, findSheet, renderSheet } from '../../scripts/result-sheet';
+
+  const M1 = {
+    short: '3095 m.1',
+    full: '3095 sayılı Kanun m. 1 — Kanuni faiz oranı',
+  };
+  const M3 = {
+    short: '3095 m.3',
+    full: '3095 sayılı Kanun m. 3 — Faize faiz yürütülemez (anatosizm yasağı)',
+  };
+
+  /** `2024-05-31` → `31.05.2024` */
+  const trTarih = (iso: string) => iso.split('-').reverse().join('.');
+
+  const sheet = findSheet();
+  const buton = document.querySelector<HTMLButtonElement>('#hesapla');
+  const anaparaGirdi = document.querySelector<HTMLInputElement>('#anapara');
+  const baslangicGirdi = document.querySelector<HTMLInputElement>('#baslangic');
+  const bitisGirdi = document.querySelector<HTMLInputElement>('#bitis');
+  const turSecim = document.querySelector<HTMLSelectElement>('#tur');
+  const oranGirdi = document.querySelector<HTMLInputElement>('#sozlesme-orani');
+  const oranAlani = document.querySelector<HTMLElement>('#oran-alani');
+  const uyari = document.querySelector<HTMLElement>('#uyari');
+
+  if (
+    sheet &&
+    buton &&
+    anaparaGirdi &&
+    baslangicGirdi &&
+    bitisGirdi &&
+    turSecim &&
+    oranGirdi &&
+    oranAlani &&
+    uyari
+  ) {
+    const oranAlaniniGuncelle = () => {
+      oranAlani.hidden = turSecim.value !== 'sozlesmesel';
+    };
+
+    const uyariGoster = (mesaj: string) => {
+      uyari.textContent = mesaj;
+      uyari.hidden = false;
+      clearSheet(sheet);
+    };
+
+    const hesapla = () => {
+      uyari.hidden = true;
+      uyari.textContent = '';
+
+      const tur = turSecim.value as FaizTuru;
+      const ham = oranGirdi.value.trim();
+
+      const sonuc = gecikmeFaiziHesapla({
+        anapara: Number(anaparaGirdi.value),
+        baslangic: baslangicGirdi.value,
+        bitis: bitisGirdi.value,
+        tur,
+        sozlesmeOrani: ham === '' ? undefined : Number(ham),
+      });
+
+      if (sonuc.durum === 'gecersiz-anapara') {
+        uyariGoster('Anaparayı sıfırdan büyük bir tutar olarak girin.');
+        return;
+      }
+
+      if (sonuc.durum === 'gecersiz-tarih') {
+        uyariGoster('Tarihleri kontrol edin: bitiş tarihi başlangıçtan sonra olmalı.');
+        return;
+      }
+
+      if (sonuc.durum === 'gecersiz-oran') {
+        uyariGoster('Sözleşmedeki yıllık oranı girin.');
+        return;
+      }
+
+      if (sonuc.durum === 'kapsam-disi-tarih') {
+        uyariGoster(
+          `Kanuni faiz oran tablosu ${trTarih(sonuc.enErken)} tarihinde başlıyor. ` +
+            'Daha eski bir başlangıç tarihi için hesaplama yapılamıyor.'
+        );
+        return;
+      }
+
+      const rows: SheetRow[] = [
+        { label: 'Anapara', value: formatTRY(sonuc.anapara) },
+        ...sonuc.dilimler.map((dilim) => ({
+          label: `${trTarih(dilim.baslangic)} – ${trTarih(dilim.bitis)}`,
+          value: formatTRY(dilim.faiz),
+          detail: `${formatNumber(dilim.gun)} gün · yıllık ${formatPercent(dilim.oran)}`,
+          basis: M1,
+        })),
+        {
+          label: 'Toplam faiz',
+          value: formatTRY(sonuc.toplamFaiz),
+          detail: `${formatNumber(sonuc.toplamGun)} gün · anapara üzerinden, bileşik değil`,
+          total: true,
+          basis: M3,
+        },
+        {
+          label: 'Toplam borç',
+          value: formatTRY(sonuc.toplamBorc),
+          detail: 'Anapara + işlemiş faiz',
+          total: true,
+        },
+      ];
+
+      renderSheet(sheet, rows);
+    };
+
+    oranAlaniniGuncelle();
+    turSecim.addEventListener('change', oranAlaniniGuncelle);
+    buton.addEventListener('click', hesapla);
+
+    for (const alan of [anaparaGirdi, baslangicGirdi, bitisGirdi, oranGirdi]) {
+      alan.addEventListener('keydown', (olay) => {
+        if (olay.key === 'Enter') {
+          olay.preventDefault();
+          hesapla();
+        }
+      });
+    }
+  }
+</script>
