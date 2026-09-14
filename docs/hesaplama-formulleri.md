@@ -809,11 +809,177 @@ küsurat korunmalı, tam liraya inilmemeli.
 
 ## 4. İcra / Gecikme Faizi Hesaplama
 
-- **Kanuni Dayanak (başlangıç noktası):** 3095 sayılı Kanuni Faiz ve Temerrüt Faizine İlişkin Kanun, İİK ilgili maddeler
-- **Girdi alanları:** Alacak tutarı, temerrüt tarihi, hesaplama tarihi, faiz türü (yasal/temerrüt/avans)
-- **Formül:** _TODO_
-- **Kaynak(lar):** _TODO_
-- **Test örnekleri:** _TODO_
+> **Durum: TASLAK — kodlanmadı.** İkincil kaynaklardan derlendi.
+> Av. Onur Can Yılmaz'ın onayı olmadan `src/lib/` altına kod yazılmaz.
+
+### 4.1. Bu araç kiradan yapısal olarak farklı
+
+Kira aracında tek bir orana tek bir çarpma yapılıyordu. Burada durum
+başka: faiz bir **tarih aralığı** boyunca işliyor ve o aralıkta oran
+değişmiş olabilir. Dolayısıyla hesap tek bir çarpma değil, **dönemlere
+bölme** işlemi.
+
+Somut örneği: 01.01.2024'te muaccel olmuş bir alacak için 01.10.2026'da
+kanuni faiz hesaplanacaksa, aralık **üç ayrı orana** bölünüyor:
+
+```
+01.01.2024 ─────── 31.05.2024   %9
+01.06.2024 ─────── 30.07.2026   %24
+31.07.2026 ─────── 01.10.2026   %31
+```
+
+Her dilim kendi oranıyla ayrı hesaplanıp toplanıyor. Kodun çekirdeği bu
+bölme işlemi; çarpmanın kendisi önemsiz.
+
+Bunun bir sonucu var: **hesap cetveli burada gerçekten işe yarıyor.**
+Kullanıcı toplam faizi değil, hangi dönemde hangi oranın kaç gün
+işlediğini görmek istiyor. `ResultSheet` her dilimi ayrı satır olarak
+gösterebilir.
+
+### 4.2. Kanuni dayanak
+
+| Konu | Dayanak |
+|---|---|
+| Kanuni (yasal) faiz oranı | **3095 s.K. m.1** |
+| Temerrüt faizi; ticari işlerde avans oranı | **3095 s.K. m.2** |
+| Faize faiz yasağı (anatosizm) | **3095 s.K. m.3** |
+| Yabancı para borçlarında faiz | **3095 s.K. m.4/a** |
+| Ticari satımlarda geç ödeme faizi | **TTK m.1530** |
+| İcra takibinde faiz talebi | **İİK** ilgili maddeler |
+
+#### 7589 sayılı Kanun kanuni faizin belirlenme YÖNTEMİNİ değiştirdi
+
+12. Yargı Paketi (31.07.2026) bu araç açısından önemli: kanuni faiz
+artık Cumhurbaşkanı kararıyla belirlenen sabit bir oran değil,
+**TCMB'nin kısa vadeli kredi işlemlerinde uyguladığı reeskont oranının
+%80'i.** Bir önceki yılın 31 Aralık oranı esas alınıyor; 30 Haziran
+oranı bundan 5 puan veya daha fazla farklıysa 1 Temmuz'da yeni oran
+uygulanıyor.
+
+Yeni metinde Cumhurbaşkanına oranı artırma/indirme yetkisi veren hüküm
+yok — oran kendiliğinden güncelleniyor.
+
+> **Aracın bakımı açısından:** Oran artık yılda bir (bazen iki) kez,
+> kanunun kendi mekanizmasıyla değişiyor. Kira aracındaki TÜFE tablosu
+> gibi burada da elle tutulan bir **dönem tablosu** gerekiyor. Fark:
+> TÜFE her ay değişiyordu, bu yılda bir-iki kez — bakım yükü daha hafif,
+> ama unutulması daha kolay.
+
+### 4.3. Oranlar — derlenen tablo (DOĞRULANMALI)
+
+**Kanuni faiz (3095 m.1):**
+
+| Dönem | Oran |
+|---|---|
+| 01.01.2006 – 31.05.2024 | %9 |
+| 01.06.2024 – 30.07.2026 | %24 |
+| 31.07.2026 – … | **%31** |
+
+%31'in kaynağı: 31.12.2025 reeskont oranı %38,75 × 0,80 = %31.
+
+**Ticari işlerde temerrüt faizi:**
+
+| Tür | 2026 oranı |
+|---|---|
+| TCMB kısa vadeli avans oranı (3095 m.2) | **%39,75** |
+| TTK m.1530 geç ödeme faizi | **%43** |
+
+> ⚠️ Ticari oranların geçmiş yıllara ait tablosu henüz derlenmedi. v1
+> ticari faizi kapsayacaksa o tablo da gerekiyor (TCMB her yıl ilan
+> ediyor).
+
+> ⚠️ Kanuni faizle ilgili **Anayasa Mahkemesi iptal kararları** olduğu
+> görüldü. İçerikleri incelenmedi; oran tablosunu etkileyip
+> etkilemediği resmî kontrolde bakılmalı.
+
+### 4.4. Formül
+
+Basit faiz — **anatosizm yasağı** (3095 m.3) gereği bileşik faiz
+uygulanmıyor; birikmiş faiz anaparaya eklenip üzerine faiz yürütülmüyor.
+
+```
+dilimFaizi = anapara × (oran / 100) × (gunSayisi / 365)
+toplamFaiz = Σ dilimFaizi
+toplamBorc = anapara + toplamFaiz
+```
+
+Dikkat: her dilimde çarpan **anapara**, bir önceki dilimin sonucu değil.
+Bu, anatosizm yasağının koddaki karşılığı ve gözden kaçarsa sonuç
+sessizce şişer.
+
+**Gün sayımı:** Başlangıç günü sayılmaz, bitiş günü sayılır.
+
+### 4.5. Girdi alanları (taslak)
+
+| Alan | Tip | Neden gerekli |
+|---|---|---|
+| **Anapara** | TL | Hesabın tabanı |
+| **Faiz başlangıç tarihi** | tarih | Temerrüt, vade veya ihtarname tarihi |
+| **Faiz bitiş tarihi** | tarih | Takip tarihi veya ödeme tarihi |
+| **Faiz türü** | seçim: kanuni / ticari avans / TTK 1530 / sözleşmesel | Hangi oran tablosunun kullanılacağını belirler |
+| **Sözleşmesel oran** | % (koşullu) | Yalnızca "sözleşmesel" seçilirse gösterilir |
+
+### 4.6. Kapsam için önerim
+
+Kira aracındaki dersle: dar başlamak, sonra genişletmek.
+
+**v1'de olsun:**
+
+- Tek alacak, tek faiz türü, tek tarih aralığı
+- Basit faiz, otomatik dönem bölme
+- Kanuni faiz + sözleşmesel oran
+
+**v1'de olmasın:**
+
+| Kapsam dışı önerisi | Gerekçe |
+|---|---|
+| Ticari avans ve TTK 1530 | Geçmiş yıl tabloları henüz derlenmedi; ayrıca hangi işin "ticari iş" olduğu bir nitelendirme, araç bunu bilemez |
+| Kısmi ödemeler / ara tahsilatlar | Her ödeme anaparayı düşürüp yeni dilim açıyor; ciddi karmaşıklık |
+| Yabancı para borçları (3095 m.4/a) | Ayrı rejim |
+| Takip sonrası faiz, harç ve masraflar | Bu, 6 numaralı aracın konusu |
+| Ticari cari hesapta bileşik faiz istisnası | Anatosizm yasağının istisnası; nadir ve nitelendirme gerektiriyor |
+
+Bu daraltma ile araç "bir alacağa şu tarihler arasında ne kadar kanuni
+faiz işler" sorusunu cevaplıyor — en sık sorulan soru bu.
+
+### 4.7. Açık sorular
+
+1. **Kapsam önerisi (4.6) kabul mü?** Özellikle ticari faizin dışarıda
+   kalması — dışarıdaysa "faiz türü" alanı ikiye iniyor ve tablo
+   sadeleşiyor.
+2. **Dilim sınırlarında gün sayımı.** Oran 31.05.2024'te bitip
+   01.06.2024'te başlıyorsa, 31 Mayıs hangi dilime yazılıyor? İki dilim
+   arasında bir günün iki kez sayılması ya da hiç sayılmaması, uzun
+   aralıklarda gözle görülür sapma yaratır.
+3. **Artık yıl.** 2024 artık yıl (366 gün). Payda her hâlde 365 mi
+   kalıyor, yoksa artık yılda 366 mı oluyor? Kaynaklar "hukuki
+   hesaplamada genelde 365" diyor ama "genelde" kodlanamaz.
+4. **365 mi 360 mı?** Bankacılıkta 360, mahkeme hesaplarında 365
+   kullanıldığı geçiyor. Araç mahkeme hesabını hedeflediğine göre 365
+   olmalı; teyit gerekiyor.
+5. **Kanuni faizde AYM iptal kararları** oran tablosunu etkiliyor mu?
+6. **Ticari oranların geçmiş tablosu** — v1'e alınırsa TCMB'nin yıllara
+   göre ilan ettiği oranlar derlenmeli.
+
+### 4.8. Kaynaklar
+
+Tamamı **ikincil**. Birincil kaynak `mevzuat.gov.tr` (3095 s.K., TTK) ve
+TCMB'nin reeskont/avans oranları duyurusu.
+
+- [3095 sayılı Kanun — konsolide metin (Lexpera)](https://www.lexpera.com.tr/mevzuat/kanunlar/kanuni-faiz-ve-temerrut-faizine-iliskin-kanun-3095)
+- [Yasal faiz oranı 2026 ve dönemsel tablo (Büken Hukuk)](https://buken.av.tr/yasal-faiz-hesaplama-2026/)
+- [Yeni yasal faiz oranı — 12. Yargı Paketi değişikliği (Elçi)](https://www.elci.av.tr/makale/yasal-faiz-orani-kac-oldu-yeni-duzenlemeyle-kanuni-faiz-yuzde-31-2026-182)
+- [Yasal faize ilişkin AYM iptal kararları (Legal Blog)](https://legal.com.tr/blog/ekonomi/yasal-faize-iliskin-anayasa-mahkemesi-iptal-kararlari-ve-enflasyon-kosullarinda-faiz-uygulamasi/)
+- [TCMB — reeskont ve avans faiz oranları](https://www.tcmb.gov.tr/)
+
+### 4.9. Test senaryoları
+
+_TODO — 4.7'deki sorular cevaplandıktan sonra doldurulacak. Kapsanması
+gereken dallar: tek dönem içinde kalan aralık, iki oranı kesen aralık,
+üç oranı kesen aralık (4.1'deki örnek), artık yıl içeren aralık, dilim
+sınırına tam denk gelen tarih, bitiş tarihi başlangıçtan önce (hata),
+sözleşmesel oran._
+
 - **Onay Durumu:** ⬜ Bekliyor
 
 ## 5. Araç Mahrumiyet Bedeli Hesaplama
