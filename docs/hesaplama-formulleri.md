@@ -469,8 +469,7 @@ listesi:
 
 ## 3. Kira Artış Oranı Hesaplama
 
-> **Durum: TASLAK — kodlanmadı.** İkincil kaynaklardan derlendi.
-> Av. Onur Can Yılmaz'ın onayı olmadan `src/lib/` altına kod yazılmaz.
+> **Durum: ONAYLANDI ve YAYINDA.** Kod yazıldı, testler geçiyor.
 
 ### 3.1. Bu aracın asıl zorluğu formül değil, VERİ
 
@@ -759,7 +758,10 @@ noktasından geliyor ve şimdiden kesin.
 **Yuvarlama:** yapılmıyor (3.8b). 2 numaralı senaryo bunu doğruluyor —
 küsurat korunmalı, tam liraya inilmemeli.
 
-- **Onay Durumu:** ⬜ Bekliyor
+- **Onay Durumu:** ✅ **Onaylandı** — Av. Onur Can Yılmaz, 14 Eylül 2026.
+  Kod: `src/lib/kira-artis.ts` + `src/lib/tufe.ts`, testler
+  `src/lib/kira-artis.test.ts`, sayfa
+  `src/pages/hesaplama-araclari/kira-artis-orani.astro`.
 
 ## 4. İcra / Gecikme Faizi Hesaplama
 

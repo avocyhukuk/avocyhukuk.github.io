@@ -44,7 +44,7 @@ export const CALCULATORS: readonly Calculator[] = [
     summary:
       'Yenilenen kira döneminde uygulanabilecek azami artış oranını TÜFE on iki aylık ortalamasına göre hesaplar.',
     areas: ['gayrimenkul-hukuku'],
-    status: 'planned',
+    status: 'ready',
   },
   {
     slug: 'icra-gecikme-faizi',

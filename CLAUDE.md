@@ -158,7 +158,7 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 ### Faz C — Hesaplama araçları (Bölüm 6'daki sıraya göre, her biri ayrı görev)
 - [ ] Yatar hesaplama — formül doğrulama → geliştirme → test → yayın
 - [ ] Araç değer kaybı hesaplama — formül doğrulama → geliştirme → test → yayın
-- [ ] Kira artış hesaplama — formül doğrulama → geliştirme → test → yayın
+- [x] Kira artış hesaplama — formül doğrulama → geliştirme → test → yayın. *TÜFE oranı elle tutulan tabloda (`src/lib/tufe.ts`); her ayın 4'ünde bir bulut ajanı hatırlatıyor, oran TÜİK bülteninden teyit edilip elle işleniyor.*
 - [ ] İcra/gecikme faizi hesaplama — formül doğrulama → geliştirme → test → yayın
 - [ ] Araç mahrumiyet bedeli hesaplama — formül doğrulama → geliştirme → test → yayın
 - [ ] Dava/icra harç ve masraf hesaplama — formül doğrulama → geliştirme → test → yayın

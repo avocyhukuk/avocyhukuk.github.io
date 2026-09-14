@@ -1,0 +1,232 @@
+---
+/**
+ * Kira Artış Oranı Hesaplama — Faz C'nin ilk yayınlanan aracı.
+ *
+ * Formül ve kapsam: docs/hesaplama-formulleri.md § 3 (Onay Durumu:
+ * Onaylandı). Hesabın kendisi src/lib/kira-artis.ts içinde, saf ve test
+ * edilmiş; bu sayfa yalnızca formu kurup sonucu cetvele basıyor.
+ *
+ * SİTEDEKİ İLK JS: Astro'nun sıfır JS varsayılanı burada bilinçli olarak
+ * bırakılıyor — CLAUDE.md Bölüm 4/5 hesaplama araçlarını istisna tutuyor.
+ * Betik yalnızca bu sayfaya yükleniyor, diğer sayfalar JS'siz kalıyor.
+ */
+import CalculatorShell from '../../components/calculator/CalculatorShell.astro';
+import ResultSheet from '../../components/calculator/ResultSheet.astro';
+import FormField from '../../components/calculator/FormField.astro';
+import { CALCULATORS } from '../../lib/calculators';
+import { ayAdi, oranliAylar } from '../../lib/tufe';
+
+const calculator = CALCULATORS.find((tool) => tool.slug === 'kira-artis-orani')!;
+const aylar = oranliAylar();
+
+const scopeNote =
+  'Bu araç, kira bedelinin TÜFE tavanına tabi olduğu durumlar için tahmini ' +
+  'hesaplama yapar. Beş yıldan uzun süren kira ilişkilerinde bedel endeksle ' +
+  'sınırlı olmayıp hâkim tarafından belirlenebilir; bu araç söz konusu ayrımı yapmaz.';
+---
+
+<CalculatorShell calculator={calculator} lawAsOf="14 Eylül 2026" scopeNote={scopeNote}>
+  <Fragment slot="form">
+    <FormField
+      id="mevcut-kira"
+      label="Mevcut kira bedeli"
+      type="number"
+      unit="TL"
+      required
+      min={0}
+      step="0.01"
+      inputmode="decimal"
+      hint="Aylık bedel. Kuruş girebilirsiniz."
+    />
+
+    <FormField
+      id="yenileme-ayi"
+      label="Yenileme ayı"
+      hint="Sözleşmenin yenilendiği ay. Oranı işlenmiş aylar listelenir."
+    >
+      <select id="yenileme-ayi" name="yenilemeAyi" required>
+        {
+          aylar.map((kayit) => (
+            <option value={kayit.yenilemeAyi}>{ayAdi(kayit.yenilemeAyi)}</option>
+          ))
+        }
+      </select>
+    </FormField>
+
+    <FormField
+      id="sozlesme-orani"
+      label="Sözleşmedeki artış oranı"
+      type="number"
+      unit="%"
+      min={0}
+      step="0.01"
+      inputmode="decimal"
+      hint="İsteğe bağlı. Girilirse yasal tavanla karşılaştırılır."
+    />
+
+    <button class="btn btn--primary" type="button" id="hesapla">Hesapla</button>
+
+    <p class="form-note">
+      Sonuç, uygulanabilecek <strong>azami</strong> bedeli gösterir. Sözleşmede daha düşük bir artış kararlaştırılmışsa
+      o geçerlidir.
+    </p>
+  </Fragment>
+
+  <div class="result-region">
+    <p class="alert" id="uyari" role="alert" hidden></p>
+    <ResultSheet />
+  </div>
+</CalculatorShell>
+
+<style>
+  .form-note {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  .result-region {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /*
+   * Uyarı kutusu hata için: kenar rengi lacivert değil, çünkü buradaki
+   * mesaj bilgi değil engel — "hesap yapılamadı" diyor.
+   */
+  .alert {
+    padding: var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-inline-start: 3px solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+</style>
+
+<script>
+  import { kiraArtisiHesapla } from '../../lib/kira-artis';
+  import type { SheetRow } from '../../lib/calculator-ui';
+  import { ayAdi } from '../../lib/tufe';
+  import { formatTRY, formatPercent } from '../../lib/format';
+  import { clearSheet, findSheet, renderSheet } from '../../scripts/result-sheet';
+
+  const TBK_344 = {
+    short: 'TBK m.344/1',
+    full: '6098 sayılı Türk Borçlar Kanunu m. 344/1 — Kira bedelinin belirlenmesi',
+  };
+
+  const sheet = findSheet();
+  const buton = document.querySelector<HTMLButtonElement>('#hesapla');
+  const kiraGirdi = document.querySelector<HTMLInputElement>('#mevcut-kira');
+  const aySecim = document.querySelector<HTMLSelectElement>('#yenileme-ayi');
+  const oranGirdi = document.querySelector<HTMLInputElement>('#sozlesme-orani');
+  const uyari = document.querySelector<HTMLElement>('#uyari');
+
+  if (sheet && buton && kiraGirdi && aySecim && oranGirdi && uyari) {
+    const uyariGoster = (mesaj: string) => {
+      uyari.textContent = mesaj;
+      uyari.hidden = false;
+      clearSheet(sheet);
+    };
+
+    const uyariGizle = () => {
+      uyari.hidden = true;
+      uyari.textContent = '';
+    };
+
+    const hesapla = () => {
+      uyariGizle();
+
+      // Boş bırakılan opsiyonel oran ile "0 girildi" ayrı şeyler:
+      // 0, artış yapılmaması yönünde geçerli bir anlaşmadır.
+      const ham = oranGirdi.value.trim();
+      const sozlesmeOrani = ham === '' ? undefined : Number(ham);
+
+      const sonuc = kiraArtisiHesapla({
+        mevcutKira: Number(kiraGirdi.value),
+        yenilemeAyi: aySecim.value,
+        sozlesmeOrani,
+      });
+
+      if (sonuc.durum === 'gecersiz-kira') {
+        uyariGoster('Mevcut kira bedelini sıfırdan büyük bir sayı olarak girin.');
+        return;
+      }
+
+      if (sonuc.durum === 'gecersiz-oran') {
+        uyariGoster('Sözleşmedeki artış oranı negatif olamaz. Boş bırakabilirsiniz.');
+        return;
+      }
+
+      if (sonuc.durum === 'oran-bulunamadi') {
+        uyariGoster(
+          `${ayAdi(sonuc.yenilemeAyi)} ayı için TÜFE oranı henüz işlenmedi. ` +
+            'Bu ay için hesaplama yapılamıyor.'
+        );
+        return;
+      }
+
+      const mevcutKira = Number(kiraGirdi.value);
+      const rows: SheetRow[] = [
+        { label: 'Mevcut kira bedeli', value: formatTRY(mevcutKira) },
+        {
+          label: 'Yasal tavan oranı',
+          value: formatPercent(sonuc.tavanOrani),
+          detail: `TÜFE on iki aylık ortalamalara göre değişim — ${ayAdi(sonuc.kaynakBulten)} bülteni`,
+          basis: TBK_344,
+        },
+      ];
+
+      if (sonuc.sozlesmeOrani === undefined) {
+        rows.push(
+          { label: 'Azami artış tutarı', value: formatTRY(sonuc.azamiArtis) },
+          {
+            label: 'Uygulanabilecek azami kira bedeli',
+            value: formatTRY(sonuc.azamiBedel),
+            total: true,
+            basis: TBK_344,
+          }
+        );
+      } else {
+        rows.push(
+          {
+            label: 'Yasal tavana göre azami bedel',
+            value: formatTRY(sonuc.azamiBedel),
+            detail: `Artış tavanı ${formatTRY(sonuc.azamiArtis)}`,
+          },
+          {
+            label: 'Sözleşmedeki artış oranı',
+            value: formatPercent(sonuc.sozlesmeOrani),
+            detail: sonuc.sozlesmeTavaniAsiyor
+              ? 'Tavanı aşıyor — aşan kısım geçersiz, tavan uygulanır'
+              : 'Tavanın altında — sözleşme oranı uygulanır',
+          },
+          { label: 'Uygulanacak artış tutarı', value: formatTRY(sonuc.uygulanacakArtis) },
+          {
+            label: 'Uygulanacak kira bedeli',
+            value: formatTRY(sonuc.uygulanacakBedel),
+            total: true,
+            basis: TBK_344,
+          }
+        );
+      }
+
+      renderSheet(sheet, rows);
+    };
+
+    buton.addEventListener('click', hesapla);
+
+    // Enter ile de hesaplansın — form içinde sayı girip Enter'a basmak
+    // beklenen davranış.
+    for (const alan of [kiraGirdi, oranGirdi]) {
+      alan.addEventListener('keydown', (olay) => {
+        if (olay.key === 'Enter') {
+          olay.preventDefault();
+          hesapla();
+        }
+      });
+    }
+  }
+</script>
