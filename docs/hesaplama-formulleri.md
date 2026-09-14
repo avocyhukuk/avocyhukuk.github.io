@@ -708,6 +708,30 @@ manşet %30,89 değil. 10.000 TL'lik bir kirada aradaki fark aylık
 > — "%34,88" yerine "4,88", "%31,79" yerine "1,79" yazan sayfalar var.
 > Rakam TÜİK bülteninden okunmalı, haber sitesinden değil.
 
+#### Tuzağın ikinci kez yakalandığı yer
+
+14 Eylül 2026'da tabloya 2026'nın aylık oranları girilmek istendi ve
+verilen seri şuydu: 30,65 · 31,53 · 30,87 · 32,37 · 32,61 · 32,11 ·
+31,75 · 31,51. Girilmeden önce kontrol edildi ve bunların **yıllık
+değişim** serisi olduğu anlaşıldı. İki bağımsız doğrulama:
+
+1. **Ağustos 2026 bülteni** aynı ay için iki rakam veriyor: yıllık
+   **%31,51**, on iki aylık ortalama **%31,79**. Serinin Ağustos değeri
+   birincisine, ayrıca onaylanmış Eylül tavanı (%31,79) ikincisine eşit.
+2. Aynı bülten "yıllık enflasyon bir önceki aya kıyasla 0,24 puan
+   azaldı" diyor → Temmuz yıllık = 31,51 + 0,24 = **31,75**, serinin
+   Temmuz değeriyle birebir aynı.
+
+Doğru tavan serisi ise monoton azalıyor (bir hareketli ortalamada
+beklenen davranış): 34,88 · 33,98 · 33,39 · 32,82 · 32,43 · 32,24 ·
+32,03 · 31,90 · 31,79. Ocak'ta iki seri arasındaki fark **4,23 puan** —
+10.000 TL'lik kirada aylık 423 TL.
+
+**Çıkarılan ders:** Bu tuzak teoride değil pratikte iki kez karşımıza
+çıktı. Tabloya yeni oran girilirken her seferinde bültendeki iki rakam
+YAN YANA okunmalı; ikisi birbirine yakın olduğu için tek başına
+bakıldığında hangisi olduğu anlaşılmıyor.
+
 **Kaynak:** TÜİK — Tüketici Fiyat Endeksi aylık haber bülteni
 (`data.tuik.gov.tr`). Her ayın rakamı, takip eden ayın ilk günlerinde
 açıklanıyor.
