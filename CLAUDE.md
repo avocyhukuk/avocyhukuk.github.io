@@ -171,8 +171,12 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - [ ] Alan adı geçişinde eski yazı adreslerinin yönlendirilmesi — `ocyhukuk.com/iran-savasi.html` ve `ocyhukuk.com/arac-ici-multimedya.html` yeni adreslerine yönlendirilmeli, aksi hâlde paylaşılmış bağlantılar kırılır
 
 ### Faz E — Yayına alma ve izleme
-- [ ] Google Search Console kurulumu, sitemap gönderimi
-- [ ] KVKK'ya duyarlı analytics kurulumu
+
+Çalışma belgesi: `docs/faz-e-yayin-hazirligi.md`
+
+- [ ] Google Search Console kurulumu, sitemap gönderimi — *doğrulama mekanizması hazır (`PUBLIC_GOOGLE_SITE_VERIFICATION`), sitemap gönderime hazır; alan adı bağlanmadan yapılamaz*
+- [ ] KVKK'ya duyarlı analytics kurulumu — *seçenekler karşılaştırıldı, öneri: yalnızca Search Console ile başla; karar bekliyor*
+- [ ] **Gizlilik metni düzeltilmeli** — `public/privacy-policy.html` eski siteden devralınmış ve bu siteyle ilgisi olmayan bir WhatsApp yapay zekâ asistanı hizmetini anlatıyor. Eksik değil, YANLIŞ. `terms.html` de kontrol edilmeli
 - [ ] Video embed alanlarının gerçek videolarla test edilmesi (videolar üretildikçe)
 
 ## 8. Reklam Yasağı / Uyum Notu

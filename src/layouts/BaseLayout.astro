@@ -49,6 +49,14 @@ const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
 // mutlak URL gerektirir (göreli yol verilirse sosyal medya önizlemesi çalışmaz).
 const canonicalUrl = new URL(path, Astro.site).href;
 const ogImageUrl = new URL(ogImage, Astro.site).href;
+
+/*
+ * Google Search Console doğrulama kodu. `PUBLIC_` önekli olduğu için
+ * derleme sırasında istemci çıktısına gömülebilir — zaten gizli bir
+ * değer değil, herkese açık HTML'de duran bir doğrulama dizesi.
+ * Tanımlı değilse etiket hiç basılmaz.
+ */
+const siteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 ---
 
 <!doctype html>
@@ -61,6 +69,18 @@ const ogImageUrl = new URL(ogImage, Astro.site).href;
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalUrl} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    {
+      /* Google Search Console site doğrulaması (Faz E).
+        Değer `.env` dosyasından ya da Cloudflare'in ortam değişkeni
+        panelinden gelir; verilmezse etiket hiç basılmaz.
+
+        NOT: Alan adı Cloudflare'e bağlandıktan sonra DNS TXT kaydıyla
+        doğrulama daha sağlamdır — site yeniden yayınlansa da bozulmaz ve
+        alan adının tamamını (alt alan adları dahil) kapsar. Bu etiket,
+        DNS'e erişilemediği durumlar için yedek yol olarak duruyor. */
+    }
+    {siteVerification && <meta name="google-site-verification" content={siteVerification} />}
 
     <!-- Favicon seti — varlıklar public/ altında (Faz A, logo vektörleştirme adımı) -->
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
