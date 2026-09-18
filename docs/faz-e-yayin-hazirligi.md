@@ -50,7 +50,7 @@ adı → doğrulama → sitemap gönderimi.
 
 ---
 
-## 2. Analytics — KARAR BEKLİYOR
+## 2. Analytics — KARARA BAĞLANDI
 
 ### 2.1. Gerilim
 
@@ -80,9 +80,10 @@ biz oluruz; aydınlatma metni, saklama süresi, VERBİS değerlendirmesi
 gibi yükümlülükler doğar. Tek avukatlı bir büro için kazancından fazla
 yük.
 
-### 2.3. Önerim: A ile başla
+### 2.3. Karar: A — yalnızca Search Console
 
-**Yalnızca Search Console.** Gerekçe:
+**Ziyaretçi izleme betiği eklenmeyecek.** Av. Onur Can Yılmaz'ın kararı,
+18 Eylül 2026. Gerekçe:
 
 Sitenin CLAUDE.md'de yazılı amacı *"potansiyel müvekkillerin
 bulabileceği, uzun kuyruk aramalarda görünür"* olmak. Bu amacın ölçüsü
@@ -93,9 +94,19 @@ Sayfa görüntüleme sayısı bir tanıtım sitesinde bunun yanında ikincil
 kalıyor. Sıfır JS'yi 18 sayfada korumak, öğrenilecek şeyin karşılığından
 değerli görünüyor.
 
-**Sonra ihtiyaç duyulursa B eklenir** — mekanizma hazır (`.env`'deki
-`PUBLIC_ANALYTICS_TOKEN`), tek değer girip bir bileşen eklemek yetiyor.
-Karar geri alınabilir; şimdi eklememek bir kapı kapatmıyor.
+**Sonra ihtiyaç duyulursa B eklenir.** Cloudflare Web Analytics çerezsiz
+olduğu için onay bandı gerektirmez; eklemek bir beacon bileşeni ve tek
+bir token değeri demek. Karar geri alınabilir, şimdi eklememek bir kapı
+kapatmıyor.
+
+> **Eklenirse yapılacaklar — atlanmaması için buraya yazılıyor:**
+>
+> 1. `/gizlilik` sayfasındaki *"ziyaretçi izleme kodu çalıştırılmaz"*
+>    maddesi **aynı commit'te** güncellenmeli. Şu anki metin doğru;
+>    beacon eklenip metin güncellenmezse yine yanlış aydınlatma metni
+>    yayınlanmış olur.
+> 2. Sıfır JS iddiası 18 sayfa için geçerliliğini yitirir — README ve
+>    CLAUDE.md'deki performans notları gözden geçirilmeli.
 
 ---
 

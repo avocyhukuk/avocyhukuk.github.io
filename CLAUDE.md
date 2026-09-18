@@ -175,7 +175,7 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 Çalışma belgesi: `docs/faz-e-yayin-hazirligi.md`
 
 - [ ] Google Search Console kurulumu, sitemap gönderimi — *doğrulama mekanizması hazır (`PUBLIC_GOOGLE_SITE_VERIFICATION`), sitemap gönderime hazır; alan adı bağlanmadan yapılamaz*
-- [ ] KVKK'ya duyarlı analytics kurulumu — *seçenekler karşılaştırıldı, öneri: yalnızca Search Console ile başla; karar bekliyor*
+- [x] KVKK'ya duyarlı analytics kurulumu — *karar: ziyaretçi izleme betiği EKLENMEYECEK, yalnızca Search Console kullanılacak (18 Eylül 2026). Sitenin amacı aramalarda görünmek ve onu Search Console ölçüyor; buna karşılık bir beacon 18 sayfaya birden JS ekler. Karar geri alınabilir — eklenirse `/gizlilik` metni aynı commit'te güncellenmeli.*
 - [x] Gizlilik metni düzeltildi — eski `privacy-policy.html` ve `terms.html` silindi (başka bir projeye aitlerdi), yerine `/gizlilik` sayfası yazıldı ve altbilgiden bağlandı. *Kural: siteye form/çerez/analytics eklenirse bu metin aynı commit'te güncellenir.*
 - [ ] Video embed alanlarının gerçek videolarla test edilmesi (videolar üretildikçe)
 
