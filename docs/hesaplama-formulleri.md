@@ -524,6 +524,103 @@ topaktas bizim v2 notumuzla uyuşuyor (≤3 yıl doğrudan, 3-10 yıl KS'ye
 kural veriyor: kapalıda 1/3 + KS'ye 1 yıl kala. Muhtemelen güncellenmemiş.
 v2'ye geçildiğinde bu ayrışma çözülmeli.
 
+### 1.11c. Kod düzeyinde inceleme — 18 Eylül 2026
+
+Formlarına değer girip sonuç okumak mümkün olmadı (araçların JavaScript'i
+çalıştırılamıyor). Bunun yerine **hesap mantığının kendisi okundu**:
+topaktas'ın sayfasındaki 63 KB'lık satır içi betik çıkarılıp algoritma
+birebir yeniden çalıştırıldı. Bu, form çıktısı karşılaştırmaktan güçlü —
+kuralın ne olduğunu değil, ne yapıldığını gösteriyor.
+
+(ayboga'nın hesap betiği fetch edilen sayfada bulunmadı; aşağıdaki
+sonuçlar topaktas'ın kodundan.)
+
+#### Çalıştırılan senaryo
+
+12 yıl · adi suç · suç tarihi **15.06.2019** (30.03.2020 öncesi) ·
+tekerrür yok · infaza başlama 01.03.2026 · mahsup yok
+
+| Çıktı | Tarih |
+|---|---|
+| Koşullu salıverilme | 28.02.2032 (2.190 gün) |
+| Bihakkın tahliye | 26.02.2038 |
+| Açık kuruma geçiş | 13.05.2027 |
+| **DS — standart** | **28.02.2029** — KS'den **3,00 yıl** önce |
+| **DS — 7571 erken** | **28.08.2026** — KS'den **5,51 yıl** önce |
+
+#### 🔴 Belgemiz burada YANLIŞ — hâl A düzeltilmeli
+
+Belgemiz hâl A için *"3 yıl — m.10/6'nın erkenliği AYRICA EKLENMEZ"*
+diyor. topaktas'ın kodu bunu yapmıyor:
+
+```js
+if (sucTarihi <= D_31072023 && !ex11) { … dsErken hesaplanır … }
+```
+
+Eşik **31.07.2023** ve bu, 30.03.2020 öncesi suçları da kapsıyor.
+Yani geçici m.6'nın 3 yılı **üstüne** 7571 erkenliği geliyor. ayboga'nın
+"6 yıl (3+3)" özeti bu birleşik etkiyi anlatıyor; topaktas aynı sonucu
+iki ayrı tarih olarak sunuyor. **İki araç da aynı yere varıyor —
+çelişki anlatım farkıymış.** Belgemiz ise ikisinden de ayrışıyor.
+
+Ama erkenlik ham bir toplama değil; kodda **iki niteliği** var:
+
+1. **Başvuruya bağlı.** Kodun kendi açıklaması: *"infaz hâkimliğine
+   başvurulması halinde standart tarihlerden 3'er yıl önce … çıkış
+   mümkündür. Başvuru zorunludur — otomatik değildir."* Yani araç bunu
+   kesin tarih olarak değil, **koşullu ikinci tarih** olarak göstermeli.
+2. **Tabanı var.** `dsErken = max(standartDS − 3 yıl, açığa ayrılma + 90 gün)`
+   Senaryoda ham 3+3 hesabı 01.03.2026 verirdi; taban onu 28.08.2026'ya
+   itti — 5,51 yıl, 6 değil.
+
+#### ✅ Önceki ayrışma kaydımdaki bir hatanın düzeltmesi
+
+§1.11b/2'de "açık kurumda 3 ay şartı ceza süresine göre 1 ay/3 ay
+olmalı" demiştim. Kod ikisini **ayrı taban** olarak kullanıyor:
+
+| Taban | Değer |
+|---|---|
+| Açık kuruma **erken** ayrılma | ceza < 10 yıl → 30 gün, ≥ 10 yıl → 90 gün kapalıda |
+| **DS** erken çıkışı | her hâlde açığa ayrıldıktan **90 gün** sonra |
+
+DS tarafında bizim "en az 3 ay" rakamımız **doğruymuş**. 30/90 ayrımı
+açık kuruma geçişe ait — o da v1 kapsamı dışında.
+
+#### ✅ Oran çakışması kararımız kodla doğrulandı
+
+```js
+if (tekerrur === '1' && base < 2/3) base = 2/3;   // yükseltir, ezmez
+if (tekerrur === '2') base = 0.75;
+```
+
+Birinci tekerrür oranı **yükseltiyor, ezmiyor** — TCK 188'den 3/4 alan
+bir mükerrir 3/4'te kalıyor. Bu, `max(katalogOranı, mükerrirlikOranı)`
+kuralımızın birebir karşılığı.
+
+#### 🆕 v2 sorusunu cevaplayan bulgu — SSÇ katsayıları
+
+Belgemizde "1/3 ve 1/2 katsayıları neye uygulanıyor" sorusu v2'ye
+ertelenmişti. topaktas'ın kodu bunu **gün çarpanı** olarak uyguluyor,
+KS oranı olarak değil:
+
+> 15 yaş altı → 1 fiilî gün = **3 ceza günü**
+> 15–18 yaş → 1 fiilî gün = **2 ceza günü**
+
+Dayanak olarak 5275 geçici m.6 gösteriliyor. v2'ye geçildiğinde bu
+yorum doğrulanmalı.
+
+#### 🆕 Belgemizde hiç olmayan kural
+
+Terör suçu + tekerrüre esas önceki suç da TMK kapsamındaysa **koşullu
+salıverilme hiç uygulanmıyor** (TMK m.17/3). Kodda açık bir dal olarak
+var. v1 kapsamımızda terör suçu bulunduğu için bu eklenmeli.
+
+#### 7571 muafiyet listesi (koddan)
+
+2. tekerrür · nitelikli cinsel saldırı · çocuğun cinsel istismarı ·
+nitelikli reşit olmayanla cinsel ilişki · terör · örgüt kurma · örgüt
+faaliyeti çerçevesinde işlenen suç · basit cinsel suçlar
+
 ### 1.12. Kapanmadan önce yapılacak son kontrol
 
 Onay, `mevzuat.gov.tr` üzerindeki **resmî metinle** yapılacak. Kontrol
@@ -538,8 +635,10 @@ listesi:
 - [ ] 7571 yeni bir geçici madde mi ekledi, yoksa m.10'a 6. fıkra mı
 - [ ] m.107/m.108 çakışmasında yüksek oranın uygulandığının teyidi
 - [ ] 13. Yargı Paketi yürürlüğe girdi mi
-- [ ] **Hâl A'da DS 3 yıl mı 6 yıl mı** — ayboga topluyor, biz toplamıyoruz (1.11b/1)
-- [ ] **Açık kurum şartı** tek eşik mi, ceza süresine bağlı mı (1.11b/2)
+- [ ] **Hâl A'da erkenlik uygulanıyor mu** — kod uyguluyor, belgemiz uygulamıyordu; belgemiz yanlış görünüyor (1.11c)
+- [ ] **Erken çıkış başvuruya mı bağlı** — koda göre otomatik değil; araç koşullu ikinci tarih göstermeli (1.11c)
+- [ ] **Terör + önceki TMK suçu → KS yok** (TMK m.17/3) — belgemizde hiç yok (1.11c)
+- [x] ~~Açık kurum şartı tek eşik mi~~ — çözüldü: DS tabanı her hâlde 90 gün, 30/90 ayrımı açık kuruma geçişe ait (1.11c)
 - [ ] **Küsurat kuralı** — belgede hiç yok, karara bağlanmalı (1.11b/3)
 - [ ] **İkinci tekerrürde 3/4** bir tarih penceresiyle sınırlı mı (1.11b/4)
 - [ ] **Katalog listeleri** — TCK 132-138, 302-325, 326-339, 220 (1.11b/5)
