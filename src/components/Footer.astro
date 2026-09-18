@@ -88,7 +88,10 @@ const year = new Date().getFullYear();
       Bu sitedeki içerikler genel bilgilendirme amaçlıdır; hukuki görüş veya danışmanlık niteliği
       taşımaz. Somut uyuşmazlığınız için avukata başvurunuz.
     </p>
-    <p class="footer-copy">© {year} {SITE.name}</p>
+    <p class="footer-copy">
+      © {year}
+      {SITE.name} · <a href="/gizlilik">Gizlilik</a>
+    </p>
   </div>
 </footer>
 
@@ -204,6 +207,11 @@ const year = new Date().getFullYear();
     font-size: var(--text-xs);
     line-height: var(--leading-snug);
     color: var(--text-on-navy-muted);
+  }
+
+  /* Lacivert zeminde soluk metnin içindeki bağlantı okunur kalmalı */
+  .footer-copy a {
+    color: var(--text-on-navy);
   }
 
   /* Odak halkası lacivert zeminde görünmez kalmasın */

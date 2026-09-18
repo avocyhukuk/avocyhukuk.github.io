@@ -176,7 +176,7 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 
 - [ ] Google Search Console kurulumu, sitemap gönderimi — *doğrulama mekanizması hazır (`PUBLIC_GOOGLE_SITE_VERIFICATION`), sitemap gönderime hazır; alan adı bağlanmadan yapılamaz*
 - [ ] KVKK'ya duyarlı analytics kurulumu — *seçenekler karşılaştırıldı, öneri: yalnızca Search Console ile başla; karar bekliyor*
-- [ ] **Gizlilik metni düzeltilmeli** — `public/privacy-policy.html` eski siteden devralınmış ve bu siteyle ilgisi olmayan bir WhatsApp yapay zekâ asistanı hizmetini anlatıyor. Eksik değil, YANLIŞ. `terms.html` de kontrol edilmeli
+- [x] Gizlilik metni düzeltildi — eski `privacy-policy.html` ve `terms.html` silindi (başka bir projeye aitlerdi), yerine `/gizlilik` sayfası yazıldı ve altbilgiden bağlandı. *Kural: siteye form/çerez/analytics eklenirse bu metin aynı commit'te güncellenir.*
 - [ ] Video embed alanlarının gerçek videolarla test edilmesi (videolar üretildikçe)
 
 ## 8. Reklam Yasağı / Uyum Notu

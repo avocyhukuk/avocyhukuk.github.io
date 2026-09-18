@@ -31,8 +31,8 @@ paneline girilir.
 |---|---|
 | `sitemap-index.xml` üretiliyor | ✅ |
 | `robots.txt` sitemap'i işaret ediyor | ✅ `https://ocyhukuk.com/sitemap-index.xml` |
-| URL sayısı | 17 (derlenen 18 sayfanın tamamı; 404 sayfası hariç — doğru) |
-| Yer tutucu HTML'ler hariç tutulmuş | ✅ `privacy-policy`, `terms` sitemap'te yok |
+| URL sayısı | 18 (derlenen 19 sayfanın tamamı; 404 sayfası hariç — doğru) |
+| Süzgeç | Kaldırıldı — dışarıda tutulacak yer tutucu sayfa kalmadı (bkz. § 3) |
 | Canonical adresler | ✅ hepsi `https://ocyhukuk.com` |
 
 Sitemap'teki adresler `ocyhukuk.com`u gösteriyor. **Alan adı bağlanmadan
@@ -99,43 +99,43 @@ Karar geri alınabilir; şimdi eklememek bir kapı kapatmıyor.
 
 ---
 
-## 3. 🔴 Gizlilik metni — YANLIŞ İÇERİK YAYINDA
+## 3. Gizlilik metni — ÇÖZÜLDÜ
 
-Faz E'ye başlarken çıkan en önemli bulgu.
+Eski `public/privacy-policy.html`, bu siteyle ilgisi olmayan bir hizmeti
+(WhatsApp tabanlı yapay zekâ asistanı) anlatıyordu. Av. Onur Can
+Yılmaz'ın teyidiyle o hizmetin **bu projeyle ilgisi yok** — ayrı bir
+projeye aitti.
 
-`public/privacy-policy.html` eski Natro sitesinden devralınan bir yer
-tutucu ve **bu siteyle ilgisi olmayan bir hizmeti** anlatıyor:
+**Yapılanlar:**
 
-> "…WhatsApp tabanlı hukuki asistan hizmetine ilişkin kişisel verilerin…"
-> — mesaj içeriğinin yapay zekâ ile işlendiği, sohbet geçmişinin
-> saklandığı, randevuların Google Calendar'a yazıldığı yazılı.
+- `public/privacy-policy.html` ve `public/terms.html` silindi. İkisi de
+  hiçbir yerden bağlantı verilmeyen yetim dosyalardı; içerikleri git
+  geçmişinde duruyor.
+- `astro.config.mjs`'teki sitemap süzgeci kaldırıldı — artık dışarıda
+  tutulacak sayfa yok.
+- Yeni sayfa: **`/gizlilik`** (`src/pages/gizlilik.astro`), altbilgiden
+  bağlantılı.
 
-Yeni sitede bunların hiçbiri yok. Buradaki WhatsApp bağlantısı yalnızca
-hazır bir mesajla sohbet penceresi açıyor; biz hiçbir veri toplamıyor,
-saklamıyor, işlemiyoruz.
+**Yeni metnin söylediği** (hepsi bu sitede doğrulanabilir):
 
-**Neden ciddi:** Ziyaretçiye, gerçekleşmeyen bir veri işleme faaliyeti
-anlatılıyor. KVKK aydınlatma yükümlülüğü açısından eksik değil,
-**yanlış** bir metin. Analytics eklenmese bile düzeltilmesi gerekiyor;
-eklenirse zaten yeniden yazılması şart.
+| Başlık | İçerik |
+|---|---|
+| Toplanmayanlar | Çerez yok · form yok · izleme kodu yok · yazı tipleri kendi sunucumuzdan |
+| Hesaplama araçları | Girilen bilgiler tarayıcıdan çıkmaz, sunucuya gitmez, kaydedilmez |
+| Barındırma | Cloudflare sunucu kayıtları (IP, tarih, sayfa) — dürüstçe belirtildi |
+| İletişim | WhatsApp'ta Meta'nın politikası geçerli; telefon/e-posta Avukatlık Kanunu m. 36 |
+| Haklar | KVKK m. 11 + başvuru adresi |
 
-Üstelik bu dosya sitemap dışında tutulduğu için gözden kaçmaya müsait —
-ama adresi hâlâ erişilebilir durumda.
+> **Bakım kuralı sayfanın koduna yazıldı:** siteye form, çerez, analytics
+> veya üçüncü taraf bileşen eklenirse bu metin AYNI commit'te
+> güncellenir. Aksi hâlde yine yanlış bir aydınlatma metni yayınlanmış
+> olur — bu projede bir kez yaşandı.
 
-**Karar gerekiyor:**
-
-1. **O WhatsApp asistan hizmeti hâlâ var mı?** Varsa metin ona ait ayrı
-   bir adreste kalmalı ve bu siteyle ilişkisi netleşmeli. Yoksa
-   tamamen kaldırılmalı.
-2. Bu site için **yeni ve doğru** bir gizlilik/aydınlatma metni yazılacak
-   mı? Şu anki hâliyle site hiçbir kişisel veri toplamıyor (form yok,
-   çerez yok, analytics yok) — metin bunu söyleyen kısa bir sayfa
-   olabilir.
-3. `terms.html` de aynı şekilde devralınmış; içeriği kontrol edilmeli.
-
-Bu üçü netleşmeden Faz E kapanmamalı.
-
----
+**Kullanım koşulları sayfası yazılmadı.** Eski `terms.html` de aynı
+başka projeye aitti ve silindi. Altbilgideki *"içerikler genel
+bilgilendirme amaçlıdır; hukuki görüş niteliği taşımaz"* notu ile
+hesaplama araçlarındaki zorunlu uyarılar şu an bu işlevi görüyor. Ayrı
+bir sayfa istenirse eklenebilir.
 
 ## 4. Video alanları
 

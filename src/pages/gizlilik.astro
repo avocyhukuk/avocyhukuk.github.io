@@ -1,0 +1,138 @@
+---
+/**
+ * Gizlilik ve kişisel verilerin korunması.
+ *
+ * Bu metin, eski siteden devralınan `privacy-policy.html`in yerini aldı.
+ * Eski metin bu siteyle ilgisi olmayan bir hizmeti (WhatsApp tabanlı yapay
+ * zekâ asistanı) anlatıyordu ve bu hâliyle eksik değil YANLIŞTI.
+ *
+ * KURAL: Bu sayfa sitenin GERÇEKTE ne yaptığını anlatır. Siteye bir form,
+ * çerez, analytics veya üçüncü taraf betiği eklenirse bu metin AYNI
+ * commit'te güncellenir — aksi hâlde yine yanlış bir aydınlatma metni
+ * yayınlamış oluruz.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { ATTORNEY, CONTACT, SITE } from '../lib/site';
+import { mailtoHref } from '../lib/contact';
+import { breadcrumbSchema, type BreadcrumbItem } from '../lib/schema';
+
+const crumbs: BreadcrumbItem[] = [
+  { name: 'Ana Sayfa', path: '/' },
+  { name: 'Gizlilik', path: '/gizlilik' },
+];
+
+const guncelleme = '18 Eylül 2026';
+
+const description =
+  'Bu sitede çerez kullanılmaz, form bulunmaz ve ziyaretçi izleme kodu çalıştırılmaz. Hesaplama araçlarına girilen bilgiler tarayıcıdan çıkmaz.';
+---
+
+<PageLayout
+  title="Gizlilik ve Kişisel Verilerin Korunması"
+  description={description}
+  path="/gizlilik"
+  schemas={[breadcrumbSchema(crumbs)]}
+  narrow
+>
+  <PageHero
+    title="Gizlilik ve kişisel verilerin korunması"
+    lead="Bu site ziyaretçilerinden kişisel veri toplamaz. Aşağıda neyin toplanmadığı ve neyin teknik olarak kaçınılmaz olduğu ayrı ayrı açıklanmıştır."
+  >
+    <Breadcrumbs slot="before" items={crumbs} />
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <article class="prose">
+        <p class="lead-note">
+          Son güncelleme: <strong>{guncelleme}</strong>
+        </p>
+
+        <h2>Veri sorumlusu</h2>
+        <p>
+          {ATTORNEY.name} — {SITE.name}<br />
+          {ATTORNEY.bar}, Sicil No: {ATTORNEY.barRegistrationNumber}<br />
+          {CONTACT.address.full}<br />
+          <a href={mailtoHref()}>{CONTACT.email}</a>
+        </p>
+
+        <h2>Bu sitede toplanmayanlar</h2>
+        <ul>
+          <li>
+            <strong>Çerez (cookie) kullanılmaz.</strong> Tarayıcınızda hiçbir çerez oluşturulmaz; bu nedenle
+            bir çerez onay bandı da yoktur.
+          </li>
+          <li>
+            <strong>Form yoktur.</strong> Site üzerinden ad, telefon, e-posta gibi bilgi toplanmaz. İletişim
+            yalnızca WhatsApp, telefon ve e-posta üzerinden, yani sitenin dışında kurulur.
+          </li>
+          <li>
+            <strong>Ziyaretçi izleme kodu çalıştırılmaz.</strong> Sitede analytics, reklam pikseli veya
+            sosyal medya takip betiği bulunmaz.
+          </li>
+          <li>
+            <strong>Yazı tipleri kendi sunucumuzdan verilir.</strong> Google Fonts gibi üçüncü taraflara
+            istek gönderilmediği için IP adresiniz bu hizmetlere iletilmez.
+          </li>
+        </ul>
+
+        <h2>Hesaplama araçları</h2>
+        <p>
+          Sitedeki hesaplama araçlarına girdiğiniz bilgiler —kira bedeli, alacak tutarı, tarihler ve
+          benzeri— <strong>tarayıcınızdan çıkmaz.</strong> Hesap tamamen kendi cihazınızda yapılır; girdiğiniz
+          veriler sunucuya gönderilmez, kaydedilmez ve tarafımızca görülmez. Sayfayı kapattığınızda kaybolurlar.
+        </p>
+        <p>
+          Bu, teknik bir tercih değil bilinçli bir tasarım kararıdır: araçlara girilen bilgiler
+          kişinin hukuki durumuna dair hassas ipuçları taşıyabilir.
+        </p>
+
+        <h2>Barındırma ve sunucu kayıtları</h2>
+        <p>
+          Site Cloudflare altyapısında barındırılmaktadır. Her web sunucusunda olduğu gibi burada da
+          teknik istek kayıtları (IP adresi, tarih-saat, istenen sayfa, tarayıcı bilgisi) oluşur. Bu
+          kayıtlar hizmetin sürdürülmesi ve güvenliğin sağlanması amacıyla barındırma sağlayıcısının
+          kendi politikaları uyarınca tutulur. Tarafımızca ziyaretçi analizi amacıyla işlenmez.
+        </p>
+
+        <h2>Bizimle iletişime geçtiğinizde</h2>
+        <p>
+          <strong>WhatsApp:</strong> Sitedeki bağlantı, telefonunuzdaki WhatsApp uygulamasında hazır bir
+          mesajla sohbet penceresi açar. Mesajlaşma Meta'nın altyapısı üzerinden gerçekleşir ve bu aşamada
+          Meta'nın kendi gizlilik politikası geçerlidir.
+        </p>
+        <p>
+          <strong>Telefon ve e-posta:</strong> Bu kanallardan bize ilettiğiniz bilgiler, avukatlık hizmetinin
+          gerektirdiği ölçüde ve süreyle işlenir. Avukatlık Kanunu m. 36 uyarınca sır saklama yükümlülüğü
+          kapsamındadır.
+        </p>
+
+        <h2>Haklarınız</h2>
+        <p>
+          6698 sayılı Kişisel Verilerin Korunması Kanunu m. 11 uyarınca; kişisel verinizin işlenip
+          işlenmediğini öğrenme, işlenmişse buna ilişkin bilgi talep etme, düzeltilmesini veya
+          silinmesini isteme ve kanunda sayılan diğer haklarınızı kullanabilirsiniz.
+        </p>
+        <p>
+          Başvurularınızı <a href={mailtoHref()}>{CONTACT.email}</a> adresine veya yukarıdaki büro adresine
+          iletebilirsiniz.
+        </p>
+
+        <h2>Bu metnin güncelliği</h2>
+        <p>
+          Bu metin sitenin gerçekte ne yaptığını anlatır. Siteye form, çerez, analytics veya üçüncü
+          taraf bir bileşen eklenirse metin de aynı anda güncellenir.
+        </p>
+      </article>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .lead-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>

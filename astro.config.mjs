@@ -8,13 +8,10 @@ export default defineConfig({
   output: 'static',
 
   integrations: [
-    sitemap({
-      // public/ altındaki eski yer tutucu HTML'ler sitemap'e girmemeli:
-      // arama motoruna sunulacak sayfalar değiller, yalnızca eski
-      // adreslerin kırılmaması için tutuluyorlar.
-      filter: (page) => !page.includes('/privacy-policy') && !page.includes('/terms'),
-      i18n: undefined,
-    }),
+    // Süzgeç kaldırıldı: eski siteden devralınan privacy-policy.html ve
+    // terms.html silindi (bu siteyle ilgisi olmayan bir hizmeti
+    // anlatıyorlardı). Artık derlenen her sayfa sitemap'e girmeli.
+    sitemap({ i18n: undefined }),
   ],
 
   // Cloudflare Pages varsayılan olarak /yol/ biçimini temiz servis eder.
