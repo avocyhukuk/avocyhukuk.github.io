@@ -143,7 +143,7 @@ Kartvizitin arka yüzündeki "adalet terazisi + sütun" ikonu ve "AVUKAT Onur Ca
 - [x] Meta description, Open Graph etiketleri her sayfada
 - [x] JSON-LD Attorney/LegalService şeması (sicil no, adres, telefon, çalışma saatleri dahil)
 - [x] `sitemap.xml`, `robots.txt`
-- [ ] Gerçek cihaz genişliklerinde mobil test — *390/1024/1280 px genişliklerde render ile doğrulandı; gerçek cihazda ve JavaScript etkinken test EDİLMEDİ*
+- [x] Gerçek cihaz genişliklerinde mobil test — *18 Eylül 2026'da Av. Onur Can Yılmaz kendi telefonunda, JavaScript etkinken test etti: görüntüde sorun yok, her iki hesaplama aracı da doğru çalışıyor.*
 
 Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak için gerekliydi):
 - Hesaplama araçları ve Blog için liste sayfaları (araçlar "Hazırlanıyor" olarak işaretli)
