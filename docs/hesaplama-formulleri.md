@@ -1232,11 +1232,171 @@ Kodlandı — `src/lib/gecikme-faizi.test.ts`, 17 test. Kapsanan dallar:
 
 ## 6. Dava / İcra Harç ve Masraf Hesaplama
 
-- **Kanuni Dayanak (başlangıç noktası):** Harçlar Kanunu, güncel Avukatlık Asgari Ücret Tarifesi
-- **Girdi alanları:** Dava/takip türü, dava değeri
-- **Formül:** _TODO_
-- **Kaynak(lar):** _TODO_
-- **Test örnekleri:** _TODO_
+> **Durum: TASLAK — kodlanmadı.** İkincil kaynaklardan derlendi.
+> Av. Onur Can Yılmaz'ın onayı olmadan `src/lib/` altına kod yazılmaz.
+
+### 6.1. Bu araç öncekilerden farklı: tek formül değil, kalem listesi
+
+Kira aracında tek orana tek çarpma, faiz aracında dönemlere bölme vardı.
+Burada ise bir **kalem listesi** toplanıyor ve hangi kalemlerin listeye
+gireceği birkaç ayrı soruya bağlı:
+
+- Dava mı, icra takibi mi?
+- Konusu **para ile ölçülebilir** mi (nispi harç) yoksa ölçülemez mi (maktu)?
+- Hangi mahkeme? (başvurma harcı sulh ve asliyede farklı)
+- Kaç taraf var? (tebligat gideri taraf başına)
+- Avukatla mı takip ediliyor? (baro pulu, vekâlet suret harcı)
+
+Yani hesap, **koşullu bir toplam**. Cetvel burada da işini yapıyor:
+kullanıcı toplam rakamı değil, hangi kalemin neden listede olduğunu
+görmeli.
+
+### 6.2. En büyük risk: tarifeler her yıl değişiyor
+
+Kira aracında bakım yükü aylık tek bir orandı, faizde yılda bir-iki
+oran. Burada **on beşe yakın rakam** var ve hepsi her yıl 1 Ocak'ta
+yeniden belirleniyor (Harçlar Kanunu genel tebliği, HMK gider avansı
+tarifesi, TBB pul bedelleri, icra satış giderleri tarifesi).
+
+> **Tasarım sonucu:** Tarife tablosu **yıl bazlı** tutulmalı ve araç
+> hangi yılın tarifesini kullandığını sonuç ekranında göstermelidir.
+> Yıl geçtiğinde tablo güncellenmezse araç sessizce eski rakamları
+> verir — kira aracındaki bayatlama korumasının aynısı burada da
+> gerekiyor: tablosu olmayan yıl için hesap yapılmamalı.
+
+### 6.3. Kanuni dayanak
+
+| Konu | Dayanak |
+|---|---|
+| Yargı harçları (başvurma, karar ve ilam, peşin) | **492 s.K. Harçlar Kanunu**, (1) Sayılı Tarife |
+| Nispi harcın dörtte birinin peşin alınması | **492 s.K. m. 28** |
+| Gider avansı | **HMK m. 114, 120** + yıllık Gider Avansı Tarifesi |
+| İcra takibinde harç | **İİK m. 59**, 492 s.K. (1) Sayılı Tarife B bölümü |
+| Vekâlet pulu / baro pulu | **1136 s.K. Avukatlık Kanunu m. 27** |
+| Vekâlet ücreti | **Avukatlık Asgari Ücret Tarifesi (AAÜT)** |
+
+### 6.4. Dava açılış maliyeti — kalemler
+
+| Kalem | Nasıl hesaplanır |
+|---|---|
+| Başvurma harcı | Maktu, mahkemeye göre değişir |
+| **Peşin harç** (nispi davada) | Dava değeri × nispi oran × **1/4** |
+| **Maktu karar ve ilam harcı** (nispi olmayan davada) | Sabit tutar |
+| Gider avansı — tebligat | Taraf sayısı × tebligat birim gideri × katsayı |
+| Gider avansı — diğer iş ve işlemler | Sabit tutar |
+| Vekâlet pulu | Avukatla takipte, sabit |
+
+Bakiye nispi harç (kalan 3/4) karar aşamasında ödenir — **açılış
+maliyeti değil.** Araç bunu ayrı bir bilgi satırı olarak göstermeli,
+toplama katmamalı.
+
+### 6.5. İcra takibi açılış maliyeti — kalemler
+
+| Kalem | Nasıl hesaplanır |
+|---|---|
+| Başvurma harcı | Maktu |
+| **Peşin harç** | Asıl alacak × **binde 5** *(ilamlı takipte peşin harç yok)* |
+| Tebligat gideri | Borçlu sayısı × birim gider (normal PTT / UETS farklı) |
+| Baro pulu | Avukatla takipte |
+| Vekâlet suret harcı | Avukatla takipte |
+
+**Tahsil harcı** takip açılışında değil, tahsilat gerçekleştiğinde ve
+tahsilatın hangi aşamada olduğuna göre değişen oranlarda alınıyor —
+açılış maliyetine girmiyor, ayrı bir bilgi olarak anılabilir.
+
+### 6.6. Derlenen 2026 rakamları — TAMAMI DOĞRULANMALI
+
+| Kalem | Derlenen değer |
+|---|---|
+| Başvurma harcı — sulh hukuk | 335,20 TL |
+| Başvurma harcı — asliye / aile / iş / tüketici | 732,00 TL |
+| Nispi karar ve ilam harcı oranı | binde **68,31** |
+| Peşin harç | Nispi harcın **1/4**'ü |
+| Maktu karar ve ilam harcı | 732,00 TL |
+| Gider avansı — diğer iş ve işlemler | 530,00 TL |
+| Tebligat birim gideri | 265,00 TL |
+| Vekâlet pulu / baro pulu | 164,00 TL |
+| Vekâlet suret harcı | 110,00 TL |
+| UETS (e-tebligat) | 15,00 TL |
+| İcra peşin harcı | binde **5** |
+| İcra satış gideri — taşınmaz | 40.000 TL |
+| İcra satış gideri — araç | 28.000 – 39.000 TL |
+| İcra satış gideri — taşınır | 4.000 TL |
+
+> ⚠️ **Kaynaklar arasında çelişkiler var:**
+>
+> 1. **Artış oranı.** Bir kaynak 2026 harç artışını **%18,95**, başka
+>    bir kaynak yeniden değerleme oranını **%43,93** olarak veriyor. İkisi
+>    farklı şeyler olabilir (harç tarifesi artışı ile genel yeniden
+>    değerleme oranı) ama hangisinin hangi kaleme uygulandığı net değil.
+> 2. **İcra başvurma harcı.** Bir kaynak **335,20 TL** (icra hukuk
+>    mahkemesi / tetkik mercii), diğeri **732,00 TL** (icra dairesinde
+>    takip açılışı) diyor. Bunlar büyük ihtimalle iki ayrı harç; hangisinin
+>    takip açılışına ait olduğu kesinleşmeli.
+> 3. **Tebligat gideri formülü.** Bir kaynak "taraf sayısı × 5 × 265 TL"
+>    gibi bir katsayı, diğeri doğrudan "taraf × 265 TL" ima ediyor.
+>    Katsayının varlığı ve değeri netleşmeli — toplamı beş katına
+>    çıkarıyor.
+> 4. **Nispi harçta asgari taban** var mı? Kaynaklarda geçmiyor. Çok
+>    düşük değerli davalarda maktu harçtan az çıkarsa ne oluyor?
+
+### 6.7. Kapsam önerim
+
+Kira ve faizdeki dersle: dar başla.
+
+**v1'de olsun:**
+
+- **Dava açılış maliyeti**: nispi ve maktu ayrımı, mahkeme türüne göre
+  başvurma harcı, gider avansı, isteğe bağlı vekâlet pulu
+- **İlamsız icra takibi açılış maliyeti**: başvurma harcı, peşin harç,
+  tebligat, isteğe bağlı avukat kalemleri
+- Tek yıl tarifesi (2026), yıl bazlı tabloya hazır yapı
+
+**v1'de olmasın:**
+
+| Kapsam dışı | Gerekçe |
+|---|---|
+| **Vekâlet ücreti (AAÜT)** | Ayrı ve geniş bir tarife; dava türüne göre değişen maktu ve nispi kademeleri var. Kendi başına bir araç olmayı hak ediyor |
+| Bakiye nispi harç, tahsil harcı | Açılış maliyeti değil; bilgi satırı olarak gösterilir |
+| Bilirkişi, keşif, tanık avansları | Dava sırasında ve hâkim takdiriyle isteniyor |
+| İcra satış giderleri | Satış aşamasına ait; takip açılışında ödenmiyor |
+| İstinaf / temyiz harçları | Ayrı aşama |
+| Harçtan muafiyet ve adli yardım | Nitelendirme gerektiriyor, araç bilemez |
+
+### 6.8. Açık sorular
+
+1. **Kapsam önerisi (6.7) kabul mü?** Özellikle vekâlet ücretinin
+   dışarıda kalması.
+2. **6.6'daki dört çelişki** nasıl çözülüyor? Özellikle tebligat
+   katsayısı — toplamı beş katına çıkarabiliyor.
+3. **Mahkeme türü listesi** ne kadar ayrıntılı olsun? Sulh / asliye
+   ayrımı yeterli mi, yoksa ticaret, iş, tüketici, aile ayrı ayrı mı
+   listelensin?
+4. **Nispi harçta asgari taban** var mı?
+5. **İcra takibinde ilamlı/ilamsız ayrımı** v1'de olsun mu? İlamlı
+   takipte peşin harç alınmıyor, bu tek satırlık bir dal.
+6. **Yuvarlama** — harçlar kuruşlu mu gösterilsin, tam liraya mı
+   yuvarlansın?
+
+### 6.9. Kaynaklar
+
+Tamamı **ikincil**. Birincil kaynaklar: `mevzuat.gov.tr` (492 s.K., HMK,
+İİK), Resmî Gazete'de yayımlanan yıllık tarifeler, TBB duyuruları.
+
+- [2026 yılı harç oran ve tutarları — (1) Sayılı Tarife (Vergide Gündem)](https://www.vergidegundem.com/uploads/SIRKULER_006_Harclar_EK_52fef5377e.pdf)
+- [2026 dava açma maliyetleri: harçlar ve gider avansı (Av. Mete Şahin)](https://www.avukatmetesahin.com/post/2026-dava-acma-maliyetleri-harclar-ve-gider-avansi)
+- [İcra takibi masrafı hesaplama, 2026 tarifesi (İşleyen Hukuk)](https://isleyenhukukburosu.com/hesaplama-araclari/icra-masrafi-hesaplama/)
+- [Yargı harçları ve avanslar 2026 (Bal Law Firm)](https://ballawfirm.com/yargi-harclari-ve-avanslar/)
+- [2026 yılı güncel yargı harçları Resmî Gazete'de (Sanal Hukuk)](https://sanalhukuk.org/2025/12/31/2026-yili-guncel-yargi-harclari-resmi-gazetede-yayimlandi/)
+- [2026 icra satış giderleri tarifesi (İcra Hukuku)](https://www.icra.gen.tr/2026-satis-giderleri-tarifesi-yayinlandi/)
+
+### 6.10. Test senaryoları
+
+_TODO — 6.8'deki sorular cevaplandıktan sonra doldurulacak. Kapsanması
+gereken dallar: nispi dava (asliye), maktu dava (sulh), avukatsız /
+avukatlı, çok taraflı tebligat, ilamsız icra takibi, ilamlı icra takibi
+(peşin harç yok), tarifesi olmayan yıl (hesap yapılmamalı)._
+
 - **Onay Durumu:** ⬜ Bekliyor
 
 ## 7. Şirket Kuruluş Maliyeti Hesaplama

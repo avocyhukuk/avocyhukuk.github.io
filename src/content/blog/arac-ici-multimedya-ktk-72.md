@@ -1,7 +1,7 @@
 ---
 title: 2918 sayılı KTK m. 72 bağlamında araç içi multimedya ve ses sistemleri
 description: KTK m. 72 değişikliğiyle gelen 3.000 TL ve 21.000 TL idari para cezaları, 30 gün trafikten men ve ölçülülük ilkesi bakımından değerlendirme.
-# TARİH DOĞRULANMALI — eski sitede yalnızca "2026" yazıyordu, gün/ay yoktu.
+# Tarih 19 Eylül 2026'da Av. Onur Can Yılmaz tarafından onaylandı.
 publishedAt: 2026-03-15
 ---
 

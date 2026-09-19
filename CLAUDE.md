@@ -135,10 +135,10 @@ Kartvizitin arka yüzündeki "adalet terazisi + sütun" ikonu ve "AVUKAT Onur Ca
 - [x] `/plugin install frontend-design@claude-plugins-official` ile Frontend Design plugin'ini kur
 - [x] Temel layout bileşeni (header/nav/footer/WhatsApp CTA) — mobile-first kurgulanacak
 - [x] Bölüm 3'teki renk/tipografi tokenlerini kod tabanında tanımla (CSS custom properties / Tailwind config vb.)
-- [x] Logoyu temiz SVG olarak vektörleştir, favicon/OG görselini üret (Bölüm 3'teki boyutlarda) — *amblem `logokartvizit.png` referans alınarak yeniden çizildi, Av. Onur Can Yılmaz onayı bekliyor*
+- [x] Logoyu temiz SVG olarak vektörleştir, favicon/OG görselini üret (Bölüm 3'teki boyutlarda) — *amblem `logokartvizit.png` referans alınarak yeniden çizildi; **19 Eylül 2026'da onaylandı**, revizyon gerekmiyor*
 
 ### Faz B — Temel sayfalar ve teknik SEO
-- [x] Ana sayfa, Hakkında, İletişim sayfaları — *Hakkında'daki mesleki geçmiş ve eğitim `ONURCANYILMAZ-CV.pdf`ten yazıldı; metin Av. Onur Can Yılmaz'ın onayını bekliyor*
+- [x] Ana sayfa, Hakkında, İletişim sayfaları — *Hakkında metni `ONURCANYILMAZ-CV.pdf`ten yazıldı; **19 Eylül 2026'da onaylandı**, revizyon gerekmiyor*
 - [x] 7 çalışma alanı için ayrı sayfa/route
 - [x] Meta description, Open Graph etiketleri her sayfada
 - [x] JSON-LD Attorney/LegalService şeması (sicil no, adres, telefon, çalışma saatleri dahil)
@@ -150,6 +150,12 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - 404 sayfası
 
 ### Faz B.5 — Cloudflare Workers'a bağlama
+
+> ⏸ **Alan adı geçişi ERTELENDİ.** Av. Onur Can Yılmaz'ın talimatı
+> (19 Eylül 2026): site eksiksiz tamamlanıp kendisi tarafından test
+> edilip onaylanana kadar alan adı / nameserver konusunda **hiçbir
+> işlem yapılmayacak**. Ayrıca talimat verilecek. Eski site (Natro) bu
+> süreçte canlı kalmaya devam ediyor.
 - [x] Cloudflare Workers'a repo bağlantısı, build ayarları — `wrangler.jsonc` (Worker adı `ocyhukuk`, varlık dizini `./dist`, `not_found_handling: "404-page"`), build komutu `npm run build`, deploy komutu `npx wrangler deploy`, Node sürümü `.nvmrc` ile 24.18.0'a sabit
 - [ ] `ocyhukuk.com` özel alan adını bağlama — DNS yöntemi (nameserver taşıma / CNAME) bu adımda karara bağlanacak, MX (e-posta) kayıtlarına dokunulmayacak
 - [ ] SSL doğrulama — özel alan adına bağlı; `*.workers.dev` önizlemesinde sertifika zaten hazır
@@ -166,7 +172,7 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - [ ] Marka tescil süreç takvimi — geliştirme → test → yayın
 
 ### Faz D — Blog / içerik
-- [x] Mevcut blog yazılarını Markdown formatına taşı — eski Natro sitesindeki iki yazı (`iran-savasi.html`, `arac-ici-multimedya.html`) `src/content/blog/` altına alındı. *Araç içi multimedya yazısının yayın tarihi eski sitede yalnızca "2026" olarak geçiyordu; 15.03.2026 varsayıldı, Av. Onur Can Yılmaz doğrulamalı.*
+- [x] Mevcut blog yazılarını Markdown formatına taşı — eski Natro sitesindeki iki yazı (`iran-savasi.html`, `arac-ici-multimedya.html`) `src/content/blog/` altına alındı. *Araç içi multimedya yazısının tarihi eski sitede yalnızca "2026" olarak geçiyordu; 15.03.2026 **19 Eylül 2026'da onaylandı**.*
 - [x] Yeni yazı şablonu (frontmatter, SEO alanları dahil) — `src/content.config.ts` içindeki `blog` şeması: `title`, `description` (≤160), `publishedAt`, `updatedAt?`, `area?`, `draft`. Yazı sayfası `src/pages/blog/[slug].astro`, BlogPosting JSON-LD dahil.
 - [ ] Alan adı geçişinde eski yazı adreslerinin yönlendirilmesi — `ocyhukuk.com/iran-savasi.html` ve `ocyhukuk.com/arac-ici-multimedya.html` yeni adreslerine yönlendirilmeli, aksi hâlde paylaşılmış bağlantılar kırılır
 
