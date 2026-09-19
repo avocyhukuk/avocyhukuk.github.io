@@ -1304,41 +1304,62 @@ toplama katmamalı.
 tahsilatın hangi aşamada olduğuna göre değişen oranlarda alınıyor —
 açılış maliyetine girmiyor, ayrı bir bilgi olarak anılabilir.
 
-### 6.6. Derlenen 2026 rakamları — TAMAMI DOĞRULANMALI
+### 6.6. 2026 rakamları ve doğrulama durumu
 
-| Kalem | Derlenen değer |
-|---|---|
-| Başvurma harcı — sulh hukuk | 335,20 TL |
-| Başvurma harcı — asliye / aile / iş / tüketici | 732,00 TL |
-| Nispi karar ve ilam harcı oranı | binde **68,31** |
-| Peşin harç | Nispi harcın **1/4**'ü |
-| Maktu karar ve ilam harcı | 732,00 TL |
-| Gider avansı — diğer iş ve işlemler | 530,00 TL |
-| Tebligat birim gideri | 265,00 TL |
-| Vekâlet pulu / baro pulu | 164,00 TL |
-| Vekâlet suret harcı | 110,00 TL |
-| UETS (e-tebligat) | 15,00 TL |
-| İcra peşin harcı | binde **5** |
-| İcra satış gideri — taşınmaz | 40.000 TL |
-| İcra satış gideri — araç | 28.000 – 39.000 TL |
-| İcra satış gideri — taşınır | 4.000 TL |
+Birincil kaynak denemesi yapıldı (19 Eylül 2026). Aşağıdaki tablo her
+kalemin **hangi kaynaktan geldiğini ve doğrulanıp doğrulanmadığını**
+ayrı ayrı gösteriyor. İkincil kaynak rakamları, birincil doğrulama
+yapılmadan kodlanmayacak.
 
-> ⚠️ **Kaynaklar arasında çelişkiler var:**
->
-> 1. **Artış oranı.** Bir kaynak 2026 harç artışını **%18,95**, başka
->    bir kaynak yeniden değerleme oranını **%43,93** olarak veriyor. İkisi
->    farklı şeyler olabilir (harç tarifesi artışı ile genel yeniden
->    değerleme oranı) ama hangisinin hangi kaleme uygulandığı net değil.
-> 2. **İcra başvurma harcı.** Bir kaynak **335,20 TL** (icra hukuk
->    mahkemesi / tetkik mercii), diğeri **732,00 TL** (icra dairesinde
->    takip açılışı) diyor. Bunlar büyük ihtimalle iki ayrı harç; hangisinin
->    takip açılışına ait olduğu kesinleşmeli.
-> 3. **Tebligat gideri formülü.** Bir kaynak "taraf sayısı × 5 × 265 TL"
->    gibi bir katsayı, diğeri doğrudan "taraf × 265 TL" ima ediyor.
->    Katsayının varlığı ve değeri netleşmeli — toplamı beş katına
->    çıkarıyor.
-> 4. **Nispi harçta asgari taban** var mı? Kaynaklarda geçmiyor. Çok
->    düşük değerli davalarda maktu harçtan az çıkarsa ne oluyor?
+| Kalem | Değer | Kaynak | Durum |
+|---|---|---|---|
+| **Tebligat — normal, 100 g'a kadar** | **265,00 TL** | PTT Posta ve Telgraf Ücret Tarifesi, 04.02.2026 | ✅ **Birincil kaynaktan doğrulandı** |
+| Tebligat — MTS | 310,00 TL | aynı tarife | ✅ Birincil |
+| Tebligat — hızlı | 530,00 TL | aynı tarife | ✅ Birincil |
+| Tebligat — sonraki her 1.000 g | 45,00 TL | aynı tarife | ✅ Birincil |
+| Başvurma harcı — sulh hukuk | 335,20 TL | ikincil | ⬜ Doğrulanmadı |
+| Başvurma harcı — asliye / aile / iş / tüketici | 732,00 TL | ikincil | ⬜ Doğrulanmadı |
+| Nispi karar ve ilam harcı | binde 68,31 | ikincil | ⬜ Doğrulanmadı |
+| Peşin harç | nispi harcın 1/4'ü | 492 s.K. **m. 28** | ⬜ Madde metni okunmadı |
+| Maktu karar ve ilam harcı | 732,00 TL | ikincil | ⬜ Doğrulanmadı |
+| Gider avansı — diğer iş ve işlemler | 530,00 TL | ikincil | ⬜ Doğrulanmadı |
+| Vekâlet / baro pulu | 164,00 TL | ikincil | ⬜ Doğrulanmadı |
+| Vekâlet suret harcı | 110,00 TL | ikincil | ⬜ Doğrulanmadı |
+| UETS e-tebligat iletim ücreti | 15,00 TL (?) | ikincil | ⬜ Doğrulanmadı |
+| İcra peşin harcı | binde 5 | ikincil | ⬜ Doğrulanmadı |
+| İcra satış giderleri | 40.000 / 28–39.000 / 4.000 TL | ikincil | ⬜ Kapsam dışı |
+
+#### Tebliğin kimliği — doğrulandı
+
+**Harçlar Kanunu Genel Tebliği (Seri No: 98)**, Resmî Gazete
+**31.12.2025, Sayı 33124 (5. Mükerrer)**. Bu, gazetenin kendi
+içindekiler sayfasından okunarak doğrulandı.
+
+> 🆕 **Aynı sayıda bir de Seri No: 99 var.** Taslakta bundan hiç söz
+> edilmiyordu. İki tebliğin hangi harçları ayırdığı netleşmeli —
+> biri maktu, diğeri başka bir küme olabilir.
+
+#### Harç rakamları neden doğrulanamadı
+
+Resmî Gazete'nin 31.12.2025 tarihli 5. Mükerrer sayısı indirildi
+(38 MB, 702 sayfa). Gövde sayfaları **ToUnicode haritası olmayan CID
+fontlarıyla** kodlanmış; hem `pypdf` hem `pdfminer.six` metni
+`(cid:NN)` kodları olarak döndürüyor. Bu makinede OCR veya PDF
+görüntüleyici (poppler) kurulu değil, sayfalar gömülü görüntü de
+içermiyor.
+
+Sonuç: **tebliğin kimliği doğrulandı, içindeki rakamlar
+doğrulanamadı.** Rakamların teyidi için tebliğ metnine başka bir yoldan
+erişilmesi gerekiyor.
+
+### 6.6b. Dört çelişkinin durumu
+
+| # | Çelişki | Durum |
+|---|---|---|
+| 1 | Artış oranı %18,95 mi %43,93 mü | ⚠️ **%18,95 güçlü aday.** Tebliğin özeti maktu harçların 2025 yeniden değerleme oranı olan %18,95 ile artırıldığını söylüyor. %43,93 büyük ihtimalle **2024** yeniden değerleme oranı — yani o rakamı 2026 için veren kaynak bir yıl geride. *Birincil metinle teyit edilmedi.* |
+| 2 | İcra başvurma harcı 335,20 mı 732,00 mı | ⬜ Çözülmedi. İkisinin ayrı harçlar olduğu (icra hukuk mahkemesi ile icra dairesinde takip açılışı) tahmini, doğrulanmadı |
+| 3 | Tebligat gideri | ✅ **Birim ücret 265,00 TL birincil kaynaktan doğrulandı.** Ama sorunun asıl kısmı —gider avansı tarifesinde taraf başına **5 katsayısı** olup olmadığı— PTT'nin değil Adalet Bakanlığı tarifesinin konusu ve hâlâ açık. Katsayı varsa 2 taraflı davada tebligat gideri 530 TL değil 2.650 TL |
+| 4 | Nispi harçta asgari taban | ⬜ Çözülmedi |
 
 ### 6.7. Kapsam önerim
 
@@ -1383,7 +1404,15 @@ Kira ve faizdeki dersle: dar başla.
 Tamamı **ikincil**. Birincil kaynaklar: `mevzuat.gov.tr` (492 s.K., HMK,
 İİK), Resmî Gazete'de yayımlanan yıllık tarifeler, TBB duyuruları.
 
-- [2026 yılı harç oran ve tutarları — (1) Sayılı Tarife (Vergide Gündem)](https://www.vergidegundem.com/uploads/SIRKULER_006_Harclar_EK_52fef5377e.pdf)
+**Birincil:**
+
+- **Harçlar Kanunu Genel Tebliği (Seri No: 98)** — Resmî Gazete 31.12.2025, Sayı 33124 (5. Mükerrer). [Gazete PDF](https://www.resmigazete.gov.tr/eskiler/2025/12/20251231M5.pdf) *(rakamlar bu makinede okunamadı, bkz. 6.6)*
+- **PTT Posta ve Telgraf Ücret Tarifesi, 04.02.2026** — [ptt.gov.tr/tarifeler](https://www.ptt.gov.tr/tarifeler) · tebligat birim ücretleri buradan alındı
+- 492 sayılı Harçlar Kanunu, HMK m. 114/120, İİK m. 59 — `mevzuat.gov.tr`
+
+**İkincil** (yalnızca yön göstermek için; rakamları doğrulanmadan kodlanmayacak):
+
+- [2026 yılı harç oran ve tutarları özeti (Vergide Gündem)](https://www.vergidegundem.com/uploads/SIRKULER_006_Harclar_EK_52fef5377e.pdf)
 - [2026 dava açma maliyetleri: harçlar ve gider avansı (Av. Mete Şahin)](https://www.avukatmetesahin.com/post/2026-dava-acma-maliyetleri-harclar-ve-gider-avansi)
 - [İcra takibi masrafı hesaplama, 2026 tarifesi (İşleyen Hukuk)](https://isleyenhukukburosu.com/hesaplama-araclari/icra-masrafi-hesaplama/)
 - [Yargı harçları ve avanslar 2026 (Bal Law Firm)](https://ballawfirm.com/yargi-harclari-ve-avanslar/)
