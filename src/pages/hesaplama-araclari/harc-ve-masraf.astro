@@ -1,0 +1,309 @@
+---
+/**
+ * Dava / İcra Harç ve Masraf Hesaplama.
+ *
+ * Formül, tarifeler ve kapsam: docs/hesaplama-formulleri.md § 6.
+ * Hesap src/lib/harc-masraf.ts içinde, saf ve test edilmiş.
+ *
+ * Form iki moda ayrılıyor (dava / icra) ve her modda farklı alanlar
+ * görünüyor. JS kapalıyken tüm alanlar görünür kalır — betik yalnızca
+ * ilgisiz olanları gizler.
+ */
+import CalculatorShell from '../../components/calculator/CalculatorShell.astro';
+import ResultSheet from '../../components/calculator/ResultSheet.astro';
+import FormField from '../../components/calculator/FormField.astro';
+import { CALCULATORS } from '../../lib/calculators';
+import { tarifeliYillar } from '../../lib/harc-tarifeleri';
+
+const calculator = CALCULATORS.find((tool) => tool.slug === 'harc-ve-masraf')!;
+const yillar = tarifeliYillar();
+
+const scopeNote =
+  'Bu araç yalnızca AÇILIŞ maliyetini hesaplar: dava açarken veya icra takibi ' +
+  'başlatırken peşin ödenen harç ve masraflar. Avukatlık ücreti (AAÜT), bilirkişi, ' +
+  'keşif ve tanık avansları, istinaf-temyiz harçları ile icra satış giderleri bu ' +
+  'sürümde kapsam dışıdır. Harçtan muafiyet ve adli yardım hâlleri dikkate alınmaz.';
+---
+
+<CalculatorShell calculator={calculator} lawAsOf="20 Eylül 2026" scopeNote={scopeNote}>
+  <Fragment slot="form">
+    <FormField id="islem" label="Ne hesaplanacak?">
+      <select id="islem" name="islem">
+        <option value="dava">Dava açılışı</option>
+        <option value="icra">İcra takibi açılışı</option>
+      </select>
+    </FormField>
+
+    <FormField id="yil" label="Tarife yılı" hint="Harç ve masraf tarifeleri her yıl değişir.">
+      <select id="yil" name="yil">
+        {yillar.map((y) => <option value={y}>{y}</option>)}
+      </select>
+    </FormField>
+
+    {/* ---- Dava alanları ---- */}
+    <div data-grup="dava">
+      <FormField id="mahkeme" label="Mahkeme">
+        <select id="mahkeme" name="mahkeme">
+          <option value="asliye">Asliye / idare mahkemeleri</option>
+          <option value="sulh">Sulh mahkemeleri</option>
+        </select>
+      </FormField>
+    </div>
+
+    <div data-grup="dava">
+      <FormField id="konu" label="Davanın konusu">
+        <select id="konu" name="konu">
+          <option value="nispi">Para ile ölçülebilir (nispi harç)</option>
+          <option value="maktu">Para ile ölçülemez (maktu harç)</option>
+        </select>
+      </FormField>
+    </div>
+
+    <div data-grup="dava-nispi">
+      <FormField
+        id="dava-degeri"
+        label="Dava değeri"
+        type="number"
+        unit="TL"
+        min={0}
+        step="0.01"
+        inputmode="decimal"
+      />
+    </div>
+
+    <div data-grup="dava">
+      <FormField
+        id="taraf"
+        label="Taraf sayısı"
+        type="number"
+        min={2}
+        step="1"
+        inputmode="numeric"
+        hint="Davacı ve davalıların toplamı. Tebligat gideri bu sayıya bağlı."
+      />
+    </div>
+
+    {/* ---- İcra alanları ---- */}
+    <div data-grup="icra">
+      <FormField id="takip" label="Takip türü">
+        <select id="takip" name="takip">
+          <option value="ilamsiz">İlamsız / kambiyo senedine mahsus</option>
+          <option value="ilamli">İlamlı</option>
+        </select>
+      </FormField>
+    </div>
+
+    <div data-grup="icra-ilamsiz">
+      <FormField
+        id="alacak"
+        label="Takip konusu alacak"
+        type="number"
+        unit="TL"
+        min={0}
+        step="0.01"
+        inputmode="decimal"
+      />
+    </div>
+
+    <div data-grup="icra">
+      <FormField
+        id="borclu"
+        label="Borçlu sayısı"
+        type="number"
+        min={1}
+        step="1"
+        inputmode="numeric"
+      />
+    </div>
+
+    <div class="onay">
+      <input type="checkbox" id="avukatli" name="avukatli" />
+      <label for="avukatli">Avukatla takip ediliyor</label>
+    </div>
+
+    <button class="btn btn--primary" type="button" id="hesapla">Hesapla</button>
+
+    <p class="form-note">
+      Sonuç, <strong>açılışta</strong> ödenecek tutardır. Karar veya tahsilat aşamasında doğan harçlar
+      ayrı satırda bilgi olarak gösterilir, toplama katılmaz.
+    </p>
+  </Fragment>
+
+  <div class="result-region">
+    <p class="alert" id="uyari" role="alert" hidden></p>
+    <ResultSheet />
+  </div>
+</CalculatorShell>
+
+<style>
+  .form-note {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  .onay {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .onay input {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--brand-navy);
+  }
+
+  .onay label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .result-region {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .alert {
+    padding: var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-inline-start: 3px solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+</style>
+
+<script>
+  import { harcMasrafHesapla, type MahkemeTuru, type TakipTuru } from '../../lib/harc-masraf';
+  import type { SheetRow } from '../../lib/calculator-ui';
+  import { formatTRY } from '../../lib/format';
+  import { clearSheet, findSheet, renderSheet } from '../../scripts/result-sheet';
+
+  const sheet = findSheet();
+  const el = <T extends HTMLElement>(id: string) => document.querySelector<T>(`#${id}`);
+
+  const islem = el<HTMLSelectElement>('islem');
+  const yil = el<HTMLSelectElement>('yil');
+  const mahkeme = el<HTMLSelectElement>('mahkeme');
+  const konu = el<HTMLSelectElement>('konu');
+  const davaDegeri = el<HTMLInputElement>('dava-degeri');
+  const taraf = el<HTMLInputElement>('taraf');
+  const takip = el<HTMLSelectElement>('takip');
+  const alacak = el<HTMLInputElement>('alacak');
+  const borclu = el<HTMLInputElement>('borclu');
+  const avukatli = el<HTMLInputElement>('avukatli');
+  const buton = el<HTMLButtonElement>('hesapla');
+  const uyari = el<HTMLElement>('uyari');
+
+  if (
+    sheet &&
+    islem &&
+    yil &&
+    mahkeme &&
+    konu &&
+    davaDegeri &&
+    taraf &&
+    takip &&
+    alacak &&
+    borclu &&
+    avukatli &&
+    buton &&
+    uyari
+  ) {
+    /** İlgisiz alan gruplarını gizler. JS kapalıyken hepsi görünür kalır. */
+    const gruplariGuncelle = () => {
+      const dava = islem.value === 'dava';
+      const goster = (ad: string, kosul: boolean) => {
+        for (const g of document.querySelectorAll<HTMLElement>(`[data-grup="${ad}"]`)) {
+          g.hidden = !kosul;
+        }
+      };
+      goster('dava', dava);
+      goster('dava-nispi', dava && konu.value === 'nispi');
+      goster('icra', !dava);
+      goster('icra-ilamsiz', !dava && takip.value === 'ilamsiz');
+    };
+
+    const uyariGoster = (mesaj: string) => {
+      uyari.textContent = mesaj;
+      uyari.hidden = false;
+      clearSheet(sheet);
+    };
+
+    const hesapla = () => {
+      uyari.hidden = true;
+
+      const sonuc =
+        islem.value === 'dava'
+          ? harcMasrafHesapla({
+              tur: 'dava',
+              yil: Number(yil.value),
+              mahkeme: mahkeme.value as MahkemeTuru,
+              davaDegeri: konu.value === 'nispi' ? Number(davaDegeri.value) : undefined,
+              tarafSayisi: Number(taraf.value),
+              avukatli: avukatli.checked,
+            })
+          : harcMasrafHesapla({
+              tur: 'icra',
+              yil: Number(yil.value),
+              takip: takip.value as TakipTuru,
+              alacak: takip.value === 'ilamsiz' ? Number(alacak.value) : undefined,
+              borcluSayisi: Number(borclu.value),
+              avukatli: avukatli.checked,
+            });
+
+      if (sonuc.durum === 'tarife-yok') {
+        uyariGoster(
+          `${sonuc.yil} yılı tarifesi tabloya işlenmedi; bu yıl için hesaplama yapılamıyor.`
+        );
+        return;
+      }
+      if (sonuc.durum === 'gecersiz-deger') {
+        uyariGoster('Dava değerini veya alacak tutarını sıfırdan büyük bir sayı olarak girin.');
+        return;
+      }
+      if (sonuc.durum === 'gecersiz-taraf') {
+        uyariGoster(
+          islem.value === 'dava'
+            ? 'Taraf sayısı en az 2 olmalı (bir davacı ve bir davalı).'
+            : 'Borçlu sayısı en az 1 olmalı.'
+        );
+        return;
+      }
+
+      const rows: SheetRow[] = sonuc.kalemler.map((k) => ({
+        label: k.ad,
+        value: formatTRY(k.tutar),
+        detail: k.detay,
+        basis: k.dayanak,
+      }));
+
+      rows.push({
+        label:
+          islem.value === 'dava'
+            ? 'Dava açılışında ödenecek toplam'
+            : 'Takip açılışında ödenecek toplam',
+        value: formatTRY(sonuc.toplam),
+        detail: `${sonuc.yil} yılı tarifesi`,
+        total: true,
+      });
+
+      renderSheet(sheet, rows);
+    };
+
+    gruplariGuncelle();
+    for (const s of [islem, konu, takip]) s.addEventListener('change', gruplariGuncelle);
+    buton.addEventListener('click', hesapla);
+
+    for (const alan of [davaDegeri, taraf, alacak, borclu]) {
+      alan.addEventListener('keydown', (olay) => {
+        if (olay.key === 'Enter') {
+          olay.preventDefault();
+          hesapla();
+        }
+      });
+    }
+  }
+</script>

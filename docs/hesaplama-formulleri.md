@@ -1232,8 +1232,7 @@ Kodlandı — `src/lib/gecikme-faizi.test.ts`, 17 test. Kapsanan dallar:
 
 ## 6. Dava / İcra Harç ve Masraf Hesaplama
 
-> **Durum: TASLAK — kodlanmadı.** İkincil kaynaklardan derlendi.
-> Av. Onur Can Yılmaz'ın onayı olmadan `src/lib/` altına kod yazılmaz.
+> **Durum: ONAYLANDI ve YAYINDA.** Kod yazıldı, testler geçiyor.
 
 ### 6.1. Bu araç öncekilerden farklı: tek formül değil, kalem listesi
 
@@ -1392,19 +1391,26 @@ altında kalırsa taban uygulanır.
 *(Tapu ve kadastro işlemlerinde ayrı bir asgari taban var — 411,60 TL —
 ama o bu aracın kapsamı dışında.)*
 
-> ⚠️ **Tek kalan belirsizlik: taban peşin harca nasıl yansıyor?**
+> ✅ **ÇÖZÜLDÜ — (a) okuması onaylandı.** Taban nispi harca uygulanır,
+> peşin harç onun dörtte biridir. 5.000 TL'lik davada: ham nispi 341,55
+> → taban 732,00 → peşin **183,00 TL**.
+>
+> Bu yorum `harc-masraf.test.ts` içinde adı açıkça "ASGARİ TABAN
+> YORUMU" olan bir testle sabitlendi. Yorum değişirse yalnızca o test
+> kırılır ve düzeltilecek yer belli olur.
+>
+> <details><summary>Değerlendirilen iki okuma</summary>
 > 5.000 TL'lik bir davada ham nispi harç 341,55 TL çıkıyor ve taban
 > devreye girip 732,00 TL oluyor. Peşin harç bundan sonra:
 >
 > | Okuma | Peşin harç |
 > |---|---|
 > | (a) Taban nispi harca uygulanır, peşin onun 1/4'ü | **183,00 TL** |
-> | (b) Taban doğrudan peşin harca uygulanır | **732,00 TL** |
+> | (b) Taban doğrudan peşin harca uygulanır | 732,00 TL |
 >
-> Aradaki fark dört kat. Lafız *"bu nispi karar ve ilam harcının 1/4'ü
-> peşin harç olarak tahsil edilir"* dediği için **(a) daha olası**
-> görünüyor, ama düşük değerli davaların tamamını etkilediği için
-> varsayımla kodlanmamalı.
+> Fark dört kat. 492 s.K. m. 28'in lafzı (*"nispi karar ve ilam
+> harcının dörtte biri"*) (a)'yı destekliyor.
+> </details>
 
 ### 6.6b. Dört çelişkinin durumu
 
@@ -1505,28 +1511,16 @@ Kira ve faizdeki dersle: dar başla.
 
 ### 6.8. Onay durumu
 
-**✅ Tüm rakamlar elimizde:** başvurma harçları · nispi oran (binde
-68,31) · asgari taban (732,00) · peşin harç 1/4 · maktu harç (732,00)
-· icra peşin harcı (binde 5) · gider avansı (taraf×5×265 + 530) ·
-tebligat (265,00) · baro pulu (164,00) · vekâlet suret harcı (104,00).
+Tüm rakamlar, formül ve tasarım kararları kapandı.
 
-**⬜ Kod yazılmadan önce cevaplanması gereken bir soru:**
+| Karar | Sonuç |
+|---|---|
+| Asgari taban | (a) — taban nispi harca, peşin onun 1/4'ü |
+| Kapsam | Kabul — vekâlet ücreti (AAÜT) dışarıda; bakiye nispi harç ve ilamlı takipte peşin harç bilgi satırı |
+| Mahkeme listesi | Sulh · asliye/idare olarak ikiye ayrıldı |
+| Yuvarlama | Kuruş korunuyor |
+| İcrada ×5 katsayısı | Yok — İİK m. 59, işlem başına masraf |
 
-1. **Asgari taban peşin harca nasıl yansıyor?** 6.6'daki (a)/(b)
-   ayrımı. Düşük değerli davaların tamamını etkiliyor, fark dört kat.
-
-**⬜ Tasarım kararları (öneriyle birlikte):**
-
-2. **Kapsam (6.7) kabul mü?** — vekâlet ücreti (AAÜT) dışarıda,
-   bakiye nispi harç ve tahsil harcı bilgi satırı olarak gösterilir.
-   *Öneri: evet.*
-3. **Mahkeme türü listesi.** *Öneri: sulh · asliye/idare olarak ikiye
-   ayır.* Başvurma harcı yalnızca bu iki değeri alıyor; ticaret, iş,
-   tüketici, aile davaları asliye grubunda. Daha ayrıntılı liste
-   kullanıcıyı sonucu değiştirmeyen bir seçimle yorardı.
-4. **Yuvarlama.** *Öneri: kuruş korunsun, yuvarlanmasın* — kira
-   aracındaki kararla aynı. Peşin harç 1/4 alındığında kuruş çıkıyor
-   (örnekte 1.707,75).
 ### 6.9. Kaynaklar
 
 Tamamı **ikincil**. Birincil kaynaklar: `mevzuat.gov.tr` (492 s.K., HMK,
@@ -1549,12 +1543,27 @@ Tamamı **ikincil**. Birincil kaynaklar: `mevzuat.gov.tr` (492 s.K., HMK,
 
 ### 6.10. Test senaryoları
 
-_TODO — 6.8'deki sorular cevaplandıktan sonra doldurulacak. Kapsanması
-gereken dallar: nispi dava (asliye), maktu dava (sulh), avukatsız /
-avukatlı, çok taraflı tebligat, ilamsız icra takibi, ilamlı icra takibi
-(peşin harç yok), tarifesi olmayan yıl (hesap yapılmamalı)._
+Kodlandı — `src/lib/harc-masraf.test.ts`, 19 test:
 
-- **Onay Durumu:** ⬜ Bekliyor
+| Dal | Doğrulanan |
+|---|---|
+| Dava örneği | 6.7c'deki hesap birebir (5.887,75 TL) |
+| Bakiye nispi harç | Bilgi satırı, toplama girmiyor |
+| **Asgari taban yorumu** | Adı açık test — yorum değişirse yalnız bu kırılır |
+| Taban devreye girmeyen dava | Açıklama metni taban demiyor |
+| Maktu dava | Nispi satırlar hiç üretilmiyor |
+| Sulh mahkemesi | Başvurma harcı farklı |
+| Avukatsız | Pul ve suret harcı hiç eklenmiyor |
+| Çok taraflı | Tebligat doğrudan katlanıyor |
+| İcra örneği | 6.7c'deki hesap birebir (1.765,00 TL) |
+| **İcrada ×5 yok** | 3 borçlu → 795 TL, 3.975 değil |
+| İlamlı takip | Peşin harç bilgi satırı, tutar 0 |
+| Girdi doğrulama | Taraf/borçlu sayısı, dava değeri, alacak |
+| Tarife tablosu | Bilinmeyen yıl hesaplanmıyor · 2026 değerleri birebir · pozitiflik |
+
+- **Onay Durumu:** ✅ **Onaylandı** — Av. Onur Can Yılmaz, 20 Eylül 2026.
+  Kod: `src/lib/harc-masraf.ts` + `src/lib/harc-tarifeleri.ts`, sayfa
+  `src/pages/hesaplama-araclari/harc-ve-masraf.astro`.
 
 ## 7. Şirket Kuruluş Maliyeti Hesaplama
 

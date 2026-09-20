@@ -65,7 +65,7 @@ export const CALCULATORS: readonly Calculator[] = [
     title: 'Dava / İcra Harç ve Masraf Hesaplama',
     summary: 'Dava veya icra takibi açarken ödenecek harç ve masrafların tahmini tutarını verir.',
     areas: ['icra-iflas-hukuku'],
-    status: 'planned',
+    status: 'ready',
   },
   {
     slug: 'sirket-kurulus-maliyeti',
