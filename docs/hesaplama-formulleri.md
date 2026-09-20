@@ -1306,59 +1306,66 @@ açılış maliyetine girmiyor, ayrı bir bilgi olarak anılabilir.
 
 ### 6.6. 2026 rakamları ve doğrulama durumu
 
-Birincil kaynak denemesi yapıldı (19 Eylül 2026). Aşağıdaki tablo her
-kalemin **hangi kaynaktan geldiğini ve doğrulanıp doğrulanmadığını**
-ayrı ayrı gösteriyor. İkincil kaynak rakamları, birincil doğrulama
-yapılmadan kodlanmayacak.
+Her kalem kaynağıyla ve doğrulama düzeyiyle birlikte kayıtlı.
+Doğrulanmamış bir rakam kodlanmaz.
 
-| Kalem | Değer | Kaynak | Durum |
-|---|---|---|---|
-| **Tebligat — normal, 100 g'a kadar** | **265,00 TL** | PTT Posta ve Telgraf Ücret Tarifesi, 04.02.2026 | ✅ **Birincil kaynaktan doğrulandı** |
-| Tebligat — MTS | 310,00 TL | aynı tarife | ✅ Birincil |
-| Tebligat — hızlı | 530,00 TL | aynı tarife | ✅ Birincil |
-| Tebligat — sonraki her 1.000 g | 45,00 TL | aynı tarife | ✅ Birincil |
-| Başvurma harcı — sulh hukuk | 335,20 TL | ikincil | ⬜ Doğrulanmadı |
-| Başvurma harcı — asliye / aile / iş / tüketici | 732,00 TL | ikincil | ⬜ Doğrulanmadı |
-| Nispi karar ve ilam harcı | binde 68,31 | ikincil | ⬜ Doğrulanmadı |
-| Peşin harç | nispi harcın 1/4'ü | 492 s.K. **m. 28** | ⬜ Madde metni okunmadı |
-| Maktu karar ve ilam harcı | 732,00 TL | ikincil | ⬜ Doğrulanmadı |
-| Gider avansı — diğer iş ve işlemler | 530,00 TL | ikincil | ⬜ Doğrulanmadı |
-| Vekâlet / baro pulu | 164,00 TL | ikincil | ⬜ Doğrulanmadı |
-| Vekâlet suret harcı | 110,00 TL | ikincil | ⬜ Doğrulanmadı |
-| UETS e-tebligat iletim ücreti | 15,00 TL (?) | ikincil | ⬜ Doğrulanmadı |
-| İcra peşin harcı | binde 5 | ikincil | ⬜ Doğrulanmadı |
-| İcra satış giderleri | 40.000 / 28–39.000 / 4.000 TL | ikincil | ⬜ Kapsam dışı |
+#### Harçlar — 98 Seri No'lu Tebliğ (RG 31.12.2025, Sayı 33124, 5. Mükerrer)
 
-#### Tebliğin kimliği — doğrulandı
+Maktu harçlar **%18,95** oranında artırılarak yürürlüğe girdi.
 
-**Harçlar Kanunu Genel Tebliği (Seri No: 98)**, Resmî Gazete
-**31.12.2025, Sayı 33124 (5. Mükerrer)**. Bu, gazetenin kendi
-içindekiler sayfasından okunarak doğrulandı.
+| Kalem | 2026 tutarı |
+|---|---|
+| Sulh mahkemeleri **ve icra tetkik mercileri** başvurma harcı | **335,20 TL** |
+| Asliye ve idare mahkemeleri başvurma harcı | **732,00 TL** |
+| **İcra başvuru harcı** (icra dairesinde takip açılışı) | **732,00 TL** |
+| Yargıtay ve Danıştay başvurma harcı | 1.124,50 TL |
+| Anayasa Mahkemesi bireysel başvuru harcı | 6.024,10 TL |
+| Keşif harcı | 5.188,00 TL |
 
-> 🆕 **Aynı sayıda bir de Seri No: 99 var.** Taslakta bundan hiç söz
-> edilmiyordu. İki tebliğin hangi harçları ayırdığı netleşmeli —
-> biri maktu, diğeri başka bir küme olabilir.
+*Kaynak: tebliğe dayanılarak Av. Onur Can Yılmaz tarafından verildi
+(20 Eylül 2026). Tebliğin kimliği Resmî Gazete'nin içindekiler
+sayfasından ayrıca doğrulandı.*
 
-#### Harç rakamları neden doğrulanamadı
+#### Tebligat — PTT Posta ve Telgraf Ücret Tarifesi (04.02.2026)
 
-Resmî Gazete'nin 31.12.2025 tarihli 5. Mükerrer sayısı indirildi
-(38 MB, 702 sayfa). Gövde sayfaları **ToUnicode haritası olmayan CID
-fontlarıyla** kodlanmış; hem `pypdf` hem `pdfminer.six` metni
-`(cid:NN)` kodları olarak döndürüyor. Bu makinede OCR veya PDF
-görüntüleyici (poppler) kurulu değil, sayfalar gömülü görüntü de
-içermiyor.
+| Gönderi türü | Ücret |
+|---|---|
+| **Normal tebligat** (100 g'a kadar) | **265,00 TL** |
+| Hızlı tebligat | 530,00 TL |
+| İadeli taahhütlü / cevaplı tebligat | 390,00 TL |
+| MTS tebligat | 310,00 TL |
+| Taahhütlü gönderi | 125,00 TL |
+| Normal tebligatta sonraki her 1.000 g | 45,00 TL |
 
-Sonuç: **tebliğin kimliği doğrulandı, içindeki rakamlar
-doğrulanamadı.** Rakamların teyidi için tebliğ metnine başka bir yoldan
-erişilmesi gerekiyor.
+*Normal, hızlı, MTS ve ağırlık kademesi tarife PDF'inden doğrudan
+okundu. İadeli taahhütlü ve taahhütlü gönderi rakamları Av. Onur Can
+Yılmaz tarafından verildi.*
+
+#### Hâlâ eksik olan rakamlar
+
+Bu kalemler olmadan hesap tamamlanamaz:
+
+| Kalem | Durum |
+|---|---|
+| **Nispi karar ve ilam harcı oranı** | ⬜ İkincil kaynakta binde 68,31; doğrulanmadı |
+| **Maktu karar ve ilam harcı** | ⬜ İkincil kaynakta 732,00 TL; doğrulanmadı |
+| **İcra peşin harcı oranı** | ⬜ İkincil kaynakta binde 5; doğrulanmadı |
+| **Gider avansı tarifesi** — diğer iş ve işlemler | ⬜ İkincil kaynakta 530,00 TL; doğrulanmadı |
+| **Gider avansı — tebligat katsayısı** | ⬜ Açık (bkz. 6.6b/3) |
+| **Vekâlet pulu / baro pulu** | ⬜ İkincil kaynakta 164,00 TL; doğrulanmadı |
+| **Vekâlet suret harcı** | ⬜ İkincil kaynakta 110,00 TL; doğrulanmadı |
+| **Peşin harç oranı 1/4** | ⬜ 492 s.K. m. 28; madde metni okunmadı |
+
+> 🆕 **98 Seri No'lu tebliğin yanında aynı sayıda Seri No: 99 da var.**
+> İkisinin hangi harçları ayırdığı hâlâ netleşmedi.
 
 ### 6.6b. Dört çelişkinin durumu
 
 | # | Çelişki | Durum |
 |---|---|---|
-| 1 | Artış oranı %18,95 mi %43,93 mü | ⚠️ **%18,95 güçlü aday.** Tebliğin özeti maktu harçların 2025 yeniden değerleme oranı olan %18,95 ile artırıldığını söylüyor. %43,93 büyük ihtimalle **2024** yeniden değerleme oranı — yani o rakamı 2026 için veren kaynak bir yıl geride. *Birincil metinle teyit edilmedi.* |
-| 2 | İcra başvurma harcı 335,20 mı 732,00 mı | ⬜ Çözülmedi. İkisinin ayrı harçlar olduğu (icra hukuk mahkemesi ile icra dairesinde takip açılışı) tahmini, doğrulanmadı |
-| 3 | Tebligat gideri | ✅ **Birim ücret 265,00 TL birincil kaynaktan doğrulandı.** Ama sorunun asıl kısmı —gider avansı tarifesinde taraf başına **5 katsayısı** olup olmadığı— PTT'nin değil Adalet Bakanlığı tarifesinin konusu ve hâlâ açık. Katsayı varsa 2 taraflı davada tebligat gideri 530 TL değil 2.650 TL |
+| 1 | Artış oranı | ✅ **ÇÖZÜLDÜ: %18,95.** 2025 yeniden değerleme oranı. %43,93 büyük ihtimalle 2024 oranıydı — o rakamı 2026 için veren kaynak bir yıl geriymiş |
+| 2 | İcra başvurma harcı 335,20 mı 732,00 mü | ✅ **ÇÖZÜLDÜ: ikisi de doğru, ayrı harçlar.** 335,20 TL **icra tetkik mercii** (icra hukuk mahkemesi) başvurma harcı; 732,00 TL **icra dairesinde takip açılışı** başvuru harcı. Araç ikisini karıştırmamalı — takip açan kullanıcı 732,00'yi öder |
+| 3 | Tebligat gideri | 🟡 **Yarısı çözüldü.** Birim ücret 265,00 TL doğrulandı. Ama gider avansı tarifesinde taraf başına **5 katsayısı** olup olmadığı hâlâ açık; bu PTT'nin değil Adalet Bakanlığı tarifesinin konusu. Katsayı varsa 2 taraflı davada tebligat gideri 530 değil **2.650 TL** |
 | 4 | Nispi harçta asgari taban | ⬜ Çözülmedi |
 
 ### 6.7. Kapsam önerim
@@ -1386,18 +1393,31 @@ Kira ve faizdeki dersle: dar başla.
 
 ### 6.8. Açık sorular
 
-1. **Kapsam önerisi (6.7) kabul mü?** Özellikle vekâlet ücretinin
-   dışarıda kalması.
-2. **6.6'daki dört çelişki** nasıl çözülüyor? Özellikle tebligat
-   katsayısı — toplamı beş katına çıkarabiliyor.
-3. **Mahkeme türü listesi** ne kadar ayrıntılı olsun? Sulh / asliye
-   ayrımı yeterli mi, yoksa ticaret, iş, tüketici, aile ayrı ayrı mı
-   listelensin?
-4. **Nispi harçta asgari taban** var mı?
-5. **İcra takibinde ilamlı/ilamsız ayrımı** v1'de olsun mu? İlamlı
-   takipte peşin harç alınmıyor, bu tek satırlık bir dal.
-6. **Yuvarlama** — harçlar kuruşlu mu gösterilsin, tam liraya mı
-   yuvarlansın?
+**✅ Kapandı:** artış oranı (%18,95) · icra başvurma harcı ayrımı
+(tetkik mercii 335,20 / takip açılışı 732,00) · tebligat birim ücreti
+(265,00 TL).
+
+**⬜ Kod yazılabilmesi için gerekenler:**
+
+1. **Nispi karar ve ilam harcı oranı** — binde 68,31 mi? Dava
+   maliyetinin en büyük kalemi bu; doğrulanmadan hesaplanamaz.
+2. **İcra peşin harcı oranı** — binde 5 mi? Takip maliyetinin
+   belirleyicisi.
+3. **Gider avansı tarifesi** — "diğer iş ve işlemler" tutarı ve
+   **tebligat katsayısı**. Katsayı sorusu hesabı beş katına
+   çıkarabiliyor; bu, kalan en riskli belirsizlik.
+4. **Maktu karar ve ilam harcı** — nispi olmayan davalarda.
+5. **Vekâlet pulu ve vekâlet suret harcı** — avukatlı takipte.
+6. **Nispi harçta asgari taban** var mı?
+7. **Seri No: 99** hangi harçları kapsıyor?
+
+**⬜ Tasarım kararları:**
+
+8. Kapsam önerisi (6.7) kabul mü — özellikle vekâlet ücretinin (AAÜT)
+   dışarıda kalması?
+9. Mahkeme türü listesi ne kadar ayrıntılı olsun?
+10. İlamlı/ilamsız icra ayrımı v1'de olsun mu?
+11. Harçlar kuruşlu mu gösterilsin, tam liraya mı yuvarlansın?
 
 ### 6.9. Kaynaklar
 
