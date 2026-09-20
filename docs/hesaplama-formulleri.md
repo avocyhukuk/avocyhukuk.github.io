@@ -647,195 +647,174 @@ listesi:
 
 ## 2. Araç Değer Kaybı Hesaplama
 
-> **Durum: TASLAK — kodlanmadı.** Onay bekliyor.
->
-> ⚠️ **Önceki taslaktaki bir hata düzeltildi.** Bu bölümün ilk sürümünde
-> *"Ek-1 formülü 01.07.2026'da yürürlükten kalktı"* denmişti. Bu iddia
-> tek bir ikincil kaynaktan geliyordu ve **doğrulanamadı**; kesin bir
-> bulgu gibi yazılması hataydı. Aşağıda "mülga" ifadesi kullanılmıyor.
+> **Durum: TASLAK — kodlanmadı.** Formül birincil kaynaktan doğrulandı;
+> iki açık nokta kaldı (bkz. 2.6). Onay bekliyor.
 
-### 2.1. 🔴 Resmî formül, piyasadaki "klasik formül"den TAMAMEN FARKLI
+### 2.1. Bu bölümde iki kez hata yapıldı, ikisi de düzeltildi
 
-Birincil kaynak doğrudan okundu: **Karayolları Motorlu Araçlar Zorunlu
-Mali Sorumluluk Sigortası Genel Şartları, Ek 1 — Değer Kaybı
-Hesaplaması**, Resmî Gazete 14.05.2015, Sayı 29355 (ek, ana metinden
-ayrı PDF olarak yayımlanmış; taranmış görüntü olduğu için sayfa sayfa
-okundu).
+| Hata | Düzeltme |
+|---|---|
+| *"Ek-1 formülü 01.07.2026'da mülga oldu"* | Tek kaynaklıydı, doğrulanamadı. **Mülga sayılmıyor.** |
+| *"Resmî metinde klasik formül yok"* | 2015 tarihli **özgün** Ek-1'e bakılmıştı. **20.03.2020 tarihli değişiklik formülü tamamen değiştirmiş** ve klasik formül tam olarak budur. |
 
-Hesaplama araçlarının kullandığı **"klasik formül"**:
+### 2.2. 🔴 Baz oran %1,9 DEĞİL, **%19**
+
+Resmî metinden doğrudan okundu:
+
+> **Baz Değer Kaybı = Aracın Rayiç Değeri × %19**
+
+Bu, on kat farkla sonucu belirleyen rakam. %1,9 ile hesaplansaydı
+1.200.000 TL'lik bir araçta azami değer kaybı ~18.500 TL çıkardı;
+doğrusuyla ~184.700 TL.
+
+### 2.3. Yürürlükteki formül — birincil kaynak
+
+**Kaynak:** Genel Şartlarda Değişiklik Yapılmasına Dair Genel Şartlar,
+**RG 20.03.2020, Sayı 31074, MADDE 6** — Ek 1'in "1. Formül" başlıklı
+maddesini değiştirmiştir. Metin ve tablolar Resmî Gazete sayfasındaki
+görüntülerden okundu.
 
 ```
-Değer Kaybı = Rayiç Değer × Hasar Katsayısı × KM Katsayısı × Baz Oran
+Baz Değer Kaybı   = Aracın Rayiç Değeri × %19
+Total Değer Kaybı = Baz Değer Kaybı
+                    × Hasar Boyutu Katsayısı
+                    × Araç Kullanılmışlık Düzeyi (Km) Katsayısı
 ```
 
-**Resmî Ek-1'de böyle bir formül YOK.** Resmî düzenleme parça bazlı,
-kalem kalem toplanan bir sistem ve içinde **eksper takdiri** var.
+**Hasar boyutu katsayısı**
 
-> Not: Klasik formülün baz oranı için kaynaklarda **%1,9** ve **0,19**
-> gibi on kat farklı değerler dolaşıyor. Resmî metinde böyle bir baz
-> oran bulunmadığı için bu uyuşmazlığın çözülmesine de gerek kalmadı.
+| Kod | Hasar boyutu | Katsayı |
+|---|---|---|
+| A1 | Büyük hasar | 0,90 |
+| A2 | Orta hasar | 0,75 |
+| A3 | Küçük hasar | 0,50 |
+| A4 | Basit hasar | 0,25 |
 
-### 2.2. Resmî Ek-1 — tam içerik
+**Kullanılmışlık düzeyi (km) katsayısı**
 
-**Girdiler:** Araç Rayiç Değeri (**ARD**) · Araç Kilometresi (**KM**)
-
-Her kalem şu biçimde hesaplanıyor: `(ADET × ÇARPAN) × ARD / 100`
-
-**A. Kaynaklı ana parçalarda değişim → T1**
-
-| Parça | Çarpan |
+| Kilometre | Katsayı |
 |---|---|
-| Orta direk değişim | 3 |
-| Marşpiyel değişim | 3 |
-| Arka çamurluk değişim | 3,5 |
-| Havuz sacı değişim | 3 |
-| Arka panel değişim | 2,5 |
-| Tavan sacı değişim | 4,5 |
+| 0 – 14.999 | 0,90 |
+| 15.000 – 29.999 | 0,80 |
+| 30.000 – 44.999 | 0,60 |
+| 45.000 – 59.999 | 0,40 |
+| 60.000 – 74.999 | 0,30 |
+| 75.000 – 149.999 | 0,20 |
+| 150.000 ve üzeri | 0,10 |
 
-**B. Kaynaklı ana parçalarda düzeltme → T2**
-*Eksper, hasar ve onarım şeklinin değer kaybına etkisini **1 ila 5**
-arasında puanlar.* Formül: `(EKSPER TAKDİRİ × ÇARPAN) × ARD / 100`
+Azami sonuç: `0,19 × 0,90 × 0,90 = rayiç değerin %15,39'u`.
 
-| Parça | Çarpan |
+#### Hasar boyutu kullanıcıya SORULMAZ, türetilir
+
+Aynı değişiklik A1–A4'ün nasıl belirleneceğini de tabloya bağlamış:
+hasar tutarının piyasa değerine oranı, aracın fiyat dilimine göre
+farklı eşiklerle değerlendiriliyor. *(Hasar boyutu belirlenirken KDV
+dahil tutarlar esas alınır.)*
+
+| Kod | 0–75.000 TL | 75.000–150.000 TL | 150.001–300.000 TL | 300.001 TL ve üzeri |
+|---|---|---|---|---|
+| A1 | %25,01 ve üzeri | %20,01 ve üzeri | %15,01 ve üzeri | %10,01 ve üzeri |
+| A2 | %15,01 – %25 | %12,01 – %20 | %10,01 – %15 | %8,01 – %10 |
+| A3 | %5,01 – %15 | %4,01 – %12 | %3,01 – %10 | %2,01 – %8 |
+| A4 | %5'e kadar | %4'e kadar | %3'e kadar | %2'ye kadar |
+
+> ⚠️ **Fiyat dilimleri 2020'den beri güncellenmemiş görünüyor.** 2026
+> koşullarında neredeyse her araç "300.001 TL ve üzeri" sütununa
+> düşüyor; diğer üç sütun pratikte ölü. Sonradan güncellendiyse
+> tabloların yenisi bulunmalı (bkz. 2.6).
+
+#### Rayiç değer nasıl belirlenir
+
+Dipnot, rayiç değerin **TOBB Sigorta Eksperleri İcra Komitesi (SEİK)**
+bünyesinde oluşturulan araç değerleme listesinden alınacağını; listede
+bulunmayan araçlarda piyasa rayicinin **piyasa analizi yöntemiyle**
+belirleneceğini söylüyor.
+
+### 2.4. Sınırlar ve teminat dışı hâller
+
+| Kural | Kaynak |
 |---|---|
-| Şase düzeltme | 0,7 |
-| Şase kesme | 0,75 |
-| Tavan sacı düzeltme | 0,7 |
-| Orta direk düzeltme | 0,7 |
-| Arka panel düzeltme | 0,7 |
-| Havuz sacı düzeltme | 0,7 |
-| Arka çamurluk düzeltme | 0,7 |
-| Marşpiyel düzeltme | 0,7 |
+| Değer kaybı talebi, aracın kaza anındaki **rayiç değerinin %25'ini** aşamaz (toplam limit; önceki ödemeler mahsup) | 2015 Ek-1, md. 2/3 |
+| Maddi hasar, rayiç bedelin **%2'sinin altında** kalıyorsa değer kaybı **maddi hasar tutarını aşamaz** | 2020 değişikliği, yeni md. 3 |
+| Ek 1'deki tutarlar **%50'sine kadar** azaltılıp artırılabilir | 2015 Ek-1, son madde |
 
-**C. Yukarıdaki listelerde yer almayan diğer parçalar → T3**
+**Teminat dışı hâller** (forma konulmayacak, kapsam notunda anılacak):
+mini onarımla giderilebilen basit kaporta/plastik tampon onarımları,
+cam, radyo, lastik, hava yastığı, jant, mekanik, elektrik, elektronik
+ve döşeme hasarları · ana iskelet ve şasede hasar olmaksızın vidalı
+parçalarla giderilen hasarlar · kaza ile ihbar arasında mülkiyeti
+değişen araçlar · çekme ve hurda belgeli araçlar · kiralık araç, taksi,
+dolmuşta eksper hesabının %50'sini aşan talepler · test, koleksiyon ve
+antika araçlar · **(2020 ile eklendi)** toplumsal müdahale araçları,
+belediye otobüsleri, yol süpürme ve itfaiye araçları · yabancı plakalı
+araçlar.
 
-| Kalem | Çarpan |
+### 2.5. Tasarım — kararlar alındı
+
+| Konu | Karar |
 |---|---|
-| Kaynak yapılan kaporta aksamı | 1,2 |
-| Düzeltme yapılan kaporta aksamı | 1,2 |
-| Değişen kaporta aksamı | 1 |
+| Form uzunluğu | **(b)** — nesnel girdiler korunur, öznel kısım kabalaştırılır |
+| %25 sınırı | Sınıra çekilir; **ham sonuç bilgi satırı olarak ayrıca gösterilir** |
+| Teminat dışı hâller | Forma girmez; **statik kapsam notu** olarak yazılır, dallandırma yok |
+| Klasik formül karşılaştırması | Eklenmez |
 
-**A-B-C. Boya uygulanan aksam → T4**
-
-| Kalem | Çarpan |
-|---|---|
-| Boya uygulanan aksam | 0,75 |
-
-**Kilometre düzeltmesi:**
-
-```
-KM ≤ 15.000      → DEĞER KAYBI = T1 + T2 + T3 + T4
-
-KM ≥ 15.001      → DEĞER KAYBI = (T1+T2+T3+T4)
-                                 − [ (T1+T2+T3+T4) × ((KM − 15000) / 75000) / 2 ]
-```
-
-**Üst sınır:** Aracın kaza anındaki rayiç değerinin **%25'ini aşan**
-değer kaybı talepleri teminat dışında. Bu sınır bir araç için talep
-edilecek **toplam** değer kaybı limiti; daha önce ödenen tazminatlar
-limitten mahsup ediliyor.
-
-**Teminat dışında kalan diğer hâller:** mini onarımla giderilebilen
-basit kaporta/plastik tampon onarımları, cam, radyo, lastik, hava
-yastığı, jant, mekanik, elektrik, elektronik ve döşeme hasarları · ana
-iskelet ve şasede hasar olmaksızın vidalı parçalarla giderilen hasarlar
-· kaza ile ihbar arasında mülkiyeti değişen araçlar · çekme ve hurda
-belgeli araçlar · kiralık araç, taksi, dolmuşta eksper hesabının
-%50'sini aşan talepler; test, koleksiyon ve antika araçlar.
-
-**Eksper takdiri yalnızca B'de değil:** metin, ekspere boya uygulanan
-aksam sayısını belirlerken birden fazla parçayı tek sayma ya da bir
-parçayı 1,5–2 adet sayma yetkisi de veriyor; onarılan/değişen aksam
-sayısında da benzer takdir var.
-
-Ek 1'deki tutarlar Hazine Müsteşarlığınca **%50'sine kadar** azaltılıp
-artırılabiliyor.
-
-### 2.3. Sonraki gelişmeler — klasik formülün tek başına yetmediği
-
-| Tarih | Gelişme |
-|---|---|
-| 29.12.2022 | **AYM 2022/167** — değer kaybının yalnızca idari düzenlemelerdeki sabit cetvellere göre belirlenmesinin gerçek zararın altında kalabileceği tespiti |
-| 29.04.2024 | **SEİK 2024/1 duyurusu** — Değer Kaybı Raporlarında formül hesabının yanına **reel piyasa analizi** yöntemiyle yapılan hesabın da eklenmesi |
-
-> ⬜ **Doğrulanmamış iddia:** Bazı ikincil kaynaklar Ek-1'in 01.07.2026'da
-> tamamen yürürlükten kalktığını söylüyor. Başka kaynakta
-> doğrulanamadı; bu belgede ve kodda **mülga sayılmıyor**. İleride
-> Resmî Gazete'den teyit edilirse bölüm güncellenecek.
-
-### 2.4. Tasarım — taban tahmin + niteliksel not
-
-Av. Onur Can Yılmaz'ın kararı doğrultusunda:
-
-1. Kullanıcıdan girdi alınır, **klasik formülle değil resmî Ek-1'e göre**
-   bir **taban tahmin** hesaplanır.
-2. Sonuç "kesin tazminat" değil, **"resmî formüle göre taban tahmin"**
-   olarak çerçevelenir.
-3. Sonuç ekranına **sayısal bir üst aralık uydurulmaz.** Bunun yerine
-   niteliksel not:
-   > Anayasa Mahkemesi'nin 2022/167 sayılı kararı ve Sigorta Eksperleri
-   > İcra Kurulu'nun 2024/1 sayılı duyurusu sonrasında, sigorta
-   > şirketleri ve mahkemeler gerçek piyasa (ikinci el rayiç)
-   > karşılaştırmasını da dikkate alabilmektedir. Nihai tazminat bu
-   > tahminden farklı, çoğu durumda daha yüksek belirlenebilir.
-4. Zorunlu uyarı: *"Bu hesaplama tahminidir, somut olayınız için hukuki
-   değerlendirme ve ekspertiz raporu gereklidir."*
-5. Dayanaklar sonuç ekranında gösterilir: **Genel Şartlar Ek 1** ·
-   **TBK m. 49** · **KTK m. 91**.
+> **Not:** Seçenek (b) 2015 formülünün 19 alanlık yapısı için
+> tasarlanmıştı. Yürürlükteki 2020 formülü zaten çok daha kısa —
+> rayiç değer, hasar tutarı ve kilometre yeterli. Hasar boyutu (A1–A4)
+> kullanıcıya sorulmaz, hasar tutarı ÷ rayiç değer oranından
+> **türetilir**; bu hem daha nesnel hem de (b) kararının ruhuna uygun.
 
 #### Girdi alanları
 
-| Alan | Tip |
-|---|---|
-| Araç rayiç değeri (ARD) | TL |
-| Araç kilometresi (KM) | km |
-| A — kaynaklı ana parça değişimleri | her parça için adet (6 alan) |
-| B — kaynaklı ana parça düzeltmeleri | her parça için eksper takdiri 1-5 (8 alan) |
-| C — diğer parçalar | her kalem için adet (3 alan) |
-| Boya uygulanan aksam | adet |
+| Alan | Tip | Not |
+|---|---|---|
+| Araç rayiç değeri | TL | TOBB SEİK listesi esas |
+| Maddi hasar tutarı | TL | KDV dahil; A1–A4 buradan türetilir |
+| Araç kilometresi | km | Katsayı tablosu |
 
-> ⚠️ **Form uzun olacak — sadeleştirme kararı gerekiyor.** Tam sadakat
-> 19 alan demek. Üç seçenek:
-> **(a)** Tamamı — eksper raporu elinde olan kullanıcı için doğru, ama
-> sıradan ziyaretçiyi yorar.
-> **(b)** A + C + boya (nesnel adetler), B'yi tek bir "şase/ana parça
-> düzeltmesi var mı, şiddeti 1-5" alanına indirgemek.
-> **(c)** Bölümleri katlanabilir gruplara ayırıp varsayılanı sıfır
-> bırakmak; kullanıcı yalnızca ilgili bölümü açar.
-> *Önerim: (c)* — sadakat korunur, form ilk bakışta kısa görünür.
+Üç alan. Hasar şiddetini kullanıcıya tahmin ettirmeye gerek kalmadı.
 
-### 2.5. Açık sorular
+#### Sonuç ekranı
 
-1. **Form sadeleştirmesi** — 2.4'teki (a)/(b)/(c). *Önerim (c).*
-2. **%25 üst sınırı** sonuçta nasıl gösterilsin? Hesap sınırı aşarsa
-   sınıra çekilip "teminat dışı" notu mu düşülsün, yoksa ham sonuç da
-   ayrıca gösterilsin mi? *Önerim: sınıra çek, ham sonucu bilgi satırı
-   olarak göster.*
-3. **Teminat dışı hâller** forma konulsun mu (mülkiyet değişikliği,
-   hurda/çekme belgesi, taksi/kiralık), yoksa yalnızca kapsam notunda
-   mı anılsın? *Önerim: kapsam notunda — nitelendirme gerektiriyor.*
-4. **Hazine'nin %50 azaltma/artırma yetkisi** kullanılmış mı? Kullanılmışsa
-   çarpanlar güncellenmeli.
-5. **Klasik formülü de gösterelim mi?** Kullanıcı başka sitelerde onu
-   göreceği için bir karşılaştırma satırı faydalı olabilir — ama resmî
-   metinde karşılığı olmadığı için **önermiyorum**.
+1. Hesaplanan **taban tahmin**, "resmî formüle göre taban tahmin" olarak
+2. Uygulanan katsayılar ayrı satırlarda (hangi hasar kodu, hangi km dilimi)
+3. Sınır devreye girdiyse: sınıra çekilmiş tutar + ham sonuç bilgi satırı
+4. Niteliksel not:
+   > Anayasa Mahkemesi'nin 2022/167 sayılı kararı ve Sigorta Eksperleri
+   > İcra Kurulu'nun 2024/1 sayılı duyurusu sonrasında sigorta şirketleri
+   > ve mahkemeler gerçek piyasa (ikinci el rayiç) karşılaştırmasını da
+   > dikkate alabilmektedir. Nihai tazminat bu tahminden farklı, çoğu
+   > durumda daha yüksek belirlenebilir.
+5. Dipnot: *"Detaylı hasar tespiti için ekspertiz raporu gereklidir."*
+6. Zorunlu uyarı + dayanaklar: **Genel Şartlar Ek 1** · **TBK m. 49** ·
+   **KTK m. 91**
 
-### 2.6. Test senaryoları
+### 2.6. Kalan iki açık nokta
 
-_TODO — onay sonrası doldurulacak. Kapsanması gereken dallar: KM ≤ 15.000
-(düzeltme yok) · KM > 15.000 (düzeltme var) · %25 sınırının aşıldığı hâl ·
-yalnız boya · yalnız B (eksper takdiri) · hiç işlem yok (sonuç sıfır)._
+1. **04.12.2021 (RG 31679) ve 12.06.2026 değişiklikleri Ek 1'e dokundu
+   mu?** 2021 değişikliğinin varlığı doğrulandı ama Ek 1'e etkisi
+   incelenmedi. 12.06.2026 tarihli değişikliğin Resmî Gazete sayfasına
+   bu oturumda ulaşılamadı. **Formül kilitlenmeden önce ikisi de
+   kontrol edilmeli.**
+2. **%50 azaltma/artırma yetkisi kullanıldı mı?** Ayrı bir tebliğle
+   kullanıldığına dair kayıt bulunamadı. Yürürlükteki oranların kaynağı
+   **RG 20.03.2020, Sayı 31074** — yetkinin kullanımı değil, Genel
+   Şartların kendisinde yapılan değişiklik.
 
-Referans senaryo olarak 1.200.000 TL rayiç / 30.000 km kullanılabilir;
-bu, incelenen sitelerin örneklerinden **yalnızca rakamsal senaryo**
-olarak alınmıştır — sonuçları farklı formül kullandıkları için
-karşılaştırma ölçütü değildir.
+### 2.7. Test senaryoları
 
-### 2.7. Kaynaklar
+_TODO — 2.6 kapandıktan sonra. Kapsanması gereken dallar: her km dilimi ·
+her hasar kodu (A1–A4) · fiyat dilimi sınırında hasar oranı · %25
+sınırının aşıldığı hâl · maddi hasarın rayiç bedelin %2'sinin altında
+kaldığı hâl · sıfır hasar._
+
+### 2.8. Kaynaklar
 
 **Birincil:**
 
-- **Genel Şartlar Ek 1 — Değer Kaybı Hesaplaması**, RG 14.05.2015 Sayı 29355 — [ana metin](https://www.resmigazete.gov.tr/eskiler/2015/05/20150514-5.htm) · [ekler (PDF)](https://www.resmigazete.gov.tr/eskiler/2015/05/20150514-5-1.pdf) *(Ek 1, PDF'in 1-3. sayfaları; taranmış görüntü)*
+- **Yürürlükteki formül:** Genel Şartlarda Değişiklik, **RG 20.03.2020, Sayı 31074, MADDE 6** — [metin](https://www.resmigazete.gov.tr/eskiler/2020/03/20200320-3.htm) *(formül ve katsayı tabloları sayfadaki görüntülerde)*
+- **Özgün Ek 1:** RG 14.05.2015, Sayı 29355 — [ana metin](https://www.resmigazete.gov.tr/eskiler/2015/05/20150514-5.htm) · [ekler](https://www.resmigazete.gov.tr/eskiler/2015/05/20150514-5-1.pdf)
+- [Genel Şartlar konsolide metni (mevzuat.gov.tr)](https://www.mevzuat.gov.tr/mevzuat?MevzuatNo=20752&MevzuatTur=9&MevzuatTertip=5) *(ana metin; ekler ayrı)*
 - AYM 29.12.2022 tarihli **2022/167** sayılı karar
 - SEİK 29.04.2024 tarihli **2024/1** sayılı duyuru
 - TBK m. 49 · KTK m. 91
