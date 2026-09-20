@@ -1374,12 +1374,242 @@ Kodlandı — `src/lib/gecikme-faizi.test.ts`, 17 test. Kapsanan dallar:
 
 ## 5. Araç Mahrumiyet Bedeli Hesaplama
 
-- **Kanuni Dayanak (başlangıç noktası):** _TODO_
-- **Girdi alanları:** Araç sınıfı/günlük kira bedeli, mahrumiyet süresi
-- **Formül:** _TODO_
-- **Kaynak(lar):** _TODO_
-- **Test örnekleri:** _TODO_
-- **Onay Durumu:** ⬜ Bekliyor
+> **Durum: TASLAK — ONAY BEKLİYOR.** Mekanizma ve tüm ekran metinleri Av.
+> Onur Can Yılmaz tarafından 20 Eylül 2026'da karara bağlandı. Bu bölüm
+> onaylanmadan `src/lib/` altına tek satır yazılmaz (CLAUDE.md Bölüm 6).
+> Açık sorular 5.9'da.
+
+### 5.1. Bu araç diğerlerinden yapısal olarak farklı
+
+Önceki üç araçta rakam bizdeydi: TÜFE tablosu (§ 3), kanuni faiz dönemleri
+(§ 4), harç tarifeleri (§ 6). Hepsinin ortak derdi bayatlama. Burada
+**kodda hiçbir rakam tutulmuyor** — çünkü tutulacak bir rakam yok:
+
+- Değer kaybının aksine (§ 2), mahrumiyet bedeli için genel şartlarda bir
+  ek, katsayı cetveli veya tarife bulunmuyor. Dayanak doğrudan haksız fiil
+  hükümleri ve Yargıtay uygulaması.
+- Günlük kira bedeli piyasa verisi: araç segmentine, sezona, şehre ve
+  kiralama süresine göre değişiyor. Kodda sabitlenirse bir sezon sonra
+  sessizce yanlış olur.
+
+**Seçilen mekanizma — Seçenek A.** Kullanıcı iki ayrı kiralama şirketinden
+kendi teklifini alır ve girer; araç yalnızca çarpar, aralığı ve ortalamayı
+gösterir. Bayatlayacak veri tablosu olmadığı için **bu aracın bakım yükü
+sıfır** — sekiz araç içinde bunu söyleyebildiğimiz tek araç.
+
+Buna karşılık yeni bir zayıflık doğuyor: sonucun kalitesi tamamen girilen
+bedele bağlı. Tek günlük kiralama fiyatları uzun dönem fiyatlarından
+belirgin biçimde yüksek olduğundan, yönerge metni kullanıcıyı hesapladığı
+gün sayısına yakın bir süre için teklif almaya yönlendiriyor (5.4).
+
+### 5.2. Kanuni dayanak
+
+| Konu | Dayanak | Durum |
+|---|---|---|
+| Haksız fiil — zararın tazmini sorumluluğu | **TBK m. 49** | ✅ |
+| Zarar miktarı tam olarak ispat edilemiyorsa hâkimin belirlemesi | **TBK m. 50/2** | ✅ |
+| Makul onarım süresi ve emsal günlük kira bedeli üzerinden hesap; fiili kiralama belgesi aranmaması | Yargıtay 4. HD içtihadı | ⚠️ künye teyit edilmeli |
+
+Bu aracın asıl dayanağı **TBK m. 50/2**:
+
+> Uğranılan zararın miktarı tam olarak ispat edilemiyorsa hâkim, olayların
+> olağan akışını ve zarar görenin aldığı önlemleri göz önünde tutarak,
+> zararın miktarını hakkaniyete uygun olarak belirler.
+
+Mahrumiyet bedelinin fiilen araç kiralanmış olmasına bağlı olmadığı,
+"belge yoksa tazminat yok" yaklaşımının reddedildiği nokta tam olarak
+budur. Aracımızın yaptığı iş de zaten bu: fiili bir makbuz değil, emsal
+bedel üzerinden bir tahmin üretmek.
+
+> ⚠️ **Teyit edilmesi gereken künye.** İçtihat, ikincil kaynaklarda
+> tutarlı biçimde **Yargıtay 4. HD, E. 2021/26777, K. 2022/11236** sayılı
+> karara bağlanıyor. Karar tarihine ve tam metnine bu oturumda
+> ulaşılamadı: `resmigazete.gov.tr` ve `mevzuat.gov.tr` dahil tüm gov.tr
+> alan adları sertifika hatası verdi, UYAP/Kazancı erişimi yok.
+>
+> **Kural:** künye UYAP veya Kazancı üzerinden teyit edilirse sonuç
+> ekranında karar numarasıyla gösterilir. Teyit edilmezse **künye
+> yazılmaz**; dayanak olarak yalnızca TBK m. 49 ve m. 50/2 gösterilir,
+> içtihat künyesiz biçimde "Yargıtay uygulaması" olarak anılır. Var
+> olduğundan emin olmadığımız bir karar numarasını yayına koymuyoruz.
+
+### 5.3. Kapsam — v1
+
+**VAR:**
+
+- Özel (ticari olmayan) araç
+- Kullanıcının kendi topladığı iki günlük kira teklifi
+- Gün sayısı × bedel; alt–üst aralık ve ortalama
+
+**YOK:**
+
+| Kapsam dışı | Neden |
+|---|---|
+| **Ticari araçta kazanç kaybı** | Taksi, kamyon, ticari minibüs gibi araçlarda zarar "kiralama bedeli" değil, elde edilemeyen kazançtır; ayrı bir kalem ve ayrı ispat rejimi |
+| **Kusur oranına göre indirim** | Forma girdi eklemiyoruz; sonuç karşı tarafın tam kusurlu olduğu varsayımına dayanıyor (bkz. Soru 2) |
+| **Onarım bedeli ve değer kaybı** | Ayrı kalemler; değer kaybı için § 2'deki karar geçerli |
+| **İkame araç sağlanmış hâller** | Hesaptan düşülmüyor; kapsam notuyla uyarılıyor (5.4) |
+| **Tasarruf edilen giderin düşülmesi** | Tutarı somut olaya bağlı; teknik notla bildiriliyor, hesaba girmiyor (5.6) |
+
+### 5.4. Ekran metinleri — birebir kullanılacak
+
+Aşağıdaki dört metin Av. Onur Can Yılmaz tarafından yazılmıştır ve **kodda
+birebir** yer alır. Değiştirilmesi yeni onay gerektirir.
+
+**(a) Sayfa başındaki bilgi notu** — formun ve sonucun üstünde, sayfa
+genişliğinde:
+
+> Kazadan sonra aracınızın serviste kaldığı gün sayısı × benzer bir aracın
+> günlük kiralama bedeli üzerinden hesaplanan bir tutarı, kazaya kusurlu
+> sürücüden ve araç sahibinden hukuki yollarla (icra takibi veya dava)
+> talep edebileceğinizi biliyor musunuz?
+
+**(b) Kaynak yönergesi** — form alanlarının hemen üstünde, iki bağlantıyla
+birlikte (`enterprise.com.tr`, `garenta.com`):
+
+> Aracınızla aynı veya benzer segmentteki bir aracın günlük kiralama
+> bedelini yukarıdaki sitelerden tespit edip aşağıya yazınız. Mümkünse
+> hesapladığınız gün sayısına yakın bir süre için teklif alın — tek
+> günlük fiyatlar genelde daha yüksek çıkar.
+
+**(c) İkame araç notu** — `CalculatorShell`'in `scopeNote` propu olarak,
+sonuç sütununda:
+
+> Bu süre zarfında sigorta şirketiniz, servis veya karşı taraf size
+> ücretsiz bir ikame araç sağladıysa, mahrumiyet bedeli talebiniz bu
+> durumdan etkilenebilir. Bu durumun hesaplamanızı nasıl etkilediğini bize
+> danışabilirsiniz.
+
+**(d) Zorunlu genel uyarı** — `CALCULATOR_DISCLAIMER`, kabuk tarafından
+basılıyor, prop ile kapatılamıyor:
+
+> Bu hesaplama tahminidir, somut olayınız için hukuki değerlendirme
+> gereklidir.
+
+**Reklam yasağı kontrolü (CLAUDE.md Bölüm 4/3).** Dört metin de kontrol
+edildi: üstünlük iddiası, sonuç garantisi, müvekkil referansı veya başarı
+oranı yok. (a)'daki "biliyor musunuz" kalıbı bilgilendirici; (c)'deki
+"bize danışabilirsiniz" ifadesi bir kanal bildirimi, ikna edici bir vaat
+değil. Kalem uygun görünüyor.
+
+### 5.5. Girdi alanları
+
+| Alan | id | Tip | Kural |
+|---|---|---|---|
+| Aracın serviste kaldığı gün sayısı | `gun` | tam sayı | 1 – 3650 |
+| Birinci günlük kira bedeli | `bedel-1` | TL | > 0 |
+| İkinci günlük kira bedeli | `bedel-2` | TL | > 0 |
+
+Bedel alanlarının ipucu metinleri kaynağı gösterir ("Enterprise'dan
+aldığınız teklif" / "Garenta'dan aldığınız teklif"), böylece cetvel
+satırları marka adı taşımak zorunda kalmaz.
+
+Üst sınır olarak 3650 gün (10 yıl) konuyor: makul onarım süresi tartışması
+ayrı, ama on yılı aşan bir girdi kullanıcı hatasıdır ve sessizce devasa
+bir rakam üretmesindense reddedilmesi doğru.
+
+### 5.6. Hesap
+
+Girdi: `gun` (tam sayı), `gunlukBedeller` (en az iki pozitif sayı).
+
+```
+tutar[i] = gun × bedel[i]
+alt      = min(tutar)
+üst      = max(tutar)
+ortalama = tutarların aritmetik ortalaması
+```
+
+**Aritmetik kuralı.** § 3, § 4 ve § 6'daki ile aynı: bedeller kuruşa
+çevrilip tam sayı olarak çarpılır, yuvarlama yalnızca sonda yapılır.
+
+```
+bedelKurus[i]  = round(bedel[i] × 100)
+tutarKurus[i]  = bedelKurus[i] × gun          // tam sayı, kayıp yok
+ortalamaKurus  = round(Σ tutarKurus[i] / n)
+```
+
+`gun ≤ 3650` ve makul bir bedel tavanında en büyük ara değer 10¹¹
+mertebesinde kalır; `Number.MAX_SAFE_INTEGER` sınırına yaklaşılmaz
+(§ 4'te bu sınır bir kez sorun olmuştu, bu yüzden yazılıyor).
+
+**İki bedel eşitse** aralık satırı tek değer gösterir ("1.000,00 TL"),
+"1.000,00 – 1.000,00 TL" yazılmaz.
+
+**Geçersiz girdi durumları:** `gecersiz-gun` (tam sayı değil, 1'den küçük
+veya 3650'den büyük), `gecersiz-bedel` (sıfır, negatif veya sayı değil),
+`yetersiz-teklif` (ikiden az bedel). Her biri ayrı bir hata mesajı alır;
+§ 6'daki gibi tahmin yürütülmez.
+
+### 5.7. Sonuç ekranı
+
+Hesap cetveli (`ResultSheet`) satırları:
+
+| Satır | Değer | Açıklama |
+|---|---|---|
+| Birinci teklife göre | `tutar₁` | `N gün × X TL` |
+| İkinci teklife göre | `tutar₂` | `N gün × Y TL` |
+| **Tahmini aralık** | `alt – üst` | iki teklifin verdiği alt ve üst uç |
+| **Ortalama tahmin** | `ortalama` | kapanış satırı (`total: true`) |
+
+Cetvelin hemen altında **iki teknik not** (birebir):
+
+> Bu tutardan, aracınızı kullanmadığınız için tasarruf ettiğiniz
+> yakıt/bakım gideri düşülebilir; gerçek tazminat bu rakamdan az
+> çıkabilir.
+
+> Girdiğiniz gün sayısı, bilirkişi tarafından "makul onarım süresi"ne
+> indirilebilir; hesaplanan tutar fiili gün sayısına değil, mahkemenin
+> kabul edeceği süreye göre değişebilir.
+
+Ardından kabuğun bastığı sabit bloklar: mevzuat tarihi → kapsam notu
+(5.4/c) → zorunlu uyarı (5.4/d).
+
+**Dayanak gösterimi.** Cetvelin kapanış satırı TBK m. 49 ve m. 50/2'ye
+bağlanır. İçtihat künyesi 5.2'deki kurala tabi.
+
+### 5.8. Kaldırılan eklerin kontrolü — § 2'de söz verilmişti
+
+§ 2.7'de, 12.06.2026 tarihli değişikliğin Ek-2 ve Ek-3'ü de kaldırdığı ve
+bu araca geçmeden önce kontrol edilmesi gerektiği yazılmıştı. Kontrol
+yapıldı:
+
+- **Ek-2 ve Ek-3 bu aracı ilgilendirmiyor.** İkisi de bedensel zarar
+  kalemlerinin hesabına ilişkin: destekten yoksun kalma tazminatı ve
+  sürekli sakatlık tazminatı. Kaynaklar hangi numaranın hangisine ait
+  olduğunda çelişiyor (biri Ek-2'yi destekten yoksun kalma, diğeri Ek-3'ü
+  gösteriyor); ayrım bu araç bakımından önemsiz olduğu için
+  çözülmedi. Ek-7'nin içeriği belirlenemedi.
+- **ZMSS teminatı bakımından.** İkincil kaynaklar araç mahrumiyetini
+  dolaylı zarar sayıp zorunlu trafik sigortası teminatının dışında kabul
+  ediyor; talebin işleten ve sürücüye yöneltilmesi gerektiğini söylüyor.
+  Bu, senin belirlediğin çerçeveyle ("kusurlu sürücüden ve araç
+  sahibinden") birebir örtüşüyor. Birincil metinden teyit edilemedi
+  (gov.tr erişimi yok). **Hesabı etkilemiyor**, çünkü araç zaten
+  sigortacıya değil sorumlulara yöneltilen talebi anlatıyor.
+
+### 5.9. Onay durumu ve açık sorular
+
+**Soru 1 — Yargıtay künyesi.** 5.2'deki karar numarasını
+(4. HD, E. 2021/26777, K. 2022/11236) teyit edebiliyor musun? Teyit
+edersen sonuç ekranında künyeyle gösteririm; edemezsek künyesiz
+gideriz. Varsayılan: künyesiz.
+
+**Soru 2 — Kusur oranı.** Form kusur oranı sormuyor, dolayısıyla sonuç
+"karşı taraf tam kusurlu" varsayımına dayanıyor. Müterafik kusur varsa
+tutar orantılı olarak düşer. Önerim: forma girdi eklemek yerine kapsam
+notuna (5.4/c) tek cümle eklemek — *"Kazada sizin de kusurunuz varsa,
+talep edilebilecek tutar kusur oranınız ölçüsünde azalır."* Ekleyelim mi?
+
+**Soru 3 — Ticari araç.** 5.3'te kapsam dışı bıraktım. Kapsam notunda
+belirtelim mi, yoksa hiç değinmeyelim mi? Önerim: tek cümle belirtmek —
+taksi/kamyon sahibi kullanıcı aracı kendi durumuna uygun sanmasın.
+
+**Soru 4 — `lawAsOf`.** Bu araçta mevzuat tarihi yerine "içtihat
+durumunun son kontrol tarihi" anlamına geliyor. `20 Eylül 2026` olarak
+yazıyorum; itirazın varsa söyle.
+
+- **Onay Durumu:** ⬜ **Bekliyor** — 5.9'daki dört soru cevaplanınca kod
+  yazılacak
 
 ## 6. Dava / İcra Harç ve Masraf Hesaplama
 
