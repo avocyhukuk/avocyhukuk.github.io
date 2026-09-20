@@ -23,4 +23,6 @@ Trafik kazasından doğan taleplerde, zarar görenin doğrudan sigorta şirketin
 
 Aracın onarılması, zararın tamamını karşılamayabilir. Onarım sonrasında araçta kalan değer azalması "değer kaybı", aracın onarımda geçirdiği süre boyunca kullanılamamasından doğan zarar ise "mahrumiyet bedeli" olarak ayrıca talep edilebilir.
 
+Değer kaybının nasıl belirleneceği 1 Temmuz 2026'da değişti: genel şartların katsayı cetveli yürürlükten kaldırıldı, tespit sigorta eksperine bırakıldı. Kaza tarihine göre hangi kuralın uygulandığı ve sürecin nasıl işlediği [araç değer kaybında yeni dönem](/blog/arac-deger-kaybi-yeni-donem) başlıklı yazıda ele alınmaktadır.
+
 Sigorta uyuşmazlıklarında Sigorta Tahkim Komisyonu'na başvuru, mahkemeye göre daha kısa sürede sonuçlanan bir alternatif yoldur. Büro, sigorta şirketine başvuru aşamasından tahkim veya dava aşamasına kadar sürecin takibini yürütmektedir. Zamanaşımı süreleri talebin türüne göre değiştiğinden, kaza sonrası erken değerlendirme önem taşır.

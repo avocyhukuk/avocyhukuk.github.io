@@ -31,13 +31,20 @@ export const CALCULATORS: readonly Calculator[] = [
     areas: ['ceza-hukuku'],
     status: 'planned',
   },
-  {
-    slug: 'arac-deger-kaybi',
-    title: 'Araç Değer Kaybı Hesaplama',
-    summary: 'Kazaya karışan aracın onarım sonrası piyasa değerindeki azalmayı tahmin eder.',
-    areas: ['sigorta-hukuku'],
-    status: 'planned',
-  },
+  /*
+   * Araç Değer Kaybı burada DEĞİL — bilerek.
+   *
+   * CLAUDE.md Bölüm 6'nın 2 numaralı sırası bu araçtı. 12.06.2026 tarihli
+   * Resmî Gazete değişikliği (Sayı 33278, MADDE 6), trafik sigortası genel
+   * şartlarının değer kaybı hesabına ilişkin Ek-1'ini 1/7/2026'dan geçerli
+   * olmak üzere tamamen yürürlükten kaldırdı. Yerine gelen A.5/a hükmü bir
+   * formül değil, eksperin dikkate alacağı yedi unsur sayıyor.
+   *
+   * Hesaplanacak bir formül kalmadığı için araç yapılmadı; konu
+   * /blog/arac-deger-kaybi-yeni-donem adresinde bilgilendirme yazısına
+   * dönüştürüldü. Gerekçe ve birincil kaynaklar:
+   * docs/hesaplama-formulleri.md § 2.
+   */
   {
     slug: 'kira-artis-orani',
     title: 'Kira Artış Oranı Hesaplama',

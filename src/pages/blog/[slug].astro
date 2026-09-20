@@ -96,7 +96,8 @@ const schemas = [
     </div>
   </section>
 
-  <ContactCallout />
+  {/* Frontmatter'da verilmemişse ContactCallout kendi genel metnine döner. */}
+  <ContactCallout title={post.data.ctaTitle} message={post.data.ctaMessage} />
 </PageLayout>
 
 <style>

@@ -647,8 +647,12 @@ listesi:
 
 ## 2. Araç Değer Kaybı Hesaplama
 
-> **Durum: KODLAMA DURDURULDU.** Birincil kaynaktan kesin sonuç alındı:
-> hesaplanacak bir formül artık yok. Karar sorusu 2.5'te.
+> **Durum: HESAPLAMA ARACI DEĞİL — BİLGİLENDİRME SAYFASINA DÖNÜŞTÜRÜLDÜ.**
+> Av. Onur Can Yılmaz 20 Eylül 2026'da 2.5'teki **A seçeneğini** onayladı.
+> `src/lib/` altına bu araç için hiçbir kod yazılmadı ve yazılmayacak;
+> `CALCULATORS` listesinden çıkarıldı. İçerik
+> `src/content/blog/arac-deger-kaybi-yeni-donem.md` dosyasında, yayın
+> adresi `/blog/arac-deger-kaybi-yeni-donem`. Uygulama ayrıntısı 2.7'de.
 
 ### 2.1. 🔴 Kesin cevap: Ek-1 tamamen kaldırıldı
 
@@ -724,9 +728,9 @@ de değil:
 Bir web formunun toplayamayacağı girdiler: araç kodu, parça parça
 işlem listesi, iki ayrı sektörel değer listesindeki bedeller.
 
-### 2.5. Karar gerekiyor
+### 2.5. Karar — A seçeneği onaylandı (20 Eylül 2026)
 
-Kodlama durduruldu. Üç seçenek:
+Kodlama durdurulmuş, üç seçenek sunulmuştu. **A seçeneği seçildi.**
 
 | # | Seçenek | Değerlendirme |
 |---|---|---|
@@ -738,16 +742,68 @@ Kodlama durduruldu. Üç seçenek:
 Hukuku çalışma alanının altına bir sayfa ya da blog yazısı olarak
 konur. "Hazırlanıyor" etiketiyle beklemek yanlış vaat olur.
 
+### 2.7. A seçeneğinin uygulanması — 20 Eylül 2026
+
+**Yapılanlar:**
+
+| Dosya | Değişiklik |
+|---|---|
+| `src/content/blog/arac-deger-kaybi-yeni-donem.md` | Bilgilendirme yazısı. Rakam üreten hiçbir form yok |
+| `src/lib/calculators.ts` | `arac-deger-kaybi` kaydı silindi; yerine gerekçeyi ve yazının adresini gösteren yorum bırakıldı |
+| `src/content/practice-areas/sigorta-hukuku.md` | Değer kaybı paragrafından yazıya bağlantı |
+| `src/pages/hesaplama-araclari/index.astro` | Meta açıklamasındaki "araç değer kaybı" ibaresi kaldırıldı — artık listede olmayan bir aracı vaat ediyordu |
+| `src/content.config.ts`, `src/pages/blog/[slug].astro` | Blog şemasına isteğe bağlı `ctaTitle` / `ctaMessage`; yazı sonundaki iletişim bloğu konuya göre özelleşebiliyor |
+
+**Yazının kapsadığı altı başlık** (talep edilen içerik listesi):
+
+1. Yeni A.5/a'nın saydığı yedi unsur — hüküm aynen alıntılanıp maddelendi
+2. Ayrı başvuru şartının kalkması + eksperin raporda tutarı gösterme zorunluluğu
+3. Hesabın neden kullanıcı tarafından yapılamayacağı — "formül kalmadı", girdi bir forma sığmıyor
+4. Kaza tarihine göre dört dönem. **Bilinçli olarak oran/katsayı verilmedi**; yalnızca "hangi dönem hangi kurala tabi"
+5. AYM 2022/167 ve SEİK 2024/1 — reel piyasa analizi
+6. CTA: "Değer kaybı talebinizin ne kadar olabileceğini birlikte değerlendirelim" + WhatsApp/telefon
+
+**AYM ve SEİK'in doğrulama durumu.** İkisi de 2.6'da yalnızca künye
+olarak duruyordu; yazıya girmeden önce ayrıca araştırıldı:
+
+- **SEİK 2024/1 — birincil kaynaktan okundu.** TOBB Sigorta Eksperleri
+  İcra Komitesi'nin kendi duyuru sayfası: tarih **29.04.2024**, içerik
+  şu: SBM sistemi üzerinden düzenlenen değer kaybı raporlarında, genel
+  şartlara göre hesaplanan tutarın **yanı sıra** reel piyasa analizi
+  yöntemiyle yapılan değerlendirmeye de yer verilecek. Gerekçe olarak
+  "tarafların mağduriyet yaşamaması" ve AYM kararı gösteriliyor.
+  **"Yanı sıra" vurgusu önemli: yerine geçmiyor, ekleniyor.**
+- **AYM E.2021/82, K.2022/167 — birincil metne ULAŞILAMADI.** Bu
+  oturumda resmigazete.gov.tr sertifika hatası verdi, AYM norm kararlar
+  bilgi bankası ise JS ile yükleniyor. Künye (29.12.2022 tarihli karar,
+  RG **14.02.2023, Sayı 32104**) ve hüküm (KTK m.90/1'in ikinci cümlesi
+  ile m.90/2 iptal, m.92'nin (l) bendine ilişkin istem ret) birbirinden
+  bağımsız ikincil kaynaklarda aynı. Yazıda yalnızca bu künye ve hüküm
+  aktarıldı; yürürlüğün ertelenip ertelenmediğine **değinilmedi**, çünkü
+  bu nokta doğrulanamadı.
+
+  ⚠️ **Açık iş:** RG 14.02.2023 / 32104 metnine erişim sağlandığında
+  hüküm fıkrası birebir teyit edilmeli. Teyit edilene kadar yazıdaki
+  AYM paragrafı bu belgede "ikincil kaynağa dayanıyor" olarak işaretli
+  kalır.
+
+**Mahrumiyet bedeli (§ 5) için uyarı.** Kaldırılan ekler arasında Ek-2
+ve Ek-3 de var. § 5'e geçmeden önce bu iki ekin ne düzenlediği ve
+mahrumiyet bedelinin bugün neye dayandığı aynı yöntemle kontrol
+edilmeli — aynı sürprizle karşılaşma ihtimali yüksek.
+
 ### 2.6. Kaynaklar — tamamı birincil
 
 - **Kaldırma:** RG **12.06.2026, Sayı 33278** (SEDDK) — [metin](https://www.resmigazete.gov.tr/eskiler/2026/06/20260612-3.htm) · MADDE 6 ekleri kaldırıyor, MADDE 8 yürürlüğü 1/7/2026 olarak belirliyor
 - **2021 hâli (R×K×HK×T×G):** RG **04.12.2021, Sayı 31679** — [TSB konsolide metin, ekler dahil](https://www.tsb.org.tr/content/Legislations/Trafik_Genel_%C5%9Eartlar%C4%B1_06122021__Ekler_Dahil.pdf)
 - **2020 hâli (%19 formülü):** RG **20.03.2020, Sayı 31074**, MADDE 6 — [metin](https://www.resmigazete.gov.tr/eskiler/2020/03/20200320-3.htm) *(formül ve tablolar sayfadaki görüntülerde)*
 - **Özgün hâli (2015):** RG **14.05.2015, Sayı 29355** — [ana metin](https://www.resmigazete.gov.tr/eskiler/2015/05/20150514-5.htm) · [ekler](https://www.resmigazete.gov.tr/eskiler/2015/05/20150514-5-1.pdf)
-- AYM 29.12.2022 / **2022/167** · SEİK 29.04.2024 / **2024/1**
-- TBK m. 49 · KTK m. 90, m. 91
+- **SEİK duyurusu:** Sigorta Eksperleri İcra Komitesi, **29.04.2024 / 2024/1** — [Değer Kaybı Hesaplamalarında Reel Piyasa Analizi Yönteminin Uygulanmasına İlişkin SEİK Duyurusu](https://www.tobbseik.org.tr/index.php/duyurular/301-deger-kaybi-hesaplamalarinda-reel-piyasa-analizi-yonteminin-uygulanmasina-iliskin-seik-duyurusu-2024-1) *(birincil, okundu)*
+- **AYM:** 29.12.2022, **E.2021/82, K.2022/167** — RG 14.02.2023, Sayı 32104 *(birincil metne erişilemedi — bkz. 2.7)*
+- TBK m. 49 · KTK m. 90, m. 91, m. 97, m. 109 · 5684 s.K. m. 30
 
-- **Onay Durumu:** ⬜ Bekliyor — **karar sorusu 2.5'te**
+- **Onay Durumu:** ✅ **Karara bağlandı (20.09.2026)** — hesaplama aracı
+  yapılmayacak, bilgilendirme yazısına dönüştürüldü. Uygulama 2.7'de.
 
 ## 3. Kira Artış Oranı Hesaplama
 

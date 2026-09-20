@@ -71,6 +71,16 @@ const blog = defineCollection({
     updatedAt: z.coerce.date().optional(),
     /** Yazının bağlı olduğu çalışma alanı slug'ı. */
     area: z.string().optional(),
+
+    /*
+     * Yazı sonundaki iletişim bloğunun başlığı ve WhatsApp'a önceden
+     * yazılacak metin. Verilmezse `ContactCallout` kendi genel metnini
+     * kullanır. Konusu dar olan yazılarda (ör. değer kaybı) gelen mesajın
+     * hangi konuda olduğu ilk bakışta belli olsun diye var.
+     */
+    ctaTitle: z.string().optional(),
+    ctaMessage: z.string().optional(),
+
     draft: z.boolean().default(false),
   }),
 });
