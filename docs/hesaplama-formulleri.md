@@ -1271,7 +1271,8 @@ tarifesi, TBB pul bedelleri, icra satış giderleri tarifesi).
 | Yargı harçları (başvurma, karar ve ilam, peşin) | **492 s.K. Harçlar Kanunu**, (1) Sayılı Tarife |
 | Nispi harcın dörtte birinin peşin alınması | **492 s.K. m. 28** |
 | Gider avansı | **HMK m. 114, 120** + yıllık Gider Avansı Tarifesi |
-| İcra takibinde harç | **İİK m. 59**, 492 s.K. (1) Sayılı Tarife B bölümü |
+| İcra takibinde masraf — işlem başına peşin ödeme | **İİK m. 59** |
+| İcra takibinde harç | 492 s.K. (1) Sayılı Tarife, B bölümü |
 | Vekâlet pulu / baro pulu | **1136 s.K. Avukatlık Kanunu m. 27** |
 | Vekâlet ücreti | **Avukatlık Asgari Ücret Tarifesi (AAÜT)** |
 
@@ -1465,9 +1466,16 @@ Kira ve faizdeki dersle: dar başla.
 5. Toplam = 1 + 2 + 3 + 4
 ```
 
-> ⚠️ İcra tarafında tebligat için **×5 katsayısı uygulanmıyor** —
-> o katsayı HMK Gider Avansı Tarifesi'ne ait ve yalnızca davayı
-> ilgilendiriyor. Bu varsayım teyit edilmeli.
+> ✅ **İcra tarafında ×5 katsayısı uygulanmıyor — doğrulandı.**
+> Gider Avansı Tarifesi'ndeki "taraf sayısının beş katı" kuralı yalnızca
+> hukuk mahkemelerinde açılan davaları kapsıyor ve bir **dava şartı**.
+> İcra takibi İİK'ya tabi ve oradaki kural farklı: **yapılacak işlem
+> kadar masraf peşin ödenir (İİK m. 59).** Takip açılışında borçlu
+> başına tek tebligat (ödeme veya icra emri) hesaplanır.
+>
+> Sonraki tebligatlar (yenileme, kıymet takdiri, satış ilanı) kendi
+> işlemleri sırasında ayrıca masraflanıyor — açılış maliyetine
+> girmiyor, aracın kapsamı dışında.
 
 ### 6.7c. Örnek hesaplar (onay bekliyor)
 
@@ -1519,8 +1527,6 @@ tebligat (265,00) · baro pulu (164,00) · vekâlet suret harcı (104,00).
 4. **Yuvarlama.** *Öneri: kuruş korunsun, yuvarlanmasın* — kira
    aracındaki kararla aynı. Peşin harç 1/4 alındığında kuruş çıkıyor
    (örnekte 1.707,75).
-5. **İcra tebligatında ×5 yok** varsayımı doğru mu?
-
 ### 6.9. Kaynaklar
 
 Tamamı **ikincil**. Birincil kaynaklar: `mevzuat.gov.tr` (492 s.K., HMK,
