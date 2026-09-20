@@ -647,114 +647,200 @@ listesi:
 
 ## 2. Araç Değer Kaybı Hesaplama
 
-> **Durum: TASLAK — ve bir tavsiye içeriyor.** Araştırma sonucunda bu
-> aracın zemininin 2026'da değiştiği görüldü. Aşağıdaki bulgu, aracın
-> yapılıp yapılmayacağı kararını Av. Onur Can Yılmaz'a bırakıyor.
+> **Durum: TASLAK — kodlanmadı.** Onay bekliyor.
+>
+> ⚠️ **Önceki taslaktaki bir hata düzeltildi.** Bu bölümün ilk sürümünde
+> *"Ek-1 formülü 01.07.2026'da yürürlükten kalktı"* denmişti. Bu iddia
+> tek bir ikincil kaynaktan geliyordu ve **doğrulanamadı**; kesin bir
+> bulgu gibi yazılması hataydı. Aşağıda "mülga" ifadesi kullanılmıyor.
 
-### 2.1. 🔴 Hesaplanacak bir formül artık YOK
+### 2.1. 🔴 Resmî formül, piyasadaki "klasik formül"den TAMAMEN FARKLI
 
-Bu aracın dayanağı olarak planlanan **Zorunlu Mali Sorumluluk Sigortası
-Genel Şartları Ek-1 değer kaybı formülü, 01.07.2026'da yürürlükten
-kalktı.** (SEDDK'nın Genel Şartlarda değişiklik metni RG 12.06.2026'da
-yayımlandı, 01.07.2026'da yürürlüğe girdi; SEDDK 2026/11 sayılı Genelge
-aynı tarihte devreye girdi.)
+Birincil kaynak doğrudan okundu: **Karayolları Motorlu Araçlar Zorunlu
+Mali Sorumluluk Sigortası Genel Şartları, Ek 1 — Değer Kaybı
+Hesaplaması**, Resmî Gazete 14.05.2015, Sayı 29355 (ek, ana metinden
+ayrı PDF olarak yayımlanmış; taranmış görüntü olduğu için sayfa sayfa
+okundu).
 
-Yerine gelen yöntem bir formül değil, **iki piyasa değerlemesinin
-farkı**:
+Hesaplama araçlarının kullandığı **"klasik formül"**:
 
 ```
-değer kaybı = (kaza öncesi hasarsız 2. el rayiç değeri)
-            − (onarım sonrası 2. el rayiç değeri)
+Değer Kaybı = Rayiç Değer × Hasar Katsayısı × KM Katsayısı × Baz Oran
 ```
 
-Bu iki rayiç değeri, aracın markası, modeli, yaşı, kilometresi, hasarın
-niteliği, değişen ve onarılan parçalar ile o günkü ikinci el piyasası
-birlikte değerlendirilerek **eksper veya bilirkişi** tarafından
-belirleniyor.
+**Resmî Ek-1'de böyle bir formül YOK.** Resmî düzenleme parça bazlı,
+kalem kalem toplanan bir sistem ve içinde **eksper takdiri** var.
 
-**Bir web sitesi bunu hesaplayamaz.** Girdi olarak alınabilecek şey
-zaten sonucun kendisi.
+> Not: Klasik formülün baz oranı için kaynaklarda **%1,9** ve **0,19**
+> gibi on kat farklı değerler dolaşıyor. Resmî metinde böyle bir baz
+> oran bulunmadığı için bu uyuşmazlığın çözülmesine de gerek kalmadı.
 
-### 2.2. Zeminin neden kaydığı — Anayasa Mahkemesi kararları
+### 2.2. Resmî Ek-1 — tam içerik
 
-Formülün kaldırılması tek başına bir tercih değil, bir zincirin sonu:
+**Girdiler:** Araç Rayiç Değeri (**ARD**) · Araç Kilometresi (**KM**)
+
+Her kalem şu biçimde hesaplanıyor: `(ADET × ÇARPAN) × ARD / 100`
+
+**A. Kaynaklı ana parçalarda değişim → T1**
+
+| Parça | Çarpan |
+|---|---|
+| Orta direk değişim | 3 |
+| Marşpiyel değişim | 3 |
+| Arka çamurluk değişim | 3,5 |
+| Havuz sacı değişim | 3 |
+| Arka panel değişim | 2,5 |
+| Tavan sacı değişim | 4,5 |
+
+**B. Kaynaklı ana parçalarda düzeltme → T2**
+*Eksper, hasar ve onarım şeklinin değer kaybına etkisini **1 ila 5**
+arasında puanlar.* Formül: `(EKSPER TAKDİRİ × ÇARPAN) × ARD / 100`
+
+| Parça | Çarpan |
+|---|---|
+| Şase düzeltme | 0,7 |
+| Şase kesme | 0,75 |
+| Tavan sacı düzeltme | 0,7 |
+| Orta direk düzeltme | 0,7 |
+| Arka panel düzeltme | 0,7 |
+| Havuz sacı düzeltme | 0,7 |
+| Arka çamurluk düzeltme | 0,7 |
+| Marşpiyel düzeltme | 0,7 |
+
+**C. Yukarıdaki listelerde yer almayan diğer parçalar → T3**
+
+| Kalem | Çarpan |
+|---|---|
+| Kaynak yapılan kaporta aksamı | 1,2 |
+| Düzeltme yapılan kaporta aksamı | 1,2 |
+| Değişen kaporta aksamı | 1 |
+
+**A-B-C. Boya uygulanan aksam → T4**
+
+| Kalem | Çarpan |
+|---|---|
+| Boya uygulanan aksam | 0,75 |
+
+**Kilometre düzeltmesi:**
+
+```
+KM ≤ 15.000      → DEĞER KAYBI = T1 + T2 + T3 + T4
+
+KM ≥ 15.001      → DEĞER KAYBI = (T1+T2+T3+T4)
+                                 − [ (T1+T2+T3+T4) × ((KM − 15000) / 75000) / 2 ]
+```
+
+**Üst sınır:** Aracın kaza anındaki rayiç değerinin **%25'ini aşan**
+değer kaybı talepleri teminat dışında. Bu sınır bir araç için talep
+edilecek **toplam** değer kaybı limiti; daha önce ödenen tazminatlar
+limitten mahsup ediliyor.
+
+**Teminat dışında kalan diğer hâller:** mini onarımla giderilebilen
+basit kaporta/plastik tampon onarımları, cam, radyo, lastik, hava
+yastığı, jant, mekanik, elektrik, elektronik ve döşeme hasarları · ana
+iskelet ve şasede hasar olmaksızın vidalı parçalarla giderilen hasarlar
+· kaza ile ihbar arasında mülkiyeti değişen araçlar · çekme ve hurda
+belgeli araçlar · kiralık araç, taksi, dolmuşta eksper hesabının
+%50'sini aşan talepler; test, koleksiyon ve antika araçlar.
+
+**Eksper takdiri yalnızca B'de değil:** metin, ekspere boya uygulanan
+aksam sayısını belirlerken birden fazla parçayı tek sayma ya da bir
+parçayı 1,5–2 adet sayma yetkisi de veriyor; onarılan/değişen aksam
+sayısında da benzer takdir var.
+
+Ek 1'deki tutarlar Hazine Müsteşarlığınca **%50'sine kadar** azaltılıp
+artırılabiliyor.
+
+### 2.3. Sonraki gelişmeler — klasik formülün tek başına yetmediği
 
 | Tarih | Gelişme |
 |---|---|
-| 09.10.2020 | AYM, KTK m. 90 ve m. 92'deki **"Genel Şartlar"** ibaresini iptal etti |
-| 09.11.2022 | AYM, m. 90'a eklenen ikinci cümleyi ve ilgili usul hükümlerini iptal etti |
-| — | Danıştay, Genel Şartların bazı bölümlerinin yürütmesini durdurdu |
-| 01.07.2026 | Ek-1 formülü yürürlükten kalktı; gerçek zarar / piyasa rayiç farkı yöntemine geçildi |
+| 29.12.2022 | **AYM 2022/167** — değer kaybının yalnızca idari düzenlemelerdeki sabit cetvellere göre belirlenmesinin gerçek zararın altında kalabileceği tespiti |
+| 29.04.2024 | **SEİK 2024/1 duyurusu** — Değer Kaybı Raporlarında formül hesabının yanına **reel piyasa analizi** yöntemiyle yapılan hesabın da eklenmesi |
 
-Bugün bilirkişi raporları değer kaybını **TBK (6098)** çerçevesinde,
-serbest piyasada oluşan değer azalması yöntemiyle hesaplıyor.
+> ⬜ **Doğrulanmamış iddia:** Bazı ikincil kaynaklar Ek-1'in 01.07.2026'da
+> tamamen yürürlükten kalktığını söylüyor. Başka kaynakta
+> doğrulanamadı; bu belgede ve kodda **mülga sayılmıyor**. İleride
+> Resmî Gazete'den teyit edilirse bölüm güncellenecek.
 
-### 2.3. Kaza tarihi belirleyici
+### 2.4. Tasarım — taban tahmin + niteliksel not
 
-| Kaza tarihi | Uygulanacak yöntem |
+Av. Onur Can Yılmaz'ın kararı doğrultusunda:
+
+1. Kullanıcıdan girdi alınır, **klasik formülle değil resmî Ek-1'e göre**
+   bir **taban tahmin** hesaplanır.
+2. Sonuç "kesin tazminat" değil, **"resmî formüle göre taban tahmin"**
+   olarak çerçevelenir.
+3. Sonuç ekranına **sayısal bir üst aralık uydurulmaz.** Bunun yerine
+   niteliksel not:
+   > Anayasa Mahkemesi'nin 2022/167 sayılı kararı ve Sigorta Eksperleri
+   > İcra Kurulu'nun 2024/1 sayılı duyurusu sonrasında, sigorta
+   > şirketleri ve mahkemeler gerçek piyasa (ikinci el rayiç)
+   > karşılaştırmasını da dikkate alabilmektedir. Nihai tazminat bu
+   > tahminden farklı, çoğu durumda daha yüksek belirlenebilir.
+4. Zorunlu uyarı: *"Bu hesaplama tahminidir, somut olayınız için hukuki
+   değerlendirme ve ekspertiz raporu gereklidir."*
+5. Dayanaklar sonuç ekranında gösterilir: **Genel Şartlar Ek 1** ·
+   **TBK m. 49** · **KTK m. 91**.
+
+#### Girdi alanları
+
+| Alan | Tip |
 |---|---|
-| **01.07.2026 öncesi** | Mülga Ek-1 formülü (kazanın gerçekleştiği andaki mevzuat) |
-| **01.07.2026 ve sonrası** | Piyasa rayiç farkı — formül yok |
+| Araç rayiç değeri (ARD) | TL |
+| Araç kilometresi (KM) | km |
+| A — kaynaklı ana parça değişimleri | her parça için adet (6 alan) |
+| B — kaynaklı ana parça düzeltmeleri | her parça için eksper takdiri 1-5 (8 alan) |
+| C — diğer parçalar | her kalem için adet (3 alan) |
+| Boya uygulanan aksam | adet |
 
-Eski kazaların talep hakkı hâlâ canlı (KTK zamanaşımı), yani mülga
-formülün bir süre daha pratik karşılığı var — ama giderek küçülen bir
-kitle için.
+> ⚠️ **Form uzun olacak — sadeleştirme kararı gerekiyor.** Tam sadakat
+> 19 alan demek. Üç seçenek:
+> **(a)** Tamamı — eksper raporu elinde olan kullanıcı için doğru, ama
+> sıradan ziyaretçiyi yorar.
+> **(b)** A + C + boya (nesnel adetler), B'yi tek bir "şase/ana parça
+> düzeltmesi var mı, şiddeti 1-5" alanına indirgemek.
+> **(c)** Bölümleri katlanabilir gruplara ayırıp varsayılanı sıfır
+> bırakmak; kullanıcı yalnızca ilgili bölümü açar.
+> *Önerim: (c)* — sadakat korunur, form ilk bakışta kısa görünür.
 
-### 2.4. Tavsiyem: bu aracı hesap makinesi olarak YAPMAYALIM
+### 2.5. Açık sorular
 
-Üç gerekçe:
+1. **Form sadeleştirmesi** — 2.4'teki (a)/(b)/(c). *Önerim (c).*
+2. **%25 üst sınırı** sonuçta nasıl gösterilsin? Hesap sınırı aşarsa
+   sınıra çekilip "teminat dışı" notu mu düşülsün, yoksa ham sonuç da
+   ayrıca gösterilsin mi? *Önerim: sınıra çek, ham sonucu bilgi satırı
+   olarak göster.*
+3. **Teminat dışı hâller** forma konulsun mu (mülkiyet değişikliği,
+   hurda/çekme belgesi, taksi/kiralık), yoksa yalnızca kapsam notunda
+   mı anılsın? *Önerim: kapsam notunda — nitelendirme gerektiriyor.*
+4. **Hazine'nin %50 azaltma/artırma yetkisi** kullanılmış mı? Kullanılmışsa
+   çarpanlar güncellenmeli.
+5. **Klasik formülü de gösterelim mi?** Kullanıcı başka sitelerde onu
+   göreceği için bir karşılaştırma satırı faydalı olabilir — ama resmî
+   metinde karşılığı olmadığı için **önermiyorum**.
 
-1. **Güncel kazalarda hesaplanacak bir şey yok.** Araç ancak
-   kullanıcıdan iki rayiç değeri isteyip çıkarma yapabilir; o da
-   kullanıcının zaten elinde eksper raporu varsa anlamlı, ki o raporda
-   sonuç zaten yazıyor.
-2. **Mülga formülü kodlamak, yanlış beklenti üretir.** Kaza tarihi
-   01.07.2026 öncesi olsa bile, sonucun bilirkişi takdiriyle
-   örtüşmeyeceği açık — AYM iptalleri sonrası mahkemeler zaten serbest
-   piyasa yöntemine geçmiş durumda.
-3. **Sitenin diğer araçlarıyla aynı güveni veremez.** Kira, faiz ve
-   harç araçları yayımlanmış tarifelere dayanıyor ve sonuçları
-   denetlenebilir. Burada öyle bir zemin yok.
+### 2.6. Test senaryoları
 
-#### Önerdiğim alternatif: bilgilendirme sayfası
+_TODO — onay sonrası doldurulacak. Kapsanması gereken dallar: KM ≤ 15.000
+(düzeltme yok) · KM > 15.000 (düzeltme var) · %25 sınırının aşıldığı hâl ·
+yalnız boya · yalnız B (eksper takdiri) · hiç işlem yok (sonuç sıfır)._
 
-Hesap makinesi yerine, **değer kaybı talebinde neyin belirleyici
-olduğunu** anlatan bir sayfa daha çok işe yarar:
+Referans senaryo olarak 1.200.000 TL rayiç / 30.000 km kullanılabilir;
+bu, incelenen sitelerin örneklerinden **yalnızca rakamsal senaryo**
+olarak alınmıştır — sonuçları farklı formül kullandıkları için
+karşılaştırma ölçütü değildir.
 
-- Kaza tarihine göre hangi rejimin uygulandığı
-- Değer kaybını etkileyen unsurlar (araç yaşı, km, değişen parça,
-  hasarın niteliği)
-- Eksper raporu ile bilirkişi raporunun rolü
-- Başvuru yolu ve süreler
-- AYM iptalleri sonrası mahkeme uygulamasının yönü
+### 2.7. Kaynaklar
 
-Bu, "Gayrimenkul" veya "Sigorta" çalışma alanı sayfasının altında bir
-blog yazısı ya da bir alt bölüm olarak da durabilir; hesaplama araçları
-listesinde yer kaplaması gerekmez.
+**Birincil:**
 
-### 2.5. Karar gerekiyor
+- **Genel Şartlar Ek 1 — Değer Kaybı Hesaplaması**, RG 14.05.2015 Sayı 29355 — [ana metin](https://www.resmigazete.gov.tr/eskiler/2015/05/20150514-5.htm) · [ekler (PDF)](https://www.resmigazete.gov.tr/eskiler/2015/05/20150514-5-1.pdf) *(Ek 1, PDF'in 1-3. sayfaları; taranmış görüntü)*
+- AYM 29.12.2022 tarihli **2022/167** sayılı karar
+- SEİK 29.04.2024 tarihli **2024/1** sayılı duyuru
+- TBK m. 49 · KTK m. 91
 
-1. **Araç hesap makinesi olarak yapılsın mı?** Tavsiyem hayır.
-2. Hayırsa: `CALCULATORS` listesinden çıkarılsın mı, yoksa
-   "hazırlanıyor" durumunda mı bıraksın? *Öneri: listeden çıkarılsın —*
-   *"hazırlanıyor" etiketi, gelmeyecek bir araç için yanlış vaat.*
-3. Bunun yerine bilgilendirme sayfası/blog yazısı yazılsın mı?
-4. Evet hesap makinesi yapalım denirse: mülga Ek-1 formülünün tam
-   metni ve katsayı tabloları gerekiyor — bu taslakta yok, ayrıca
-   derlenmeli.
-
-### 2.6. Kaynaklar
-
-Tamamı ikincil. Birincil kaynaklar: Resmî Gazete 12.06.2026 (Genel
-Şartlarda değişiklik), SEDDK 2026/11 sayılı Genelge, AYM'nin 2020 ve
-2022 tarihli iptal kararları.
-
-- [Araç değer kaybı davası — 2026 düzenlemesi (Öner Hukuk)](https://oner.av.tr/arac-deger-kaybi-davasi/)
-- [Değer kaybı, destekten yoksun kalma ve sürekli sakatlık tazminatlarına ilişkin kuralların iptali (Anayasa Mahkemesi)](https://www.anayasa.gov.tr/tr/haberler/norm-denetimi-basin-duyurulari/deger-kaybi-destekten-yoksun-kalma-ve-surekli-sakatlik-tazminatlarinin-belirlenme-esaslarini-duzenleyen-kurallarin-iptali/)
-- [Trafik sigortasında değer kaybı — yeni SEDDK düzenlemesi](https://www.bereket.com.tr/blog/trafik-sigortasi-deger-kaybi-seddk-duzenlemesi)
-- [Değer kaybında gerçek değer üzerinden yeni hesap yöntemi (Neka Legal)](https://nekalegal.com/arac-deger-kaybi-gercek-deger-uzerinden-yeni-hesap-yontemi/)
-
-- **Onay Durumu:** ⬜ Bekliyor — **karar sorusu 2.5'te**
+- **Onay Durumu:** ⬜ Bekliyor
 
 ## 3. Kira Artış Oranı Hesaplama
 
