@@ -1367,21 +1367,43 @@ Yılmaz tarafından verildi.*
 > Yılmaz **104,00 TL** verdi. Tabloya 104,00 yazıldı. Fark küçük ama
 > kaydı tutuluyor ki ileride hangisinin nereden geldiği izlenebilsin.
 
-#### Hâlâ eksik olan rakamlar
+#### Gider avansı — HMK Gider Avansı Tarifesi m. 4
 
-Dava tarafının hesaplanabilmesi için gerekenler:
+Davacı, dava açarken **peşin** olarak yatırır:
 
-| Kalem | Durum |
+| Kalem | Hesap |
 |---|---|
-| **Gider avansı — diğer iş ve işlemler** | ⬜ İkincil kaynakta 530,00 TL; doğrulanmadı |
-| **Gider avansı — tebligat katsayısı** | ⬜ Açık. Kalan en riskli belirsizlik (bkz. 6.6b/3) |
-| **Nispi harçta asgari taban** | ⬜ Var mı, varsa ne kadar |
-| **Seri No: 99'un kapsamı** | ⬜ Netleşmedi |
+| Tebligat gideri | **taraf sayısı × 5 × 265,00 TL** |
+| Diğer iş ve işlemler (maktu) | **530,00 TL** |
 
-> ✅ **İcra takibi tarafı artık tamamlandı.** Başvuru harcı (732,00),
-> peşin harç (binde 5), tebligat (265,00), baro pulu (164,00) ve
-> vekâlet suret harcı (104,00) elimizde. Gider avansı HMK'ya ait yani
-> dava tarafının kalemi; icra takibi onu beklemiyor.
+Katsayı **5**, tarifenin m. 4 hükmünden geliyor: davacı taraf sayısının
+beş katı tutarında tebligat ücreti yatırmakla yükümlü.
+
+Örnek: 1 davacı + 1 davalı → 2 × 5 = 10 tebligat → 2.650 TL; artı
+530 TL maktu → **3.180 TL** gider avansı.
+
+#### Nispi harçta asgari taban
+
+**Nispi karar ve ilam harcı 732,00 TL'den aşağı olamaz.** Dava değeri
+düşük olduğu için binde 68,31 üzerinden hesaplanan tutar bu rakamın
+altında kalırsa taban uygulanır.
+
+*(Tapu ve kadastro işlemlerinde ayrı bir asgari taban var — 411,60 TL —
+ama o bu aracın kapsamı dışında.)*
+
+> ⚠️ **Tek kalan belirsizlik: taban peşin harca nasıl yansıyor?**
+> 5.000 TL'lik bir davada ham nispi harç 341,55 TL çıkıyor ve taban
+> devreye girip 732,00 TL oluyor. Peşin harç bundan sonra:
+>
+> | Okuma | Peşin harç |
+> |---|---|
+> | (a) Taban nispi harca uygulanır, peşin onun 1/4'ü | **183,00 TL** |
+> | (b) Taban doğrudan peşin harca uygulanır | **732,00 TL** |
+>
+> Aradaki fark dört kat. Lafız *"bu nispi karar ve ilam harcının 1/4'ü
+> peşin harç olarak tahsil edilir"* dediği için **(a) daha olası**
+> görünüyor, ama düşük değerli davaların tamamını etkilediği için
+> varsayımla kodlanmamalı.
 
 ### 6.6b. Dört çelişkinin durumu
 
@@ -1415,37 +1437,89 @@ Kira ve faizdeki dersle: dar başla.
 | İstinaf / temyiz harçları | Ayrı aşama |
 | Harçtan muafiyet ve adli yardım | Nitelendirme gerektiriyor, araç bilemez |
 
-### 6.8. Açık sorular
+### 6.7b. Hesaplama adımları
 
-**✅ Kapandı:** artış oranı (%18,95) · icra başvurma harcı ayrımı
-(tetkik mercii 335,20 / takip açılışı 732,00) · tebligat birim ücreti
-(265,00) · nispi karar ve ilam harcı (binde 68,31) · icra peşin harcı
-(binde 5, 492 m. 29) · maktu karar ve ilam harcı (732,00) · baro pulu
-(164,00) · vekâlet suret harcı (104,00).
+**Dava açılışı**
 
-**⬜ Yalnızca DAVA tarafını bloke edenler:**
+```
+1. Başvurma harcı  ← mahkeme türüne göre (sulh 335,20 · asliye/idare 732,00)
+2. Konusu para ile ölçülebiliyor mu?
+   · EVET → nispiHarc = davaDegeri × 0,06831
+            nispiHarc = max(nispiHarc, 732,00)       ← asgari taban
+            pesinHarc = nispiHarc / 4                 ← 492 m.28
+            bakiye    = nispiHarc − pesinHarc         ← karar aşamasında, TOPLAMA GİRMEZ
+   · HAYIR → maktuHarc = 732,00 (peşin ödenir)
+3. Gider avansı = (tarafSayisi × 5 × 265,00) + 530,00
+4. Avukatla takip ediliyorsa: + 164,00 (baro pulu) + 104,00 (vekâlet suret harcı)
+5. Açılış toplamı = 1 + (2'deki peşin veya maktu) + 3 + 4
+```
 
-1. **Gider avansı — "diğer iş ve işlemler" tutarı.** İkincil kaynakta
-   530,00 TL.
-2. **Gider avansı — tebligat katsayısı.** Taraf başına 5 katsayısı var
-   mı? Varsa 2 taraflı davada tebligat gideri 530 değil **2.650 TL**.
-   Kalan en riskli belirsizlik.
-3. **Nispi harçta asgari taban** var mı?
+**İlamsız icra takibi**
 
-**⬜ Bilgi eksiği (bloke etmiyor):**
+```
+1. Başvuru harcı 732,00
+2. Peşin harç = alacak × 0,005          ← 492 m.29, ilamsız ve kambiyo takipleri
+   · İLAMLI takipte bu adım YOK
+3. Tebligat = borçluSayisi × 265,00
+4. Avukatla takip ediliyorsa: + 164,00 + 104,00
+5. Toplam = 1 + 2 + 3 + 4
+```
 
-4. Seri No: 99 hangi harçları kapsıyor?
+> ⚠️ İcra tarafında tebligat için **×5 katsayısı uygulanmıyor** —
+> o katsayı HMK Gider Avansı Tarifesi'ne ait ve yalnızca davayı
+> ilgilendiriyor. Bu varsayım teyit edilmeli.
 
-**⬜ Tasarım kararları:**
+### 6.7c. Örnek hesaplar (onay bekliyor)
 
-5. Kapsam önerisi (6.7) kabul mü — özellikle vekâlet ücretinin (AAÜT)
-   dışarıda kalması?
-6. Mahkeme türü listesi ne kadar ayrıntılı olsun?
-7. Harçlar kuruşlu mu gösterilsin, tam liraya mı yuvarlansın?
+**Dava** — 100.000 TL, asliye hukuk, 2 taraf, avukatlı:
 
-> **İlamlı/ilamsız ayrımı** artık soru değil: 492 s.K. m. 29 peşin harcı
-> ilamsız ve kambiyo takipleriyle sınırlıyor, dolayısıyla araçta bu dal
-> olacak.
+| Kalem | Tutar |
+|---|---|
+| Başvurma harcı | 732,00 |
+| Nispi karar ve ilam harcı | 6.831,00 |
+| **Peşin harç** (1/4) | **1.707,75** |
+| Gider avansı | 3.180,00 |
+| Baro pulu | 164,00 |
+| Vekâlet suret harcı | 104,00 |
+| **Açılış toplamı** | **5.887,75 TL** |
+| *Bakiye nispi harç (karar aşamasında)* | *5.123,25 TL* |
+
+**İcra** — 100.000 TL ilamsız takip, 1 borçlu, avukatlı:
+
+| Kalem | Tutar |
+|---|---|
+| Başvuru harcı | 732,00 |
+| Peşin harç (binde 5) | 500,00 |
+| Tebligat | 265,00 |
+| Baro pulu | 164,00 |
+| Vekâlet suret harcı | 104,00 |
+| **Toplam** | **1.765,00 TL** |
+
+### 6.8. Onay durumu
+
+**✅ Tüm rakamlar elimizde:** başvurma harçları · nispi oran (binde
+68,31) · asgari taban (732,00) · peşin harç 1/4 · maktu harç (732,00)
+· icra peşin harcı (binde 5) · gider avansı (taraf×5×265 + 530) ·
+tebligat (265,00) · baro pulu (164,00) · vekâlet suret harcı (104,00).
+
+**⬜ Kod yazılmadan önce cevaplanması gereken bir soru:**
+
+1. **Asgari taban peşin harca nasıl yansıyor?** 6.6'daki (a)/(b)
+   ayrımı. Düşük değerli davaların tamamını etkiliyor, fark dört kat.
+
+**⬜ Tasarım kararları (öneriyle birlikte):**
+
+2. **Kapsam (6.7) kabul mü?** — vekâlet ücreti (AAÜT) dışarıda,
+   bakiye nispi harç ve tahsil harcı bilgi satırı olarak gösterilir.
+   *Öneri: evet.*
+3. **Mahkeme türü listesi.** *Öneri: sulh · asliye/idare olarak ikiye
+   ayır.* Başvurma harcı yalnızca bu iki değeri alıyor; ticaret, iş,
+   tüketici, aile davaları asliye grubunda. Daha ayrıntılı liste
+   kullanıcıyı sonucu değiştirmeyen bir seçimle yorardı.
+4. **Yuvarlama.** *Öneri: kuruş korunsun, yuvarlanmasın* — kira
+   aracındaki kararla aynı. Peşin harç 1/4 alındığında kuruş çıkıyor
+   (örnekte 1.707,75).
+5. **İcra tebligatında ×5 yok** varsayımı doğru mu?
 
 ### 6.9. Kaynaklar
 
