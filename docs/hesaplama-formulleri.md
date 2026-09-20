@@ -647,12 +647,114 @@ listesi:
 
 ## 2. Araç Değer Kaybı Hesaplama
 
-- **Kanuni Dayanak (başlangıç noktası):** SEDDK (Sigortacılık ve Özel Emeklilik Düzenleme ve Denetleme Kurumu) güncel genelgesi
-- **Girdi alanları:** Araç yaşı, kilometre, hasar bedeli, hasar öncesi/sonrası durum
-- **Formül:** _TODO_
-- **Kaynak(lar):** _TODO_
-- **Test örnekleri:** _TODO_
-- **Onay Durumu:** ⬜ Bekliyor
+> **Durum: TASLAK — ve bir tavsiye içeriyor.** Araştırma sonucunda bu
+> aracın zemininin 2026'da değiştiği görüldü. Aşağıdaki bulgu, aracın
+> yapılıp yapılmayacağı kararını Av. Onur Can Yılmaz'a bırakıyor.
+
+### 2.1. 🔴 Hesaplanacak bir formül artık YOK
+
+Bu aracın dayanağı olarak planlanan **Zorunlu Mali Sorumluluk Sigortası
+Genel Şartları Ek-1 değer kaybı formülü, 01.07.2026'da yürürlükten
+kalktı.** (SEDDK'nın Genel Şartlarda değişiklik metni RG 12.06.2026'da
+yayımlandı, 01.07.2026'da yürürlüğe girdi; SEDDK 2026/11 sayılı Genelge
+aynı tarihte devreye girdi.)
+
+Yerine gelen yöntem bir formül değil, **iki piyasa değerlemesinin
+farkı**:
+
+```
+değer kaybı = (kaza öncesi hasarsız 2. el rayiç değeri)
+            − (onarım sonrası 2. el rayiç değeri)
+```
+
+Bu iki rayiç değeri, aracın markası, modeli, yaşı, kilometresi, hasarın
+niteliği, değişen ve onarılan parçalar ile o günkü ikinci el piyasası
+birlikte değerlendirilerek **eksper veya bilirkişi** tarafından
+belirleniyor.
+
+**Bir web sitesi bunu hesaplayamaz.** Girdi olarak alınabilecek şey
+zaten sonucun kendisi.
+
+### 2.2. Zeminin neden kaydığı — Anayasa Mahkemesi kararları
+
+Formülün kaldırılması tek başına bir tercih değil, bir zincirin sonu:
+
+| Tarih | Gelişme |
+|---|---|
+| 09.10.2020 | AYM, KTK m. 90 ve m. 92'deki **"Genel Şartlar"** ibaresini iptal etti |
+| 09.11.2022 | AYM, m. 90'a eklenen ikinci cümleyi ve ilgili usul hükümlerini iptal etti |
+| — | Danıştay, Genel Şartların bazı bölümlerinin yürütmesini durdurdu |
+| 01.07.2026 | Ek-1 formülü yürürlükten kalktı; gerçek zarar / piyasa rayiç farkı yöntemine geçildi |
+
+Bugün bilirkişi raporları değer kaybını **TBK (6098)** çerçevesinde,
+serbest piyasada oluşan değer azalması yöntemiyle hesaplıyor.
+
+### 2.3. Kaza tarihi belirleyici
+
+| Kaza tarihi | Uygulanacak yöntem |
+|---|---|
+| **01.07.2026 öncesi** | Mülga Ek-1 formülü (kazanın gerçekleştiği andaki mevzuat) |
+| **01.07.2026 ve sonrası** | Piyasa rayiç farkı — formül yok |
+
+Eski kazaların talep hakkı hâlâ canlı (KTK zamanaşımı), yani mülga
+formülün bir süre daha pratik karşılığı var — ama giderek küçülen bir
+kitle için.
+
+### 2.4. Tavsiyem: bu aracı hesap makinesi olarak YAPMAYALIM
+
+Üç gerekçe:
+
+1. **Güncel kazalarda hesaplanacak bir şey yok.** Araç ancak
+   kullanıcıdan iki rayiç değeri isteyip çıkarma yapabilir; o da
+   kullanıcının zaten elinde eksper raporu varsa anlamlı, ki o raporda
+   sonuç zaten yazıyor.
+2. **Mülga formülü kodlamak, yanlış beklenti üretir.** Kaza tarihi
+   01.07.2026 öncesi olsa bile, sonucun bilirkişi takdiriyle
+   örtüşmeyeceği açık — AYM iptalleri sonrası mahkemeler zaten serbest
+   piyasa yöntemine geçmiş durumda.
+3. **Sitenin diğer araçlarıyla aynı güveni veremez.** Kira, faiz ve
+   harç araçları yayımlanmış tarifelere dayanıyor ve sonuçları
+   denetlenebilir. Burada öyle bir zemin yok.
+
+#### Önerdiğim alternatif: bilgilendirme sayfası
+
+Hesap makinesi yerine, **değer kaybı talebinde neyin belirleyici
+olduğunu** anlatan bir sayfa daha çok işe yarar:
+
+- Kaza tarihine göre hangi rejimin uygulandığı
+- Değer kaybını etkileyen unsurlar (araç yaşı, km, değişen parça,
+  hasarın niteliği)
+- Eksper raporu ile bilirkişi raporunun rolü
+- Başvuru yolu ve süreler
+- AYM iptalleri sonrası mahkeme uygulamasının yönü
+
+Bu, "Gayrimenkul" veya "Sigorta" çalışma alanı sayfasının altında bir
+blog yazısı ya da bir alt bölüm olarak da durabilir; hesaplama araçları
+listesinde yer kaplaması gerekmez.
+
+### 2.5. Karar gerekiyor
+
+1. **Araç hesap makinesi olarak yapılsın mı?** Tavsiyem hayır.
+2. Hayırsa: `CALCULATORS` listesinden çıkarılsın mı, yoksa
+   "hazırlanıyor" durumunda mı bıraksın? *Öneri: listeden çıkarılsın —*
+   *"hazırlanıyor" etiketi, gelmeyecek bir araç için yanlış vaat.*
+3. Bunun yerine bilgilendirme sayfası/blog yazısı yazılsın mı?
+4. Evet hesap makinesi yapalım denirse: mülga Ek-1 formülünün tam
+   metni ve katsayı tabloları gerekiyor — bu taslakta yok, ayrıca
+   derlenmeli.
+
+### 2.6. Kaynaklar
+
+Tamamı ikincil. Birincil kaynaklar: Resmî Gazete 12.06.2026 (Genel
+Şartlarda değişiklik), SEDDK 2026/11 sayılı Genelge, AYM'nin 2020 ve
+2022 tarihli iptal kararları.
+
+- [Araç değer kaybı davası — 2026 düzenlemesi (Öner Hukuk)](https://oner.av.tr/arac-deger-kaybi-davasi/)
+- [Değer kaybı, destekten yoksun kalma ve sürekli sakatlık tazminatlarına ilişkin kuralların iptali (Anayasa Mahkemesi)](https://www.anayasa.gov.tr/tr/haberler/norm-denetimi-basin-duyurulari/deger-kaybi-destekten-yoksun-kalma-ve-surekli-sakatlik-tazminatlarinin-belirlenme-esaslarini-duzenleyen-kurallarin-iptali/)
+- [Trafik sigortasında değer kaybı — yeni SEDDK düzenlemesi](https://www.bereket.com.tr/blog/trafik-sigortasi-deger-kaybi-seddk-duzenlemesi)
+- [Değer kaybında gerçek değer üzerinden yeni hesap yöntemi (Neka Legal)](https://nekalegal.com/arac-deger-kaybi-gercek-deger-uzerinden-yeni-hesap-yontemi/)
+
+- **Onay Durumu:** ⬜ Bekliyor — **karar sorusu 2.5'te**
 
 ## 3. Kira Artış Oranı Hesaplama
 
