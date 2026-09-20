@@ -1341,23 +1341,47 @@ sayfasından ayrıca doğrulandı.*
 okundu. İadeli taahhütlü ve taahhütlü gönderi rakamları Av. Onur Can
 Yılmaz tarafından verildi.*
 
+#### Nispi harçlar ve oranlar
+
+| Kalem | Değer | Dayanak |
+|---|---|---|
+| **Nispi karar ve ilam harcı** | **binde 68,31** (%6,831) | Hüküm altına alınan değer üzerinden |
+| **Peşin harç** | Nispi harcın **1/4**'ü | 492 s.K. m. 28 |
+| **Maktu karar ve ilam harcı** | **732,00 TL** | Konusu belli değerle ilgili olmayan davalar |
+| **İcra peşin harcı** | **binde 5** (%0,5) | **492 s.K. m. 29** — ilamsız ve kambiyo senetlerine mahsus takipler |
+
+> **m. 29'un lafzından çıkan sonuç:** İcra peşin harcı yalnızca
+> **ilamsız** ve **kambiyo senetlerine mahsus** takiplerde alınıyor.
+> İlamlı takipte alınmadığı yönündeki taslak notu bu ifadeyle
+> destekleniyor — araçta ilamlı/ilamsız ayrımı bir dal olarak gerekiyor.
+
+#### Avukatlı takipte eklenen kalemler
+
+| Kalem | Değer |
+|---|---|
+| Baro pulu (vekâlet pulu) | **164,00 TL** |
+| Vekâlet suret harcı | **104,00 TL** |
+
+> ⚠️ **Vekâlet suret harcında ikincil kaynakla fark var.** Taslağa
+> ikincil kaynaktan **110,00 TL** olarak girilmişti; Av. Onur Can
+> Yılmaz **104,00 TL** verdi. Tabloya 104,00 yazıldı. Fark küçük ama
+> kaydı tutuluyor ki ileride hangisinin nereden geldiği izlenebilsin.
+
 #### Hâlâ eksik olan rakamlar
 
-Bu kalemler olmadan hesap tamamlanamaz:
+Dava tarafının hesaplanabilmesi için gerekenler:
 
 | Kalem | Durum |
 |---|---|
-| **Nispi karar ve ilam harcı oranı** | ⬜ İkincil kaynakta binde 68,31; doğrulanmadı |
-| **Maktu karar ve ilam harcı** | ⬜ İkincil kaynakta 732,00 TL; doğrulanmadı |
-| **İcra peşin harcı oranı** | ⬜ İkincil kaynakta binde 5; doğrulanmadı |
-| **Gider avansı tarifesi** — diğer iş ve işlemler | ⬜ İkincil kaynakta 530,00 TL; doğrulanmadı |
-| **Gider avansı — tebligat katsayısı** | ⬜ Açık (bkz. 6.6b/3) |
-| **Vekâlet pulu / baro pulu** | ⬜ İkincil kaynakta 164,00 TL; doğrulanmadı |
-| **Vekâlet suret harcı** | ⬜ İkincil kaynakta 110,00 TL; doğrulanmadı |
-| **Peşin harç oranı 1/4** | ⬜ 492 s.K. m. 28; madde metni okunmadı |
+| **Gider avansı — diğer iş ve işlemler** | ⬜ İkincil kaynakta 530,00 TL; doğrulanmadı |
+| **Gider avansı — tebligat katsayısı** | ⬜ Açık. Kalan en riskli belirsizlik (bkz. 6.6b/3) |
+| **Nispi harçta asgari taban** | ⬜ Var mı, varsa ne kadar |
+| **Seri No: 99'un kapsamı** | ⬜ Netleşmedi |
 
-> 🆕 **98 Seri No'lu tebliğin yanında aynı sayıda Seri No: 99 da var.**
-> İkisinin hangi harçları ayırdığı hâlâ netleşmedi.
+> ✅ **İcra takibi tarafı artık tamamlandı.** Başvuru harcı (732,00),
+> peşin harç (binde 5), tebligat (265,00), baro pulu (164,00) ve
+> vekâlet suret harcı (104,00) elimizde. Gider avansı HMK'ya ait yani
+> dava tarafının kalemi; icra takibi onu beklemiyor.
 
 ### 6.6b. Dört çelişkinin durumu
 
@@ -1395,29 +1419,33 @@ Kira ve faizdeki dersle: dar başla.
 
 **✅ Kapandı:** artış oranı (%18,95) · icra başvurma harcı ayrımı
 (tetkik mercii 335,20 / takip açılışı 732,00) · tebligat birim ücreti
-(265,00 TL).
+(265,00) · nispi karar ve ilam harcı (binde 68,31) · icra peşin harcı
+(binde 5, 492 m. 29) · maktu karar ve ilam harcı (732,00) · baro pulu
+(164,00) · vekâlet suret harcı (104,00).
 
-**⬜ Kod yazılabilmesi için gerekenler:**
+**⬜ Yalnızca DAVA tarafını bloke edenler:**
 
-1. **Nispi karar ve ilam harcı oranı** — binde 68,31 mi? Dava
-   maliyetinin en büyük kalemi bu; doğrulanmadan hesaplanamaz.
-2. **İcra peşin harcı oranı** — binde 5 mi? Takip maliyetinin
-   belirleyicisi.
-3. **Gider avansı tarifesi** — "diğer iş ve işlemler" tutarı ve
-   **tebligat katsayısı**. Katsayı sorusu hesabı beş katına
-   çıkarabiliyor; bu, kalan en riskli belirsizlik.
-4. **Maktu karar ve ilam harcı** — nispi olmayan davalarda.
-5. **Vekâlet pulu ve vekâlet suret harcı** — avukatlı takipte.
-6. **Nispi harçta asgari taban** var mı?
-7. **Seri No: 99** hangi harçları kapsıyor?
+1. **Gider avansı — "diğer iş ve işlemler" tutarı.** İkincil kaynakta
+   530,00 TL.
+2. **Gider avansı — tebligat katsayısı.** Taraf başına 5 katsayısı var
+   mı? Varsa 2 taraflı davada tebligat gideri 530 değil **2.650 TL**.
+   Kalan en riskli belirsizlik.
+3. **Nispi harçta asgari taban** var mı?
+
+**⬜ Bilgi eksiği (bloke etmiyor):**
+
+4. Seri No: 99 hangi harçları kapsıyor?
 
 **⬜ Tasarım kararları:**
 
-8. Kapsam önerisi (6.7) kabul mü — özellikle vekâlet ücretinin (AAÜT)
+5. Kapsam önerisi (6.7) kabul mü — özellikle vekâlet ücretinin (AAÜT)
    dışarıda kalması?
-9. Mahkeme türü listesi ne kadar ayrıntılı olsun?
-10. İlamlı/ilamsız icra ayrımı v1'de olsun mu?
-11. Harçlar kuruşlu mu gösterilsin, tam liraya mı yuvarlansın?
+6. Mahkeme türü listesi ne kadar ayrıntılı olsun?
+7. Harçlar kuruşlu mu gösterilsin, tam liraya mı yuvarlansın?
+
+> **İlamlı/ilamsız ayrımı** artık soru değil: 492 s.K. m. 29 peşin harcı
+> ilamsız ve kambiyo takipleriyle sınırlıyor, dolayısıyla araçta bu dal
+> olacak.
 
 ### 6.9. Kaynaklar
 
