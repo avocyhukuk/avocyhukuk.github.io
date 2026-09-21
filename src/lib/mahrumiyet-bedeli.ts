@@ -19,11 +19,18 @@
  * bu dosya yalnızca çarpıyor. Bayatlayacak veri olmadığı için sekiz araç
  * içinde bakım yükü sıfır olan tek araç bu.
  *
- * ─── SONUÇ TEK SAYI DEĞİL, ARALIK ─────────────────────────────────────
- * İki teklif iki ayrı tutar üretir; ikisi de gösterilir. Tek bir rakam
- * vermek, piyasa verisine dayanan bir tahmini olduğundan daha kesin
- * gösterirdi. Ortalama kapanış satırı olarak veriliyor, ama aralık onun
- * hemen üstünde duruyor.
+ * ─── TEK TEKLİF DE YETER ──────────────────────────────────────────────
+ * İki teklif iki ayrı tutar üretir; ikisi de gösterilir ve aralık ortaya
+ * çıkar. Tek bir rakam vermek, piyasa verisine dayanan bir tahmini
+ * olduğundan daha kesin gösterirdi — bu yüzden iki teklif ÖNERİLİYOR.
+ *
+ * Ama zorunlu değil: ikinci teklifi almak için siteyi terk etmek zorunda
+ * kalan kullanıcı çoğu zaman geri dönmez. Tek teklifle de hesap yapılır,
+ * yalnızca sonuç bir aralık değil tek tutar olur (`tutarlar.length === 1`)
+ * ve arayüz ikinci teklifi önerir.
+ *
+ * Tek teklifte `alt`, `ust` ve `ortalama` aynı değere iner — çağıran taraf
+ * bu durumda ARALIK GÖSTERMEMELİ, `tutarlar.length`e bakmalı.
  *
  * ─── ARİTMETİK ────────────────────────────────────────────────────────
  * Kuruş tabanlı tam sayı çarpımı — § 3, § 4 ve § 6 ile aynı kural.
@@ -44,14 +51,41 @@ export const EN_COK_GUN = 3650;
  */
 export const EN_COK_GUNLUK_BEDEL = 1_000_000;
 
-/** Aralık hesaplanabilmesi için gereken en az teklif sayısı. */
-export const EN_AZ_TEKLIF = 2;
+/**
+ * Hesap için gereken en az teklif sayısı.
+ *
+ * Bir. İki teklif daha iyi bir tahmin verir ama şart değildir; tek
+ * teklifle hesap yapılır, sonuç aralık yerine tek tutar olur.
+ */
+export const EN_AZ_TEKLIF = 1;
 
 export interface MahrumiyetGirdi {
   /** Aracın onarımda/serviste kaldığı gün sayısı. */
   gun: number;
-  /** Kullanıcının topladığı günlük kira teklifleri (TL). En az iki tane. */
+  /**
+   * Kullanıcının GİRDİĞİ günlük kira teklifleri (TL). En az bir tane.
+   *
+   * Boş bırakılan form alanları bu listeye hiç girmez — ayıklamayı
+   * `teklifleriTopla` yapar. Listeye giren bir sıfır, boş alan değil
+   * kullanıcının yazdığı sıfırdır ve geçersiz sayılır.
+   */
   gunlukBedeller: readonly number[];
+}
+
+/**
+ * Form alanlarının ham değerlerini teklif listesine çevirir.
+ *
+ * Neden `src/lib/` altında: "boş alan" ile "sıfır yazılmış alan" ayrımı
+ * bu aracın davranışını belirleyen bir kural. Betiğin içinde kalsaydı test
+ * edilemezdi; burada, "yalnızca ikinci alan dolu" gibi hâller Vitest ile
+ * doğrulanabiliyor.
+ *
+ * - Boş veya yalnızca boşluk içeren alan ATLANIR.
+ * - Diğer her değer sayıya çevrilip listeye girer; geçersizse hesap
+ *   fonksiyonu reddeder (sessizce atılmaz).
+ */
+export function teklifleriTopla(hamDegerler: readonly string[]): number[] {
+  return hamDegerler.filter((ham) => ham.trim() !== '').map(Number);
 }
 
 export interface TeklifTutari {
@@ -64,17 +98,21 @@ export interface TeklifTutari {
 export type MahrumiyetSonucu =
   | { durum: 'gecersiz-gun' }
   | { durum: 'gecersiz-bedel' }
+  /** Hiç teklif girilmemiş — iki alan da boş. */
   | { durum: 'yetersiz-teklif' }
   | {
       durum: 'hesaplandi';
       gun: number;
-      /** Her teklifin kendi tutarı, girildiği sırayla. */
+      /**
+       * Her teklifin kendi tutarı, girildiği sırayla. Tek elemanlıysa
+       * sonuç bir aralık değil, tek tutardır.
+       */
       tutarlar: readonly TeklifTutari[];
-      /** En düşük teklifin verdiği tutar. */
+      /** En düşük teklifin verdiği tutar. Tek teklifte `ust` ile aynıdır. */
       alt: number;
-      /** En yüksek teklifin verdiği tutar. */
+      /** En yüksek teklifin verdiği tutar. Tek teklifte `alt` ile aynıdır. */
       ust: number;
-      /** Tutarların aritmetik ortalaması. */
+      /** Tutarların aritmetik ortalaması. Tek teklifte tutarın kendisidir. */
       ortalama: number;
     };
 

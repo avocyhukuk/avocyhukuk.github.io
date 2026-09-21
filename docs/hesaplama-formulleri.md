@@ -1511,8 +1511,11 @@ değil. Kalem uygun görünüyor.
 | Alan | id | Tip | Kural |
 |---|---|---|---|
 | Aracın serviste kaldığı gün sayısı | `gun` | tam sayı | 1 – 3650 |
-| Birinci günlük kira bedeli | `bedel-1` | TL | > 0 |
-| İkinci günlük kira bedeli | `bedel-2` | TL | > 0 |
+| Birinci günlük kira bedeli | `bedel-1` | TL | > 0, **isteğe bağlı** |
+| İkinci günlük kira bedeli | `bedel-2` | TL | > 0, **isteğe bağlı** |
+
+**İki bedel alanından en az biri dolu olmalıdır; ikisi birden zorunlu
+değildir** (21 Eylül 2026 kararı, bkz. 5.5b). Gün sayısı her hâlde zorunlu.
 
 Bedel alanlarının ipucu metinleri kaynağı gösterir ("Enterprise'dan
 aldığınız teklif" / "Garenta'dan aldığınız teklif"), böylece cetvel
@@ -1522,9 +1525,41 @@ satırları marka adı taşımak zorunda kalmaz.
 ayrı, ama on yılı aşan bir girdi kullanıcı hatasıdır ve sessizce devasa
 bir rakam üretmesindense reddedilmesi doğru.
 
+### 5.5b. Tek teklifle hesap — 21 Eylül 2026 kararı
+
+Aracın ilk sürümü iki teklifi de zorunlu tutuyordu. Av. Onur Can Yılmaz
+bunu gevşetti:
+
+| Durum | Davranış |
+|---|---|
+| İki alan da dolu | Değişmedi: alt–üst aralığı ve ortalama |
+| **Tek alan dolu** | `gün × bedel` ile **tek tutar** (aralık YOK) + ikinci teklif önerisi |
+| İki alan da boş | Hesap yapılmaz, cetvel boş durumda kalır |
+
+**Gerekçe:** ikinci teklifi almak için siteden ayrılan kullanıcı çoğu
+zaman geri dönmüyor. Elindeki tek rakamla da bir tahmin alabilmeli.
+
+**Boş alan ile yazılmış sıfır ayrımı.** Boş alan "teklif vermedim"
+demektir ve listeye hiç girmez. Kullanıcının yazdığı `0` ise hatalı bir
+tekliftir; sessizce atılmaz, `gecersiz-bedel` ile reddedilir — aksi hâlde
+kullanıcı yanlış girdiğini hiç öğrenemez.
+
+Bu ayrım `teklifleriTopla()` fonksiyonunda, yani `src/lib/` altında
+yapılıyor. Betiğin içinde bırakılsaydı test edilemezdi; böylece "yalnızca
+ikinci alan dolu" gibi hâller Vitest ile doğrulanıyor.
+
+**Formda gösterim.** Alanların altına tek satırlık bir açıklama kondu:
+
+> İki alandan en az birini doldurmanız yeterlidir. İkisini de
+> doldurursanız sonuç bir aralık olarak gösterilir.
+
+*Bu cümle 5.4'teki onaylı metinlerden değildir, davranış değişikliğinin
+gerektirdiği arayüz açıklamasıdır — kullanıcı bunu görmezse tek teklifi
+varken hesabı hiç denemez. Değiştirilmesi serbesttir.*
+
 ### 5.6. Hesap
 
-Girdi: `gun` (tam sayı), `gunlukBedeller` (en az iki pozitif sayı).
+Girdi: `gun` (tam sayı), `gunlukBedeller` (**en az bir** pozitif sayı).
 
 ```
 tutar[i] = gun × bedel[i]
@@ -1532,6 +1567,10 @@ alt      = min(tutar)
 üst      = max(tutar)
 ortalama = tutarların aritmetik ortalaması
 ```
+
+Tek teklifte üçü de aynı değere iner. Çağıran taraf bu durumda **aralık
+göstermemeli**, `tutarlar.length`e bakmalıdır — tip tanımında da böyle
+yazıyor.
 
 **Aritmetik kuralı.** § 3, § 4 ve § 6'daki ile aynı: bedeller kuruşa
 çevrilip tam sayı olarak çarpılır, yuvarlama yalnızca sonda yapılır.
@@ -1550,22 +1589,57 @@ mertebesinde kalır; `Number.MAX_SAFE_INTEGER` sınırına yaklaşılmaz
 "1.000,00 – 1.000,00 TL" yazılmaz.
 
 **Geçersiz girdi durumları:** `gecersiz-gun` (tam sayı değil, 1'den küçük
-veya 3650'den büyük), `gecersiz-bedel` (sıfır, negatif veya sayı değil),
-`yetersiz-teklif` (ikiden az bedel). Her biri ayrı bir hata mesajı alır;
-§ 6'daki gibi tahmin yürütülmez.
+veya 3650'den büyük), `gecersiz-bedel` (sıfır, negatif, sayı değil veya
+tavanı aşıyor), `yetersiz-teklif` (hiç teklif yok). Her biri ayrı bir
+hata mesajı alır; § 6'daki gibi tahmin yürütülmez.
 
 ### 5.7. Sonuç ekranı
 
-Hesap cetveli (`ResultSheet`) satırları:
+Cetvel (`ResultSheet`) girilen teklif sayısına göre iki biçimden birini
+alır.
 
-| Satır | Değer | Açıklama |
+**İki teklif:**
+
+| Satır | Değer | Dayanak |
 |---|---|---|
-| Birinci teklife göre | `tutar₁` | `N gün × X TL` |
-| İkinci teklife göre | `tutar₂` | `N gün × Y TL` |
-| **Tahmini aralık** | `alt – üst` | iki teklifin verdiği alt ve üst uç |
-| **Ortalama tahmin** | `ortalama` | kapanış satırı (`total: true`) |
+| Birinci teklife göre | `tutar₁` (`N gün × X TL`) | Y. 4. HD |
+| İkinci teklife göre | `tutar₂` (`N gün × Y TL`) | — |
+| Tahmini aralık | `alt – üst` | TBK m. 50/2 |
+| **Ortalama tahmin** | `ortalama` | TBK m. 49 |
 
-Cetvelin hemen altında **iki teknik not** (birebir):
+**Tek teklif:**
+
+| Satır | Değer | Dayanak |
+|---|---|---|
+| Günlük kira bedeli | girilen teklif | Y. 4. HD |
+| Mahrumiyet süresi | `N gün` | TBK m. 50/2 |
+| **Mahrumiyet bedeli tahmini** | `tutar` (`N gün × X TL`) | TBK m. 49 |
+
+Tek teklifli dal neden üç satır: aynı sayıyı "tek kalem" ve "toplam" diye
+iki kez yazmamak için hesap adımlarına ayrıldı. Yan faydası, üç dayanağın
+da ekranda kalması.
+
+**Dayanak eşlemesi** iki dalda da aynı mantıkla kuruldu:
+
+| Dayanak | Neyi karşılıyor |
+|---|---|
+| Yargıtay 4. HD | **Yöntem** — emsal günlük kira bedeli esas alınır, fiili kiralama belgesi aranmaz |
+| TBK m. 50/2 | **Takdir** — zarar tam ispat edilemediği için aralık/süre hâkimin takdirine açık |
+| TBK m. 49 | **Talep** — sonucun hukuki dayanağı |
+
+*İlk sürümde m. 49 aralığa, m. 50/2 ortalamaya bağlıydı; 21 Eylül'de
+yer değiştirdiler. Aralığın var olma sebebi zaten tutarın tam olarak
+ispat edilememesi, yani doğrudan m. 50/2.*
+
+**Tek teklifte ek olarak** (metin birebir, Av. Onur Can Yılmaz):
+
+> Daha isabetli bir aralık için ikinci siteden de bir teklif almanızı
+> öneririz.
+
+Bu bir uyarı değil öneri olduğu için hata kutusundan görsel olarak
+ayrıldı: çerçeve yok, yalnızca kenar çizgisi.
+
+Cetvelin altında **iki teknik not** (birebir):
 
 > Bu tutardan, aracınızı kullanmadığınız için tasarruf ettiğiniz
 > yakıt/bakım gideri düşülebilir; gerçek tazminat bu rakamdan az
@@ -1577,9 +1651,6 @@ Cetvelin hemen altında **iki teknik not** (birebir):
 
 Ardından kabuğun bastığı sabit bloklar: mevzuat tarihi → kapsam notu
 (5.4/c) → zorunlu uyarı (5.4/d).
-
-**Dayanak gösterimi.** Cetvelin kapanış satırı TBK m. 49 ve m. 50/2'ye
-bağlanır. İçtihat künyesi 5.2'deki kurala tabi.
 
 ### 5.8. Kaldırılan eklerin kontrolü — § 2'de söz verilmişti
 
@@ -1614,6 +1685,10 @@ Sorular 20 Eylül 2026'da soruldu, **21 Eylül 2026'da** cevaplandı:
 
 **Kodlama sırası** (CLAUDE.md Bölüm 6): belge → onay → `src/lib/` saf
 fonksiyon → Vitest → arayüz. Sıra atlanmadı.
+
+**Sonraki değişiklik.** Aynı gün, araç yayına alındıktan sonra hesap
+mantığı gevşetildi: iki teklif yerine **en az bir teklif** yeterli
+(5.5b). Vitest'e tek teklifli iki senaryo ve alan okuma testleri eklendi.
 
 - **Onay Durumu:** ✅ **Onaylandı — 21 Eylül 2026**
 

@@ -11,6 +11,7 @@ import {
   EN_COK_GUN,
   EN_COK_GUNLUK_BEDEL,
   mahrumiyetBedeliHesapla,
+  teklifleriTopla,
   type MahrumiyetSonucu,
 } from './mahrumiyet-bedeli';
 
@@ -49,6 +50,47 @@ describe('mahrumiyet bedeli hesabı', () => {
     expect(azalan.alt).toBe(artan.alt);
     expect(azalan.ust).toBe(artan.ust);
     expect(azalan.ortalama).toBe(artan.ortalama);
+  });
+
+  it('yalnızca BİRİNCİ fiyat alanı doluysa tek tutar döner', () => {
+    const bedeller = teklifleriTopla(['1000', '']);
+    const s = hesap(mahrumiyetBedeliHesapla({ gun: 10, gunlukBedeller: bedeller }));
+
+    // Tek eleman: arayüz buna bakıp aralık yerine tek tutar gösterir.
+    expect(s.tutarlar).toHaveLength(1);
+    expect(s.tutarlar[0]).toEqual({ gunlukBedel: 1000, tutar: 10_000 });
+
+    // Aralık uçları ve ortalama aynı değere iner.
+    expect(s.alt).toBe(10_000);
+    expect(s.ust).toBe(10_000);
+    expect(s.ortalama).toBe(10_000);
+  });
+
+  it('yalnızca İKİNCİ fiyat alanı doluysa aynı formül işler', () => {
+    const bedeller = teklifleriTopla(['', '1500']);
+    const s = hesap(mahrumiyetBedeliHesapla({ gun: 10, gunlukBedeller: bedeller }));
+
+    expect(s.tutarlar).toHaveLength(1);
+    expect(s.tutarlar[0]).toEqual({ gunlukBedel: 1500, tutar: 15_000 });
+    expect(s.alt).toBe(15_000);
+    expect(s.ust).toBe(15_000);
+    expect(s.ortalama).toBe(15_000);
+  });
+
+  it('tek teklifin sonucu, iki teklifli hesaptaki kendi satırıyla birebir aynı', () => {
+    // "İkisi de aynı gün × bedel formülünü kullanmalı" — tek teklifli dalın
+    // ayrı bir hesap yolu OLMADIĞINI sabitler.
+    const ikili = hesap(mahrumiyetBedeliHesapla({ gun: 10, gunlukBedeller: [1000, 1500] }));
+
+    for (const [sira, ham] of [
+      ['1000', ''],
+      ['', '1500'],
+    ].entries()) {
+      const tekli = hesap(
+        mahrumiyetBedeliHesapla({ gun: 10, gunlukBedeller: teklifleriTopla(ham) })
+      );
+      expect(tekli.tutarlar[0]).toEqual(ikili.tutarlar[sira]);
+    }
   });
 
   it('ikiden fazla teklif de kabul edilir', () => {
@@ -154,13 +196,43 @@ describe('bedel doğrulaması', () => {
     ).toBe(10_000_000);
   });
 
-  it('aralık için en az iki teklif gerekir', () => {
-    for (const gunlukBedeller of [[], [1000]]) {
-      expect(mahrumiyetBedeliHesapla({ gun: 10, gunlukBedeller })).toEqual({
-        durum: 'yetersiz-teklif',
-      });
-    }
+  it('hiç teklif yoksa hesap yapılmaz', () => {
+    expect(mahrumiyetBedeliHesapla({ gun: 10, gunlukBedeller: [] })).toEqual({
+      durum: 'yetersiz-teklif',
+    });
 
-    expect(EN_AZ_TEKLIF).toBe(2);
+    // Tek teklif YETERLİ — bu sınır bilinçli olarak 1.
+    expect(EN_AZ_TEKLIF).toBe(1);
+  });
+});
+
+describe('form alanlarının okunması', () => {
+  it('boş alanlar atlanır, dolu olanlar sırasını korur', () => {
+    expect(teklifleriTopla(['1000', '1500'])).toEqual([1000, 1500]);
+    expect(teklifleriTopla(['1000', ''])).toEqual([1000]);
+    expect(teklifleriTopla(['', '1500'])).toEqual([1500]);
+    expect(teklifleriTopla(['', ''])).toEqual([]);
+  });
+
+  it('yalnızca boşluk içeren alan boş sayılır', () => {
+    expect(teklifleriTopla(['   ', '1500'])).toEqual([1500]);
+  });
+
+  it('YAZILMIŞ sıfır atlanmaz — boş alanla aynı şey değil', () => {
+    // Boş alan "teklif vermedim", sıfır ise hatalı bir teklif. İkincisi
+    // sessizce atılırsa kullanıcı yanlış girdiğini hiç öğrenemez.
+    const bedeller = teklifleriTopla(['0', '1500']);
+    expect(bedeller).toEqual([0, 1500]);
+    expect(mahrumiyetBedeliHesapla({ gun: 10, gunlukBedeller: bedeller })).toEqual({
+      durum: 'gecersiz-bedel',
+    });
+  });
+
+  it('sayıya çevrilemeyen değer atılmaz, reddedilir', () => {
+    const bedeller = teklifleriTopla(['abc', '1500']);
+    expect(bedeller[0]).toBeNaN();
+    expect(mahrumiyetBedeliHesapla({ gun: 10, gunlukBedeller: bedeller })).toEqual({
+      durum: 'gecersiz-bedel',
+    });
   });
 });

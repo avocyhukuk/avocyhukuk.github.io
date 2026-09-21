@@ -101,12 +101,29 @@ const kiralamaSiteleri = [
       inputmode="decimal"
     />
 
+    {
+      /* İki alan da zorunlu değil; kullanıcı bunu formda görmezse tek
+        teklifi varken hesabı hiç denemez. */
+    }
+    <p class="form-note">
+      İki alandan en az birini doldurmanız yeterlidir. İkisini de doldurursanız sonuç bir aralık
+      olarak gösterilir.
+    </p>
+
     <button class="btn btn--primary" type="button" id="hesapla">Hesapla</button>
   </Fragment>
 
   <div class="result-region">
     <p class="alert" id="uyari" role="alert" hidden></p>
     <ResultSheet />
+
+    {
+      /* Yalnızca tek teklifle hesaplandığında görünür. Bir uyarı değil,
+        sonucu iyileştirme önerisi — bu yüzden ayrı ve daha sakin. */
+    }
+    <p class="tip" id="oneri" hidden>
+      Daha isabetli bir aralık için ikinci siteden de bir teklif almanızı öneririz.
+    </p>
 
     {
       /* Teknik notlar — § 5.7. Cetvelin hemen altında duruyorlar çünkü
@@ -179,10 +196,28 @@ const kiralamaSiteleri = [
     font-size: var(--text-sm);
     color: var(--text-muted);
   }
+
+  .form-note {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  /* Öneri, uyarı kutusundan görsel olarak ayrılır: çerçeve yok, yalnızca
+     kenar çizgisi. Bir şey yanlış gitmedi, sonuç iyileştirilebilir. */
+  .tip {
+    padding-inline-start: var(--space-4);
+    border-inline-start: 3px solid var(--border-strong);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
 </style>
 
 <script>
-  import { mahrumiyetBedeliHesapla, EN_COK_GUN } from '../../lib/mahrumiyet-bedeli';
+  import {
+    mahrumiyetBedeliHesapla,
+    teklifleriTopla,
+    EN_COK_GUN,
+  } from '../../lib/mahrumiyet-bedeli';
   import type { SheetRow } from '../../lib/calculator-ui';
   import { formatNumber, formatTRY } from '../../lib/format';
   import { clearSheet, findSheet, renderSheet } from '../../scripts/result-sheet';
@@ -195,6 +230,7 @@ const kiralamaSiteleri = [
   const bedel2 = el<HTMLInputElement>('bedel-2');
   const buton = el<HTMLButtonElement>('hesapla');
   const uyari = el<HTMLElement>('uyari');
+  const oneri = el<HTMLElement>('oneri');
 
   const D = {
     yargitay: {
@@ -211,38 +247,25 @@ const kiralamaSiteleri = [
     },
   };
 
-  if (sheet && gun && bedel1 && bedel2 && buton && uyari) {
+  if (sheet && gun && bedel1 && bedel2 && buton && uyari && oneri) {
     const uyariGoster = (mesaj: string) => {
       uyari.textContent = mesaj;
       uyari.hidden = false;
+      oneri.hidden = true;
       clearSheet(sheet);
     };
 
-    const hesapla = () => {
-      uyari.hidden = true;
-
-      const sonuc = mahrumiyetBedeliHesapla({
-        gun: Number(gun.value),
-        gunlukBedeller: [Number(bedel1.value), Number(bedel2.value)],
-      });
-
-      if (sonuc.durum === 'gecersiz-gun') {
-        uyariGoster(`Gün sayısını 1 ile ${EN_COK_GUN} arasında bir tam sayı olarak girin.`);
-        return;
-      }
-      if (sonuc.durum === 'gecersiz-bedel') {
-        uyariGoster('İki günlük kira bedelini de sıfırdan büyük birer tutar olarak girin.');
-        return;
-      }
-      if (sonuc.durum === 'yetersiz-teklif') {
-        uyariGoster('Aralık hesaplanabilmesi için iki kiralama teklifi de gereklidir.');
-        return;
-      }
-
+    /**
+     * İki teklifli cetvel: her teklif kendi satırında, altında aralık ve
+     * kapanışta ortalama.
+     */
+    const ikiTeklifSatirlari = (
+      sonuc: Extract<ReturnType<typeof mahrumiyetBedeliHesapla>, { durum: 'hesaplandi' }>,
+      gunMetni: string
+    ): SheetRow[] => {
       const [ilk, ikinci] = sonuc.tutarlar;
-      const gunMetni = `${sonuc.gun} gün`;
 
-      const rows: SheetRow[] = [
+      return [
         {
           label: 'Birinci teklife göre',
           value: formatTRY(ilk!.tutar),
@@ -268,18 +291,87 @@ const kiralamaSiteleri = [
               ? formatTRY(sonuc.alt)
               : `${formatNumber(sonuc.alt, 2)} – ${formatTRY(sonuc.ust)}`,
           detail: 'İki teklifin verdiği alt ve üst uç',
-          basis: D.tbk49,
+          basis: D.tbk50,
         },
         {
           label: 'Ortalama tahmin',
           value: formatTRY(sonuc.ortalama),
           detail: `${gunMetni} için iki teklifin ortalaması`,
-          basis: D.tbk50,
+          basis: D.tbk49,
           total: true,
         },
       ];
+    };
 
-      renderSheet(sheet, rows);
+    /**
+     * Tek teklifli cetvel: aralık YOK.
+     *
+     * Aynı sayıyı "tek kalem" ve "toplam" diye iki kez yazmak yerine hesap
+     * adımlarına ayrılıyor — bedel, süre, sonuç. Böylece üç dayanak da
+     * ekranda kalıyor; iki teklifli daldaki eşleme korunuyor: yöntem
+     * Yargıtay kararı, takdir TBK m.50/2, talebin kendisi TBK m.49.
+     */
+    const tekTeklifSatirlari = (
+      sonuc: Extract<ReturnType<typeof mahrumiyetBedeliHesapla>, { durum: 'hesaplandi' }>,
+      gunMetni: string
+    ): SheetRow[] => {
+      const tek = sonuc.tutarlar[0]!;
+
+      return [
+        {
+          label: 'Günlük kira bedeli',
+          value: formatTRY(tek.gunlukBedel),
+          detail: 'Girdiğiniz teklif',
+          basis: D.yargitay,
+        },
+        {
+          label: 'Mahrumiyet süresi',
+          value: gunMetni,
+          detail: 'Aracın serviste kaldığı süre',
+          basis: D.tbk50,
+        },
+        {
+          label: 'Mahrumiyet bedeli tahmini',
+          value: formatTRY(tek.tutar),
+          detail: `${gunMetni} × ${formatTRY(tek.gunlukBedel)}`,
+          basis: D.tbk49,
+          total: true,
+        },
+      ];
+    };
+
+    const hesapla = () => {
+      uyari.hidden = true;
+
+      // Boş alanlar listeye hiç girmez; ayıklama saf tarafta, test edilmiş
+      // (`teklifleriTopla`). Yazılmış bir sıfır ise atlanmaz, reddedilir.
+      const gunlukBedeller = teklifleriTopla([bedel1.value, bedel2.value]);
+
+      const sonuc = mahrumiyetBedeliHesapla({ gun: Number(gun.value), gunlukBedeller });
+
+      if (sonuc.durum === 'gecersiz-gun') {
+        uyariGoster(`Gün sayısını 1 ile ${EN_COK_GUN} arasında bir tam sayı olarak girin.`);
+        return;
+      }
+      if (sonuc.durum === 'gecersiz-bedel') {
+        uyariGoster('Girdiğiniz günlük kira bedelini sıfırdan büyük bir tutar olarak yazın.');
+        return;
+      }
+      if (sonuc.durum === 'yetersiz-teklif') {
+        uyariGoster('Hesap için en az bir günlük kira bedeli girin.');
+        return;
+      }
+
+      const gunMetni = `${sonuc.gun} gün`;
+      const tekTeklif = sonuc.tutarlar.length === 1;
+
+      renderSheet(
+        sheet,
+        tekTeklif ? tekTeklifSatirlari(sonuc, gunMetni) : ikiTeklifSatirlari(sonuc, gunMetni)
+      );
+
+      // İkinci teklif önerisi yalnızca tek teklifle hesaplandığında.
+      oneri.hidden = !tekTeklif;
     };
 
     buton.addEventListener('click', hesapla);
