@@ -2159,7 +2159,7 @@ Ticaret Odası** tarifesi.
 
 | Kapsam dışı | Neden |
 |---|---|
-| **Anonim şirket** | Farklı asgari sermaye (250.000), farklı organ yapısı, sermayenin 1/4'ünün kuruluşta ödenmesi şartı. **v2'ye ertelendi** |
+| ~~Anonim şirket~~ | **21 Eylül 2026'da KAPSAMA ALINDI** — bkz. 7.12 |
 | **Başka şehir / başka oda** | Oda kayıt ücreti ve tasdik bedelleri odaya göre değişiyor; kapsam notuyla söylenecek |
 | **Mali müşavir ücreti** | Serbestçe belirleniyor. Toplama KATILMAZ, ayrı bilgi notu (7.7) |
 | **Noter masrafı** | Zorunlu değil; ana sözleşme sicil müdürlüğünde ücretsiz imzalanıyor. Ayrı bilgi notu (7.7) |
@@ -2245,8 +2245,8 @@ Yılmaz'ın metni:
 > esas alır. Başka bir odaya kayıt olunacaksa oda kayıt ücreti ve
 > tasdik bedelleri değişir.
 
-> Anonim şirket kuruluşu bu sürümün kapsamı dışındadır; asgari sermaye,
-> organ yapısı ve ödeme şartları farklıdır.
+> Kayıtlı sermaye sistemini kabul eden anonim şirketler (başlangıç
+> sermayesi 500.000 TL) bu sürümün kapsamı dışındadır.
 
 > Elektronik imza ve mali mühür bedelleri resmî bir tarifeye bağlı
 > olmadığı için hesaba dahil edilmemiştir.
@@ -2316,6 +2316,98 @@ gerçeğin yarısı kadar bir tutar gösterirdi. 4.000 kelimelik bir
 sözleşmede bu kalem tek başına 9.920,00 TL ediyor.*
 
 - **Onay Durumu:** ✅ **Onaylandı — 21 Eylül 2026**
+
+### 7.12. Anonim şirket kapsama alındı — 21 Eylül 2026
+
+Araç ilk sürümünde yalnızca limited şirket hesaplıyordu (7.5). Av. Onur
+Can Yılmaz anonim şirketi de istedi. **Kalem listesi aynı kalıyor**;
+değişen üç şey var.
+
+#### Değişen: asgari sermaye
+
+| Tür | Asgari esas sermaye | Dayanak |
+|---|---|---|
+| Limited | 50.000 TL | 7887 s. Cumhurbaşkanı Kararı |
+| **Anonim** | **250.000 TL** | aynı Karar |
+| ~~Kayıtlı sermayeli AŞ~~ | ~~500.000 TL~~ | **v2'ye ertelendi** |
+
+**Kayıtlı sermaye sistemi bilinçli olarak dışarıda.** Nadir kullanılan
+bir seçenek; forma üçüncü bir tür eklemek, kazandıracağı isabetten daha
+fazla karmaşıklık getirirdi. Kapsam notunda açıkça söyleniyor, böylece
+bu sistemdeki kullanıcı aracın kendisini kapsadığını sanmıyor.
+
+#### Değişen: sermaye blokajı (yalnız AŞ)
+
+**TTK m. 344/1:**
+
+> Nakden taahhüt edilen payların itibarî değerlerinin en az yüzde
+> yirmibeşi tescilden önce, gerisi de şirketin tescilini izleyen
+> yirmidört ay içinde ödenir.
+
+**TTK m. 345/1:** ödeme, 5411 sayılı Bankacılık Kanunu'na bağlı bir
+bankada kurulmakta olan şirket adına açılan özel hesaba yatırılır; banka
+bu tutarı ancak tüzel kişiliğin kazanıldığını bildiren sicil müdürlüğü
+yazısı üzerine şirkete öder.
+
+**Bu bir masraf DEĞİL** — tescilden sonra şirkete geçiyor. Bu yüzden
+toplama girmiyor, kalem olarak da eklenmiyor; yalnızca bilgi notunda
+tutarıyla gösteriliyor (aşağıda). Kalem olarak eklenseydi kullanıcı onu
+cebinden çıkıp gidecek bir gider sanırdı.
+
+**Limitedde bu şart YOK.** 7099 s.K. değişikliğinden sonra limited
+şirkette sermaye tescilden sonra yirmi dört ay içinde ödenebiliyor,
+kuruluşta blokaj aranmıyor. Not bu yüzden yalnızca AŞ seçildiğinde
+görünüyor.
+
+Not metni (birebir, Av. Onur Can Yılmaz — tutar araç tarafından
+hesaplanıp cümlenin içine yerleştirilecek):
+
+> Anonim şirkette, nakit olarak taahhüt edilen sermayenin en az %25'i
+> tescilden önce bankada bloke edilmelidir. Bu bir masraf değildir,
+> tescil sonrası serbest bırakılır; bu nedenle yukarıdaki toplama dahil
+> edilmemiştir. **250.000 TL sermaye için bu tutar 62.500 TL'dir.**
+
+#### Değişen: kelime sayısı ipucu
+
+Limitedde kullanılan metnin sonuna bir cümle ekleniyor, yalnızca AŞ
+seçiliyken görünüyor:
+
+> Anonim şirket esas sözleşmesi genellikle limited şirket sözleşmesinden
+> daha uzundur.
+
+JS kapalıyken bu cümle de görünür kalır — doğru bir bilgi, gizlenmesi
+şart değil. (Harç aracındaki `data-grup` deseninin aynısı.)
+
+#### Değişmeyenler — teyit edildi
+
+| Kalem | AŞ'de durum |
+|---|---|
+| **Ticaret sicili tescil harcı** | **Yine tam istisna.** 492 s.K. m. 123'ün lafzı zaten *"**Anonim**, eshamlı komandit, limited şirket ve kooperatiflerin kuruluş... işlemleri"* diyor — anonim listenin ilk sırasında. (7099 s.K. bu fıkrayı kooperatifleri ekleyecek şekilde değiştirmiş; anonim baştan beri kapsamda.) |
+| Oda kayıt + beyanname | 3.900 + 250 = 4.150 TL, aynı |
+| Defter ve kuruluş tasdik | 2.500 TL — kaynak tarifesinde zaten "AŞ-LTD-KOOP" ortak |
+| TTSG ilan ücreti | Kelime × 2,48 TL, aynı mantık |
+| Rekabet Kurumu payı | Sermaye × on binde dört. 4054 m. 39/1-(c) zaten "anonim ve limited şirket statüsündeki tüm ortaklıklar" diyor. Sermaye farklı olduğu için tutar kendiliğinden değişiyor |
+| Noter | Aynı — tebliğ her iki türü de kapsıyor; ücretsiz sicilde imzalanabiliyor |
+| Mali müşavir | Aynı — toplama girmiyor, ayrı not |
+
+#### Ek test senaryoları
+
+| # | Girdi | Beklenen |
+|---|---|---|
+| 8 | **AŞ**, 250.000 TL, 2.500 kelime, 2026 | 6.650 + TTSG 6.200,00 + Rekabet 100,00 = **12.950,00 TL**; blokaj **62.500,00 TL** ayrı |
+| 9 | AŞ, 249.999 TL | `gecersiz-sermaye`, asgari **250.000** |
+| 10 | Limited, 50.000 TL | Kabul — limitedin sınırı AŞ'ninkinden etkilenmiyor |
+| 11 | Limited sonuçta blokaj | `undefined` — not gösterilmiyor |
+| 12 | Aynı sermaye ve kelimede iki tür | Toplamlar **eşit** — tür yalnızca asgari sınırı ve blokajı etkiliyor |
+
+#### Ek kaynaklar
+
+- **Sermaye blokajı:** TTK **m. 344/1** (yüzde yirmibeş) ve **m. 345/1** (banka hesabı, serbest bırakma)
+- **Harç istisnasının AŞ'yi kapsaması:** 492 s.K. m. 123 lafzı; fıkra 7099 s.K. ile kooperatifleri kapsayacak şekilde genişletilmiş
+- **Limitedde blokaj aranmaması:** 7099 s.K. ile değişik TTK hükümleri
+
+- **Onay Durumu:** ⬜ **Bekliyor** — onaylanınca `kurulus-maliyeti.ts` tür
+  parametresiyle genişletilecek
 
 ## 8. Marka Tescil Süreç Takvimi
 
