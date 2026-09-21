@@ -2100,164 +2100,223 @@ sayılacak (Ticaret Bakanlığı bu süreyi birer yıllık iki dönem uzatabilir
 > ortaklıkların sermayelerinin ve sermaye artırımı halinde artan kısmın
 > **on binde dördü** nispetinde yapılacak ödemeler
 
-Oran **on binde dört** = **0,0004** = **%0,04**. Senin özetindeki oran
-doğru.
+Oran **on binde dört** = **0,0004** = **%0,04**.
 
-> ⚠️ **10 kat çelişki — dikkat.** İncelenen ticaret odası sayfalarından
-> biri bu payı **"binde 4"** olarak yazıyor. Kanun metni "on binde
-> dördü" diyor. Bu, § 2'deki "%19 mu %1,9 mu" hatasının aynısı.
-> **Kanun metni esas alınacak: on binde dört.** 50.000 TL sermayede pay
-> **20,00 TL**'dir; binde dört okunursa 200,00 TL çıkardı.
+Usul ve esaslar: **4054 Sayılı Kanun Uyarınca Anonim ve Limited
+Şirketlerin Yapacakları Ödemelere İlişkin Tebliğ (2017/4)**. Tebliğ
+uyarınca **1 Ocak 2018'den itibaren** bu ödeme Rekabet Kurumu'na değil,
+Ticaret Bakanlığı – Rekabet Kurumu – TOBB arasındaki protokol gereği
+**kayıt olunan ticaret ve sanayi odasına** yapılıyor. Yani kullanıcı
+açısından ayrı bir ödeme kalemi değil, oda veznesinde tahsil edilen bir
+tutar.
 
-Bu kalem harç değil, Rekabet Kurumu'nun geliri — m. 123 istisnası
+> ⚠️ **10 kat çelişki — kayda geçti.** İncelenen ticaret odası
+> sayfalarından biri bu payı **"binde 4"** olarak yazıyor. Kanun metni
+> "on binde dördü" diyor ve Av. Onur Can Yılmaz da on binde dördü teyit
+> etti. **Kanun metni esas.** 50.000 TL sermayede pay **20,00 TL**'dir;
+> binde dört okunsaydı 200,00 TL çıkardı.
+
+Bu kalem harç değil, Rekabet Kurumu'nun geliri — 492 m. 123 istisnası
 buna işlemez, kuruluşta ödenir.
 
-### 7.4. Geriye ne kalıyor — ve asıl sorun
+> 📌 **İzlenecek:** Rekabet Kurumu'nun sitesinde 2017/4 sayılı Tebliğ'in
+> bir **değişiklik metni** görünüyor (2024 tarihli dosya). İçeriğine
+> ulaşılamadı. Oran kanunda yazılı olduğu için değişiklik oranı
+> etkilemez, ancak tahsil usulünü etkilemiş olabilir. Araç oranı
+> kanundan aldığı için risk düşük.
 
-Muafiyet ve noter bulgusundan sonra limited şirket kuruluşunda fiilen
-ödenen kalemler:
+### 7.4. Kalem listesi — Ankara (ATO), 2026
 
-| Kalem | Ulusal sabit mi? | Durum |
-|---|---|---|
-| **Rekabet Kurumu payı** | ✅ Evet, kanunla | ✅ Doğrulandı (7.3) |
-| Oda kayıt ücreti | ❌ **Odaya ve sermayeye göre değişir** | 5174 s.K.; tutar odanın tarifesinde |
-| TTSG ilan ücreti | ❌ **Sözleşmenin kelime sayısına bağlı** | Kuruluş ilanları kelimesi ~2,48 TL (teyit edilmedi) |
-| Ticaret sicili hizmet bedelleri (kuruluş tasdiki, defter tasdiki) | ❌ Odaya göre değişir | İTO'da 2.160 + 2.760 TL görünüyor (teyit edilmedi) |
-| e-imza / mali mühür | ❌ **Piyasa fiyatı** | Resmî tarife değil |
-| Noter (yalnız vekâletname verilecekse) | ❌ İsteğe bağlı | TNB tarifesi |
-| Mali müşavir | ❌ **Serbest piyasa** | Hesaba KATILMAYACAK (senin talimatın) |
+**A seçeneği onaylandı.** Rakamlar Av. Onur Can Yılmaz tarafından
+verildi (kaynak: `atonet.org.tr` 2026 Yılı Kayıt Ücreti Tarifesi ve
+ticaret sicili tarifeleri).
 
-**Asıl sorun görünür oldu:** bu aracın toplayacağı kalemlerden
-**yalnızca biri** ulusal ölçekte sabit ve kanuna bağlı. Geri kalanı ya
-odaya göre değişiyor, ya kelime sayısına bağlı, ya da serbest piyasa
-fiyatı. § 6'daki harç aracında on beş kalemin hepsi ulusal tarifedeydi;
-burada durum tersine dönmüş.
+| # | Kalem | 2026 tutarı | Dayanak |
+|---|---|---|---|
+| — | Ticaret sicili tescil harcı | **0,00 — alınmıyor** | 492 s.K. m. 123 (tam istisna) |
+| 1 | Oda kayıt ücreti | 3.900,00 TL | ATO 2026 tarifesi |
+| 2 | Beyanname ücreti | 250,00 TL | ATO 2026 tarifesi |
+| 3 | Defter tasdik + kuruluş tasdik ücreti | 2.500,00 TL | ATO 2026 tarifesi |
+| 4 | TTSG ilan ücreti | **kelime × 2,48 TL** | TTSG ilan tarifesi |
+| 5 | Rekabet Kurumu payı | **sermaye × 0,0004** | 4054 m. 39/1-(c), Tebliğ 2017/4 |
 
-Tek bir "Türkiye geneli limited şirket kuruluş maliyeti" rakamı vermek
-bu yüzden mümkün değil. Aracın ne yapacağına buna göre karar vermek
-gerekiyor (7.8).
+Sabit kısım (1+2+3) = **6.650,00 TL**. Değişken kısım kelime sayısı ve
+sermayeden geliyor.
+
+**Tescil harcı satırı cetvelde GÖRÜNECEK**, değeri 0,00 TL ve bilgi
+satırı olarak (toplama katılmaz). Gerekçesi: bu kalem piyasadaki
+listelerde en büyük rakam olarak dolaşıyor (2026 tarifesinde 35.354,50
+TL). Satırı hiç göstermezsek kullanıcı "harcı unutmuşlar" diye
+düşünür; 0,00 gösterip dayanağını yazarsak istisnayı öğretmiş oluruz.
+§ 6'daki "Peşin harç alınmaz" satırıyla aynı yaklaşım.
 
 ### 7.5. Kapsam — v1
 
-**VAR:** Limited şirket, nakdi sermaye, yeni kuruluş.
+**VAR:** Limited şirket · nakdi sermaye · yeni kuruluş · **Ankara
+Ticaret Odası** tarifesi.
 
 **YOK:**
 
 | Kapsam dışı | Neden |
 |---|---|
-| **Anonim şirket** | Senin talimatın: farklı asgari sermaye (250.000), farklı organ yapısı, sermayenin 1/4'ünün kuruluşta ödenmesi şartı ve muhtemelen farklı kalemler. **v2'ye ertelendi** |
-| **Mali müşavir ücreti** | Resmî tarife değil, serbestçe belirleniyor. Toplama katılmaz, ayrı bilgi notu olarak gösterilir (7.7) |
-| Ayni sermaye | Bilirkişi/değerleme raporu ve mahkeme süreci gerektirir |
-| Şube, adres/unvan değişikliği, tür değiştirme | Ayrı işlemler |
-| Sermaye artırımı | Rekabet payı orada da var ama kalem listesi farklı |
+| **Anonim şirket** | Farklı asgari sermaye (250.000), farklı organ yapısı, sermayenin 1/4'ünün kuruluşta ödenmesi şartı. **v2'ye ertelendi** |
+| **Başka şehir / başka oda** | Oda kayıt ücreti ve tasdik bedelleri odaya göre değişiyor; kapsam notuyla söylenecek |
+| **Mali müşavir ücreti** | Serbestçe belirleniyor. Toplama KATILMAZ, ayrı bilgi notu (7.7) |
+| **Noter masrafı** | Zorunlu değil; ana sözleşme sicil müdürlüğünde ücretsiz imzalanıyor. Ayrı bilgi notu (7.7) |
+| **e-imza / mali mühür** | Piyasa fiyatı, resmî tarife yok. Kapsam notunda anılacak |
+| Ayni sermaye | Değerleme raporu ve mahkeme süreci gerektirir |
+| Sermaye artırımı, şube, tür değiştirme | Ayrı işlemler |
 
 **Limited şirkette sermayenin kuruluşta ödenmesi şartı yoktur** (7099
-s.K. değişikliği); sermaye tescilden sonra yirmi dört ay içinde
-ödenebilir. Anonim şirkette 1/4 peşin ödeme şartı devam ediyor — AŞ'nin
-v2'ye bırakılmasının bir sebebi daha.
+s.K.); sermaye tescilden sonra yirmi dört ay içinde ödenebilir. Anonim
+şirkette 1/4 peşin ödeme şartı sürüyor — AŞ'nin ertelenme sebeplerinden
+biri.
 
-### 7.6. Hesap — önerilen
+### 7.6. Hesap
+
+Girdi: `yil`, `sermaye` (TL), `kelimeSayisi`.
 
 ```
-rekabetPayi = sermaye × 0,0004        (4054 m.39/1-c)
+oda        = tarife.odaKayit + tarife.beyanname + tarife.tasdik
+ttsg       = kelimeSayisi × tarife.ttsgKelime
+rekabet    = sermaye × 0,0004
+toplam     = oda + ttsg + rekabet
 ```
 
-Kuruş tabanlı tam sayı aritmetiği, § 3-§ 6 ile aynı:
+**Kuruş tabanlı tam sayı aritmetiği** — § 3-§ 6 ile aynı:
 
 ```
 sermayeKurus = round(sermaye × 100)
-payKurus     = round(sermayeKurus × 4 / 10.000)
+rekabetKurus = round(sermayeKurus × 4 / 10.000)
+ttsgKurus    = round(tarife.ttsgKelime × 100) × kelimeSayisi   // 248 × kelime
 ```
 
-**Asgari sermaye kontrolü.** Sermaye 50.000 TL'nin altındaysa hesap
-yapılmaz; "limited şirkette esas sermaye 50.000 TL'den az olamaz"
-uyarısı verilir (7887 s. Karar). Tahmin yürütülmez — diğer araçlardaki
-ilkeyle aynı.
+Oran kanunda bir kesir (4/10.000) olduğu için doğrudan ondalıkla
+çarpmak yerine tam sayı bölmesi kullanılıyor: 50.000 TL → 5.000.000
+kuruş × 4 = 20.000.000 / 10.000 = **2.000 kuruş = 20,00 TL**.
 
-Diğer kalemler 7.8'deki karara göre eklenecek.
+**Doğrulama kuralları:**
 
-### 7.7. Sonuç ekranı — kesinleşen kısım
+| Durum | Koşul |
+|---|---|
+| `gecersiz-sermaye` | Sayı değil, **50.000 TL'den az**, veya tavanı aşıyor |
+| `gecersiz-kelime` | Tam sayı değil, 1'den küçük, veya tavanı aşıyor |
+| `tarife-yok` | O yılın tarifesi tabloya işlenmemiş |
 
-Zorunlu bilgi notu (senin talimatın, birebir):
+Asgari sermaye sınırının altında **hesap yapılmaz** — sonuç verip
+"ama bu sermaye ile şirket kurulamaz" demek yerine, baştan reddedip
+sebebini söylüyoruz (7887 s. Karar). Diğer araçlardaki "bilinmeyen için
+tahmin yürütme" ilkesinin bu araçtaki karşılığı.
+
+Tavanlar taşma koruması: sermaye 1.000.000.000 TL, kelime 100.000.
+
+### 7.7. Sonuç ekranı
+
+Hesap cetveli satırları:
+
+| Satır | Değer | Dayanak |
+|---|---|---|
+| Ticaret sicili tescil harcı | `0,00 ₺` *(bilgi satırı, toplama girmez)* | 492 m. 123 |
+| Oda kayıt ücreti | `3.900,00 ₺` | ATO tarifesi |
+| Beyanname ücreti | `250,00 ₺` | ATO tarifesi |
+| Defter ve kuruluş tasdik ücreti | `2.500,00 ₺` | ATO tarifesi |
+| Ticaret Sicili Gazetesi ilan ücreti | `kelime × 2,48 ₺` | TTSG tarifesi |
+| Rekabet Kurumu payı | `sermaye × on binde 4` | 4054 m. 39/1-(c) |
+| **Kuruluşta ödenecek toplam** | `toplam` | — |
+
+**Üç bilgi notu** cetvelin altında. İlk ikisi birebir Av. Onur Can
+Yılmaz'ın metni:
 
 > Ayrıca genellikle bir mali müşavirle anlaşma yapılması gerekir, bu
 > ücret serbestçe belirlenir ve yukarıdaki tutara dahil değildir.
 
-Kapsam notuna girecekler:
-- Aracın **yalnızca limited şirket** için hesap yaptığı
-- Oda kayıt ücreti ve hizmet bedellerinin **kayıt olunacak odaya göre
-  değiştiği**
-- Şirket sözleşmesinin noterde onaylanmadığı, noter masrafının yalnızca
-  vekâletname verilecekse doğduğu
+> Ana sözleşme, noter yerine ücretsiz olarak Ticaret Sicili
+> Müdürlüğü'nde de imzalanabilir. Noter tercih edilirse ek olarak
+> yaklaşık 2.000-5.000 TL masraf oluşur.
 
-Dayanak satırları: 4054 m. 39/1-(c) · 492 m. 123 (istisna) · TTK m. 580
-ve 7887 s. Cumhurbaşkanı Kararı · 7099 s.K. (noter).
+Üçüncüsü benim, TTSG kaleminin niteliğini açıklıyor *(onayına tabi)*:
+
+> Gazete ilan ücreti ana sözleşmenin kelime sayısına bağlıdır; kesin
+> tutar sözleşme metni son hâlini aldığında belli olur.
+
+**Kapsam notu** (`scopeNote`, üç paragraf):
+
+> Bu araç limited şirket kuruluşunu ve Ankara Ticaret Odası tarifesini
+> esas alır. Başka bir odaya kayıt olunacaksa oda kayıt ücreti ve
+> tasdik bedelleri değişir.
+
+> Anonim şirket kuruluşu bu sürümün kapsamı dışındadır; asgari sermaye,
+> organ yapısı ve ödeme şartları farklıdır.
+
+> Elektronik imza ve mali mühür bedelleri resmî bir tarifeye bağlı
+> olmadığı için hesaba dahil edilmemiştir.
 
 Zorunlu uyarı kabuktan geliyor, kapatılamıyor.
 
-### 7.8. Karar gerekiyor — üç seçenek
+### 7.8. Bayatlama riski — yıl bazlı tablo
 
-Tek ulusal sabit kalem Rekabet Kurumu payı olduğu için araç şu üç
-biçimden birini alabilir:
+Beş kalemin dördü her yıl değişiyor (ATO tarifesi ve TTSG ilan ücreti).
+Bu yüzden tarife § 6'daki gibi **yıl anahtarlı** tutulacak
+(`src/lib/kurulus-tarifeleri.ts`) ve **tarifesi girilmemiş yıl için
+hesap yapılmayacak.**
 
-| # | Seçenek | Ne verir | Bakım yükü |
-|---|---|---|---|
-| **A** | **Ankara (ATO) tarifesine göre tam hesap** | Gerçek bir toplam: oda kayıt + hizmet bedelleri + TTSG + Rekabet payı | Yüksek — ATO tarifesi her yıl değişir, § 6'daki gibi yıl bazlı tablo gerekir |
-| **B** | **Rekabet payı kesin + kalem listesi** | Rekabet payını kuruşu kuruşuna hesaplar; diğer kalemleri "odaya göre değişir" notuyla listeler, toplam vermez | Düşük — yalnızca oran, o da kanunda |
-| C | Hiç yapma | — | — |
+Değişmeyen tek şey oran: on binde dört kanunda yazılı, tarifeye bağlı
+değil.
 
-**Önerim: A, ama şartlı.** Büro Ankara'da; kullanıcıların çoğu da Ankara
-Ticaret Odası'na kayıt olacak. ATO'nun kendi tarifesini tabloya
-işleyebilirsek araç gerçek bir toplam verir ve § 6'daki harç aracıyla
-aynı kalitede olur. Tablo yıl bazlı tutulur, tarifesi girilmemiş yıl
-için hesap yapılmaz — bayatlama koruması § 6'daki ile aynı.
+| Ne | Ne zaman değişir | Nereden |
+|---|---|---|
+| ATO kayıt/beyanname/tasdik | Her yıl başı | `atonet.org.tr` kayıt ücreti tarifesi |
+| TTSG kelime ücreti | Her yıl başı | TTSG ilan tarifesi |
+| Rekabet payı oranı | Kanun değişirse | 4054 m. 39 |
+| Asgari sermaye | Cumhurbaşkanı Kararı ile | TTK m. 580 |
 
-**Şart:** ATO tarifesine ulaşamadım (aşağıya bak). Rakamları sen
-verirsen A'yı yaparım; veremezsek B'ye düşeriz — B de dürüst bir araç,
-yalnızca daha az iş görür.
+### 7.9. Test senaryoları
 
-### 7.9. Senden isteyeceklerim
-
-Bu oturumda **gov.tr alan adlarının tamamı erişilemez durumda**
-(sertifika hatası; `mevzuat.gov.tr`, `resmigazete.gov.tr`,
-`ticaret.gov.tr`, `rekabet.gov.tr`). Ulaşabildiğim kaynaklar ticaret
-odalarının kendi siteleri ve hukuk bürosu yayınları oldu. Bu yüzden
-aşağıdakiler **teyide muhtaç**:
-
-**(1) ATO tarifesi (A seçeneği için zorunlu).** 2026 yılı için:
-- Oda kayıt ücreti — sermayeye göre kademeleniyorsa kademeler
-- Ticaret sicili kuruluş tasdik / hizmet bedeli
-- Defter tasdik ücreti
-- TTSG kuruluş ilanı kelime ücreti (kaynaklarda **2,48 TL/kelime**
-  görünüyor) ve varsa maktu ilan gideri
-Kaynak: `bilgi.atso.org.tr` üzerindeki "Harç, İlan ve Kayıt Ücretleri"
-sayfası — bana açılmadı.
-
-**(2) Harçlar Kanunu m. 123 istisnasının lafzı.** İstisnayı iki kaynaktan
-doğruladım ama fıkranın birebir metnini göremedim. Kuruluşta ticaret
-sicili harcı **hiç alınmıyor** mu, yoksa bazı kalemler istisna dışında mı?
-Uygulamadan bunu teyit edebilirsen araç "harç alınmaz" satırını
-gösterebilir.
-
-**(3) Rekabet Kurumu payında "on binde dört" teyidi.** Kanun metni
-böyle; bir oda sayfası "binde dört" yazıyor. Kuruluş yaptırdığın
-dosyalarda 50.000 TL sermaye için **20,00 TL** mi tahsil ediliyor?
-
-**(4) Noter kalemi.** Vekâletname dışında kuruluşta noter masrafı doğan
-bir hâl kaldı mı?
+| # | Girdi | Beklenen |
+|---|---|---|
+| 1 | 50.000 TL sermaye, 1.500 kelime, 2026 | Oda 3.900 + beyan 250 + tasdik 2.500 + TTSG 3.720,00 + Rekabet 20,00 = **10.390,00 TL** |
+| 2 | 250.000 TL sermaye, 2.000 kelime, 2026 | 6.650 + 4.960,00 + 100,00 = **11.710,00 TL** |
+| 3 | 49.999 TL sermaye | `gecersiz-sermaye` — asgari sermaye sınırı |
+| 4 | 50.000 TL, 0 kelime | `gecersiz-kelime` |
+| 5 | 50.000 TL, 1.500 kelime, 2027 | `tarife-yok` |
+| 6 | Tescil harcı satırı | Değeri 0,00, `bilgi: true`, toplama girmiyor |
+| 7 | Kuruş kontrolü | 50.000 × 0,0004 tam **20,00**; kayan nokta artığı yok |
 
 ### 7.10. Kaynaklar
 
-- **Asgari sermaye:** 7887 s. Cumhurbaşkanı Kararı, RG 25.11.2023/32380 *(iki bağımsız kaynaktan; birincil metin görülemedi)*
-- **Uyum süresi:** 7511 s.K., TTK geçici m. 15 — son tarih 31.12.2026
-- **Rekabet payı:** 4054 s.K. m. 39/1-(c) — [LEXPERA konsolide metin](https://www.lexpera.com.tr/mevzuat/kanunlar/rekabetin-korunmasi-hakkinda-kanun-4054) *(tam alıntı alındı)*
-- **Harç istisnası:** 492 s.K. m. 123 *(iki kaynaktan; birebir metin görülemedi)*
-- **Noter şartının kalkması:** 7099 s.K., RG 10.03.2018 — TTK m. 575 değişikliği
-- **2026 harç tarifesi:** 98 Seri No'lu Harçlar Kanunu Genel Tebliği, RG 31.12.2025/33124 (5. Mükerrer) — § 6 ile aynı tebliğ
-- **Oda/TTSG rakamları:** ticaret odalarının kendi sayfaları *(teyit edilmedi, 7.9)*
+- **Asgari sermaye:** 7887 s. Cumhurbaşkanı Kararı, RG **25.11.2023 / 32380**, yürürlük 01.01.2024 *(iki bağımsız kaynak)*
+- **Uyum süresi:** 7511 s.K. ile TTK **geçici m. 15** — son tarih **31.12.2026**
+- **Rekabet payı oranı:** 4054 s.K. **m. 39/1-(c)** — [LEXPERA konsolide metin](https://www.lexpera.com.tr/mevzuat/kanunlar/rekabetin-korunmasi-hakkinda-kanun-4054) *(birebir alıntı alındı)*
+- **Rekabet payı usulü:** **Tebliğ 2017/4** — "4054 Sayılı Kanun Uyarınca Anonim ve Limited Şirketlerin Yapacakları Ödemelere İlişkin Tebliğ"; 01.01.2018'den beri tahsilat odalar eliyle
+- **Harç istisnası:** 492 s.K. **m. 123** *(iki kaynak; birebir metin görülemedi — Av. Onur Can Yılmaz uygulamadan teyit etti: kuruluşta hiç alınmıyor, tam istisna)*
+- **Noterin zorunlu olmaması:** **Şirket Kuruluş Sözleşmesinin Ticaret Sicili Müdürlüklerinde İmzalanması Hakkında Tebliğ**, RG **06.12.2016 / 29910**; değişiklik RG **20.02.2021 / 31401**. Dayanağı 7099 s.K. ile değişik **TTK m. 575**
+- **2026 ticaret sicili harç tarifesi:** 98 Seri No'lu Harçlar Kanunu Genel Tebliği, RG 31.12.2025 / 33124 (5. Mükerrer) — § 6 ile aynı tebliğ. *Tarifede sermaye şirketleri için 35.354,50 TL görünüyor; m. 123 nedeniyle kuruluşta uygulanmıyor*
+- **ATO 2026 tarifesi ve TTSG kelime ücreti:** Av. Onur Can Yılmaz tarafından verildi, kaynak `atonet.org.tr`
 
-- **Onay Durumu:** ⬜ **Bekliyor** — 7.8'deki seçenek ve 7.9'daki dört
-  kalem cevaplanınca kod yazılacak
+### 7.11. Onay durumu
+
+Dört soru **cevaplandı**, A seçeneği onaylandı, rakamlar geldi. Kod
+yazmadan önce son bir tur onay:
+
+**Soru 1 — Beyanname ücreti sabit mi?** 250,00 TL'yi sabit bir kalem
+olarak aldım. Müdür/imza yetkilisi **başına** tahsil ediliyorsa formda
+bir "imza yetkilisi sayısı" alanı gerekir ve formül değişir. Varsayılan:
+**sabit**.
+
+**Soru 2 — Kelime sayısı alanı.** Kullanıcı sözleşmeyi yazmadan kelime
+sayısını bilemez. Alanın ipucuna şunu koymayı öneriyorum: *"Tek ortaklı
+standart bir ana sözleşme yaklaşık 1.500 kelimedir; sözleşmeniz hazırsa
+gerçek kelime sayısını yazın."* Bu 1.500 rakamı bir ticaret odası
+sayfasındaki "1500 kelimelik esas sözleşme" ifadesinden geliyor —
+onaylıyor musun, yoksa başka bir tipik değer mi verelim?
+
+**Soru 3 — TTSG bilgi notu.** 7.7'deki üçüncü not benim yazdığım metin;
+ilk ikisi senin. Uygun mu?
+
+**Soru 4 — `lawAsOf`.** `21 Eylül 2026` yazacağım.
+
+- **Onay Durumu:** ⬜ **Bekliyor** — 7.11'deki dört madde onaylanınca
+  `src/lib/kurulus-maliyeti.ts` yazılacak
 
 ## 8. Marka Tescil Süreç Takvimi
 
