@@ -1,12 +1,12 @@
 /**
- * Limited şirket kuruluş maliyeti — saf fonksiyonlar.
+ * Şirket kuruluş maliyeti — saf fonksiyonlar. Limited ve anonim.
  *
  * Formül, kapsam ve kaynaklar: docs/hesaplama-formulleri.md § 7.
  *
  * ─── ARAŞTIRMANIN İKİ BULGUSU BU DOSYAYI ŞEKİLLENDİRDİ ────────────────
  * 1. **Ticaret sicili tescil harcı kuruluşta ALINMIYOR.** 492 sayılı
- *    Harçlar Kanunu m. 123, limited şirket kuruluşunu harçtan tam
- *    istisna tutuyor. 2026 tarifesinde bu kalem 35.354,50 TL olarak
+ *    Harçlar Kanunu m. 123, anonim ve limited şirket kuruluşunu harçtan
+ *    tam istisna tutuyor (fıkranın lafzında anonim ilk sırada). 2026 tarifesinde bu kalem 35.354,50 TL olarak
  *    duruyor ve piyasadaki kuruluş maliyeti listelerinde en büyük rakam
  *    olarak dolaşıyor — ama tahsil edilmiyor.
  *
@@ -20,6 +20,16 @@
  *    devreye giriyor — hesaba katılmıyor, sonuç ekranında not olarak
  *    söyleniyor.
  *
+ * ─── ANONİM ŞİRKETTE SERMAYE BLOKAJI ──────────────────────────────────
+ * TTK m. 344/1 uyarınca nakden taahhüt edilen sermayenin en az %25'i
+ * tescilden önce bankada bloke ediliyor. Bu tutar sonuçta `blokaj` olarak
+ * dönüyor ama **kalem listesine girmiyor ve toplama eklenmiyor**: masraf
+ * değil, tescilden sonra şirkete geçen kendi parası. Kalem olarak
+ * eklenseydi kullanıcı onu cebinden çıkıp gidecek bir gider sanırdı.
+ *
+ * Limitedde bu şart yok (7099 s.K.); o yüzden `blokaj` yalnızca anonim
+ * şirkette dolu dönüyor.
+ *
  * ─── TOPLAMA GİRMEYEN KALEMLER ────────────────────────────────────────
  * Mali müşavir ücreti ve e-imza/mali mühür bedelleri resmî bir tarifeye
  * bağlı olmadığı için hesapta YOK. İkisi de sonuç ekranında ayrıca
@@ -32,12 +42,16 @@
  */
 import type { LegalReference } from './calculator-ui';
 import {
-  LIMITED_ASGARI_SERMAYE,
+  ASGARI_SERMAYE,
+  AS_BLOKAJ_YUZDE,
   REKABET_PAYI_PAY,
   REKABET_PAYI_PAYDA,
   tarifeBul,
   type KurulusTarifesi,
+  type SirketTuru,
 } from './kurulus-tarifeleri';
+
+export type { SirketTuru };
 
 /** Sermaye tavanı — taşma koruması, makul bir sınır değil. */
 export const EN_COK_SERMAYE = 1_000_000_000;
@@ -48,7 +62,7 @@ export const EN_COK_KELIME = 100_000;
 const D = {
   harcIstisnasi: {
     short: '492 m.123',
-    full: '492 sayılı Harçlar Kanunu m. 123 — Limited şirket kuruluş işlemleri harçlardan müstesnadır',
+    full: '492 sayılı Harçlar Kanunu m. 123 — Anonim ve limited şirketlerin kuruluş işlemleri harçlardan müstesnadır',
   },
   oda: {
     short: 'ATO tarifesi',
@@ -74,6 +88,7 @@ export interface KurulusKalemi {
 }
 
 export interface KurulusGirdi {
+  tur: SirketTuru;
   yil: number;
   /** Esas sermaye, TL. Asgari tutarın altında olamaz. */
   sermaye: number;
@@ -88,14 +103,27 @@ export type KurulusSonucu =
   | { durum: 'gecersiz-kelime' }
   | {
       durum: 'hesaplandi';
+      tur: SirketTuru;
       yil: number;
       kalemler: readonly KurulusKalemi[];
       /** Kuruluşta ödenecek toplam — `bilgi` satırları hariç. */
       toplam: number;
+      /**
+       * Anonim şirkette tescilden önce bankada bloke edilecek asgari tutar.
+       * Limitedde `undefined`.
+       *
+       * Toplama DAHİL DEĞİL — masraf değil, tescilden sonra şirkete geçiyor.
+       */
+      blokaj?: number;
     };
 
 function tl(kurus: number): number {
   return kurus / 100;
+}
+
+/** Açıklama satırlarında kullanılan tür adı. */
+function turAdi(tur: SirketTuru): string {
+  return tur === 'anonim' ? 'Anonim şirket' : 'Limited şirket';
 }
 
 /** Tutarı TR biçiminde gösterir — açıklama satırları için. */
@@ -116,7 +144,7 @@ function kalemleriKur(g: KurulusGirdi, t: KurulusTarifesi): KurulusKalemi[] {
     {
       ad: 'Ticaret sicili tescil harcı',
       tutar: 0,
-      detay: 'Limited şirket kuruluşunda alınmaz — tam istisna',
+      detay: `${turAdi(g.tur)} kuruluşunda alınmaz — tam istisna`,
       dayanak: D.harcIstisnasi,
       bilgi: true,
     },
@@ -150,15 +178,15 @@ export function kurulusMaliyetiHesapla(girdi: KurulusGirdi): KurulusSonucu {
     return { durum: 'tarife-yok', yil: girdi.yil };
   }
 
-  // Asgari sermayenin altında hesap YAPILMIYOR. Sonucu verip "ama bu
-  // sermayeyle şirket kurulamaz" demek yerine baştan reddedip sebebini
-  // söylüyoruz — kullanıcı rakamı görüp sınırı atlayabilirdi.
+  // Asgari sermaye TÜRE bağlı: limitedde 50.000, anonimde 250.000.
+  // Altında hesap YAPILMIYOR — sonucu verip "ama bu sermayeyle şirket
+  // kurulamaz" demek yerine baştan reddedip sebebini söylüyoruz, aksi
+  // hâlde kullanıcı rakamı görüp sınırı atlayabilirdi.
+  const asgari = ASGARI_SERMAYE[girdi.tur];
   const sermayeGecersiz =
-    !Number.isFinite(girdi.sermaye) ||
-    girdi.sermaye < LIMITED_ASGARI_SERMAYE ||
-    girdi.sermaye > EN_COK_SERMAYE;
+    !Number.isFinite(girdi.sermaye) || girdi.sermaye < asgari || girdi.sermaye > EN_COK_SERMAYE;
   if (sermayeGecersiz) {
-    return { durum: 'gecersiz-sermaye', asgari: LIMITED_ASGARI_SERMAYE };
+    return { durum: 'gecersiz-sermaye', asgari };
   }
 
   const kelimeGecersiz =
@@ -175,5 +203,18 @@ export function kurulusMaliyetiHesapla(girdi: KurulusGirdi): KurulusSonucu {
     .filter((k) => !k.bilgi)
     .reduce((toplam, k) => toplam + Math.round(k.tutar * 100), 0);
 
-  return { durum: 'hesaplandi', yil: girdi.yil, kalemler, toplam: tl(toplamKurus) };
+  // Blokaj yalnızca anonim şirkette. Toplama EKLENMİYOR — masraf değil.
+  const blokaj =
+    girdi.tur === 'anonim'
+      ? tl(Math.round((Math.round(girdi.sermaye * 100) * AS_BLOKAJ_YUZDE) / 100))
+      : undefined;
+
+  return {
+    durum: 'hesaplandi',
+    tur: girdi.tur,
+    yil: girdi.yil,
+    kalemler,
+    toplam: tl(toplamKurus),
+    blokaj,
+  };
 }

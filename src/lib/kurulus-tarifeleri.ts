@@ -1,5 +1,5 @@
 /**
- * Limited şirket kuruluş maliyeti tarifeleri — yıl bazlı, elle tutulan tablo.
+ * Şirket kuruluş maliyeti tarifeleri — yıl bazlı, elle tutulan tablo.
  *
  * ─── NEDEN YIL BAZLI ──────────────────────────────────────────────────
  * Dört kalemin dördü de her yıl başında yeniden belirleniyor: Ankara
@@ -8,11 +8,18 @@
  *   · araç hangi yılın tarifesini kullandığını gösterebilsin,
  *   · tarifesi girilmemiş bir yıl için hesap YAPILMASIN.
  *
- * Tabloda OLMAYAN iki değer bilinçli olarak dışarıda:
- *   · Rekabet Kurumu payı oranı — tarifede değil, 4054 sayılı Kanun'da
- *     yazılı (on binde dört). Yıla bağlı değil.
- *   · Asgari esas sermaye — Cumhurbaşkanı Kararı ile değişiyor, yıl
- *     başında değil. Aşağıda ayrı sabit.
+ * Tabloda OLMAYAN üç değer bilinçli olarak dışarıda — hiçbiri yıla bağlı
+ * değil, hepsi aşağıda ayrı sabit:
+ *   · Rekabet Kurumu payı oranı — 4054 sayılı Kanun'da yazılı (on binde
+ *     dört).
+ *   · Asgari esas sermaye — Cumhurbaşkanı Kararı ile değişiyor.
+ *   · Anonim şirket sermaye blokajı oranı — TTK m. 344'te yazılı.
+ *
+ * ─── LİMİTED VE ANONİM ────────────────────────────────────────────────
+ * Tarife kalemleri iki tür için de aynı: oda kayıt, beyanname ve tasdik
+ * ücretleri şirket türüne göre değişmiyor (kaynak tarifede "AŞ-LTD-KOOP"
+ * ortak yazıyor). Türe bağlı olan iki şey tarifede değil, aşağıdaki
+ * sabitlerde: asgari sermaye ve anonim şirkete özgü sermaye blokajı.
  *
  * ─── ANKARA'YA ÖZGÜ ───────────────────────────────────────────────────
  * Oda kayıt ücreti, beyanname ve tasdik bedelleri KAYIT OLUNAN ODAYA
@@ -30,13 +37,46 @@
  */
 
 /**
- * Limited şirkette asgari esas sermaye, TL.
+ * Aracın hesapladığı şirket türleri.
+ *
+ * Kayıtlı sermaye sistemini kabul eden anonim şirket (başlangıç sermayesi
+ * 500.000 TL) bilinçli olarak YOK: nadir kullanılan bir seçenek, forma
+ * üçüncü bir tür eklemek kazandıracağı isabetten fazla karmaşıklık
+ * getirirdi. Kapsam notunda açıkça söyleniyor (docs § 7.12).
+ */
+export type SirketTuru = 'limited' | 'anonim';
+
+/**
+ * Türe göre asgari esas sermaye, TL.
  *
  * 7887 sayılı Cumhurbaşkanı Kararı (RG 25.11.2023 / 32380), yürürlük
- * 01.01.2024. Karar, TTK m. 580'in metnini değiştirmiyor; maddenin
- * Cumhurbaşkanına tanıdığı artırma yetkisini kullanıyor.
+ * 01.01.2024. Karar, TTK m. 332 ve m. 580'in metnini değiştirmiyor; bu
+ * maddelerin Cumhurbaşkanına tanıdığı artırma yetkisini kullanıyor.
+ *
+ * Tarife tablosunda DEĞİL, çünkü yıl başında değil Cumhurbaşkanı Kararı
+ * ile değişiyor.
  */
-export const LIMITED_ASGARI_SERMAYE = 50_000;
+export const ASGARI_SERMAYE: Readonly<Record<SirketTuru, number>> = {
+  limited: 50_000,
+  anonim: 250_000,
+};
+
+/**
+ * Anonim şirkette tescilden önce bankada bloke edilecek asgari oran, yüzde.
+ *
+ * TTK m. 344/1: nakden taahhüt edilen payların itibarî değerlerinin en az
+ * yüzde yirmibeşi tescilden önce ödenir. TTK m. 345/1: ödeme, kurulmakta
+ * olan şirket adına açılan özel banka hesabına yapılır; banka tutarı ancak
+ * tüzel kişiliğin kazanıldığını bildiren sicil müdürlüğü yazısı üzerine
+ * şirkete öder.
+ *
+ * **Bu bir masraf değil** — tescilden sonra şirkete geçiyor. Toplama
+ * girmiyor, kalem olarak da eklenmiyor; yalnızca bilgi notunda gösteriliyor.
+ *
+ * Limitedde bu şart yok: 7099 s.K. sonrası sermaye tescilden sonra yirmi
+ * dört ay içinde ödenebiliyor.
+ */
+export const AS_BLOKAJ_YUZDE = 25;
 
 /**
  * Rekabet Kurumu payı — sermayenin on binde dördü.

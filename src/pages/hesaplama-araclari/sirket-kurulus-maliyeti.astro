@@ -1,6 +1,6 @@
 ---
 /**
- * Şirket Kuruluş Maliyeti Hesaplama (limited şirket).
+ * Şirket Kuruluş Maliyeti Hesaplama — limited ve anonim.
  *
  * Formül, kalem listesi ve kaynaklar: docs/hesaplama-formulleri.md § 7.
  * Hesap src/lib/kurulus-maliyeti.ts içinde, saf ve test edilmiş.
@@ -14,15 +14,15 @@ import ResultSheet from '../../components/calculator/ResultSheet.astro';
 import FormField from '../../components/calculator/FormField.astro';
 import { CALCULATORS } from '../../lib/calculators';
 import { EN_COK_KELIME, EN_COK_SERMAYE } from '../../lib/kurulus-maliyeti';
-import { LIMITED_ASGARI_SERMAYE, tarifeliYillar } from '../../lib/kurulus-tarifeleri';
+import { ASGARI_SERMAYE, tarifeliYillar } from '../../lib/kurulus-tarifeleri';
 
 const calculator = CALCULATORS.find((tool) => tool.slug === 'sirket-kurulus-maliyeti')!;
 const yillar = tarifeliYillar();
 
 // § 7.7 — üç bağımsız kapsam uyarısı, kabuk her birini ayrı paragraf basar.
 const scopeNote = [
-  'Bu araç limited şirket kuruluşunu ve Ankara Ticaret Odası tarifesini esas alır. Başka bir odaya kayıt olunacaksa oda kayıt ücreti ve tasdik bedelleri değişir.',
-  'Anonim şirket kuruluşu bu sürümün kapsamı dışındadır; asgari sermaye, organ yapısı ve ödeme şartları farklıdır.',
+  'Bu araç Ankara Ticaret Odası tarifesini esas alır. Başka bir odaya kayıt olunacaksa oda kayıt ücreti ve tasdik bedelleri değişir.',
+  'Kayıtlı sermaye sistemini kabul eden anonim şirketler (başlangıç sermayesi 500.000 TL) bu sürümün kapsamı dışındadır.',
   'Elektronik imza ve mali mühür bedelleri resmî bir tarifeye bağlı olmadığı için hesaba dahil edilmemiştir.',
 ];
 
@@ -35,19 +35,31 @@ const kelimeIpucu =
 
 <CalculatorShell calculator={calculator} lawAsOf="21 Eylül 2026" scopeNote={scopeNote}>
   <Fragment slot="form">
+    <FormField id="tur" label="Şirket türü">
+      <select id="tur" name="tur">
+        <option value="limited">Limited şirket</option>
+        <option value="anonim">Anonim şirket</option>
+      </select>
+    </FormField>
+
     <FormField id="yil" label="Tarife yılı" hint="Oda ve gazete tarifeleri her yıl değişir.">
       <select id="yil" name="yil">
         {yillar.map((y) => <option value={y}>{y}</option>)}
       </select>
     </FormField>
 
+    {
+      /* `min` düşük türün sınırına sabit; türe özgü asgari kontrolü hesap
+        fonksiyonunda yapılıyor ki form doğrulaması iş mantığını taşımasın.
+        İpucu da tür değiştikçe değişmiyor, iki sınırı birden yazıyor. */
+    }
     <FormField
       id="sermaye"
       label="Esas sermaye"
-      hint={`Limited şirkette asgari ${LIMITED_ASGARI_SERMAYE.toLocaleString('tr-TR')} TL.`}
+      hint={`Limited şirkette asgari ${ASGARI_SERMAYE.limited.toLocaleString('tr-TR')} TL, anonim şirkette ${ASGARI_SERMAYE.anonim.toLocaleString('tr-TR')} TL.`}
       type="number"
       unit="TL"
-      min={LIMITED_ASGARI_SERMAYE}
+      min={ASGARI_SERMAYE.limited}
       max={EN_COK_SERMAYE}
       step="0.01"
       inputmode="decimal"
@@ -65,6 +77,14 @@ const kelimeIpucu =
       inputmode="numeric"
     />
 
+    {
+      /* Yalnızca anonim seçiliyken görünür. JS kapalıyken görünür kalması
+        sorun değil — doğru bir bilgi, gizlenmesi şart değil. */
+    }
+    <p class="form-note" data-grup="anonim">
+      Anonim şirket esas sözleşmesi genellikle limited şirket sözleşmesinden daha uzundur.
+    </p>
+
     <button class="btn btn--primary" type="button" id="hesapla">Hesapla</button>
 
     <p class="form-note">
@@ -79,6 +99,14 @@ const kelimeIpucu =
 
     {/* § 7.7 — üç bilgi notu. İlk ikisi Av. Onur Can Yılmaz'ın metni. */}
     <ul class="notes">
+      {
+        /* Yalnızca anonim şirkette ve yalnızca hesap yapıldıktan sonra
+          görünür — içinde hesaplanmış bir tutar var. */
+      }
+      <li id="blokaj" hidden>
+        <span data-metin></span>
+        <span class="note-basis">TTK m. 344</span>
+      </li>
       <li>
         Ayrıca genellikle bir mali müşavirle anlaşma yapılması gerekir, bu ücret serbestçe
         belirlenir ve yukarıdaki tutara dahil değildir.
@@ -117,6 +145,18 @@ const kelimeIpucu =
     color: var(--text-primary);
   }
 
+  /* Not bir hukuki zorunluluk bildirdiği için dayanağı yanında duruyor —
+     cetvel satırlarındaki dayanak sütunuyla aynı görsel dil. */
+  .note-basis {
+    margin-inline-start: var(--space-2);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--brand-navy);
+    white-space: nowrap;
+  }
+
   .notes {
     display: grid;
     gap: var(--space-3);
@@ -128,24 +168,37 @@ const kelimeIpucu =
 </style>
 
 <script>
-  import { kurulusMaliyetiHesapla } from '../../lib/kurulus-maliyeti';
+  import { kurulusMaliyetiHesapla, type SirketTuru } from '../../lib/kurulus-maliyeti';
   import type { SheetRow } from '../../lib/calculator-ui';
-  import { formatTRY } from '../../lib/format';
+  import { formatNumber, formatTRY } from '../../lib/format';
   import { clearSheet, findSheet, renderSheet } from '../../scripts/result-sheet';
 
   const sheet = findSheet();
   const el = <T extends HTMLElement>(id: string) => document.querySelector<T>(`#${id}`);
 
+  const tur = el<HTMLSelectElement>('tur');
   const yil = el<HTMLSelectElement>('yil');
   const sermaye = el<HTMLInputElement>('sermaye');
   const kelime = el<HTMLInputElement>('kelime');
   const buton = el<HTMLButtonElement>('hesapla');
   const uyari = el<HTMLElement>('uyari');
+  const blokaj = el<HTMLElement>('blokaj');
 
-  if (sheet && yil && sermaye && kelime && buton && uyari) {
+  if (sheet && tur && yil && sermaye && kelime && buton && uyari && blokaj) {
+    const turAdi = () => (tur.value === 'anonim' ? 'anonim' : 'limited');
+
+    /** Türe bağlı alanları gösterir/gizler. JS kapalıyken hepsi görünür. */
+    const gruplariGuncelle = () => {
+      const anonim = tur.value === 'anonim';
+      for (const g of document.querySelectorAll<HTMLElement>('[data-grup="anonim"]')) {
+        g.hidden = !anonim;
+      }
+    };
+
     const uyariGoster = (mesaj: string) => {
       uyari.textContent = mesaj;
       uyari.hidden = false;
+      blokaj.hidden = true;
       clearSheet(sheet);
     };
 
@@ -153,6 +206,7 @@ const kelimeIpucu =
       uyari.hidden = true;
 
       const sonuc = kurulusMaliyetiHesapla({
+        tur: tur.value as SirketTuru,
         yil: Number(yil.value),
         sermaye: Number(sermaye.value),
         kelimeSayisi: Number(kelime.value),
@@ -166,7 +220,7 @@ const kelimeIpucu =
       }
       if (sonuc.durum === 'gecersiz-sermaye') {
         uyariGoster(
-          `Esas sermayeyi en az ${sonuc.asgari.toLocaleString('tr-TR')} TL olarak girin — limited şirkette esas sermaye bu tutardan az olamaz.`
+          `Esas sermayeyi en az ${sonuc.asgari.toLocaleString('tr-TR')} TL olarak girin — ${turAdi()} şirkette esas sermaye bu tutardan az olamaz.`
         );
         return;
       }
@@ -190,8 +244,25 @@ const kelimeIpucu =
       });
 
       renderSheet(sheet, rows);
+
+      // Blokaj notu: yalnızca anonim şirkette, tutarı cümlenin içinde.
+      // Toplama girmediği için cetvelde değil, burada gösteriliyor.
+      const metin = blokaj.querySelector<HTMLElement>('[data-metin]');
+      if (sonuc.blokaj !== undefined && metin) {
+        metin.textContent =
+          `Anonim şirkette, nakit olarak taahhüt edilen sermayenin en az %25'i tescilden önce ` +
+          `bankada bloke edilmelidir. Bu bir masraf değildir, tescil sonrası serbest bırakılır; ` +
+          `bu nedenle yukarıdaki toplama dahil edilmemiştir. ` +
+          `${formatNumber(Number(sermaye.value), 2)} TL sermaye için bu tutar ` +
+          `${formatNumber(sonuc.blokaj, 2)} TL'dir.`;
+        blokaj.hidden = false;
+      } else {
+        blokaj.hidden = true;
+      }
     };
 
+    gruplariGuncelle();
+    tur.addEventListener('change', gruplariGuncelle);
     buton.addEventListener('click', hesapla);
 
     for (const alan of [sermaye, kelime]) {

@@ -2406,8 +2406,23 @@ JS kapalıyken bu cümle de görünür kalır — doğru bir bilgi, gizlenmesi
 - **Harç istisnasının AŞ'yi kapsaması:** 492 s.K. m. 123 lafzı; fıkra 7099 s.K. ile kooperatifleri kapsayacak şekilde genişletilmiş
 - **Limitedde blokaj aranmaması:** 7099 s.K. ile değişik TTK hükümleri
 
-- **Onay Durumu:** ⬜ **Bekliyor** — onaylanınca `kurulus-maliyeti.ts` tür
-  parametresiyle genişletilecek
+#### Uygulandı
+
+İki tasarım kararı onaylandı ve uygulandı:
+
+- **Sermaye ipucu tek cümle:** *"Limited şirkette asgari 50.000 TL,
+  anonim şirkette 250.000 TL."* Tür değiştikçe metin değiştirmek yerine
+  iki sınırı birden yazmak daha az kırılgan. `min` niteliği düşük sınıra
+  sabit, türe özgü kontrol hesap fonksiyonunda — form doğrulaması iş
+  mantığı taşımıyor.
+- **AŞ kelime notu `data-grup="anonim"` ile:** JS kapalıyken görünür
+  kalıyor. Doğru bir bilgi, gizlenmesi şart değil (CLAUDE.md Bölüm 4/4).
+
+Blokaj notu, hukuki bir zorunluluk bildirdiği için yanında **TTK m. 344**
+dayanağıyla basılıyor; diğer iki notta böyle bir etiket yok çünkü onlar
+bir yükümlülük değil, kapsam açıklaması.
+
+- **Onay Durumu:** ✅ **Onaylandı ve yayında — 21 Eylül 2026**
 
 ## 8. Marka Tescil Süreç Takvimi
 
