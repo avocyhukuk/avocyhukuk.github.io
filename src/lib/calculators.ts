@@ -92,9 +92,9 @@ export const CALCULATORS: readonly Calculator[] = [
     slug: 'marka-tescil-takvimi',
     title: 'Marka Tescil Süreç Takvimi',
     summary:
-      'Marka başvurusundan tescile kadar geçen aşamaları ve yasal süreleri zaman çizelgesi olarak gösterir.',
+      'Marka başvurusundan tescile kadar geçen aşamaları ve beklenen tarih aralıklarını zaman çizelgesi olarak gösterir.',
     areas: ['fikri-mulkiyet-hukuku'],
-    status: 'planned',
+    status: 'ready',
   },
 ] as const;
 

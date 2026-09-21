@@ -2487,6 +2487,36 @@ sonucun garanti olmadığını açıkça söyleyecek.
 
 6769 sayılı Kanun **RG 10.01.2017**'de yayımlanarak yürürlüğe girdi.
 
+#### 🔴 Madde numarası netleştirildi — m. 18, m. 6 DEĞİL
+
+Av. Onur Can Yılmaz'ın elindeki kaynak süreyi "m. 6" olarak gösteriyordu.
+Şüphesi haklı çıktı: **m. 5 ve m. 6 süreyi değil, itirazın DAYANAĞINI
+düzenliyor.**
+
+| Madde | Başlığı | Ne düzenliyor |
+|---|---|---|
+| m. 5 | Marka tescilinde **mutlak** ret nedenleri | İtirazın sebebi |
+| m. 6 | Marka tescilinde **nispi** ret nedenleri | İtirazın sebebi |
+| **m. 18** | **Yayıma itiraz** | **SÜRE — yayımdan itibaren iki ay** |
+| m. 20/2 | Karara itiraz | Ayrı bir iki aylık süre: Kurum kararına karşı, bildirimden itibaren |
+
+Karışıklığın kaynağı m. 18/1'in kendi lafzı: cümlenin içinde "5 inci
+veya 6 ncı maddelere göre" geçiyor, ama bu itirazın dayanağını
+gösteriyor. Süreyi veren madde **m. 18**.
+
+**Sonuç ekranında gösterilecek dayanak: SMK m. 18/1.**
+
+> ⚠️ **m. 20/2 ile karıştırılmamalı.** O da iki ay ama farklı bir şey:
+> Kurum kararına karşı itiraz (YİDK yolu). Bu aracın gösterdiği süre
+> üçüncü kişilerin yayıma itirazı, yani m. 18.
+
+#### Bir de bayat kaynak uyarısı
+
+Araştırma sırasında bir kaynak yayım süresini **"üç ay"** olarak
+veriyordu. Bu 556 sayılı KHK dönemine ait; SMK süreyi **iki aya**
+indirdi. Kanun metni açık, tereddüt yok — ama bu araç için tek kesin
+süreyi neden kanuna bağladığımızın iyi bir örneği.
+
 ### 8.3. İtirazlı senaryo — teyit edildi
 
 Ön araştırmada tek kaynaklıydı, teyit istemiştin. İki bağımsız kaynaktan
@@ -2570,31 +2600,57 @@ Her aşama satırı kendi kanun maddesini taşıyor (8.4 tablosu). 2 aylık
 itiraz süresi görsel olarak **ayrı işaretlenecek**: diğerleri tahmin, bu
 kanunda yazılı.
 
-### 8.7. Test senaryoları
+### 8.7. Test senaryoları — hesaplanmış değerlerle
+
+Taslakta bu tablodaki tarihler elle kestirilmişti ve **min yolu
+yanlıştı**: 29 Ocak'a bir ay eklenince 28 Şubat oluyor (Şubat 28
+çekiyor), kestirme bunu atlamıştı. Aşağıdaki değerler bağımsız bir
+takvim hesabıyla üretildi ve testlere öyle yazıldı.
+
+**Senaryo 1 — başvuru 15.01.2026:**
+
+| Aşama | En erken | En geç |
+|---|---|---|
+| 1. Başvuru ve şekli inceleme | 29.01.2026 | 15.05.2026 |
+| 2. Mutlak ret incelemesi | **28.02.2026** *(kırpma)* | 15.10.2026 |
+| 3. Bültende yayım ve itiraz | 28.04.2026 | 15.12.2026 |
+| 4. Tescil ve belge | **12.05.2026** | **15.02.2027** |
+
+İtirazlı dal: 15.01.2027 – 15.07.2027.
+
+**Diğer senaryolar:**
 
 | # | Girdi | Beklenen |
 |---|---|---|
-| 1 | 15.01.2026 | Aşama 1: 29.01.2026 – 15.05.2026 · Aşama 3 sonu: min 15.06.2026 · tescil: 29.06.2026 – 15.02.2027 |
-| 2 | Ay sonu taşması: 31.01.2026 + 1 ay | **28.02.2026** — 03.03.2026 DEĞİL |
-| 3 | Artık yıl: 29.02.2028 + 12 ay | 28.02.2029 |
-| 4 | İtirazlı dal | başvuru + 12 ay ve + 18 ay |
-| 5 | 09.01.2017 | `gecersiz-tarih` — SMK yürürlüğünden önce |
+| 2 | 31.01.2026 | Son aşama en geç **28.02.2027** — 31.12.2026 + 2 ay kırpılıyor |
+| 3 | 29.02.2028 + 12 ay | **28.02.2029** — artık olmayan yıla kırpma |
+| 3b | 31.08.2026 + 18 ay | **29.02.2028** — artık yıla kırpma |
+| 3c | 31.08.2025 + 18 ay | **28.02.2027** |
+| 5 | 09.01.2017 | `smk-oncesi` |
 | 6 | 10.01.2017 | Kabul — tam sınır |
-| 7 | Geçersiz tarih (`NaN`) | `gecersiz-tarih` |
-| 8 | 2 aylık yayım aşaması | `kesin: true`, min ve max aynı tarih |
+| 7 | Geçersiz tarih | `gecersiz-tarih` |
+| 8 | Yayım aşaması | `kesin: true`, dayanak `SMK m.18/1`, iki yolda da tam iki ay |
 
-### 8.8. Onay bekleyen üç karar
+Ayrıca yapısal testler: tarihler geriye gitmiyor, en erken ≤ en geç, saat
+bilgisi sonucu kirletmiyor, girdi `Date` nesnesi değiştirilmiyor, her
+aşamanın dayanağı var, yalnızca bir aşama `kesin`.
 
-**Soru 1 — Zarf yöntemi.** 8.4'teki "en düşük min, en yüksek max"
-yaklaşımını onaylıyor musun? Sonuç 4-13 aylık geniş bir aralık. Alternatif:
-tek bir kaynağı esas alıp 6-10 ay demek — daha kullanışlı görünür ama
-dayanağı zayıf olur. Önerim: zarf.
+### 8.8. Onay durumu — üç sorunun cevabı
 
-**Soru 2 — Aşama 1 ve 2 ayrı mı kalsın?** etkinpatent ikisini birleştirip
-"2-4 ay" diyor, diğer iki kaynak ayırıyor. Ayrı tuttum çünkü kanunda da
-ayrı maddeler (m. 15 ve m. 16). İtirazın yoksa böyle kalsın.
+Sorular 21 Eylül 2026'da soruldu ve aynı gün cevaplandı:
 
-**Soru 3 — `lawAsOf`.** `21 Eylül 2026` yazacağım.
+| # | Soru | Cevap |
+|---|---|---|
+| 1 | Zarf yöntemi | ✅ **Onaylandı.** 4-13 aylık geniş aralık, dar ve yanlış bir aralığa tercih ediliyor |
+| 2 | Aşama 1/2 ayrımı | ✅ **Onaylandı.** m. 15 (şekli) ve m. 16 (esas) gerçekten ayrı maddeler |
+| 3 | `lawAsOf` = 21 Eylül 2026 | ✅ Onaylandı |
+
+**Ek olarak istenen iki kontrol yapıldı:**
+
+- **İtiraz süresinin madde numarası** → m. 18 (yukarıda, 8.2). Şüphe
+  yerindeydi, kaynaktaki "m. 6" yanlıştı.
+- **TÜRKPATENT hizmet standartları tablosu** → 8.9'a bakınız. Sayfa
+  açıldı ama tablo alınamadı; zarf yöntemiyle devam ediliyor.
 
 ### 8.9. Kaynaklar
 
@@ -2603,12 +2659,19 @@ ayrı maddeler (m. 15 ve m. 16). İtirazın yoksa böyle kalsın.
 - **ataylaravukatlik.av.tr** — "Marka Tescil Başvurusu 2026" *(ikincil)*
 - Ön araştırma özeti — Av. Onur Can Yılmaz
 
-> Not: `turkpatent.gov.tr` bu oturumda açılmadı (gov.tr alan adlarında
-> sertifika hatası). Kurumun kendi yayımladığı bir işlem süresi tablosu
-> varsa, ikincil kaynakların yerine o geçmeli. Elinde varsa gönder.
+> **TÜRKPATENT hizmet standartları tablosu denendi — alınamadı.**
+> Verdiğin adres (`turkpatent.gov.tr/hizmet-standartlari-tablosu`) bu
+> sefer **açıldı** (önceki oturumlardaki sertifika hatası yoktu), ancak
+> sayfada yalnızca menü başlığı göründü; tablo içeriği gelmedi —
+> muhtemelen betikle yükleniyor. Arama üzerinden de tablonun satırlarına
+> ulaşılamadı.
+>
+> Bu yüzden 8.4'teki zarf, ikincil kaynaklarla kuruldu. **Tabloyu ekran
+> görüntüsü veya PDF olarak gönderebilirsen aşama süreleri doğrudan ona
+> bağlanır** ve ikincil kaynaklar dayanak olmaktan çıkar. Tek dosya
+> değişikliğiyle yapılır: `src/lib/marka-asamalari.ts`.
 
-- **Onay Durumu:** ⬜ **Bekliyor** — 8.8'deki üç soru cevaplanınca
-  `src/lib/marka-takvimi.ts` yazılacak
+- **Onay Durumu:** ✅ **Onaylandı — 21 Eylül 2026**
 
 ---
 
