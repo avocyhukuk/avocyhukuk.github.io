@@ -2426,11 +2426,189 @@ bir yükümlülük değil, kapsam açıklaması.
 
 ## 8. Marka Tescil Süreç Takvimi
 
-- **Kanuni Dayanak (başlangıç noktası):** 6769 sayılı Sınai Mülkiyet Kanunu, TÜRKPATENT süreçleri
-- **Not:** Bu bir hesap makinesi değil, interaktif bir zaman çizelgesi/aşama göstergesi olacak — "formül" yerine aşama süreleri (ör. ilan süresi 2 ay, itiraz süresi vb.) doğrulanmalı.
-- **Aşama süreleri:** _TODO_
-- **Kaynak(lar):** _TODO_
-- **Onay Durumu:** ⬜ Bekliyor
+> **Durum: TASLAK — ONAY BEKLİYOR.** Kod yazılmadı. Bu araç diğer
+> yedisinden farklı: TL hesabı değil, tarih hesabı. Ama "süreyi kaynağa
+> dayandırma" disiplini aynı. Karar soruları 8.8'de.
+
+### 8.1. Bu aracın dürüstlük sorunu
+
+Diğer yedi araçta bir doğru cevap vardı: tarife, oran, kanun maddesi.
+Burada **yok**. TÜRKPATENT'in işlem süreleri kurumun iş yüküne göre
+değişiyor ve hiçbir mevzuatta yazmıyor.
+
+Üç kaynağa baktım ve aşama süreleri **tutmuyor**:
+
+| Aşama | Ön araştırma özeti | etkinpatent.com | ataylaravukatlik.av.tr |
+|---|---|---|---|
+| Başvuru + şekli inceleme | ~1-2 hafta – 2 ay | 2 – 4 ay *(esas ile birlikte)* | 1 – 2 ay |
+| Esas (mutlak ret) incelemesi | 2 – 5 ay | *(yukarıya dahil)* | 1 – 2 ay |
+| **Bültende yayım + itiraz** | **2 ay** | **2 ay — "kesin"** | **2 ay** |
+| Tescil belgesi | 1-2 hafta – 1-2 ay | 1 ay | 1 – 2 ay |
+| **İtirazsız toplam** | 4 ay – 1 yıl | 6 – 10 ay | 6 – 8 ay |
+| **İtirazlı toplam** | 12 – 18 ay | 12 – 24 ay | 10 – 18 ay |
+
+Senin okuman doğru: bu bir çelişki değil, **sürecin doğası**. Üç kaynağın
+tek hemfikir olduğu satır, kanunda yazılı olan tek satır — 2 aylık itiraz
+süresi.
+
+**Tasarım sonucu:** araç tek bir tarih vaat etmeyecek. Her aşama için
+aralık gösterecek, tek kesin süreyi kanun maddesiyle işaretleyecek ve
+sonucun garanti olmadığını açıkça söyleyecek.
+
+### 8.2. Kanuni dayanak — dördü de doğrulandı
+
+| Aşama | Madde | Durum |
+|---|---|---|
+| Şekli inceleme ve eksikliklerin giderilmesi | **SMK m. 15** | ✅ |
+| Mutlak ret nedenleri incelemesi ve Bültende yayım | **SMK m. 16** | ✅ |
+| **Yayımdan itibaren iki ay içinde itiraz** | **SMK m. 18/1** | ✅ birebir alıntı |
+| Markanın tescili ve sicile kaydı | **SMK m. 22** | ✅ |
+
+**SMK m. 18/1** — aracın tek kesin süresi, birebir:
+
+> Bültende yayımlanmış bir marka başvurusunun, 5 inci veya 6 ncı
+> maddelere göre tescil edilmemesi gerektiğine ilişkin itirazlar ilgili
+> kişiler tarafından marka başvurusunun yayımından itibaren **iki ay**
+> içinde yapılır.
+
+**SMK m. 16/1-2:**
+
+> Kurum, başvurunun şeklî yönden eksikliği bulunmadığına karar verirse
+> 5 inci madde kapsamında başvuruyu inceler. Başvuru şartları eksiksiz
+> şekilde yerine getirilmiş ve 15 inci madde ile bu maddenin birinci
+> fıkrası hükümlerine göre reddedilmemiş başvuru Bültende yayımlanır.
+
+**SMK m. 22:**
+
+> Başvurusu eksiksiz yapılmış veya eksiklikleri giderilmiş, 16 ncı madde
+> uyarınca incelenmiş, yayımlanmış, hakkında itiraz yapılmamış veya
+> yapılan itirazların tümü nihai olarak reddedilmiş ... bir başvuru
+> tescil edilerek sicile kaydedilir ve Bültende yayımlanır.
+
+6769 sayılı Kanun **RG 10.01.2017**'de yayımlanarak yürürlüğe girdi.
+
+### 8.3. İtirazlı senaryo — teyit edildi
+
+Ön araştırmada tek kaynaklıydı, teyit istemiştin. İki bağımsız kaynaktan
+daha doğrulandı:
+
+| Kaynak | İtirazlı süre |
+|---|---|
+| Ön araştırma | 12 – 18 ay |
+| ataylaravukatlik.av.tr | 10 – 18 ay |
+| etkinpatent.com | 12 – 24 ay |
+
+Üçü de "bir yılı aşar, iki yılı geçmez" diyor. **12-18 ay** üçünün
+ortasında duruyor ve senin verdiğin rakam; aracın kullanacağı aralık bu.
+Dış uçların (10 ve 24) farkı belgeye kaydedildi.
+
+### 8.4. Kullanılacak aşama süreleri — ZARF YÖNTEMİ
+
+Kaynaklardan birini seçip diğerlerini yok saymak, olmayan bir kesinlik
+iddia etmek olurdu. Bunun yerine her aşamada **kaynakların en düşüğü ile
+en yükseği** alınıyor:
+
+| # | Aşama | Min | Max | Dayanak |
+|---|---|---|---|---|
+| 1 | Başvuru ve şekli inceleme | 2 hafta | 4 ay | SMK m. 15 |
+| 2 | Mutlak ret nedenleri incelemesi | 1 ay | 5 ay | SMK m. 16/1 |
+| 3 | **Bültende yayım ve itiraz süresi** | **2 ay** | **2 ay** | **SMK m. 18/1** |
+| 4 | Tescil belgesi ve sicile kayıt | 2 hafta | 2 ay | SMK m. 22 |
+
+**İtirazsız toplam: 4 ay – 13 ay.**
+
+> ⚠️ **Toplam, tek tek kaynakların toplamından geniş.** Kaynaklar
+> itirazsız süreci 6-10 ve 6-8 ay diyor; bizim zarfımız 4-13 ay veriyor.
+> Sebebi: her aşamanın en kötü hâlini üst üste toplamak, hiçbir dosyada
+> gerçekleşmeyecek kadar kötümser bir üst sınır üretir. Bunu bilerek
+> kabul ediyorum — **dar ve yanlış bir aralık yerine geniş ve dürüst bir
+> aralık.** Senin ön araştırmandaki "4 ay – 1 yıl" okuması da buraya çok
+> yakın.
+
+**İtirazlı dal:** başvuru tarihi + **12 – 18 ay** (8.3).
+
+### 8.5. Tasarım
+
+**Tek girdi: başvuru tarihi.** Başka hiçbir alan yok — senin talimatın.
+
+**İki dal, ikisi de aynı anda görünür.** Sekme/açılır menü yok:
+
+- *İtiraz gelmezse* — dört aşama, her biri kendi tarih aralığıyla
+- *İtiraz gelirse* — tek satır, başvuru + 12-18 ay
+
+**Tarihler kümülatif.** Her aşamanın gösterdiği tarih, o aşamanın
+**tamamlanmış olacağı** tarih aralığı: min yol minleri toplayarak, max
+yol maxları toplayarak ilerliyor.
+
+**Ay ekleme kuralı.** 31 Ocak + 1 ay = 28/29 Şubat (ayın sonuna
+kırpılır), 3 Mart değil. JavaScript'in `Date` davranışı kırpmıyor, taşma
+yapıyor; bu yüzden elle kırpan bir yardımcı yazılacak. UTC tabanlı —
+§ 4'teki gibi, yaz saati kaymasını önlemek için.
+
+**Geçerlilik:** başvuru tarihi **10 Ocak 2017**'den (SMK'nın yürürlük
+tarihi) önceyse hesap yapılmaz. Öncesi 556 sayılı KHK rejimine tabi ve
+aşama yapısı farklı; sessizce yanlış takvim üretmektense reddetmek doğru.
+
+**Sıfır JS ve düzen kayması.** CLAUDE.md Bölüm 4/2'deki "yükseklik
+önceden rezerve edilir" disiplininin buradaki karşılığı: **aşama
+iskeleti sunucuda basılacak** — aşama adları, süreleri, açıklamaları ve
+dayanakları JS olmadan da görünecek. Betik yalnızca tarih alanlarını
+dolduracak. Böylece hesaplama öncesi/sonrası sayfa yüksekliği
+değişmiyor ve JS kapalı kullanıcı da süreci okuyabiliyor.
+
+### 8.6. Sonuç ekranı
+
+Zorunlu uyarı (senin metnin, birebir) — `scopeNote` olarak:
+
+> Bu süreler TÜRKPATENT'in tipik işlem sürelerine dayanan tahminlerdir,
+> kurumun güncel iş yüküne göre değişebilir, resmi bir garanti içermez.
+
+Bunun üstüne kabuğun bastığı `CALCULATOR_DISCLAIMER` de geliyor;
+kapatılamıyor.
+
+Her aşama satırı kendi kanun maddesini taşıyor (8.4 tablosu). 2 aylık
+itiraz süresi görsel olarak **ayrı işaretlenecek**: diğerleri tahmin, bu
+kanunda yazılı.
+
+### 8.7. Test senaryoları
+
+| # | Girdi | Beklenen |
+|---|---|---|
+| 1 | 15.01.2026 | Aşama 1: 29.01.2026 – 15.05.2026 · Aşama 3 sonu: min 15.06.2026 · tescil: 29.06.2026 – 15.02.2027 |
+| 2 | Ay sonu taşması: 31.01.2026 + 1 ay | **28.02.2026** — 03.03.2026 DEĞİL |
+| 3 | Artık yıl: 29.02.2028 + 12 ay | 28.02.2029 |
+| 4 | İtirazlı dal | başvuru + 12 ay ve + 18 ay |
+| 5 | 09.01.2017 | `gecersiz-tarih` — SMK yürürlüğünden önce |
+| 6 | 10.01.2017 | Kabul — tam sınır |
+| 7 | Geçersiz tarih (`NaN`) | `gecersiz-tarih` |
+| 8 | 2 aylık yayım aşaması | `kesin: true`, min ve max aynı tarih |
+
+### 8.8. Onay bekleyen üç karar
+
+**Soru 1 — Zarf yöntemi.** 8.4'teki "en düşük min, en yüksek max"
+yaklaşımını onaylıyor musun? Sonuç 4-13 aylık geniş bir aralık. Alternatif:
+tek bir kaynağı esas alıp 6-10 ay demek — daha kullanışlı görünür ama
+dayanağı zayıf olur. Önerim: zarf.
+
+**Soru 2 — Aşama 1 ve 2 ayrı mı kalsın?** etkinpatent ikisini birleştirip
+"2-4 ay" diyor, diğer iki kaynak ayırıyor. Ayrı tuttum çünkü kanunda da
+ayrı maddeler (m. 15 ve m. 16). İtirazın yoksa böyle kalsın.
+
+**Soru 3 — `lawAsOf`.** `21 Eylül 2026` yazacağım.
+
+### 8.9. Kaynaklar
+
+- **6769 sayılı Sınai Mülkiyet Kanunu** — RG **10.01.2017 / 29944**. m. 15, m. 16, **m. 18/1**, m. 22 *(m. 18/1 ve m. 16 birebir alındı; m. 22 tam metin)*
+- **etkinpatent.com** — "Marka Tescil Rehberi 2026" *(ikincil)*
+- **ataylaravukatlik.av.tr** — "Marka Tescil Başvurusu 2026" *(ikincil)*
+- Ön araştırma özeti — Av. Onur Can Yılmaz
+
+> Not: `turkpatent.gov.tr` bu oturumda açılmadı (gov.tr alan adlarında
+> sertifika hatası). Kurumun kendi yayımladığı bir işlem süresi tablosu
+> varsa, ikincil kaynakların yerine o geçmeli. Elinde varsa gönder.
+
+- **Onay Durumu:** ⬜ **Bekliyor** — 8.8'deki üç soru cevaplanınca
+  `src/lib/marka-takvimi.ts` yazılacak
 
 ---
 
