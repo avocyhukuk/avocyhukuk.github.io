@@ -2293,30 +2293,29 @@ değil.
 - **2026 ticaret sicili harç tarifesi:** 98 Seri No'lu Harçlar Kanunu Genel Tebliği, RG 31.12.2025 / 33124 (5. Mükerrer) — § 6 ile aynı tebliğ. *Tarifede sermaye şirketleri için 35.354,50 TL görünüyor; m. 123 nedeniyle kuruluşta uygulanmıyor*
 - **ATO 2026 tarifesi ve TTSG kelime ücreti:** Av. Onur Can Yılmaz tarafından verildi, kaynak `atonet.org.tr`
 
-### 7.11. Onay durumu
+### 7.11. Onay durumu — dört sorunun cevabı
 
-Dört soru **cevaplandı**, A seçeneği onaylandı, rakamlar geldi. Kod
-yazmadan önce son bir tur onay:
+Sorular 21 Eylül 2026'da soruldu ve aynı gün cevaplandı:
 
-**Soru 1 — Beyanname ücreti sabit mi?** 250,00 TL'yi sabit bir kalem
-olarak aldım. Müdür/imza yetkilisi **başına** tahsil ediliyorsa formda
-bir "imza yetkilisi sayısı" alanı gerekir ve formül değişir. Varsayılan:
-**sabit**.
+| # | Soru | Cevap |
+|---|---|---|
+| 1 | Beyanname ücreti kişi başına mı? | **Sabit.** ATO'nun kendi ifadesi kayıt başına okunuyor, kişi başına olduğuna dair kanıt yok. Formda yetkili sayısı alanı YOK |
+| 2 | Kelime ipucundaki 1.500 rakamı | **Kullanılmayacak.** Av. Onur Can Yılmaz gerçek bir örnek sözleşmeyi inceledi: 4.000-4.500 kelimeye çıkan örnekler var. Tek bir düşük rakam yanıltıcı olur |
+| 3 | TTSG bilgi notu (benim metnim) | Onaylandı, aynen |
+| 4 | `lawAsOf` = 21 Eylül 2026 | Onaylandı |
 
-**Soru 2 — Kelime sayısı alanı.** Kullanıcı sözleşmeyi yazmadan kelime
-sayısını bilemez. Alanın ipucuna şunu koymayı öneriyorum: *"Tek ortaklı
-standart bir ana sözleşme yaklaşık 1.500 kelimedir; sözleşmeniz hazırsa
-gerçek kelime sayısını yazın."* Bu 1.500 rakamı bir ticaret odası
-sayfasındaki "1500 kelimelik esas sözleşme" ifadesinden geliyor —
-onaylıyor musun, yoksa başka bir tipik değer mi verelim?
+**Kelime sayısı alanının ipucu** — birebir kullanılacak metin:
 
-**Soru 3 — TTSG bilgi notu.** 7.7'deki üçüncü not benim yazdığım metin;
-ilk ikisi senin. Uygun mu?
+> Basit bir tek ortaklı sözleşme genellikle 1.500-2.500 kelime civarında
+> olabilir, ancak amaç maddesindeki iş konusu sayısına göre bu belirgin
+> şekilde artabilir. Sözleşmeniz hazırsa gerçek kelime sayısını yazın.
 
-**Soru 4 — `lawAsOf`.** `21 Eylül 2026` yazacağım.
+*Bir aralık verilmesinin sebebi: TTSG kalemi kelime sayısıyla doğrusal
+arttığı için tek bir "tipik" rakam, sözleşmesi uzun olan kullanıcıya
+gerçeğin yarısı kadar bir tutar gösterirdi. 4.000 kelimelik bir
+sözleşmede bu kalem tek başına 9.920,00 TL ediyor.*
 
-- **Onay Durumu:** ⬜ **Bekliyor** — 7.11'deki dört madde onaylanınca
-  `src/lib/kurulus-maliyeti.ts` yazılacak
+- **Onay Durumu:** ✅ **Onaylandı — 21 Eylül 2026**
 
 ## 8. Marka Tescil Süreç Takvimi
 

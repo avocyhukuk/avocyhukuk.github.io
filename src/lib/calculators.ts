@@ -77,10 +77,16 @@ export const CALCULATORS: readonly Calculator[] = [
   {
     slug: 'sirket-kurulus-maliyeti',
     title: 'Şirket Kuruluş Maliyeti Hesaplama',
+    /*
+     * Özet v1 kapsamını birebir yansıtıyor: yalnızca limited şirket ve
+     * noter kalemi YOK — ana sözleşme 2018'den beri ticaret sicili
+     * müdürlüğünde ücretsiz imzalanıyor (docs § 7.1). Önceki özet
+     * "limited veya anonim ... noter" diyordu, ikisi de yanlıştı.
+     */
     summary:
-      'Limited veya anonim şirket kuruluşunda ortaya çıkan harç, noter ve tescil giderlerini toplar.',
+      'Limited şirket kuruluşunda ödenecek oda, tescil ve gazete giderleri ile Rekabet Kurumu payını toplar.',
     areas: ['startup-girisim-hukuku', 'ticaret-sirketler-hukuku'],
-    status: 'planned',
+    status: 'ready',
   },
   {
     slug: 'marka-tescil-takvimi',

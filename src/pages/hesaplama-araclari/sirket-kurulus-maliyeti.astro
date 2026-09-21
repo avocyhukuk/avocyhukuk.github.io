@@ -1,0 +1,206 @@
+---
+/**
+ * Şirket Kuruluş Maliyeti Hesaplama (limited şirket).
+ *
+ * Formül, kalem listesi ve kaynaklar: docs/hesaplama-formulleri.md § 7.
+ * Hesap src/lib/kurulus-maliyeti.ts içinde, saf ve test edilmiş.
+ *
+ * Ekran metinleri § 7.7 ve § 7.11'de birebir kayıtlı; mali müşavir ve
+ * noter notları Av. Onur Can Yılmaz'ın kendi metinleri, değiştirilmeleri
+ * yeni onay gerektirir.
+ */
+import CalculatorShell from '../../components/calculator/CalculatorShell.astro';
+import ResultSheet from '../../components/calculator/ResultSheet.astro';
+import FormField from '../../components/calculator/FormField.astro';
+import { CALCULATORS } from '../../lib/calculators';
+import { EN_COK_KELIME, EN_COK_SERMAYE } from '../../lib/kurulus-maliyeti';
+import { LIMITED_ASGARI_SERMAYE, tarifeliYillar } from '../../lib/kurulus-tarifeleri';
+
+const calculator = CALCULATORS.find((tool) => tool.slug === 'sirket-kurulus-maliyeti')!;
+const yillar = tarifeliYillar();
+
+// § 7.7 — üç bağımsız kapsam uyarısı, kabuk her birini ayrı paragraf basar.
+const scopeNote = [
+  'Bu araç limited şirket kuruluşunu ve Ankara Ticaret Odası tarifesini esas alır. Başka bir odaya kayıt olunacaksa oda kayıt ücreti ve tasdik bedelleri değişir.',
+  'Anonim şirket kuruluşu bu sürümün kapsamı dışındadır; asgari sermaye, organ yapısı ve ödeme şartları farklıdır.',
+  'Elektronik imza ve mali mühür bedelleri resmî bir tarifeye bağlı olmadığı için hesaba dahil edilmemiştir.',
+];
+
+// § 7.11/2 — tek bir "tipik" rakam yerine aralık: TTSG kalemi kelime
+// sayısıyla doğrusal arttığı için düşük bir tahmin, sözleşmesi uzun olan
+// kullanıcıya gerçeğin yarısı kadar tutar gösterirdi.
+const kelimeIpucu =
+  'Basit bir tek ortaklı sözleşme genellikle 1.500-2.500 kelime civarında olabilir, ancak amaç maddesindeki iş konusu sayısına göre bu belirgin şekilde artabilir. Sözleşmeniz hazırsa gerçek kelime sayısını yazın.';
+---
+
+<CalculatorShell calculator={calculator} lawAsOf="21 Eylül 2026" scopeNote={scopeNote}>
+  <Fragment slot="form">
+    <FormField id="yil" label="Tarife yılı" hint="Oda ve gazete tarifeleri her yıl değişir.">
+      <select id="yil" name="yil">
+        {yillar.map((y) => <option value={y}>{y}</option>)}
+      </select>
+    </FormField>
+
+    <FormField
+      id="sermaye"
+      label="Esas sermaye"
+      hint={`Limited şirkette asgari ${LIMITED_ASGARI_SERMAYE.toLocaleString('tr-TR')} TL.`}
+      type="number"
+      unit="TL"
+      min={LIMITED_ASGARI_SERMAYE}
+      max={EN_COK_SERMAYE}
+      step="0.01"
+      inputmode="decimal"
+    />
+
+    <FormField
+      id="kelime"
+      label="Ana sözleşmenin kelime sayısı"
+      hint={kelimeIpucu}
+      type="number"
+      unit="kelime"
+      min={1}
+      max={EN_COK_KELIME}
+      step="1"
+      inputmode="numeric"
+    />
+
+    <button class="btn btn--primary" type="button" id="hesapla">Hesapla</button>
+
+    <p class="form-note">
+      Sonuç, kuruluş sırasında <strong>resmî olarak</strong> ödenecek tutardır. Serbestçe belirlenen hizmet
+      bedelleri hesaba katılmaz; aşağıda ayrıca gösterilir.
+    </p>
+  </Fragment>
+
+  <div class="result-region">
+    <p class="alert" id="uyari" role="alert" hidden></p>
+    <ResultSheet />
+
+    {/* § 7.7 — üç bilgi notu. İlk ikisi Av. Onur Can Yılmaz'ın metni. */}
+    <ul class="notes">
+      <li>
+        Ayrıca genellikle bir mali müşavirle anlaşma yapılması gerekir, bu ücret serbestçe
+        belirlenir ve yukarıdaki tutara dahil değildir.
+      </li>
+      <li>
+        Ana sözleşme, noter yerine ücretsiz olarak Ticaret Sicili Müdürlüğü'nde de imzalanabilir.
+        Noter tercih edilirse ek olarak yaklaşık 2.000-5.000 TL masraf oluşur.
+      </li>
+      <li>
+        Gazete ilan ücreti ana sözleşmenin kelime sayısına bağlıdır; kesin tutar sözleşme metni son
+        hâlini aldığında belli olur.
+      </li>
+    </ul>
+  </div>
+</CalculatorShell>
+
+<style>
+  .form-note {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  .result-region {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .alert {
+    padding: var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-inline-start: 3px solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+
+  .notes {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding-inline-start: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>
+
+<script>
+  import { kurulusMaliyetiHesapla } from '../../lib/kurulus-maliyeti';
+  import type { SheetRow } from '../../lib/calculator-ui';
+  import { formatTRY } from '../../lib/format';
+  import { clearSheet, findSheet, renderSheet } from '../../scripts/result-sheet';
+
+  const sheet = findSheet();
+  const el = <T extends HTMLElement>(id: string) => document.querySelector<T>(`#${id}`);
+
+  const yil = el<HTMLSelectElement>('yil');
+  const sermaye = el<HTMLInputElement>('sermaye');
+  const kelime = el<HTMLInputElement>('kelime');
+  const buton = el<HTMLButtonElement>('hesapla');
+  const uyari = el<HTMLElement>('uyari');
+
+  if (sheet && yil && sermaye && kelime && buton && uyari) {
+    const uyariGoster = (mesaj: string) => {
+      uyari.textContent = mesaj;
+      uyari.hidden = false;
+      clearSheet(sheet);
+    };
+
+    const hesapla = () => {
+      uyari.hidden = true;
+
+      const sonuc = kurulusMaliyetiHesapla({
+        yil: Number(yil.value),
+        sermaye: Number(sermaye.value),
+        kelimeSayisi: Number(kelime.value),
+      });
+
+      if (sonuc.durum === 'tarife-yok') {
+        uyariGoster(
+          `${sonuc.yil} yılı tarifesi tabloya işlenmedi; bu yıl için hesaplama yapılamıyor.`
+        );
+        return;
+      }
+      if (sonuc.durum === 'gecersiz-sermaye') {
+        uyariGoster(
+          `Esas sermayeyi en az ${sonuc.asgari.toLocaleString('tr-TR')} TL olarak girin — limited şirkette esas sermaye bu tutardan az olamaz.`
+        );
+        return;
+      }
+      if (sonuc.durum === 'gecersiz-kelime') {
+        uyariGoster('Ana sözleşmenin kelime sayısını sıfırdan büyük bir tam sayı olarak girin.');
+        return;
+      }
+
+      const rows: SheetRow[] = sonuc.kalemler.map((k) => ({
+        label: k.ad,
+        value: formatTRY(k.tutar),
+        detail: k.detay,
+        basis: k.dayanak,
+      }));
+
+      rows.push({
+        label: 'Kuruluşta ödenecek toplam',
+        value: formatTRY(sonuc.toplam),
+        detail: `${sonuc.yil} yılı tarifesi`,
+        total: true,
+      });
+
+      renderSheet(sheet, rows);
+    };
+
+    buton.addEventListener('click', hesapla);
+
+    for (const alan of [sermaye, kelime]) {
+      alan.addEventListener('keydown', (olay) => {
+        if (olay.key === 'Enter') {
+          olay.preventDefault();
+          hesapla();
+        }
+      });
+    }
+  }
+</script>
