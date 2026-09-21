@@ -65,7 +65,7 @@ export const CALCULATORS: readonly Calculator[] = [
     title: 'Araç Mahrumiyet Bedeli Hesaplama',
     summary: 'Aracın onarımda geçirdiği süre boyunca kullanılamamasından doğan zararı tahmin eder.',
     areas: ['sigorta-hukuku'],
-    status: 'planned',
+    status: 'ready',
   },
   {
     slug: 'harc-ve-masraf',

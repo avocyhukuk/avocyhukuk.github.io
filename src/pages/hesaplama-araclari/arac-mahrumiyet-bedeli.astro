@@ -1,0 +1,296 @@
+---
+/**
+ * Araç Mahrumiyet Bedeli Hesaplama.
+ *
+ * Formül, ekran metinleri ve kapsam: docs/hesaplama-formulleri.md § 5.
+ * Hesap src/lib/mahrumiyet-bedeli.ts içinde, saf ve test edilmiş.
+ *
+ * ─── DİĞER ARAÇLARDAN FARKI ───────────────────────────────────────────
+ * Rakamı kullanıcı getiriyor. Kodda ne tarife var ne katsayı; bu yüzden
+ * formun üstünde bedelin NEREDEN alınacağını söyleyen bir yönerge var.
+ * Yönerge olmadan araç "aklınızdaki bir sayıyı girin" demiş olurdu.
+ *
+ * Ekran metinleri (giriş notu, yönerge, kapsam notu, teknik notlar) Av.
+ * Onur Can Yılmaz tarafından yazıldı ve § 5.4'te birebir kayıtlı.
+ * Değiştirilmeleri yeni onay gerektirir.
+ */
+import CalculatorShell from '../../components/calculator/CalculatorShell.astro';
+import ResultSheet from '../../components/calculator/ResultSheet.astro';
+import FormField from '../../components/calculator/FormField.astro';
+import { CALCULATORS } from '../../lib/calculators';
+import { EN_COK_GUN } from '../../lib/mahrumiyet-bedeli';
+
+const calculator = CALCULATORS.find((tool) => tool.slug === 'arac-mahrumiyet-bedeli')!;
+
+// § 5.4/c — üç bağımsız kapsam uyarısı, kabuk her birini ayrı paragraf basar.
+const scopeNote = [
+  'Bu süre zarfında sigorta şirketiniz, servis veya karşı taraf size ücretsiz bir ikame araç sağladıysa, mahrumiyet bedeli talebiniz bu durumdan etkilenebilir. Bu durumun hesaplamanızı nasıl etkilediğini bize danışabilirsiniz.',
+  'Kazada sizin de kusurunuz varsa, talep edilebilecek tutar kusur oranınız ölçüsünde azalır.',
+  'Taksi, kamyon gibi ticari amaçla kullanılan araçlarda zarar kira bedeli değil kazanç kaybı esasına göre hesaplanır, bu araç bu durumu kapsamaz.',
+];
+
+const kiralamaSiteleri = [
+  { ad: 'Enterprise', url: 'https://www.enterprise.com.tr' },
+  { ad: 'Garenta', url: 'https://www.garenta.com' },
+];
+---
+
+<CalculatorShell calculator={calculator} lawAsOf="20 Eylül 2026" scopeNote={scopeNote}>
+  <Fragment slot="intro">
+    Kazadan sonra aracınızın serviste kaldığı gün sayısı × benzer bir aracın günlük kiralama bedeli
+    üzerinden hesaplanan bir tutarı, kazaya kusurlu sürücüden ve araç sahibinden hukuki yollarla
+    (icra takibi veya dava) talep edebileceğinizi biliyor musunuz?
+  </Fragment>
+
+  <Fragment slot="form">
+    {
+      /* Kaynak yönergesi — § 5.4/b. Bağlantılar bedelin nereden alınacağını
+        gösterir; yeni sekmede açılır ki form doldurulurken kaybolmasın. */
+    }
+    <div class="kaynak">
+      <ul class="kaynak__list">
+        {
+          kiralamaSiteleri.map((site) => (
+            <li>
+              <a href={site.url} target="_blank" rel="noopener noreferrer nofollow">
+                {site.ad}
+                <span class="kaynak__hint"> (yeni sekmede açılır)</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="kaynak__note">
+        Aracınızla aynı veya benzer segmentteki bir aracın günlük kiralama bedelini yukarıdaki
+        sitelerden tespit edip aşağıya yazınız. Mümkünse hesapladığınız gün sayısına yakın bir süre
+        için teklif alın — tek günlük fiyatlar genelde daha yüksek çıkar.
+      </p>
+    </div>
+
+    <FormField
+      id="gun"
+      label="Aracın serviste kaldığı gün sayısı"
+      type="number"
+      unit="gün"
+      min={1}
+      max={EN_COK_GUN}
+      step="1"
+      inputmode="numeric"
+    />
+
+    <FormField
+      id="bedel-1"
+      label="Birinci günlük kira bedeli"
+      hint="Enterprise'dan aldığınız teklif"
+      type="number"
+      unit="TL"
+      min={0}
+      step="0.01"
+      inputmode="decimal"
+    />
+
+    <FormField
+      id="bedel-2"
+      label="İkinci günlük kira bedeli"
+      hint="Garenta'dan aldığınız teklif"
+      type="number"
+      unit="TL"
+      min={0}
+      step="0.01"
+      inputmode="decimal"
+    />
+
+    <button class="btn btn--primary" type="button" id="hesapla">Hesapla</button>
+  </Fragment>
+
+  <div class="result-region">
+    <p class="alert" id="uyari" role="alert" hidden></p>
+    <ResultSheet />
+
+    {
+      /* Teknik notlar — § 5.7. Cetvelin hemen altında duruyorlar çünkü
+        ikisi de gösterilen rakamı nitelendiriyor. */
+    }
+    <ul class="notes">
+      <li>
+        Bu tutardan, aracınızı kullanmadığınız için tasarruf ettiğiniz yakıt/bakım gideri
+        düşülebilir; gerçek tazminat bu rakamdan az çıkabilir.
+      </li>
+      <li>
+        Girdiğiniz gün sayısı, bilirkişi tarafından "makul onarım süresi"ne indirilebilir;
+        hesaplanan tutar fiili gün sayısına değil, mahkemenin kabul edeceği süreye göre değişebilir.
+      </li>
+    </ul>
+  </div>
+</CalculatorShell>
+
+<style>
+  .kaynak {
+    padding: var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .kaynak__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
+    margin: 0 0 var(--space-3);
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .kaynak__hint {
+    font-weight: 400;
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  .kaynak__note {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+
+  .result-region {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .alert {
+    padding: var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-inline-start: 3px solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+
+  .notes {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding-inline-start: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+</style>
+
+<script>
+  import { mahrumiyetBedeliHesapla, EN_COK_GUN } from '../../lib/mahrumiyet-bedeli';
+  import type { SheetRow } from '../../lib/calculator-ui';
+  import { formatNumber, formatTRY } from '../../lib/format';
+  import { clearSheet, findSheet, renderSheet } from '../../scripts/result-sheet';
+
+  const sheet = findSheet();
+  const el = <T extends HTMLElement>(id: string) => document.querySelector<T>(`#${id}`);
+
+  const gun = el<HTMLInputElement>('gun');
+  const bedel1 = el<HTMLInputElement>('bedel-1');
+  const bedel2 = el<HTMLInputElement>('bedel-2');
+  const buton = el<HTMLButtonElement>('hesapla');
+  const uyari = el<HTMLElement>('uyari');
+
+  const D = {
+    yargitay: {
+      short: 'Y. 4. HD 2022/11236',
+      full: 'Yargıtay 4. Hukuk Dairesi, 29.09.2022, E. 2021/26777, K. 2022/11236 — mahrumiyet bedelinde fiili kiralama belgesi aranmaz, emsal günlük kira bedeli esas alınır',
+    },
+    tbk49: {
+      short: 'TBK m.49',
+      full: '6098 sayılı Türk Borçlar Kanunu m. 49 — Haksız fiilden doğan sorumluluk',
+    },
+    tbk50: {
+      short: 'TBK m.50/2',
+      full: '6098 sayılı Türk Borçlar Kanunu m. 50/2 — Zararın miktarı tam olarak ispat edilemiyorsa hâkim, zararı hakkaniyete uygun olarak belirler',
+    },
+  };
+
+  if (sheet && gun && bedel1 && bedel2 && buton && uyari) {
+    const uyariGoster = (mesaj: string) => {
+      uyari.textContent = mesaj;
+      uyari.hidden = false;
+      clearSheet(sheet);
+    };
+
+    const hesapla = () => {
+      uyari.hidden = true;
+
+      const sonuc = mahrumiyetBedeliHesapla({
+        gun: Number(gun.value),
+        gunlukBedeller: [Number(bedel1.value), Number(bedel2.value)],
+      });
+
+      if (sonuc.durum === 'gecersiz-gun') {
+        uyariGoster(`Gün sayısını 1 ile ${EN_COK_GUN} arasında bir tam sayı olarak girin.`);
+        return;
+      }
+      if (sonuc.durum === 'gecersiz-bedel') {
+        uyariGoster('İki günlük kira bedelini de sıfırdan büyük birer tutar olarak girin.');
+        return;
+      }
+      if (sonuc.durum === 'yetersiz-teklif') {
+        uyariGoster('Aralık hesaplanabilmesi için iki kiralama teklifi de gereklidir.');
+        return;
+      }
+
+      const [ilk, ikinci] = sonuc.tutarlar;
+      const gunMetni = `${sonuc.gun} gün`;
+
+      const rows: SheetRow[] = [
+        {
+          label: 'Birinci teklife göre',
+          value: formatTRY(ilk!.tutar),
+          detail: `${gunMetni} × ${formatTRY(ilk!.gunlukBedel)}`,
+          basis: D.yargitay,
+        },
+        {
+          label: 'İkinci teklife göre',
+          value: formatTRY(ikinci!.tutar),
+          detail: `${gunMetni} × ${formatTRY(ikinci!.gunlukBedel)}`,
+        },
+        {
+          label: 'Tahmini aralık',
+          /*
+           * Para birimi yalnızca aralığın sonunda: "10.000,00 – 15.000,00 ₺".
+           * Cetvel değerleri kırılmadığı (`white-space: nowrap`) için iki kez
+           * yazılan simge, dar ekranda etiket sütununu eziyordu.
+           *
+           * İki teklif eşitse aralık gösterilmez, tek tutar yazılır.
+           */
+          value:
+            sonuc.alt === sonuc.ust
+              ? formatTRY(sonuc.alt)
+              : `${formatNumber(sonuc.alt, 2)} – ${formatTRY(sonuc.ust)}`,
+          detail: 'İki teklifin verdiği alt ve üst uç',
+          basis: D.tbk49,
+        },
+        {
+          label: 'Ortalama tahmin',
+          value: formatTRY(sonuc.ortalama),
+          detail: `${gunMetni} için iki teklifin ortalaması`,
+          basis: D.tbk50,
+          total: true,
+        },
+      ];
+
+      renderSheet(sheet, rows);
+    };
+
+    buton.addEventListener('click', hesapla);
+
+    for (const alan of [gun, bedel1, bedel2]) {
+      alan.addEventListener('keydown', (olay) => {
+        if (olay.key === 'Enter') {
+          olay.preventDefault();
+          hesapla();
+        }
+      });
+    }
+  }
+</script>

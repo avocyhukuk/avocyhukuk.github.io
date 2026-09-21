@@ -166,7 +166,7 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - [x] Araç değer kaybı — **hesaplama aracı yapılmadı.** Formül doğrulaması, dayanak ekin 01.07.2026'da yürürlükten kaldırıldığını ortaya çıkardı. *20 Eylül 2026'da karara bağlandı:* araç listeden çıkarıldı, konu `/blog/arac-deger-kaybi-yeni-donem` adresinde bilgilendirme yazısına dönüştürüldü. Rakam üreten form yok.
 - [x] Kira artış hesaplama — formül doğrulama → geliştirme → test → yayın. *TÜFE oranı elle tutulan tabloda (`src/lib/tufe.ts`); her ayın 4'ünde bir bulut ajanı hatırlatıyor, oran TÜİK bülteninden teyit edilip elle işleniyor.*
 - [x] İcra/gecikme faizi hesaplama — formül doğrulama → geliştirme → test → yayın. *Kanuni faiz dönem tablosu `src/lib/faiz-oranlari.ts`; 7589 s.K. sonrası oran TCMB reeskontunun %80'i olduğu için yılda bir-iki kez değişiyor, yeni dönem başlayınca satır eklenmeli.*
-- [ ] Araç mahrumiyet bedeli hesaplama — formül doğrulama → geliştirme → test → yayın
+- [x] Araç mahrumiyet bedeli hesaplama — formül doğrulama → geliştirme → test → yayın. *Bu araçta kodda rakam YOK: bağlayıcı bir tarife bulunmadığı için günlük kira bedelini kullanıcı iki kiralama şirketinden kendisi topluyor, araç yalnızca aralık ve ortalama veriyor. Bakım gerektirmez. Dayanak TBK m.49, m.50/2 ve Yargıtay 4. HD 29.09.2022, E. 2021/26777, K. 2022/11236.*
 - [x] Dava/icra harç ve masraf hesaplama — formül doğrulama → geliştirme → test → yayın. *Tarife tablosu `src/lib/harc-tarifeleri.ts` içinde YIL BAZLI; harçlar her 1 Ocak'ta değiştiği için yeni yıl tarifesi eklenmeden o yıl hesaplanmıyor.*
 - [ ] Şirket kuruluş maliyeti hesaplama — formül doğrulama → geliştirme → test → yayın
 - [ ] Marka tescil süreç takvimi — geliştirme → test → yayın

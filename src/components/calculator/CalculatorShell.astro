@@ -47,13 +47,19 @@ interface Props {
    * hesaplanmayan bir hâlde de doğru sonuç aldığını sanır.
    *
    * Ör. infaz aracı v1'inde: 18 yaş üstü, tek ilam, açık kuruma geçiş yok.
+   *
+   * Dizi verilirse her madde ayrı paragraf olarak basılır. Birbirinden
+   * bağımsız üç kapsam uyarısını (ikame araç, kusur oranı, ticari araç)
+   * tek paragrafa yığmak okunmaz hâle getiriyordu.
    */
-  scopeNote?: string;
+  scopeNote?: string | readonly string[];
   /** Formun üstündeki kısa yönerge. */
   formTitle?: string;
 }
 
 const { calculator, lawAsOf, scopeNote, formTitle = 'Bilgileri girin' } = Astro.props;
+
+const scopeNotes = scopeNote === undefined ? [] : [scopeNote].flat();
 
 const path = `/hesaplama-araclari/${calculator.slug}`;
 
@@ -80,6 +86,18 @@ const message = `Merhaba, ${calculator.title} aracıyla ilgili bilgi almak istiy
 
   <section class="section">
     <div class="container">
+      {
+        /* Form ve sonuç sütunlarının üstünde, sayfa genişliğinde duran
+           giriş notu. Aracın ne işe yaradığını forma bakmadan anlatan
+           araçlar için — ör. mahrumiyet bedelinde talebin kime
+           yöneltileceği. Slot boşsa hiçbir işaretleme basılmaz. */
+        Astro.slots.has('intro') && (
+          <p class="tool__intro">
+            <slot name="intro" />
+          </p>
+        )
+      }
+
       <div class="tool">
         <div class="tool__form">
           <h2 class="tool__form-title">{formTitle}</h2>
@@ -94,7 +112,17 @@ const message = `Merhaba, ${calculator.title} aracıyla ilgili bilgi almak istiy
             değişmişse sonuç güncelliğini yitirmiş olabilir.
           </p>
 
-          {scopeNote && <p class="tool__scope">{scopeNote}</p>}
+          {
+            /* Birden çok not tek kutuda toplanıyor: üç ayrı çerçeveli
+               panel, sonuç sütununu uyarı yığınına çeviriyordu. */
+            scopeNotes.length > 0 && (
+              <div class="tool__scope">
+                {scopeNotes.map((note) => (
+                  <p>{note}</p>
+                ))}
+              </div>
+            )
+          }
 
           <p class="tool__disclaimer">{CALCULATOR_DISCLAIMER}</p>
         </div>
@@ -147,6 +175,17 @@ const message = `Merhaba, ${calculator.title} aracıyla ilgili bilgi almak istiy
     color: var(--text-muted);
   }
 
+  /* Giriş notu: form/sonuç ızgarasının üstünde, ölçü dar tutuluyor ki
+     geniş ekranda tek satırlık bir şerit hâline gelmesin. */
+  .tool__intro {
+    max-width: 68ch;
+    margin-bottom: var(--space-6);
+    padding-inline-start: var(--space-4);
+    border-inline-start: 3px solid var(--brand-navy);
+    font-size: var(--text-base);
+    color: var(--text-primary);
+  }
+
   /*
    * Kapsam notu uyarının ÜSTÜNDE ve ondan bir tık daha sessiz: sırayla
    * okunduğunda önce "bu araç neyi hesaplamıyor", sonra "hesapladığı da
@@ -159,6 +198,10 @@ const message = `Merhaba, ${calculator.title} aracıyla ilgili bilgi almak istiy
     border-radius: var(--radius-sm);
     font-size: var(--text-sm);
     color: var(--text-primary);
+  }
+
+  .tool__scope p + p {
+    margin-top: var(--space-3);
   }
 
   /*

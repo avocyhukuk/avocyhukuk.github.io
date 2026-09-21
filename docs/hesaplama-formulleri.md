@@ -1374,10 +1374,12 @@ Kodlandı — `src/lib/gecikme-faizi.test.ts`, 17 test. Kapsanan dallar:
 
 ## 5. Araç Mahrumiyet Bedeli Hesaplama
 
-> **Durum: TASLAK — ONAY BEKLİYOR.** Mekanizma ve tüm ekran metinleri Av.
-> Onur Can Yılmaz tarafından 20 Eylül 2026'da karara bağlandı. Bu bölüm
-> onaylanmadan `src/lib/` altına tek satır yazılmaz (CLAUDE.md Bölüm 6).
-> Açık sorular 5.9'da.
+> **Durum: ONAYLANDI ve YAYINDA.** Mekanizma ve ekran metinleri Av. Onur
+> Can Yılmaz tarafından 20 Eylül 2026'da karara bağlandı; 5.9'daki dört
+> açık soru **21 Eylül 2026'da** cevaplandı ve onay verildi. Kod
+> `src/lib/mahrumiyet-bedeli.ts`, testler
+> `src/lib/mahrumiyet-bedeli.test.ts`, arayüz
+> `src/pages/hesaplama-araclari/arac-mahrumiyet-bedeli.astro`.
 
 ### 5.1. Bu araç diğerlerinden yapısal olarak farklı
 
@@ -1408,7 +1410,7 @@ gün sayısına yakın bir süre için teklif almaya yönlendiriyor (5.4).
 |---|---|---|
 | Haksız fiil — zararın tazmini sorumluluğu | **TBK m. 49** | ✅ |
 | Zarar miktarı tam olarak ispat edilemiyorsa hâkimin belirlemesi | **TBK m. 50/2** | ✅ |
-| Makul onarım süresi ve emsal günlük kira bedeli üzerinden hesap; fiili kiralama belgesi aranmaması | Yargıtay 4. HD içtihadı | ⚠️ künye teyit edilmeli |
+| Makul onarım süresi ve emsal günlük kira bedeli üzerinden hesap; fiili kiralama belgesi aranmaması | **Yargıtay 4. HD, 29.09.2022, E. 2021/26777, K. 2022/11236** | ✅ |
 
 Bu aracın asıl dayanağı **TBK m. 50/2**:
 
@@ -1421,17 +1423,17 @@ Mahrumiyet bedelinin fiilen araç kiralanmış olmasına bağlı olmadığı,
 budur. Aracımızın yaptığı iş de zaten bu: fiili bir makbuz değil, emsal
 bedel üzerinden bir tahmin üretmek.
 
-> ⚠️ **Teyit edilmesi gereken künye.** İçtihat, ikincil kaynaklarda
-> tutarlı biçimde **Yargıtay 4. HD, E. 2021/26777, K. 2022/11236** sayılı
-> karara bağlanıyor. Karar tarihine ve tam metnine bu oturumda
-> ulaşılamadı: `resmigazete.gov.tr` ve `mevzuat.gov.tr` dahil tüm gov.tr
-> alan adları sertifika hatası verdi, UYAP/Kazancı erişimi yok.
+> ✅ **Künye doğrulandı — 21 Eylül 2026.** Taslakta bu künye "teyide
+> muhtaç" olarak işaretlenmişti; bu oturumda gov.tr alan adlarının tamamı
+> sertifika hatası verdiği için birincil metne ulaşılamamıştı. Av. Onur
+> Can Yılmaz künyeyi **Yargıtay 4. Hukuk Dairesi, T. 29.09.2022, E.
+> 2021/26777, K. 2022/11236** olarak, birbirinden bağımsız iki kaynaktan
+> (lexpera.com.tr ve alparslanlevent.av.tr) teyit etti. Kararın konusu
+> araç mahrumiyet bedeli; TBK m. 50/2'ye dayanarak kiralama makbuzu
+> aranmadığı yönündeki içeriği de doğrulandı.
 >
-> **Kural:** künye UYAP veya Kazancı üzerinden teyit edilirse sonuç
-> ekranında karar numarasıyla gösterilir. Teyit edilmezse **künye
-> yazılmaz**; dayanak olarak yalnızca TBK m. 49 ve m. 50/2 gösterilir,
-> içtihat künyesiz biçimde "Yargıtay uygulaması" olarak anılır. Var
-> olduğundan emin olmadığımız bir karar numarasını yayına koymuyoruz.
+> Künye bu nedenle sonuç ekranında gösteriliyor. Taslaktaki "teyit
+> edilmezse künye yazılmaz" kuralı işletilmedi, çünkü teyit geldi.
 
 ### 5.3. Kapsam — v1
 
@@ -1472,13 +1474,25 @@ birlikte (`enterprise.com.tr`, `garenta.com`):
 > hesapladığınız gün sayısına yakın bir süre için teklif alın — tek
 > günlük fiyatlar genelde daha yüksek çıkar.
 
-**(c) İkame araç notu** — `CalculatorShell`'in `scopeNote` propu olarak,
-sonuç sütununda:
+**(c) Kapsam notu** — `CalculatorShell`'in `scopeNote` propu olarak, sonuç
+sütununda. **Üç paragraf**: ilki 20 Eylül'de yazılan ikame araç notu,
+diğer ikisi 21 Eylül'de Soru 2 ve Soru 3'ün cevabıyla eklendi:
 
 > Bu süre zarfında sigorta şirketiniz, servis veya karşı taraf size
 > ücretsiz bir ikame araç sağladıysa, mahrumiyet bedeli talebiniz bu
 > durumdan etkilenebilir. Bu durumun hesaplamanızı nasıl etkilediğini bize
 > danışabilirsiniz.
+
+> Kazada sizin de kusurunuz varsa, talep edilebilecek tutar kusur oranınız
+> ölçüsünde azalır.
+
+> Taksi, kamyon gibi ticari amaçla kullanılan araçlarda zarar kira bedeli
+> değil kazanç kaybı esasına göre hesaplanır, bu araç bu durumu kapsamaz.
+
+Üç paragrafı tek bir uzun cümle yığınına çevirmemek için `scopeNote`
+propunun tipi `string | readonly string[]` olarak genişletildi; dizi
+verildiğinde kabuk her maddeyi ayrı paragraf basıyor. Mevcut tek metinli
+kullanım (§ 6, harç aracı) etkilenmedi.
 
 **(d) Zorunlu genel uyarı** — `CALCULATOR_DISCLAIMER`, kabuk tarafından
 basılıyor, prop ile kapatılamıyor:
@@ -1587,29 +1601,21 @@ yapıldı:
   (gov.tr erişimi yok). **Hesabı etkilemiyor**, çünkü araç zaten
   sigortacıya değil sorumlulara yöneltilen talebi anlatıyor.
 
-### 5.9. Onay durumu ve açık sorular
+### 5.9. Onay durumu — dört sorunun cevabı
 
-**Soru 1 — Yargıtay künyesi.** 5.2'deki karar numarasını
-(4. HD, E. 2021/26777, K. 2022/11236) teyit edebiliyor musun? Teyit
-edersen sonuç ekranında künyeyle gösteririm; edemezsek künyesiz
-gideriz. Varsayılan: künyesiz.
+Sorular 20 Eylül 2026'da soruldu, **21 Eylül 2026'da** cevaplandı:
 
-**Soru 2 — Kusur oranı.** Form kusur oranı sormuyor, dolayısıyla sonuç
-"karşı taraf tam kusurlu" varsayımına dayanıyor. Müterafik kusur varsa
-tutar orantılı olarak düşer. Önerim: forma girdi eklemek yerine kapsam
-notuna (5.4/c) tek cümle eklemek — *"Kazada sizin de kusurunuz varsa,
-talep edilebilecek tutar kusur oranınız ölçüsünde azalır."* Ekleyelim mi?
+| # | Soru | Cevap |
+|---|---|---|
+| 1 | Yargıtay künyesi teyit edilebildi mi? | ✅ **Evet.** 4. HD, T. 29.09.2022, E. 2021/26777, K. 2022/11236. İki bağımsız kaynaktan teyit edildi (5.2). Sonuç ekranında gösteriliyor |
+| 2 | Kusur oranı forma mı, kapsam notuna mı? | **Kapsam notuna** — öneri onaylandı, forma girdi eklenmedi (5.4/c) |
+| 3 | Ticari araç belirtilsin mi? | **Evet** — kapsam notuna eklendi (5.4/c) |
+| 4 | `lawAsOf` = 20 Eylül 2026 | Onaylandı |
 
-**Soru 3 — Ticari araç.** 5.3'te kapsam dışı bıraktım. Kapsam notunda
-belirtelim mi, yoksa hiç değinmeyelim mi? Önerim: tek cümle belirtmek —
-taksi/kamyon sahibi kullanıcı aracı kendi durumuna uygun sanmasın.
+**Kodlama sırası** (CLAUDE.md Bölüm 6): belge → onay → `src/lib/` saf
+fonksiyon → Vitest → arayüz. Sıra atlanmadı.
 
-**Soru 4 — `lawAsOf`.** Bu araçta mevzuat tarihi yerine "içtihat
-durumunun son kontrol tarihi" anlamına geliyor. `20 Eylül 2026` olarak
-yazıyorum; itirazın varsa söyle.
-
-- **Onay Durumu:** ⬜ **Bekliyor** — 5.9'daki dört soru cevaplanınca kod
-  yazılacak
+- **Onay Durumu:** ✅ **Onaylandı — 21 Eylül 2026**
 
 ## 6. Dava / İcra Harç ve Masraf Hesaplama
 
