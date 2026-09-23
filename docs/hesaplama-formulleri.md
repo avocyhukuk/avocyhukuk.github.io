@@ -225,28 +225,37 @@ Suç tarihine ve geçici m.6 istisnası olup olmadığına göre üç hâl:
 Hâl A'da koşullu salıverilme oranı da (istisnalar hariç) 1/2'dir — bu
 zaten 7242 sonrası genel kural, ayrı bir dal gerektirmiyor.
 
-> 🔴 **HÂL B ve C YENİDEN BAKILMALI — 23 Eylül 2026.**
+> ✅ **HÂL B ve C DOĞRULANDI — fıkranın iki cümlesi farklı kurulmuş.**
 >
-> Yukarıdaki tablo hâl B ve C'de DS süresini **"1 + 3 = 4 yıl"** diye
-> yazıyor; yani Geçici m.10/6'yı standart 1 yıllık DS'ye eklenen **sabit
-> 3 yıllık bir indirim** sayıyor.
+> Geçici m.10/6'nın tam metni iki ayrı cümle ve **ikisi aynı şeyi
+> yapmıyor**:
 >
-> **1.13/1'deki resmî metin okuması bu varsayımı sarsıyor.** Maddenin
-> açık kuruma ayrılma kısmı sabit indirim değil, bir **eşik kuralı**:
-> normal tarihe 3 yıldan az kalanları öne alıyor, kalanlara hiç
-> dokunmuyor. Aynı fıkranın DS kısmının da böyle mi kurulduğu, yoksa
-> gerçekten 3 yıllık bir öne alma mı olduğu **ayrıca teyit edilmeli.**
+> > ...açık ceza infaz kurumlarına ayrılmasına **üç yıl veya daha az süre
+> > kalanlar**, bu şartların oluştuğu tarih itibarıyla açık ceza infaz
+> > kurumlarına ayrılabilir. Bu hükümlüler ile 31/7/2023 tarihi ve
+> > öncesinde işlenmiş suçlar nedeniyle açık ceza infaz kurumlarında
+> > bulunan hükümlüler, **talepleri hâlinde en az üç ay açık ceza infaz
+> > kurumunda kalmış olmak şartıyla** ilgili mevzuat uyarınca cezalarının
+> > denetimli serbestlik tedbiri altında infazı uygulamasından **üç yıl
+> > erken yararlandırılır.**
 >
-> İki ihtimal farklı sonuç veriyor:
+> | Cümle | Yapısı | Sonuç |
+> |---|---|---|
+> | **Açığa ayrılma** | "üç yıl veya daha az **kalanlar**… ayrılabilir" | **Eşik kuralı** |
+> | **Denetimli serbestlik** | "üç yıl **erken yararlandırılır**" — "kalanlar" ve "şartların oluştuğu tarih" ibareleri YOK | **Sabit kaydırma** |
 >
-> | Okuma | Hâl B/C'de DS |
-> |---|---|
-> | Sabit ekleme *(mevcut tablo)* | KS'ye **4 yıl** kala |
-> | Eşik kuralı *(1.13/1 ile tutarlı)* | KS'ye 1 yıl kala; **ancak** eşiğe girenler öne alınır |
+> Yani 1.13/1'deki eşik düzeltmesi **yalnızca açığa ayrılma tarihini**
+> etkiliyor; DS tarihini etkilemiyor. Yukarıdaki tablodaki
+> **"1 + 3 = 4 yıl" doğru ve olduğu gibi kalıyor.**
 >
-> Tablo, teyit gelene kadar **mevcut hâliyle bırakıldı** — sessizce
-> değiştirmek, doğrulanmamış bir okumayı belgeye yazmak olurdu. Bu
-> madde Av. Onur Can Yılmaz'ın onayına sunuldu.
+> **DS'ye özgü iki şart** (açığa ayrılmada yok):
+>
+> 1. **Talep gerekiyor** — "talepleri hâlinde". Otomatik değil.
+> 2. **En az üç ay açık ceza infaz kurumunda** kalmış olmak.
+>
+> ➡️ **Kod sonucu: iki AYRI fonksiyon.** Açığa ayrılma (eşik mantığı) ve
+> DS (sabit kaydırma) tek bir fonksiyonda birleştirilmeyecek; mantıkları
+> farklı ve birinin düzeltilmesi diğerini bozmamalı.
 
 Uygulamada infaz hâkimlikleri her dosya için ayrı müddetname düzenleyip
 en erken tahliye tarihini veren maddeyi uygular. Aracın yaptığı da bu:
@@ -396,8 +405,8 @@ başlama.
 | 1 | 10.09.2024 | 5 yıl | Adi suç | yok | 01.03.2026 | 0 | En sade hâl: oran 1/2, DS standart 1 yıl, 1/10 şartı yok |
 | 2 | 10.09.2024 | 5 yıl | Adi suç | yok | 01.03.2026 | 90 | TCK m.63 mahsup dalı (1 numaradan tek farkı bu) |
 | 3 | 15.11.2024 | 18 yıl | Kasten öldürme (TCK 81) | yok | 20.01.2026 | 240 | Katalog oran 2/3 |
-| 4 | 05.06.2021 | 10 yıl | Uyuşturucu ticareti (TCK 188) | yok | 12.04.2026 | 150 | ⚠️ **ORANI AÇIK** (1.13/4) — senaryo DS hâl C için tutuluyor, oran kesinleşince tamamlanacak |
-| 5 | 12.01.2019 | 10 yıl | Uyuşturucu ticareti (TCK 188) | yok | 03.02.2026 | 0 | ⚠️ **ORANI AÇIK** (1.13/4). Eşik 30.03.2020 değil **28.06.2014** olabilir; bu tarih ikisinin de sonrasında kalıyor |
+| ~~4~~ | ~~05.06.2021~~ | ~~10 yıl~~ | ~~Uyuşturucu (TCK 188)~~ | — | — | — | 🚫 **FİKSTÜRDEN ÇIKARILDI** (1.15). DS hâl C'yi sınayan yeni bir senaryo, oranı açık olmayan bir suçla yeniden yazılacak |
+| ~~5~~ | ~~12.01.2019~~ | ~~10 yıl~~ | ~~Uyuşturucu (TCK 188)~~ | — | — | — | 🚫 **FİKSTÜRDEN ÇIKARILDI** (1.15) |
 
 #### Tekerrür ve oran çakışması
 
@@ -813,11 +822,23 @@ olduğunu **ima ediyor** ama bunu açıkça yazan bir madde bulunamadı.
 > **Durum: ARAŞTIRILIYOR.** Çözülene kadar araç TCK 188 için oranı
 > KENDİ SEÇMEYECEK.
 
-**v1 geçici çözümü** (Av. Onur Can Yılmaz'ın talimatı): 188 seçildiğinde
-kullanıcıya **iki oran seçeneği** (2/3 ve 3/4) açıkça sunulacak ve
-yanına kısa bir açıklama konacak — hangi oranın uygulanacağının suç
-tarihine ve derdest içtihada bağlı olduğu söylenecek. Araç sessizce bir
-oran seçip yanlış tarih üretmeyecek.
+**v1 davranışı — KARARA BAĞLANDI (23.09.2026):**
+
+- Kullanıcı "uyuşturucu ticareti" seçtiğinde **sistem otomatik oran
+  atamayacak.**
+- Bir **uyarı/ara ekran** çıkacak: *"2/3 mü 3/4 mü olduğunuzu
+  avukatınızdan teyit edin, çoğu durumda 2/3'tür."*
+- Hesap, **kullanıcının seçtiği orana** göre yapılacak.
+
+Formda bu seçenek diğer suç kategorilerinden **ayrı işlenmeli** — tek
+bir açılır menü öğesi olarak geçiştirilemez, kendi dalı olacak.
+
+> 🚫 **Bu madde ŞİMDİLİK ARAŞTIRILMAYACAK.** Av. Onur Can Yılmaz'ın
+> talimatı: v1 yukarıdaki davranışla çıkar, kalıcı cevap sonraya kalır.
+>
+> **Fikstür sonucu:** uyuşturucu ticareti içeren test senaryoları
+> fikstür listesinden **çıkarıldı** (1.10). m.188 netleşmeden o
+> senaryoların "doğru" tarihini iddia edemeyiz.
 
 **Çözmek için gereken:** 28.06.2014 sonrası TCK 188 suçlarında oranı
 **3/4'e çıkaran hükmün kendisi** — 6545 s.K.'nın 5275'te hangi maddeyi
@@ -882,6 +903,104 @@ ve 1.12'deki "ikinci tekerrürde 3/4 bir tarih penceresiyle sınırlı mı"
 sorusunu da cevapsız bırakmıyor: sınır tarih penceresi değil, kanun
 değişikliğinin kendisi. *(Bir ikincil kaynak 01.06.2024 – 04.06.2025
 aralığı iddia ediyordu; resmî metinde böyle bir pencere yok.)*
+
+### 1.15. Çekirdek fikstür hesabı — 23 Eylül 2026
+
+Dört çekirdek senaryonun beklenen tarihleri 1.7'deki akışa göre
+hesaplandı. **Hesap üç soru ortaya çıkardı; üçü de cevaplanmadan
+fikstür kesinleşemez.**
+
+Dört senaryonun ortak özellikleri (bu yüzden "çekirdek" seçildiler):
+
+- Suç tarihleri **31.07.2023 sonrası** → Geçici m.10/6 devrede değil, DS
+  standart 1 yıl
+- Suç tarihleri **04.06.2025 öncesi** → Geçici m.11 gereği 1/10 + 5 gün
+  şartı uygulanmıyor
+- Hepsi **30.03.2020 sonrası** → hâl A yok
+
+Yani bu dördü, geçici maddelerin hiçbiri devrede değilken çekirdek
+formülü sınıyor.
+
+#### ⚠️ Açık soru 1 — küsurat ortadan KALKMADI, yer değiştirdi
+
+1.13/5'te "takvim tarihi göster, yuvarlama yapma" kararıyla küsurat
+sorununun çözüldüğü düşünülmüştü. **Çözülmedi** — belirsizlik hesabın
+daha üstünde:
+
+| Yöntem | 5 yıl cezanın yarısı |
+|---|---|
+| Önce güne çevir, sonra oranla *(1.7 adım 1→5)* | 1825 ÷ 2 = **912,5 gün** |
+| Oranı yıl/ay biriminde uygula | 2 yıl 6 ay = **910 gün** |
+
+**2,5 günlük fark** ve ilkinde hâlâ yarım gün küsuratı var. Müddetname
+uygulaması yıl-ay-gün birimiyle çalışıyor; "2 yıl 6 ay" demek "912,5
+gün" demekten daha doğal görünüyor.
+
+18 ve 6 yıllık senaryolarda fark çıkmıyor (2/3 oranı tam bölüyor), yani
+bu yalnızca **1. ve 2. senaryoyu** etkiliyor.
+
+**Karar gerekiyor:** oran güne mi yıl/aya mı uygulanacak?
+
+#### ⚠️ Açık soru 2 — mahsup oranın ÖNCESİNDE mi SONRASINDA mı?
+
+1.7'nin adım sırası mahsubu orandan **önce** düşürüyor (adım 2 → adım 5).
+Alternatif okuma: mahsup zaten *çekilmiş* süre olduğu için orana değil,
+**çekilecek süreye** mahsup edilir.
+
+| | 2. senaryo (5 yıl, 90 gün mahsup) | 3. senaryo (18 yıl, 240 gün mahsup) |
+|---|---|---|
+| **A** — mahsup → oran *(1.7'deki akış)* | KS 867 gün · **15.07.2028** | KS 4220 gün · **10.08.2037** |
+| **B** — oran → mahsup | KS 822 gün · **31.05.2028** | KS 4140 gün · **22.05.2037** |
+| Fark | **45 gün** | **80 gün** |
+
+Mahsupsuz senaryolarda (1 ve 6) iki yol aynı sonucu veriyor.
+
+**Karar gerekiyor.** Bu fark doğrudan tahliye tarihine yansıyor.
+
+#### ⚠️ Açık soru 3 — 6. senaryo m.108/2 tavanını SINAMYOR
+
+Senaryo "mükerrir oranı **ve** m.108/2 tavanı" için yazılmıştı. Hesap:
+
+```
+taban (mükerrir olmasa)  6 yıl × 1/2 = 1095 gün
+mükerrir                 6 yıl × 2/3 = 1460 gün
+tekerrür eklemesi        1460 − 1095 =  365 gün  (1 yıl)
+m.108/2 tavanı           önceki ilam  =  730 gün  (2 yıl)
+365 ≤ 730                → TAVAN DEVREYE GİRMİYOR
+```
+
+Yani senaryo yalnızca mükerrir oranını sınıyor, tavanı değil.
+
+**Öneri:** önceki ilamı **6 ay (180 gün)** yapalım. O zaman ekleme 365
+günden 180 güne sınırlanır, KS = 1095 + 180 = **1275 gün** olur ve tavan
+gerçekten sınanır. Alternatif: 6. senaryoyu olduğu gibi bırakıp tavanı
+sınayan ayrı bir 6b senaryosu eklemek.
+
+#### Hesaplanan tarihler — A yoluna göre (1.7'deki akış)
+
+Aşağıdaki tablo **açık soru 1 ve 2 A yönünde cevaplanırsa** geçerlidir.
+Cevaplar değişirse 1. ve 2. senaryonun tarihleri değişir.
+
+| # | Senaryo | İnfaza başlama | KS süresi | **Koşullu salıverilme** | **Denetimli serbestlik** | **Bihakkın tahliye** |
+|---|---|---|---|---|---|---|
+| 1 | Adi suç, 5 yıl, mahsup yok | 01.03.2026 | 912 gün | **29.08.2028** | **30.08.2027** | **28.02.2031** |
+| 2 | Adi suç, 5 yıl, 90 gün mahsup | 01.03.2026 | 867 gün | **15.07.2028** | **16.07.2027** | **30.11.2030** |
+| 3 | Kasten öldürme, 18 yıl, 240 gün mahsup | 20.01.2026 | 4220 gün | **10.08.2037** | **10.08.2036** | **21.05.2043** |
+| 6 | Hırsızlık, 6 yıl, 1. mükerrir, önceki ilam 2 yıl | 10.05.2026 | 1460 gün | **09.05.2030** | **09.05.2029** | **08.05.2032** |
+
+DS = KS − 365 gün (standart 1 yıl), üç senaryoda da 1/10 şartı devrede
+değil. Bihakkın = infaza başlama + net süre (mahsup düşülmüş).
+
+> 1. senaryodaki 912 gün, 912,5'in aşağı kırpılmış hâlidir — **açık
+> soru 1'in geçici sonucu.** Yıl/ay yöntemi seçilirse 910 gün olur ve
+> KS **27.08.2028**'e kayar.
+
+#### Fikstürden çıkarılanlar
+
+Uyuşturucu ticareti (TCK 188) içeren senaryolar **fikstür listesinden
+çıkarıldı** — oran 1.13/4'te açık olduğu için beklenen tarih iddia
+edilemez. Bu, rakip araçlardan alınan "uyuşturucu ticareti (3/4)"
+senaryosunu da kapsıyor.
 
 ## 2. Araç Değer Kaybı Hesaplama
 
