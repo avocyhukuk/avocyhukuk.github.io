@@ -971,6 +971,23 @@ sınadığı dalları **oranı tartışmasız suçlarla** yeniden kurdum:
 (210 − 365 < 0), alt sınır devreye giriyor, sonra 1/10 şartı tarihi 21
 gün ileri itiyor.
 
+> 🔴 **4 ve 5 İKİ AYRI KANUNİ DAYANAĞI SINIYOR — birleştirilmesin.**
+>
+> İkisi de "hükümlü şu kadar süre kurumda kalmış olmalı" diyor ama
+> **farklı maddelerden gelen, farklı işleyen iki ayrı kuraldır.**
+>
+> | | 4. senaryo | 5. senaryo |
+> |---|---|---|
+> | Dayanak | **Geçici m.10/6** | **m. 105/A** |
+> | Şart | **3 ay açık** ceza infaz kurumunda kalmış olmak | İnfaz süresinin **1/10'u** ve **en az 5 gün** kurumda geçmiş olmak |
+> | Kapsam | Yalnızca 31.07.2023 ve öncesi suçlar | 04.06.2025 sonrası suçlarda **genel** kural |
+> | İşleyişi | **KAPI** — sağlanmazsa 3 yıllık erken kaydırma hiç uygulanmaz | **TABAN** — tarihi ileri iter |
+> | Kullanıcıdan | Onay kutusuyla sorulur (vakıa) | Sorulmaz, hesaplanır |
+>
+> Biri kapı, diğeri taban. Tek bir "asgari kurumda kalma" fonksiyonuna
+> sıkıştırılırsa ikisinin farklı davranışı kaybolur ve biri diğerini
+> sessizce ezer. **Kodda ayrı ayrı kontrol edilecekler.**
+
 #### Hesaplanan fikstür — yedi senaryo
 
 Hepsi A okuması + yıl-ay-gün oranıyla hesaplandı.

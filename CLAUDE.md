@@ -162,7 +162,7 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - [ ] Eski site (Natro) yeni site tamamen test edilip onaylanana kadar canlı kalacak — geçiş en son adım
 
 ### Faz C — Hesaplama araçları (Bölüm 6'daki sıraya göre, her biri ayrı görev)
-- [ ] Yatar hesaplama — formül doğrulama → geliştirme → test → yayın
+- [x] Yatar hesaplama — formül doğrulama → geliştirme → test → yayın. *Sekiz araç içindeki en riskli olan; mevzuat altı yılda ALTI kez değişti (son: 7593, 08.08.2026). Resmî metin doğrulaması 23.09.2026'da yapıldı (docs § 1.13-1.15). Açığa ayrılma EŞİK kuralı, denetimli serbestlik SABİT kaydırma — ayrı fonksiyonlar, birleştirilmeyecek. Mahsup A okumasıyla (TCK m.63) oran öncesi düşülüyor; **bu nokta yayından önce gözden geçirilecek**. TCK 188 oranı hâlâ açık: araç oran atamıyor, kullanıcıya seçtiriyor. Sonuç ekranı ara adımları gösteriyor — yanlış hesap sessiz kalmasın diye.*
 - [x] Araç değer kaybı — **hesaplama aracı yapılmadı.** Formül doğrulaması, dayanak ekin 01.07.2026'da yürürlükten kaldırıldığını ortaya çıkardı. *20 Eylül 2026'da karara bağlandı:* araç listeden çıkarıldı, konu `/blog/arac-deger-kaybi-yeni-donem` adresinde bilgilendirme yazısına dönüştürüldü. Rakam üreten form yok.
 - [x] Kira artış hesaplama — formül doğrulama → geliştirme → test → yayın. *TÜFE oranı elle tutulan tabloda (`src/lib/tufe.ts`); her ayın 4'ünde bir bulut ajanı hatırlatıyor, oran TÜİK bülteninden teyit edilip elle işleniyor.*
 - [x] İcra/gecikme faizi hesaplama — formül doğrulama → geliştirme → test → yayın. *Kanuni faiz dönem tablosu `src/lib/faiz-oranlari.ts`; 7589 s.K. sonrası oran TCMB reeskontunun %80'i olduğu için yılda bir-iki kez değişiyor, yeni dönem başlayınca satır eklenmeli.*

@@ -29,7 +29,7 @@ export const CALCULATORS: readonly Calculator[] = [
     summary:
       'Verilen hapis cezasının koşullu salıverilme ve denetimli serbestlik süreleriyle birlikte tahmini infaz süresini hesaplar.',
     areas: ['ceza-hukuku'],
-    status: 'planned',
+    status: 'ready',
   },
   /*
    * Araç Değer Kaybı burada DEĞİL — bilerek.

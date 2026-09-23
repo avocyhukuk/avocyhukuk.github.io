@@ -1,0 +1,457 @@
+---
+/**
+ * İnfaz / Yatar Hesaplama.
+ *
+ * Formül, kaynaklar ve karar geçmişi: docs/hesaplama-formulleri.md § 1.
+ * Hesap src/lib/infaz.ts içinde, saf ve test edilmiş (7 çekirdek senaryo).
+ *
+ * ─── ARA ADIMLAR ZORUNLU ──────────────────────────────────────────────
+ * Cetvel yalnızca üç tarihi değil, hesabın ara adımlarını da gösteriyor:
+ * hükmolunan ceza → mahsup → kalan ceza → oran → (mükerrirse taban,
+ * ekleme, m.108/2 tavanı) → infaz süresi → tarihler.
+ *
+ * Sebebi şeffaflıktan fazlası (§ 1.15): mahsubun oran öncesinde mi
+ * sonrasında mı düşüleceği (A/B okuması) yayından önce yeniden
+ * kontrol edilecek. Ara adımlar görünürse yanlış sıra ekrandan okunur;
+ * yalnızca nihai tarih gösterilseydi sessizce yanlış tarih üretirdi.
+ *
+ * ─── TCK 188 ──────────────────────────────────────────────────────────
+ * Uyuşturucu ticaretinde oran çözülmedi (§ 1.13/4). Araç oranı KENDİ
+ * SEÇMİYOR: kullanıcıya uyarı gösterip seçtirmiyorsa hesap yapmıyor.
+ */
+import CalculatorShell from '../../components/calculator/CalculatorShell.astro';
+import ResultSheet from '../../components/calculator/ResultSheet.astro';
+import FormField from '../../components/calculator/FormField.astro';
+import { CALCULATORS } from '../../lib/calculators';
+import { KATALOG_SUCLAR } from '../../lib/infaz-oranlari';
+
+const calculator = CALCULATORS.find((tool) => tool.slug === 'infaz-hesaplama')!;
+
+// § 1.1b — kapsam notu. Metin birebir kayıtlı, değiştirilmesi onay gerektirir.
+const scopeNote = [
+  'Bu araç 18 yaş üstü, tek kesinleşmiş ilam ve standart infaz rejimi için tahmini hesaplama yapar; çocuk hükümlüler ve açık cezaevine geçiş hesaplaması bu sürümde kapsam dışıdır.',
+  'Koşullu salıverilmenin maddi şartı idare ve gözlem kurulunun iyi hâl değerlendirmesidir (5275 m. 89). Bu bir takdir yetkisidir ve hiçbir formülle hesaplanamaz; araç en erken olası tarihi verir, gerçekleşecek tarihi değil.',
+  'İnfaz mevzuatı son altı yılda altı kez değişti. Sonuç, hesaplamanın yapıldığı tarihte yürürlükte olan mevzuata dayanır.',
+];
+---
+
+<CalculatorShell calculator={calculator} lawAsOf="23 Eylül 2026" scopeNote={scopeNote}>
+  <Fragment slot="form">
+    <FormField id="infaza-baslama" label="İnfaza başlama tarihi" type="date" />
+
+    <FormField
+      id="suc-tarihi"
+      label="Suç tarihi"
+      hint="Karar tarihi DEĞİL. Uygulanacak infaz rejimini suç tarihi belirler."
+      type="date"
+    />
+
+    <fieldset class="ceza">
+      <legend>Hükmolunan ceza</legend>
+      <div class="ceza__alanlar">
+        <FormField id="ceza-yil" label="Yıl" type="number" min={0} step="1" inputmode="numeric" />
+        <FormField id="ceza-ay" label="Ay" type="number" min={0} step="1" inputmode="numeric" />
+        <FormField id="ceza-gun" label="Gün" type="number" min={0} step="1" inputmode="numeric" />
+      </div>
+    </fieldset>
+
+    <FormField
+      id="mahsup"
+      label="Mahsup edilecek süre"
+      hint="Gözaltında ve tutuklulukta geçen gün sayısı (TCK m. 63)."
+      type="number"
+      unit="gün"
+      min={0}
+      step="1"
+      inputmode="numeric"
+    />
+
+    <FormField id="kategori" label="Suç kategorisi">
+      <select id="kategori" name="kategori">
+        <option value="adi">Adi suç (genel kural)</option>
+        <option value="katalog">Katalog suç</option>
+        <option value="nitelikli-cinsel">Nitelikli cinsel suç</option>
+        <option value="teror">Terör suçu</option>
+        <option value="uyusturucu">Uyuşturucu imal ve ticareti (TCK 188)</option>
+      </select>
+    </FormField>
+
+    {/* TCK 188 — oranı araç seçmiyor, kullanıcı seçiyor (§ 1.13/4). */}
+    <div class="uyusturucu" data-grup="uyusturucu" hidden>
+      <p class="uyusturucu__uyari">
+        <strong>Bu suçta koşullu salıverilme oranı tartışmalıdır.</strong> 2/3 mü 3/4 mü olduğunuzu avukatınızdan
+        teyit edin; çoğu durumda 2/3'tür. Araç sizin yerinize bir oran seçmez.
+      </p>
+
+      <FormField id="uyusturucu-orani" label="Uygulanacak oran">
+        <select id="uyusturucu-orani" name="uyusturucu-orani">
+          <option value="">Seçiniz</option>
+          <option value="ucte-iki">2/3 (üçte iki)</option>
+          <option value="dortte-uc">3/4 (dörtte üç)</option>
+        </select>
+      </FormField>
+    </div>
+
+    <FormField id="tekerrur" label="Tekerrür durumu">
+      <select id="tekerrur" name="tekerrur">
+        <option value="yok">Tekerrür yok</option>
+        <option value="birinci">Birinci defa mükerrir</option>
+        <option value="ikinci">İkinci defa mükerrir</option>
+      </select>
+    </FormField>
+
+    {/* m.108/2 tavanı yalnızca birinci tekerrürde uygulanıyor. */}
+    <fieldset class="ceza" data-grup="tekerrur-birinci" hidden>
+      <legend>Tekerrüre esas önceki ilam</legend>
+      <p class="form-note">
+        Tekerrür nedeniyle eklenecek süre, bu cezanın en ağırından fazla olamaz (m. 108/2).
+      </p>
+      <div class="ceza__alanlar">
+        <FormField id="onceki-yil" label="Yıl" type="number" min={0} step="1" inputmode="numeric" />
+        <FormField id="onceki-ay" label="Ay" type="number" min={0} step="1" inputmode="numeric" />
+      </div>
+    </fieldset>
+
+    <FormField id="ozel-durum" label="Denetimli serbestlikte özel durum">
+      <select id="ozel-durum" name="ozel-durum">
+        <option value="yok">Yok</option>
+        <option value="cocuklu-kadin">0-6 yaş çocuğu olan kadın hükümlü</option>
+        <option value="yetmis-yas">70 yaşını doldurmuş hükümlü</option>
+      </select>
+    </FormField>
+
+    {/* Geçici m.10/6 KAPISI — vakıa, hesaplanamaz, sorulur (§ 1.5). */}
+    <div class="onay" data-grup="hal-c" hidden>
+      <input type="checkbox" id="acik-kurum" name="acik-kurum" />
+      <label for="acik-kurum">Açık ceza infaz kurumunda en az 3 ay kaldı</label>
+    </div>
+
+    <button class="btn btn--primary" type="button" id="hesapla">Hesapla</button>
+  </Fragment>
+
+  <div class="result-region">
+    <p class="alert" id="uyari" role="alert" hidden></p>
+    <ResultSheet title="Hesap dökümü" />
+
+    <ul class="notes" id="ds-notlari" hidden></ul>
+
+    <details class="katalog">
+      <summary>Katalog suçlar hangileri?</summary>
+      <ul class="katalog__liste">
+        {
+          KATALOG_SUCLAR.map((suc) => (
+            <li>
+              <strong>{suc.ad}</strong> — {suc.maddeler}
+            </li>
+          ))
+        }
+      </ul>
+    </details>
+  </div>
+</CalculatorShell>
+
+<style>
+  .form-note {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  .ceza {
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+  }
+
+  .ceza legend {
+    padding-inline: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .ceza__alanlar {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: var(--space-3);
+  }
+
+  @media (min-width: 480px) {
+    .ceza__alanlar {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* İki alanlı fieldset (önceki ilam) üç sütuna yayılmasın */
+  .ceza__alanlar:has(> :nth-child(2):last-child) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .uyusturucu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    padding: var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-inline-start: 3px solid var(--brand-navy);
+    border-radius: var(--radius-sm);
+  }
+
+  .uyusturucu__uyari {
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+
+  .onay {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .onay input {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--brand-navy);
+  }
+
+  .onay label {
+    font-size: var(--text-sm);
+    font-weight: 600;
+  }
+
+  .result-region {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .alert {
+    padding: var(--space-4);
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-strong);
+    border-inline-start: 3px solid var(--text-primary);
+    border-radius: var(--radius-sm);
+    font-size: var(--text-sm);
+    color: var(--text-primary);
+  }
+
+  .notes {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding-inline-start: var(--space-5);
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .katalog {
+    font-size: var(--text-sm);
+  }
+
+  .katalog summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: var(--brand-navy);
+  }
+
+  .katalog__liste {
+    display: grid;
+    gap: var(--space-2);
+    margin-top: var(--space-3);
+    padding-inline-start: var(--space-5);
+    color: var(--text-muted);
+  }
+</style>
+
+<script>
+  import { infazHesapla } from '../../lib/infaz';
+  import { D } from '../../lib/infaz-oranlari';
+  import type { SucKategorisi, Tekerrur, UyusturucuOrani } from '../../lib/infaz-oranlari';
+  import { sureYaz } from '../../lib/infaz-sure';
+  import type { SheetRow } from '../../lib/calculator-ui';
+  import { formatDateTR, formatNumber } from '../../lib/format';
+  import { clearSheet, findSheet, renderSheet } from '../../scripts/result-sheet';
+
+  const sheet = findSheet();
+  const el = <T extends HTMLElement>(id: string) => document.querySelector<T>(`#${id}`);
+  const sayi = (id: string) => Number(el<HTMLInputElement>(id)?.value || 0);
+
+  const kategori = el<HTMLSelectElement>('kategori');
+  const tekerrur = el<HTMLSelectElement>('tekerrur');
+  const sucTarihi = el<HTMLInputElement>('suc-tarihi');
+  const buton = el<HTMLButtonElement>('hesapla');
+  const uyari = el<HTMLElement>('uyari');
+  const dsNotlari = el<HTMLUListElement>('ds-notlari');
+
+  /** Geçici m.10/6'nın hâl C penceresi — onay kutusu yalnızca burada görünür. */
+  const HAL_C_BASLANGIC = Date.UTC(2020, 2, 30);
+  const HAL_C_BITIS = Date.UTC(2023, 6, 31);
+
+  if (sheet && kategori && tekerrur && sucTarihi && buton && uyari && dsNotlari) {
+    const goster = (ad: string, kosul: boolean) => {
+      for (const g of document.querySelectorAll<HTMLElement>(`[data-grup="${ad}"]`)) {
+        g.hidden = !kosul;
+      }
+    };
+
+    const gruplariGuncelle = () => {
+      goster('uyusturucu', kategori.value === 'uyusturucu');
+      goster('tekerrur-birinci', tekerrur.value === 'birinci');
+
+      const t = new Date(sucTarihi.value).getTime();
+      goster('hal-c', Number.isFinite(t) && t >= HAL_C_BASLANGIC && t <= HAL_C_BITIS);
+    };
+
+    const uyariGoster = (mesaj: string) => {
+      uyari.textContent = mesaj;
+      uyari.hidden = false;
+      dsNotlari.hidden = true;
+      clearSheet(sheet);
+    };
+
+    const hesapla = () => {
+      uyari.hidden = true;
+
+      const secilenOran = el<HTMLSelectElement>('uyusturucu-orani')?.value;
+
+      const sonuc = infazHesapla({
+        infazaBaslama: new Date(el<HTMLInputElement>('infaza-baslama')?.value ?? ''),
+        sucTarihi: new Date(sucTarihi.value),
+        ceza: { yil: sayi('ceza-yil'), ay: sayi('ceza-ay'), gun: sayi('ceza-gun') },
+        kategori: kategori.value as SucKategorisi,
+        uyusturucuOrani: secilenOran ? (secilenOran as UyusturucuOrani) : undefined,
+        mahsupGun: sayi('mahsup'),
+        tekerrur: tekerrur.value as Tekerrur,
+        oncekiIlam:
+          tekerrur.value === 'birinci'
+            ? { yil: sayi('onceki-yil'), ay: sayi('onceki-ay'), gun: 0 }
+            : undefined,
+        dsOzelDurum: el<HTMLSelectElement>('ozel-durum')?.value as
+          'yok' | 'cocuklu-kadin' | 'yetmis-yas',
+        acikKurumUcAy: el<HTMLInputElement>('acik-kurum')?.checked === true,
+      });
+
+      if (sonuc.durum === 'gecersiz-tarih') {
+        uyariGoster('İnfaza başlama tarihini ve suç tarihini girin.');
+        return;
+      }
+      if (sonuc.durum === 'gecersiz-ceza') {
+        uyariGoster('Hükmolunan cezayı sıfırdan büyük bir süre olarak girin.');
+        return;
+      }
+      if (sonuc.durum === 'uyusturucu-orani-gerekli') {
+        uyariGoster(
+          'Uyuşturucu imal ve ticaretinde koşullu salıverilme oranı tartışmalıdır. ' +
+            'Araç sizin yerinize oran seçmez — yukarıdaki listeden 2/3 veya 3/4 seçin.'
+        );
+        return;
+      }
+
+      const { ks, ds } = sonuc;
+
+      // ── ARA ADIMLAR — § 1.15'teki karar
+      const rows: SheetRow[] = [{ label: 'Hükmolunan ceza', value: sureYaz(ks.hukmolunanCeza) }];
+
+      if (ks.mahsupGun > 0) {
+        rows.push(
+          {
+            label: 'Mahsup edilen süre',
+            value: `−${formatNumber(ks.mahsupGun)} gün`,
+            detail: 'Gözaltında ve tutuklulukta geçen süre',
+            basis: D.mahsup,
+          },
+          { label: 'Kalan ceza', value: sureYaz(ks.kalanCeza) }
+        );
+      }
+
+      rows.push({
+        label: 'Uygulanan oran',
+        value: ks.oran.metin,
+        detail: 'Kalan cezanın bu oranı kurumda çekilir',
+        basis: ks.oran.dayanak,
+      });
+
+      if (ks.mukerrirTaban) {
+        rows.push(
+          { label: 'Tekerrürsüz taban', value: sureYaz(ks.mukerrirTaban) },
+          { label: 'Tekerrür eklemesi', value: sureYaz(ks.tekerrurEklemesi!) }
+        );
+        if (ks.m108Tavani) {
+          rows.push({
+            label: 'm. 108/2 tavanı',
+            value: sureYaz(ks.m108Tavani),
+            detail: ks.tavanDevredeMi
+              ? `Ekleme bu süreye indirildi: ${sureYaz(ks.uygulananEkleme!)}`
+              : 'Ekleme tavanın altında kaldı, sınır uygulanmadı',
+            basis: D.tavan,
+          });
+        }
+      }
+
+      rows.push(
+        {
+          label: 'Kurumda geçirilecek süre',
+          value: sureYaz(ks.infazSuresi),
+          detail: `${formatNumber(ks.infazSuresiGun)} gün`,
+        },
+        {
+          label: 'Koşullu salıverilme tarihi',
+          value: formatDateTR(sonuc.ksTarihi),
+          basis: ks.oran.dayanak,
+          total: true,
+        },
+        {
+          label: 'Denetimli serbestlik başlangıcı',
+          value: formatDateTR(ds.tarih),
+          basis: ds.dayanak,
+          total: true,
+        },
+        {
+          label: 'Bihakkın (hak ederek) tahliye',
+          value: formatDateTR(sonuc.bihakkin),
+          detail: 'Cezanın tamamının çekildiği tarih',
+          total: true,
+        }
+      );
+
+      renderSheet(sheet, rows);
+
+      // ── DS notları: hangi hâl uygulandı, tabanlar devreye girdi mi
+      const notlar: string[] = [];
+      if (ds.hal === 'hal-c' || ds.hal === 'hal-b') {
+        notlar.push(
+          'Denetimli serbestliğe 3 yıl erken geçiş uygulandı (Geçici m. 10/6). ' +
+            'Bu, kendiliğinden işlemez; hükümlünün talebi gerekir.'
+        );
+      }
+      if (ds.hal === 'ozel-durum') {
+        notlar.push('Özel durum nedeniyle denetimli serbestlik süresi 4 yıl olarak uygulandı.');
+      }
+      if (ds.birOndaTabani?.uygulandi) {
+        notlar.push(
+          `Denetimli serbestlik tarihi, kurumda en az ${formatNumber(ds.birOndaTabani.gerekenGun)} gün ` +
+            'geçirilmesi şartı nedeniyle ileri alındı (m. 105/A).'
+        );
+      }
+      if (ds.altSinirUygulandi) {
+        notlar.push(
+          'Hesaplanan denetimli serbestlik tarihi infaza başlama tarihinden önceye düştüğü için ' +
+            'infaza başlama tarihine çekildi.'
+        );
+      }
+
+      dsNotlari.replaceChildren(
+        ...notlar.map((metin) => {
+          const li = document.createElement('li');
+          li.textContent = metin;
+          return li;
+        })
+      );
+      dsNotlari.hidden = notlar.length === 0;
+    };
+
+    gruplariGuncelle();
+    for (const alan of [kategori, tekerrur]) alan.addEventListener('change', gruplariGuncelle);
+    sucTarihi.addEventListener('change', gruplariGuncelle);
+    buton.addEventListener('click', hesapla);
+  }
+</script>
