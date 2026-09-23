@@ -297,13 +297,15 @@ Bu üçünün altında, `CALCULATOR_DISCLAIMER` ile birlikte 1.1b'deki
 ### 1.7. Hesaplama adımları (taslak akış)
 
 ```
-1. Toplam ceza süresini güne çevir  (1 yıl = 365, 1 ay = 30)
-2. Mahsup (TCK m.63) → net infaz edilecek süre
+1. Ceza ve mahsubu AY cinsine çevir (1 yıl = 12 ay, 1 ay = 30 gün)
+2. Mahsup (TCK m.63) hükmolunan cezadan düşülür → kalan ceza
+   · A okuması — oran BUNDAN SONRA uygulanır (bkz. 1.15/Karar 1)
 3. Suç tarihi eşiklerini belirle: 30.03.2020 / 31.07.2023 / 04.06.2025
 4. Suç kategorisi + tekerrür → KS oranını seç
    · çakışma hâlinde YÜKSEK oran (bkz. 1.4 sonu)
-5. Kurumda geçirilecek süre:
-   · süreli hapis  → net süre × KS oranı
+5. Kurumda geçirilecek süre (oran YIL-AY-GÜN seviyesinde uygulanır,
+   sonuç sonra güne çevrilir — bkz. 1.15/Karar 2):
+   · süreli hapis  → kalan ceza × KS oranı
    · müebbet       → tablodaki sabit yıl (orana bakılmaz)
    · mükerrir + önceki ilam verilmişse → m.108/2 tavanını uygula
 6. KS tarihi          = infaza başlama + (5)
@@ -904,103 +906,118 @@ sorusunu da cevapsız bırakmıyor: sınır tarih penceresi değil, kanun
 değişikliğinin kendisi. *(Bir ikincil kaynak 01.06.2024 – 04.06.2025
 aralığı iddia ediyordu; resmî metinde böyle bir pencere yok.)*
 
-### 1.15. Çekirdek fikstür hesabı — 23 Eylül 2026
+### 1.15. Çekirdek fikstür — KARARA BAĞLANDI (23 Eylül 2026)
 
-Dört çekirdek senaryonun beklenen tarihleri 1.7'deki akışa göre
-hesaplandı. **Hesap üç soru ortaya çıkardı; üçü de cevaplanmadan
-fikstür kesinleşemez.**
+1.15'in ilk hâlinde üç açık soru vardı. Üçü de cevaplandı.
 
-Dört senaryonun ortak özellikleri (bu yüzden "çekirdek" seçildiler):
+#### Karar 1 — Mahsup sırası: **A okuması**
 
-- Suç tarihleri **31.07.2023 sonrası** → Geçici m.10/6 devrede değil, DS
-  standart 1 yıl
-- Suç tarihleri **04.06.2025 öncesi** → Geçici m.11 gereği 1/10 + 5 gün
-  şartı uygulanmıyor
-- Hepsi **30.03.2020 sonrası** → hâl A yok
+> **Mahsup sırası: A okuması.** TCK m. 63'ün lafzına dayanır —
+> *"hükmolunan hapis cezasından indirilir"*. Mahsup, koşullu salıverilme
+> oranı uygulanmadan **önce** hükmolunan/ham cezadan düşülür; sonra kalan
+> cezaya oran uygulanır.
 
-Yani bu dördü, geçici maddelerin hiçbiri devrede değilken çekirdek
-formülü sınıyor.
+> ⚠️ **YAYINDAN ÖNCE GÖZDEN GEÇİRİLECEK.** Bu noktada tek bir pratisyen
+> sitesinin (`tahanci.av.tr`) örneği **ters yönde** hesap yapıyordu
+> (B okuması: önce oran, sonra mahsup). Çelişki web araştırmasıyla tam
+> çözülemedi; `barandogan.av.tr` yalnızca madde metnini tekrarlıyor,
+> somut örnek veya içtihat içermiyor. **Av. Onur Can Yılmaz'ın kendi
+> infaz dosyası tecrübesinden bu sırayı teyit etmesi önerilir.**
+>
+> Fark küçük değil: 18 yıllık cezada 80 güne kadar çıkıyor.
 
-#### ⚠️ Açık soru 1 — küsurat ortadan KALKMADI, yer değiştirdi
+#### Karar 2 — Oran **yıl-ay-gün seviyesinde** uygulanır
 
-1.13/5'te "takvim tarihi göster, yuvarlama yapma" kararıyla küsurat
-sorununun çözüldüğü düşünülmüştü. **Çözülmedi** — belirsizlik hesabın
-daha üstünde:
-
-| Yöntem | 5 yıl cezanın yarısı |
-|---|---|
-| Önce güne çevir, sonra oranla *(1.7 adım 1→5)* | 1825 ÷ 2 = **912,5 gün** |
-| Oranı yıl/ay biriminde uygula | 2 yıl 6 ay = **910 gün** |
-
-**2,5 günlük fark** ve ilkinde hâlâ yarım gün küsuratı var. Müddetname
-uygulaması yıl-ay-gün birimiyle çalışıyor; "2 yıl 6 ay" demek "912,5
-gün" demekten daha doğal görünüyor.
-
-18 ve 6 yıllık senaryolarda fark çıkmıyor (2/3 oranı tam bölüyor), yani
-bu yalnızca **1. ve 2. senaryoyu** etkiliyor.
-
-**Karar gerekiyor:** oran güne mi yıl/aya mı uygulanacak?
-
-#### ⚠️ Açık soru 2 — mahsup oranın ÖNCESİNDE mi SONRASINDA mı?
-
-1.7'nin adım sırası mahsubu orandan **önce** düşürüyor (adım 2 → adım 5).
-Alternatif okuma: mahsup zaten *çekilmiş* süre olduğu için orana değil,
-**çekilecek süreye** mahsup edilir.
-
-| | 2. senaryo (5 yıl, 90 gün mahsup) | 3. senaryo (18 yıl, 240 gün mahsup) |
-|---|---|---|
-| **A** — mahsup → oran *(1.7'deki akış)* | KS 867 gün · **15.07.2028** | KS 4220 gün · **10.08.2037** |
-| **B** — oran → mahsup | KS 822 gün · **31.05.2028** | KS 4140 gün · **22.05.2037** |
-| Fark | **45 gün** | **80 gün** |
-
-Mahsupsuz senaryolarda (1 ve 6) iki yol aynı sonucu veriyor.
-
-**Karar gerekiyor.** Bu fark doğrudan tahliye tarihine yansıyor.
-
-#### ⚠️ Açık soru 3 — 6. senaryo m.108/2 tavanını SINAMYOR
-
-Senaryo "mükerrir oranı **ve** m.108/2 tavanı" için yazılmıştı. Hesap:
+Ceza güne çevrilip oranlanmıyor; oran yıl-ay-gün biriminde uygulanıp
+sonuç güne çevriliyor.
 
 ```
-taban (mükerrir olmasa)  6 yıl × 1/2 = 1095 gün
-mükerrir                 6 yıl × 2/3 = 1460 gün
-tekerrür eklemesi        1460 − 1095 =  365 gün  (1 yıl)
-m.108/2 tavanı           önceki ilam  =  730 gün  (2 yıl)
-365 ≤ 730                → TAVAN DEVREYE GİRMİYOR
+1. ceza ve mahsup → ay cinsinden kesir   (1 yıl = 12 ay, 1 ay = 30 gün)
+2. kalan = ceza − mahsup
+3. infaz süresi = kalan × oran           ← oran BURADA uygulanır
+4. sonucu yıl-ay-gün olarak ayrıştır
+5. güne çevir                            (1 yıl = 365, 1 ay = 30 gün)
 ```
 
-Yani senaryo yalnızca mükerrir oranını sınıyor, tavanı değil.
+Örnek: 5 yıl × 1/2 = **2 yıl 6 ay** = 910 gün. *(Önce güne çevirseydik
+1825 ÷ 2 = 912,5 gün çıkıyordu — hem 2,5 gün fark hem yarım gün
+küsuratı.)* Müddetname uygulaması yıl-ay-gün birimiyle çalıştığı için
+bu yöntem seçildi ve küsurat sorunu gerçekten ortadan kalktı.
 
-**Öneri:** önceki ilamı **6 ay (180 gün)** yapalım. O zaman ekleme 365
-günden 180 güne sınırlanır, KS = 1095 + 180 = **1275 gün** olur ve tavan
-gerçekten sınanır. Alternatif: 6. senaryoyu olduğu gibi bırakıp tavanı
-sınayan ayrı bir 6b senaryosu eklemek.
+> ℹ️ **İki dönüşüm birbirine denk değil** — bilinçli kabul. Konvansiyon
+> kendi içinde tutarsız (12 × 30 = 360 ≠ 365), dolayısıyla "önce oranla
+> sonra güne çevir" ile "önce güne çevir sonra oranla" aynı sonucu
+> vermiyor. 3. senaryoda fark 5 gün. Seçilen yol ilki.
 
-#### Hesaplanan tarihler — A yoluna göre (1.7'deki akış)
+#### Karar 3 — 6b senaryosu eklendi
 
-Aşağıdaki tablo **açık soru 1 ve 2 A yönünde cevaplanırsa** geçerlidir.
-Cevaplar değişirse 1. ve 2. senaryonun tarihleri değişir.
+6. senaryo m.108/2 tavanını sınamıyordu (ekleme 1 yıl, tavan 2 yıl →
+sınır devreye girmiyor). **6. senaryo olduğu gibi kaldı**, yanına önceki
+ilamı **6 ay** olan **6b** eklendi; orada tavan gerçekten devreye
+giriyor ve infaz süresini 4 yıldan 3 yıl 6 aya indiriyor.
 
-| # | Senaryo | İnfaza başlama | KS süresi | **Koşullu salıverilme** | **Denetimli serbestlik** | **Bihakkın tahliye** |
+#### 4 ve 5 numaralı yuvalar — YENİDEN DOLDURULDU
+
+Eski 4 ve 5, TCK 188 senaryolarıydı ve oranı açık olduğu için
+çıkarılmıştı (1.13/4). Yuvalar boş kalmasın diye, o senaryoların
+sınadığı dalları **oranı tartışmasız suçlarla** yeniden kurdum:
+
+| Yuva | Eski | Yeni | Sınadığı dal |
+|---|---|---|---|
+| 4 | Uyuşturucu + DS hâl C | **Adi suç, 12 yıl, hâl C** | Geçici m.10/6'nın DS kaydırması (4 yıl) |
+| 5 | Uyuşturucu, tarih ayrımı | **Adi suç, 1 yıl 2 ay, suç 04.06.2025 sonrası** | 1/10 + 5 gün şartı **ve** DS'nin infaza başlamadan önceye düşememesi |
+
+5. senaryo iki şeyi birden sınıyor: standart DS hesabı negatife düşüyor
+(210 − 365 < 0), alt sınır devreye giriyor, sonra 1/10 şartı tarihi 21
+gün ileri itiyor.
+
+#### Hesaplanan fikstür — yedi senaryo
+
+Hepsi A okuması + yıl-ay-gün oranıyla hesaplandı.
+
+| # | Senaryo | İnfaza başlama | İnfaz süresi | **KS** | **DS** | **Bihakkın** |
 |---|---|---|---|---|---|---|
-| 1 | Adi suç, 5 yıl, mahsup yok | 01.03.2026 | 912 gün | **29.08.2028** | **30.08.2027** | **28.02.2031** |
-| 2 | Adi suç, 5 yıl, 90 gün mahsup | 01.03.2026 | 867 gün | **15.07.2028** | **16.07.2027** | **30.11.2030** |
-| 3 | Kasten öldürme, 18 yıl, 240 gün mahsup | 20.01.2026 | 4220 gün | **10.08.2037** | **10.08.2036** | **21.05.2043** |
-| 6 | Hırsızlık, 6 yıl, 1. mükerrir, önceki ilam 2 yıl | 10.05.2026 | 1460 gün | **09.05.2030** | **09.05.2029** | **08.05.2032** |
+| 1 | Adi suç, 5 yıl | 01.03.2026 | 2 yıl 6 ay · 910 g | **27.08.2028** | **28.08.2027** | **28.02.2031** |
+| 2 | Adi suç, 5 yıl, 90 g mahsup | 01.03.2026 | 2 yıl 4 ay 15 g · 865 g | **13.07.2028** | **14.07.2027** | **25.11.2030** |
+| 3 | Kasten öldürme, 18 yıl, 240 g mahsup | 20.01.2026 | 11 yıl 6 ay 20 g · 4215 g | **05.08.2037** | **05.08.2036** | **16.05.2043** |
+| 4 | Adi suç, 12 yıl, **hâl C** (DS 4 yıl) | 01.02.2026 | 6 yıl · 2190 g | **31.01.2032** | **01.02.2028** | **29.01.2038** |
+| 5 | Adi suç, 1 yıl 2 ay, **1/10 şartı** | 01.03.2026 | 7 ay · 210 g | **27.09.2026** | **22.03.2026** | **30.04.2027** |
+| 6 | Hırsızlık, 6 yıl, mükerrir, önceki ilam **2 yıl** | 10.05.2026 | 4 yıl · 1460 g | **09.05.2030** | **09.05.2029** | **08.05.2032** |
+| 6b | Aynısı, önceki ilam **6 ay** | 10.05.2026 | 3 yıl 6 ay · 1275 g | **05.11.2029** | **05.11.2028** | **08.05.2032** |
 
-DS = KS − 365 gün (standart 1 yıl), üç senaryoda da 1/10 şartı devrede
-değil. Bihakkın = infaza başlama + net süre (mahsup düşülmüş).
+**Ara adımlar — 2, 3 ve 6b için:**
 
-> 1. senaryodaki 912 gün, 912,5'in aşağı kırpılmış hâlidir — **açık
-> soru 1'in geçici sonucu.** Yıl/ay yöntemi seçilirse 910 gün olur ve
-> KS **27.08.2028**'e kayar.
+| | 2 | 3 | 6b |
+|---|---|---|---|
+| Hükmolunan ceza | 5 yıl | 18 yıl | 6 yıl |
+| Mahsup | −90 gün | −240 gün | yok |
+| Kalan ceza | 4 yıl 9 ay | 17 yıl 4 ay | 6 yıl |
+| Oran | 1/2 | 2/3 | 2/3 |
+| Mükerrirsiz taban | — | — | 3 yıl |
+| Tekerrür eklemesi | — | — | 1 yıl |
+| m.108/2 tavanı | — | — | 6 ay → **sınırlandı** |
+| İnfaz süresi | 2 yıl 4 ay 15 gün | 11 yıl 6 ay 20 gün | 3 yıl 6 ay |
 
-#### Fikstürden çıkarılanlar
+> 6 ve 6b'nin **bihakkın tarihi aynı** (08.05.2032) — doğru. Tekerrür
+> koşullu salıverilmeyi etkiliyor, cezanın kendisini değil.
 
-Uyuşturucu ticareti (TCK 188) içeren senaryolar **fikstür listesinden
-çıkarıldı** — oran 1.13/4'te açık olduğu için beklenen tarih iddia
-edilemez. Bu, rakip araçlardan alınan "uyuşturucu ticareti (3/4)"
-senaryosunu da kapsıyor.
+#### Sonuç ekranı — ara adımlar gösterilecek
+
+> ✅ **KARAR:** Sonuç ekranı yalnızca üç tarihi değil, **hesabın ara
+> adımlarını da ayrı satırlar hâlinde** gösterecek:
+>
+> `hükmolunan ceza → mahsup → kalan ceza → uygulanan oran →`
+> `[mükerrirse: taban, ekleme, m.108/2 tavanı] → infaz süresi → tarihler`
+>
+> **Gerekçe iki katlı.** Birincisi şeffaflık: kullanıcı ve avukatı
+> hesabı çapraz kontrol edebilir. İkincisi ve daha önemlisi:
+> **A/B kararının yanlış çıkması ihtimaline karşı en büyük güvenlik
+> önlemi bu.** Ara adımlar görünürse, mahsubun nerede düşüldüğü
+> ekrandan okunur; yalnızca nihai tarih gösterilseydi yanlış sıra
+> sessizce yanlış tarih üretirdi ve kimse fark etmezdi.
+>
+> Bu, `ResultSheet`'in zaten taşıdığı "tek büyük sayı değil, adım adım
+> döküm" tasarımıyla örtüşüyor — bileşen bu araç için de kullanılabilir.
 
 ## 2. Araç Değer Kaybı Hesaplama
 
