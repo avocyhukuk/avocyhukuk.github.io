@@ -149,11 +149,17 @@ export type InfazSonucu =
  * indirilir" dediği için mahsup, oran uygulanmadan ÖNCE hükmolunan
  * cezadan düşülüyor; oran kalan cezaya uygulanıyor.
  *
- * ⚠️ Bu nokta § 1.15/Karar 1'de "yayından önce gözden geçirilecek"
- * olarak işaretli: bir pratisyen kaynağı ters sırayla hesaplıyordu ve
- * çelişki web araştırmasıyla çözülemedi. 18 yıllık bir cezada fark 80
- * güne çıkıyor. Sonuç ekranının ara adımları göstermesinin sebebi tam
- * olarak bu — sıra yanlışsa ekrandan okunabilsin.
+ * 🚫 **YAYIN ENGELİ 1/2 — docs § 1 başı, § 1.15/Karar 1.**
+ * Mahsubun oran ÖNCESİNDE mi SONRASINDA mı düşüleceği kesinleşmedi. Bir
+ * pratisyen kaynağı ters sırayla hesaplıyor ve çelişki web
+ * araştırmasıyla çözülemedi; Av. Onur Can Yılmaz kendi dosya
+ * tecrübesiyle teyit edecek.
+ *
+ * Yanlışsa **mahsuplu her dosyada** tarih kayar — 18 yıllık bir cezada
+ * 80 güne kadar. Araç bu madde kapanmadan canlıya alınmamalı.
+ *
+ * Sonuç ekranının ara adımları göstermesinin sebebi tam olarak bu:
+ * sıra yanlışsa ekrandan okunabilsin, sessiz kalmasın.
  */
 export function ksEsigi(girdi: InfazGirdi, oran: Oran): KsEsigi {
   const hukmolunan = birime(girdi.ceza);

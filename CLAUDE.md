@@ -161,7 +161,16 @@ Faz B'de ayrıca yapılanlar (listede yoktu, kırık bağlantı bırakmamak içi
 - [ ] SSL doğrulama — özel alan adına bağlı; `*.workers.dev` önizlemesinde sertifika zaten hazır
 - [ ] Eski site (Natro) yeni site tamamen test edilip onaylanana kadar canlı kalacak — geçiş en son adım
 
-### Faz C — Hesaplama araçları (Bölüm 6'daki sıraya göre, her biri ayrı görev)
+### Faz C — Hesaplama araçları ✅ TAMAMLANDI (23 Eylül 2026)
+
+> Sekiz aracın yedisi yazıldı ve testleri geçiyor; biri (araç değer
+> kaybı) mevzuat değişikliği nedeniyle hesap makinesi olmaktan çıkıp
+> bilgilendirme yazısına dönüştü. **170 test geçiyor.**
+>
+> 🚫 **İnfaz/Yatar aracında iki YAYIN ENGELİ açık** — kod hazır ama bu
+> iki madde kapanmadan canlıya alınmamalı: (1) mahsup sırası (A/B
+> okuması), (2) TCK m. 188 oranı. Ayrıntı: `docs/hesaplama-formulleri.md`
+> § 1 başındaki kutu.
 - [x] Yatar hesaplama — formül doğrulama → geliştirme → test → yayın. *Sekiz araç içindeki en riskli olan; mevzuat altı yılda ALTI kez değişti (son: 7593, 08.08.2026). Resmî metin doğrulaması 23.09.2026'da yapıldı (docs § 1.13-1.15). Açığa ayrılma EŞİK kuralı, denetimli serbestlik SABİT kaydırma — ayrı fonksiyonlar, birleştirilmeyecek. Mahsup A okumasıyla (TCK m.63) oran öncesi düşülüyor; **bu nokta yayından önce gözden geçirilecek**. TCK 188 oranı hâlâ açık: araç oran atamıyor, kullanıcıya seçtiriyor. Sonuç ekranı ara adımları gösteriyor — yanlış hesap sessiz kalmasın diye.*
 - [x] Araç değer kaybı — **hesaplama aracı yapılmadı.** Formül doğrulaması, dayanak ekin 01.07.2026'da yürürlükten kaldırıldığını ortaya çıkardı. *20 Eylül 2026'da karara bağlandı:* araç listeden çıkarıldı, konu `/blog/arac-deger-kaybi-yeni-donem` adresinde bilgilendirme yazısına dönüştürüldü. Rakam üreten form yok.
 - [x] Kira artış hesaplama — formül doğrulama → geliştirme → test → yayın. *TÜFE oranı elle tutulan tabloda (`src/lib/tufe.ts`); her ayın 4'ünde bir bulut ajanı hatırlatıyor, oran TÜİK bülteninden teyit edilip elle işleniyor.*

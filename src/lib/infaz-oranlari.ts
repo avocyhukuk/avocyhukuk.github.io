@@ -15,10 +15,19 @@
  *   3. **5275 m.108** — mükerrirlik oranı. Katalog oranıyla çakışırsa
  *      YÜKSEK olan uygulanır (§ 1.4 sonu).
  *
- * ─── AÇIK MADDE: TCK 188 ──────────────────────────────────────────────
- * Uyuşturucu imal ve ticaretinin oranı ÇÖZÜLMEDİ (§ 1.13/4). Araç bu
- * kategoride oranı kendi seçmiyor; kullanıcıya sorup seçtiği oranı
- * uyguluyor. `uyusturucuOrani` girdisi bu yüzden var.
+ * ─── 🚫 YAYIN ENGELİ 2/2: TCK 188 ─────────────────────────────────────
+ * Uyuşturucu imal ve ticaretinin oranı ÇÖZÜLMEDİ (docs § 1 başı,
+ * § 1.13/4). m.107/2 maddeyi 2/3 listesine koyuyor ama Geçici m.9/4'ün
+ * lafzı 28.06.2014 sonrası için 3/4'ü ima ediyor; açık hüküm bulunamadı.
+ *
+ * Araç bu kategoride oranı **kendi seçmiyor**: kullanıcıya uyarı
+ * gösterip seçtirdiği oranı uyguluyor (`uyusturucuOrani` girdisi bu
+ * yüzden var, varsayılanı da yok). Bu bir GEÇİCİ çözüm; kalıcı cevap
+ * Av. Onur Can Yılmaz'ın teyidini bekliyor ve araç o zamana kadar
+ * canlıya alınmamalı.
+ *
+ * Bu engelin diğerinden farkı: burada belirsizlik kullanıcıya açıkça
+ * söyleniyor, sessiz kalmıyor.
  */
 import type { LegalReference } from './calculator-ui';
 

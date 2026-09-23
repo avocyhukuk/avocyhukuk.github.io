@@ -8,7 +8,27 @@ Her bölümdeki "Kanuni Dayanak" ve "Kaynak" alanları şu an genel araştırmad
 
 ## 1. İnfaz / Yatar Hesaplama
 
-> **Durum: TASLAK — kodlanmadı, kodlanmayacak.** Aşağıdakiler ikincil kaynaklardan (meslektaş yayınları, güncel makaleler) derlenmiş bir başlangıç çerçevesidir. Hiçbir satırı doğrulanmış kabul edilmemelidir. Av. Onur Can Yılmaz'ın onayı olmadan `src/lib/` altına tek satır yazılmayacaktır.
+> **Durum: KODLANDI — 23 Eylül 2026.** Kod `src/lib/infaz*.ts`, arayüz
+> `src/pages/hesaplama-araclari/infaz-hesaplama.astro`, 25 test geçiyor.
+> Ayrıntı 1.16'da.
+
+### 🚫 YAYIN ENGELLERİ — iki madde
+
+Araç çalışıyor ve testleri geçiyor, ama **aşağıdaki iki madde
+kapanmadan canlıya alınmamalıdır.** İkisi de Av. Onur Can Yılmaz'ın
+kendi infaz dosyası tecrübesiyle teyit edeceği noktalar; web
+araştırmasıyla çözülemediler.
+
+| # | Madde | Neden yayın engeli | Ayrıntı |
+|---|---|---|---|
+| **1** | **Mahsup sırası (A/B okuması)** | Kod A okumasını uyguluyor (mahsup → oran). Bir pratisyen kaynağı ters sırayla hesaplıyor. **Yanlışsa mahsuplu her dosyada tarih kayar** — 18 yıllık cezada 80 güne kadar | 1.15/Karar 1 |
+| **2** | **TCK m. 188 oranı** | 2/3 mü 3/4 mü belirlenemedi. Araç şu an oranı kullanıcıya seçtiriyor; bu geçici çözüm, kalıcı cevap değil | 1.13/4 |
+
+Birinci madde **sessiz** bir hata riski taşıdığı için sonuç ekranı ara
+adımları gösteriyor (1.15) — sıra yanlışsa ekrandan okunabilsin.
+İkincisi kullanıcıya açıkça soruluyor, zaten sessiz kalmıyor.
+
+Bu iki madde kapanınca bölümün durumu **"Yayına hazır"**a çevrilecek.
 
 ### 1.1. Neden bu araç sekiz araç içindeki en riskli olan
 
@@ -1035,6 +1055,47 @@ Hepsi A okuması + yıl-ay-gün oranıyla hesaplandı.
 >
 > Bu, `ResultSheet`'in zaten taşıdığı "tek büyük sayı değil, adım adım
 > döküm" tasarımıyla örtüşüyor — bileşen bu araç için de kullanılabilir.
+
+### 1.16. Kodlandı — 23 Eylül 2026
+
+Fikstür onaylandıktan sonra yazıldı. **25 test geçiyor.**
+
+| Dosya | İçerik |
+|---|---|
+| `src/lib/infaz-sure.ts` | Süre aritmetiği. İki konvansiyonu tek yerde tutuyor: oran uygulanırken 1 yıl = 12 ay × 30 gün, takvime çevrilirken 1 yıl = 365 gün |
+| `src/lib/infaz-oranlari.ts` | Oran tablosu, katalog listesi, terör için ayrı 3713 dalı, çakışmada yüksek oran |
+| `src/lib/infaz.ts` | `ksEsigi` · `bihakkinTahliye` · `denetimliSerbestlik` · `acigaAyrilma` |
+| `src/lib/infaz.test.ts` | Yedi çekirdek senaryo + kenar durumlar |
+| `src/pages/hesaplama-araclari/infaz-hesaplama.astro` | Ara adımlı sonuç ekranı, TCK 188 uyarı kutusu |
+
+#### Kodlama sırasında yakalanan hata
+
+> 🔴 **Eşik kuralı sabit indirime dönüşmüştü.** `acigaAyrilma`nın ilk
+> hâli "şartlar ileride ne zaman oluşur" sorusunu cevaplıyordu; bu,
+> normal tarihine beş yıl kalan bir hükümlüyü de üç yıl erkene alıyordu
+> — yani § 1.13/1'de düzelttiğimiz hatanın kodda yeniden doğması. Test
+> yakaladı.
+>
+> **Düzeltme:** fonksiyona **zorunlu** bir `degerlendirmeTarihi`
+> parametresi eklendi. Madde bir anda fotoğraf çekiyor; o an eşiğin
+> içindekileri alıyor, dışındakilere hiç dokunmuyor. Parametrenin
+> varsayılanı yok — varsayılan verilirse hata sessizce geri döner.
+>
+> Bir test ayrımı kalıcı olarak sabitliyor: aynı hükümlü, iki farklı
+> değerlendirme anı, iki farklı sonuç.
+
+#### `acigaAyrilma` — kod hazır, arayüzde YOK
+
+> `acigaAyrilma` fonksiyonu mevcut ve test edilmiş (bkz. `src/lib`),
+> ancak v1 sonuç ekranında gösterilmiyor — kapsam dışı bırakıldı,
+> kullanıcının asıl aradığı KS/DS/bihakkın bilgileri öne çıkarılıyor.
+> İleride bir iterasyonda eklenebilir, kod hazır.
+
+Karar 23.09.2026'da verildi ve § 1.1b'deki kapsam kararıyla tutarlı.
+
+- **Onay Durumu:** ✅ **Kodlandı ve onaylandı — 23 Eylül 2026.**
+  Yayına alınması, bölüm başındaki **iki yayın engelinin** kapanmasına
+  bağlı.
 
 ## 2. Araç Değer Kaybı Hesaplama
 
