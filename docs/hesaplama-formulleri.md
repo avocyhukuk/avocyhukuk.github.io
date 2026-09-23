@@ -83,16 +83,20 @@ Bu aracın en büyük riski burada görünüyor — altı yılda **beş** deği�
 | **7242** | 15.04.2020 | Genel KS oranı 2/3 → **1/2**; geçici m.6 ile DS 3 yıla çıktı |
 | **7456** | 15.07.2023 | Geçici m.10 — 31.07.2023 eşiği |
 | **7550** (10. paket) | 04.06.2025 | m.108: ikinci defa tekerrürde KS artık mümkün (3/4); m.105/A'ya **1/10 + asgari 5 gün** şartı; geçici m.11 ile geriye yürümüyor |
-| **7571** (11. paket) | 25.12.2025 | **Geçici m.10/6**: 31.07.2023 ve öncesi suçlarda açık kuruma ve DS'ye **3 yıl erken** ayrılma; en az **3 ay** açık kurumda kalmış olma şartı. *(Yeni geçici madde mi, m.10'a fıkra mı — resmî metinde teyit edilecek.)* |
+| **7571** (11. paket) | 25.12.2025 | **Geçici m.10/6** — 31.07.2023 ve öncesi suçlar. 🔴 *Sabit 3 yıllık indirim DEĞİL, bir EŞİK kuralı; kapalıda geçirme şartı cezaya göre 1 veya 3 ay. Bkz. **1.13/1**.* |
 | **7589** (12. paket) | 31.07.2026 | **5275'in infaz rejimine dokunmuyor.** Genel af veya infaz indirimi yok. Kontrol edildi, bu araç açısından etkisiz. |
+| **7593** | **08.08.2026** | **m.107/5** — çocuk hükümlü indirimi yeniden yazıldı: kasten öldürme, TCK 102-103, 188 ve 220 hariç, 15 yaşını dolduruncaya kadar kurumda geçen **1 gün 2 gün** sayılır. Bkz. **1.14/a**. *(v1 kapsamı dışı — SSÇ v2'de.)* |
 
-> ⚠️ **7571'in kapsam dışı bıraktığı suçlar** (ikincil kaynaklardan): terör,
-> örgüt suçları, kadına/çocuğa/eşe/üstsoy-altsoya karşı kasten öldürme,
-> cinsel saldırı, çocuğun cinsel istismarı. Liste resmî metinden
-> doğrulanmalı.
+> ✅ **7571'in kapsam dışı bıraktığı suçlar — resmî metinden doğrulandı.**
+> Tam liste **1.13/1**'de. Önceki ikincil kaynak listesi kabaca doğruymuş
+> ama eksikti: TCK İkinci Kitap Dördüncü Kısım'ın dört bölümü ve kasten
+> öldürmedeki TCK 82/1-d,e,f istisnası kayıtlarda yoktu.
 >
-> ⚠️ Kamuoyunda bir **13. Yargı Paketi** tartışılıyor. Araç yayına
-> girmeden önce yürürlüğe girerse tablolar yeniden gözden geçirilmeli.
+> ⚠️ **Altı değişiklik oldu.** Bu tablo 7242 ile başlayıp 7593 ile
+> sürüyor; sonuncusu bu yılın Ağustos'unda yürürlüğe girdi ve biz
+> haberdar değildik. § 1.1'deki "bir sonraki paket bu aracı sessizce
+> yanlış hâle getirir" uyarısı teorik değil — **zaten bir kez oldu.**
+> Araç yayına girerse mevzuat takibi bir bakım işi hâline gelir.
 
 ### 1.3. Girdi alanları
 
@@ -122,17 +126,16 @@ Av. Onur Can Yılmaz tarafından doğrulandı; 1.4'teki üç çelişki çözüld
 
 **Süreli hapis:**
 
-| Kategori | Oran |
-|---|---|
-| Genel kural (adi suçlar) | **1/2** |
-| Kasten öldürme (TCK 81-83), neticesi sebebiyle ağırlaşmış yaralama (TCK 87/2-d), işkence-eziyet (TCK 94-96), temel cinsel suçlar (TCK 102/1, 104/1, 105), Devlet sırları-casusluk (TCK 326-339) | **2/3** |
-| Örgüt kurmak/yönetmek veya örgüt faaliyeti çerçevesinde işlenen suçlar (m.107/4) | **2/3** |
-| Nitelikli cinsel suçlar (TCK 102/2, 103, 104/2-3) | **3/4** |
-| Uyuşturucu imal ve ticareti (TCK 188) — suç tarihi **30.03.2020 sonrası** | **3/4** |
-| Uyuşturucu imal ve ticareti (TCK 188) — suç tarihi **30.03.2020 öncesi** | **2/3** |
-| Terör suçları (3713 m.17 özel düzenlemesi) | **3/4** |
-| Mükerrir — süreli hapis (m.108) | **2/3** |
-| İkinci defa mükerrir ve bazı katalog suçlar (m.108, 7550 s.K. sonrası) | **3/4** |
+| Kategori | Oran | Dayanak |
+|---|---|---|
+| Genel kural (adi suçlar) | **1/2** | m.107/2 |
+| **Katalog suçlar** (tam liste 1.13/3'te) | **2/3** | m.107/2 bentleri |
+| Örgüt kurmak/yönetmek veya örgüt faaliyeti çerçevesinde işlenen suçlar (TCK 220) — **süreli hapis** | **2/3** | **m.107/2 son cümle** |
+| Nitelikli cinsel suçlar (TCK 102/2, 103, 104/2-3) | **3/4** | m.107/2 |
+| **Uyuşturucu imal ve ticareti (TCK 188)** | ⚠️ **AÇIK — 1.13/4** | — |
+| **Terör suçları** | **3/4** | **3713 m.17** — m.107 tablosundan DEĞİL, ayrı dal |
+| Mükerrir — süreli hapis (m.108) | **2/3** | m.108 |
+| İkinci defa mükerrir — süreli hapis (7550 s.K. sonrası) | **3/4** | m.108 |
 
 **Müebbet ve ağırlaştırılmış müebbet — kurumda geçirilecek SABİT süre:**
 
@@ -172,20 +175,18 @@ yüksek olursa olsun, kurumda geçirilecek süre tavanı aşamaz.
 > 33 yıl (müebbet) ve 39 yıl (ağırlaştırılmış müebbet) ise doğru ve
 > yerinde duruyor — bunlar tavan değil, kurumda geçirilecek sabit süre.
 
-> ✅ **TCK m.188 çelişkisi çözüldü — ve sanılandan farklı bir sebepten.**
-> Ayrım fıkra bazlı DEĞİL, **suç tarihi bazlı.** 188/1, 188/3, 188/4 gibi
-> fıkralar arasında KS oranı farkı yok; fark 30.03.2020 eşiğinden geliyor:
-> bu tarihten sonra işlenen TCK 188 suçlarında 3/4, öncesinde 2/3.
-> "Bir kaynak 2/3 diyor" durumunun sebebi bu — o kaynak 2020 öncesi
-> uygulamayı anlatıyor. Fıkraları tek tek ayırmaya gerek kalmadı.
->
-> Önceki turdaki "yetişkin 3/4, çocuk 2/3" kaydı v1'i ilgilendirmiyor:
-> araç zaten yalnızca 18 yaş üstü için hesap yapıyor. Bu ayrım v2'de,
-> SSÇ ele alınırken çözülecek.
+> 🔴 **TCK m.188 — ÖNCEKİ KAYIT GERİ ALINDI, SORU YENİDEN AÇIK.**
+> Bu kutuda "ayrım 30.03.2020 eşiğinden geliyor" yazıyordu. **O kayıt
+> ikincil kaynaklara dayanıyordu ve resmî metin kontrolünde
+> doğrulanamadı.** Ayrıntı ve yeni bulgular 1.13/4'te; eşik tarihi
+> 30.03.2020 değil **28.06.2014** olabilir. Bu satır çözülmeden araç
+> yayına alınamaz.
 
 > ✅ **Oran çakışması — ÇÖZÜLDÜ.** Katalog suç oranı ile mükerrirlik
 > oranı çakıştığında **yüksek olan (hükümlü aleyhine olan) oran**
-> uygulanır. Örnek: TCK m.188 (3/4) + birinci defa mükerrir (2/3) → **3/4**.
+> uygulanır. Örnek: nitelikli cinsel suç (3/4) + birinci defa mükerrir
+> (2/3) → **3/4**. (Önceki örnek TCK m.188 üzerindendi; o oran 1.13/4'te
+> yeniden açıldığı için örnek değiştirildi.)
 >
 > Kodda sonucu tek satır: `oran = max(katalogOrani, mukerrirlikOrani)`.
 > İkinci defa tekerrür zaten 3/4 olduğu için aynı kural onu da kapsıyor.
@@ -223,6 +224,29 @@ Suç tarihine ve geçici m.6 istisnası olup olmadığına göre üç hâl:
 
 Hâl A'da koşullu salıverilme oranı da (istisnalar hariç) 1/2'dir — bu
 zaten 7242 sonrası genel kural, ayrı bir dal gerektirmiyor.
+
+> 🔴 **HÂL B ve C YENİDEN BAKILMALI — 23 Eylül 2026.**
+>
+> Yukarıdaki tablo hâl B ve C'de DS süresini **"1 + 3 = 4 yıl"** diye
+> yazıyor; yani Geçici m.10/6'yı standart 1 yıllık DS'ye eklenen **sabit
+> 3 yıllık bir indirim** sayıyor.
+>
+> **1.13/1'deki resmî metin okuması bu varsayımı sarsıyor.** Maddenin
+> açık kuruma ayrılma kısmı sabit indirim değil, bir **eşik kuralı**:
+> normal tarihe 3 yıldan az kalanları öne alıyor, kalanlara hiç
+> dokunmuyor. Aynı fıkranın DS kısmının da böyle mi kurulduğu, yoksa
+> gerçekten 3 yıllık bir öne alma mı olduğu **ayrıca teyit edilmeli.**
+>
+> İki ihtimal farklı sonuç veriyor:
+>
+> | Okuma | Hâl B/C'de DS |
+> |---|---|
+> | Sabit ekleme *(mevcut tablo)* | KS'ye **4 yıl** kala |
+> | Eşik kuralı *(1.13/1 ile tutarlı)* | KS'ye 1 yıl kala; **ancak** eşiğe girenler öne alınır |
+>
+> Tablo, teyit gelene kadar **mevcut hâliyle bırakıldı** — sessizce
+> değiştirmek, doğrulanmamış bir okumayı belgeye yazmak olurdu. Bu
+> madde Av. Onur Can Yılmaz'ın onayına sunuldu.
 
 Uygulamada infaz hâkimlikleri her dosya için ayrı müddetname düzenleyip
 en erken tahliye tarihini veren maddeyi uygular. Aracın yaptığı da bu:
@@ -337,13 +361,17 @@ kaynak değildir** — yalnızca resmî metinde neye bakılacağını gösterir.
 | **Geçici maddelerin birleşimi** | **Toplanmaz** — lehe olan / karma uyum; hâl A/B/C tablosu (1.5) |
 | **Oran çakışması** | **Yüksek oran uygulanır** — `max(katalog, mükerrirlik)` |
 
-**⬜ Yayın için kalan üç adım:**
+**⬜ Yayın için kalan üç adım** *(23.09.2026 itibarıyla güncellendi):*
 
-1. **Test senaryolarının beklenen tarihleri** (1.10) — girdi tarafı
-   dolduruldu (24 senaryo), beklenen dört tarih boş. Mevzuat kontrolü
-   sonrası birlikte hesaplanacak.
-2. **Resmî metin kontrolü** (1.12) — `mevzuat.gov.tr` üzerinden.
-3. **Onay Durumu'nun "Onaylandı"ya çevrilmesi** — bundan sonra kod yazılır.
+1. ~~**Resmî metin kontrolü**~~ — ✅ **tamamlandı** (1.12, 1.13, 1.14).
+   Dört soru kapandı, biri açık kaldı.
+2. ⚠️ **TCK m.188 oranı** (1.13/4) — tek açık hukuki madde. v1 için
+   geçici çözüm kararlaştırıldı (kullanıcıya iki oran seçeneği), ama
+   kalıcı cevap aranıyor.
+3. **Test senaryolarının beklenen tarihleri** (1.10) — 24 senaryonun
+   girdi tarafı dolu, beklenen dört tarih boş. **1.13'teki düzeltmeler
+   sonrası yeniden gözden geçirilmeli**; özellikle Geçici m.10/6 mantığı
+   değiştiği için DS tarihlerini etkileyen senaryolar.
 
 1.5'teki iki uygulama kararı (DS çakışmasında en erken tarih, "açık
 kurumda 3 ay" için onay kutusu) **onaylandı** ve belgeye işlendi.
@@ -368,15 +396,15 @@ başlama.
 | 1 | 10.09.2024 | 5 yıl | Adi suç | yok | 01.03.2026 | 0 | En sade hâl: oran 1/2, DS standart 1 yıl, 1/10 şartı yok |
 | 2 | 10.09.2024 | 5 yıl | Adi suç | yok | 01.03.2026 | 90 | TCK m.63 mahsup dalı (1 numaradan tek farkı bu) |
 | 3 | 15.11.2024 | 18 yıl | Kasten öldürme (TCK 81) | yok | 20.01.2026 | 240 | Katalog oran 2/3 |
-| 4 | 05.06.2021 | 10 yıl | Uyuşturucu ticareti (TCK 188) | yok | 12.04.2026 | 150 | TCK 188 → 3/4 (suç tarihi 30.03.2020 sonrası) **ve** DS hâl C |
-| 5 | 12.01.2019 | 10 yıl | Uyuşturucu ticareti (TCK 188) | yok | 03.02.2026 | 0 | Aynı suç, 30.03.2020 **öncesi** → 2/3. Tarih bazlı ayrımı doğrular |
+| 4 | 05.06.2021 | 10 yıl | Uyuşturucu ticareti (TCK 188) | yok | 12.04.2026 | 150 | ⚠️ **ORANI AÇIK** (1.13/4) — senaryo DS hâl C için tutuluyor, oran kesinleşince tamamlanacak |
+| 5 | 12.01.2019 | 10 yıl | Uyuşturucu ticareti (TCK 188) | yok | 03.02.2026 | 0 | ⚠️ **ORANI AÇIK** (1.13/4). Eşik 30.03.2020 değil **28.06.2014** olabilir; bu tarih ikisinin de sonrasında kalıyor |
 
 #### Tekerrür ve oran çakışması
 
 | # | Suç tarihi | Ceza | Kategori | T | Önceki ilam | İB | M | Neyi doğrular |
 |---|---|---|---|---|---|---|---|---|
 | 6 | 20.03.2024 | 6 yıl | Adi suç (hırsızlık) | 1. defa mükerrir | 2 yıl | 10.05.2026 | 0 | Mükerrir oranı 2/3 **ve** m.108/2 tavanı |
-| 7 | 08.02.2024 | 12 yıl | Uyuşturucu ticareti (TCK 188) | 1. defa mükerrir | 3 yıl | 01.06.2026 | 0 | **Oran çakışması**: max(3/4, 2/3) = 3/4 |
+| 7 | 08.02.2024 | 12 yıl | **Nitelikli cinsel suç (TCK 102/2)** | 1. defa mükerrir | 3 yıl | 01.06.2026 | 0 | **Oran çakışması**: max(3/4, 2/3) = 3/4. *Kategori 188'den değiştirildi — oranı açık olan bir suç üzerinden çakışma testi kurulamaz* |
 | 8 | 19.05.2024 | 9 yıl | Adi suç | 2. defa mükerrir | — | 15.07.2026 | 60 | İkinci tekerrür 3/4; m.108/2 tavanı UYGULANMAZ |
 
 #### Denetimli serbestlik hâlleri (1.5 tablosu)
@@ -621,29 +649,239 @@ var. v1 kapsamımızda terör suçu bulunduğu için bu eklenmeli.
 nitelikli reşit olmayanla cinsel ilişki · terör · örgüt kurma · örgüt
 faaliyeti çerçevesinde işlenen suç · basit cinsel suçlar
 
-### 1.12. Kapanmadan önce yapılacak son kontrol
+### 1.12. Resmî metin kontrolü — TAMAMLANDI (23 Eylül 2026)
 
-Onay, `mevzuat.gov.tr` üzerindeki **resmî metinle** yapılacak. Kontrol
-listesi:
+Av. Onur Can Yılmaz kontrolü `mevzuat.gov.tr` konsolide metinleriyle
+yaptı. Sonuçlar 1.13 ve 1.14'te.
 
-- [ ] m.107 tam metni — 1.4'teki oran tablosunun her satırı
-- [ ] m.107/4 örgüt oranı (2/3 olarak işaretlendi, teyit bekliyor)
-- [ ] m.108 tam metni — 33/39 yıl ve m.108/2'nin lafzı
-- [ ] m.105/A tam metni — 1/10 + 5 gün şartı
-- [ ] TCK m.188 — tarih bazlı ayrımın doğrulanması
-- [ ] Geçici m.6, m.10/6, m.11 — hâl A/B/C tablosunun (1.5) doğrulanması
-- [ ] 7571 yeni bir geçici madde mi ekledi, yoksa m.10'a 6. fıkra mı
-- [ ] m.107/m.108 çakışmasında yüksek oranın uygulandığının teyidi
-- [ ] 13. Yargı Paketi yürürlüğe girdi mi
-- [ ] **Hâl A'da erkenlik uygulanıyor mu** — kod uyguluyor, belgemiz uygulamıyordu; belgemiz yanlış görünüyor (1.11c)
-- [ ] **Erken çıkış başvuruya mı bağlı** — koda göre otomatik değil; araç koşullu ikinci tarih göstermeli (1.11c)
-- [ ] **Terör + önceki TMK suçu → KS yok** (TMK m.17/3) — belgemizde hiç yok (1.11c)
-- [x] ~~Açık kurum şartı tek eşik mi~~ — çözüldü: DS tabanı her hâlde 90 gün, 30/90 ayrımı açık kuruma geçişe ait (1.11c)
-- [ ] **Küsurat kuralı** — belgede hiç yok, karara bağlanmalı (1.11b/3)
-- [ ] **İkinci tekerrürde 3/4** bir tarih penceresiyle sınırlı mı (1.11b/4)
-- [ ] **Katalog listeleri** — TCK 132-138, 302-325, 326-339, 220 (1.11b/5)
+- [x] m.107 oran tablosu — doğrulandı, **iki düzeltmeyle** (1.13/3)
+- [x] Örgüt oranı — süreli hapiste **2/3**, dayanağı m.107/2 son cümle; m.107/4 oran maddesi değil (1.13/3)
+- [x] m.108 — 33/39 yıl ve m.108/2 lafzı; ayrıca ikinci tekerrür yasağının kalktığı (1.14/c)
+- [x] Geçici m.10/6 — **eşik kuralı**, sabit indirim değil (1.13/1)
+- [x] Erken çıkışta başvuru şartı — açık kurumda yok, DS'de **var** (1.13/1)
+- [x] TMK m.17/3 — birebir doğrulandı, belgeye girdi (1.13/2)
+- [x] Katalog listeleri — 302-325 listede **değil**, 132-138 **eksikti** (1.13/3)
+- [x] Küsurat kuralı — kanunda yok; tasarımla çözüldü (1.13/5)
+- [x] İkinci tekerrürde tarih penceresi — resmî metinde **yok** (1.14/c)
+- [x] ~~Hâl A'da erkenlik~~ — soru yanlış çerçevelenmişti; 30.03.2020 ile Geçici m.10'un ilgisi yok (1.13/1)
+- [ ] ⚠️ **TCK m.188 oranı** — **TEK AÇIK MADDE** (1.13/4)
+- [ ] 13. Yargı Paketi yürürlüğe girdi mi — *7593 çıktı (1.14/a); başka paket var mı, ayrıca bakılacak*
 
-- **Onay Durumu:** ⬜ Bekliyor
+### 1.13. Resmî metin doğrulaması — 23 Eylül 2026
+
+Av. Onur Can Yılmaz, 1.12'deki beş açık maddeyi **5275, 3713 ve 5237
+sayılı kanunların `mevzuat.gov.tr` üzerindeki konsolide metinleriyle**
+karşılaştırdı. Sonuçlar aşağıda. Ayrıntılı alıntılar claude.ai
+projesindeki `infaz-hesaplama-kaynak-karsilastirmasi.md` § 9'da.
+
+**Dördü kapandı, biri açık kaldı (m.188).**
+
+#### 1) Geçici m.10/6 — "3 yıl erken çıkış" bir EŞİK KURALI, indirim değil
+
+🔴 **Bu, belgedeki en büyük hatanın düzeltilmesi.**
+
+Madde metni:
+
+> ...31/7/2023 tarihi itibarıyla veya öncesinde işlenmiş suçlar nedeniyle
+> kapalı ceza infaz kurumlarında bulunan hükümlülerden, toplam hapis
+> cezası on yıldan az ise bir ayını, on yıl ve daha fazla ise üç ayını bu
+> kurumlarda geçirip **açık ceza infaz kurumlarına ayrılmasına üç yıl
+> veya daha az süre kalanlar**, bu şartların oluştuğu tarih itibarıyla
+> açık ceza infaz kurumlarına ayrılabilir.
+
+**Doğru mantık:**
+
+```
+kapaliSart = toplamCeza < 10 yıl ? 1 ay : 3 ay
+
+eğer (normalAçığaAyrılma − bugün) ≤ 3 yıl
+ VE  kapalıdaGeçen ≥ kapaliSart
+→ açığaAyrılma = şartların oluştuğu tarih   (yani hemen)
+
+değilse → madde HİÇ devreye girmez, normal tarih beklenir
+```
+
+> ❌ **`max(standartDS − 3 yıl, açığaAyrılma + 90 gün)` FORMÜLÜ YANLIŞ.**
+> Rakip aracın kodundan çıkardığımız bu formül sabit bir indirim
+> varsayıyordu. Madde sabit indirim vermiyor; **eşiğe girenleri öne
+> alıyor**, girmeyenlere hiç dokunmuyor. Formül kullanılmayacak.
+
+**Başvuru şartı — ikiye ayrılıyor:**
+
+| Kısım | Başvuru gerekli mi |
+|---|---|
+| Açık kuruma ayrılma | **Hayır** — idari/otomatik |
+| Erken denetimli serbestlik | **Evet** — madde açıkça "talepleri hâlinde" diyor |
+
+Yani araç DS tarafında koşullu bir ikinci tarih göstermeli; açık kurum
+tarafında göstermemeli.
+
+**Maddeden yararlanamayan suçlar:**
+
+- Kasten öldürme (TCK 82/1-d, e, f **hariç**)
+- Cinsel dokunulmazlığa karşı suçlar (TCK 102, 103, 104/2-3)
+- TCK İkinci Kitap Dördüncü Kısım **Dördüncü, Beşinci, Altıncı ve
+  Yedinci** Bölümler
+- TMK kapsamındaki suçlar
+- Örgüt faaliyeti çerçevesinde işlenen suçlar
+
+> ⚠️ **Soru yanlış çerçevelenmişti.** 1.12'de bu madde "30.03.2020
+> öncesi mi" diye soruluyordu. **30.03.2020 (Geçici m.6) tamamen ayrı
+> bir konu** — infaz oranı ve DS süresiyle ilgili. Geçici m.10'un eşiği
+> **31.07.2023**. İkisi karıştırılmış; ayrıldı.
+
+#### 2) TMK m.17/3 — birebir doğrulandı, belgeye girdi
+
+3713 sayılı Kanun m. 17:
+
+> Bu Kanun kapsamına giren suçlardan mahkûm olanlar, hükümlerinin
+> **kesinleşme tarihinden sonra** bu Kanunun kapsamına giren bir suçu
+> işlemeleri halinde, **şartla salıverilmeden yararlanamazlar.**
+
+Dikkat: eşik **kesinleşme tarihi**, suç tarihi değil.
+
+**Aynı maddedeki iki ek istisna — v1 kapsamı KARARA BAĞLANACAK:**
+
+- Firar veya ayaklanma suçundan mahkûmiyet **ve** üç kez hücre hapsi
+  cezası alanlar da KS'den yararlanamaz.
+- Ölüm cezası ağırlaştırılmış müebbete dönüştürülen terör hükümlüleri
+  **hiç** KS'den yararlanamaz.
+
+İkisi de şimdilik not; v1'e alınıp alınmayacağına Av. Onur Can Yılmaz
+karar verecek.
+
+#### 3) Katalog suç listesi — doğrulandı ve iki düzeltme
+
+**2/3 oranına tabi suçlar (m.107/2):**
+
+| Grup | Maddeler |
+|---|---|
+| Kasten öldürme | TCK 81, 82, 83 |
+| Neticesi sebebiyle ağırlaşmış yaralama | TCK 87/2-d |
+| İşkence ve eziyet | TCK 94, 95, 96 |
+| Cinsel suçlar (yetişkin hükümlü) | TCK 102 *(2. fıkra hariç)*, 104 *(2-3. fıkra hariç)*, 105 |
+| Cinsel suçlar (çocuk hükümlü — ayrı bent) | TCK 102, 103, 104, 105 |
+| Özel hayata karşı suçlar | **TCK 132-138** |
+| Uyuşturucu imal ve ticareti | TCK 188 → **bkz. 1.13/4, oranı açık** |
+| Devlet sırları ve casusluk | **TCK 326-339** |
+| Örgüt suçları (süreli hapis) | TCK 220 — m.107/2 **son cümle** |
+
+> ✅ **Düzeltme 1 — TCK 302-325 katalogda DEĞİL.** 1.12'de bu aralık açık
+> soru olarak duruyordu; listede yok. Yalnızca **326-339** var.
+>
+> ✅ **Düzeltme 2 — TCK 132-138 eksikti.** 1.4 tablosunda hiç yoktu,
+> eklendi.
+
+**Örgüt suçlarında oran karışıklığı da giderildi:**
+
+| Ceza türü | Örgüt suçunda ne uygulanır | Dayanak |
+|---|---|---|
+| **Süreli hapis** | **2/3 oranı** — 3/4 DEĞİL | m.107/2 son cümle |
+| Müebbet / ağırlaştırılmış müebbet | **Sabit yıl** (30 / 36) — oran değil | m.107/4 |
+
+Yani m.107/4 bir oran maddesi değil, müebbet cezalarında kurumda
+geçirilecek sabit süreyi belirleyen madde. 1.4 tablosundaki "örgüt
+(m.107/4) → 2/3" satırının dayanağı m.107/2 olarak düzeltildi.
+
+**Terör suçları ayrı bir daldan gelir.** 3/4 oranı 5275 m.107'den değil,
+doğrudan **3713 sayılı Kanun m. 17**'den geliyor. Kodda "terör suçu"
+seçildiğinde oran m.107 tablosundan değil, ayrı bir daldan okunmalı.
+
+#### 4) ⚠️ TCK m.188 — TEK AÇIK MADDE
+
+Resmî metinde **fıkra ayrımı yok**: m.107/2 madde 188'i bütün olarak
+2/3 listesine koyuyor. Ama Geçici m.9/4 şunu diyor:
+
+> 102, 103, 104, 105 ve 188'de düzenlenen suçlardan **28/6/2014
+> öncesi** işlenenler için koşullu salıverilme oranı **2/3**'tür.
+
+Bu hüküm, 28.06.2014 **sonrası** için farklı (muhtemelen 3/4) bir oran
+olduğunu **ima ediyor** ama bunu açıkça yazan bir madde bulunamadı.
+
+**Bu oturumda yapılan ek araştırma — iki bulgu:**
+
+1. **Eşik tarihi büyük olasılıkla 28.06.2014**, 30.03.2020 değil.
+   28.06.2014, **6545 sayılı Kanun**'un yürürlük tarihi; Geçici m.9/4 de
+   bu tarihi anıyor. Belgedeki 30.03.2020 rakamı ikincil kaynaklardan
+   gelmişti ve resmî metinde karşılığı bulunamadı. **Geri alındı.**
+2. **İkincil kaynaklarda çelişki sürüyor.** Bir kaynak m.188 için süreli
+   hapiste 3/4 diyor; bir başka kaynak 188'i yalnızca **çocuk hükümlüler**
+   bendinde (m.107/2-e) gösteriyor. Av. Onur Can Yılmaz'ın resmî metin
+   okuması ise 188'i yetişkinler için de 2/3 listesinde (m.107/2-g)
+   görüyor. **Üç okuma birbirini tutmuyor.**
+
+> **Durum: ARAŞTIRILIYOR.** Çözülene kadar araç TCK 188 için oranı
+> KENDİ SEÇMEYECEK.
+
+**v1 geçici çözümü** (Av. Onur Can Yılmaz'ın talimatı): 188 seçildiğinde
+kullanıcıya **iki oran seçeneği** (2/3 ve 3/4) açıkça sunulacak ve
+yanına kısa bir açıklama konacak — hangi oranın uygulanacağının suç
+tarihine ve derdest içtihada bağlı olduğu söylenecek. Araç sessizce bir
+oran seçip yanlış tarih üretmeyecek.
+
+**Çözmek için gereken:** 28.06.2014 sonrası TCK 188 suçlarında oranı
+**3/4'e çıkaran hükmün kendisi** — 6545 s.K.'nın 5275'te hangi maddeyi
+değiştirdiği. Bulunamazsa oran 2/3'te kalır ve iki seçenekli sunum
+kalıcı olur.
+
+#### 5) Küsurat kuralı — kanunda YOK, sorun tasarımla çözüldü
+
+5275'in ilgili hiçbir maddesinde (107, 108, Geçici 6, Geçici 9, Geçici
+10) yuvarlama/küsurat hükmü yok. Muhtemelen kanun hükmü değil, infaz
+uygulamasının teamülü.
+
+> ✅ **v1 kararı: küsurat yuvarlaması YAPILMAYACAK.** Sonuç ekranında
+> gün/ay yuvarlaması yerine doğrudan **takvim tarihi** gösterilecek
+> ("23.04.2029" gibi). Böylece "yukarı mı aşağı mı, gün mü ay mı"
+> sorusu tamamen ortadan kalkıyor — cevaplanması gereken bir soru
+> olmaktan çıkıyor.
+
+Kod tarafında sonucu: hesap gün cinsinden yapılıp tarihe çevrilecek,
+ara sonuçlarda ay/yıl yuvarlaması olmayacak.
+
+### 1.14. Ek bulgular — 23 Eylül 2026
+
+Resmî metin kontrolünde daha önce hiç bilmediğimiz üç şey çıktı.
+
+#### a) 7593 sayılı Kanun (08.08.2026) — m.107/5 değişti
+
+Çocuk hükümlü indirimi yeniden yazılmış. Güncel hâli: **kasten öldürme,
+cinsel suçlar (TCK 102, 103), uyuşturucu (188) ve örgüt (220) hariç**,
+KS süresi hesabında hükümlünün **15 yaşını dolduruncaya kadar** infaz
+kurumunda geçirdiği **1 gün, 2 gün** sayılır.
+
+> ⚠️ **Mevzuat zinciri yine uzadı.** 1.2'deki değişiklik listesi beş
+> kanundu (7242, 7456, 7550, 7571, 7589); 7593 ile **altı** oldu ve
+> sonuncusu bu yılın Ağustos ayında yürürlüğe girmiş. Bu, § 1.1'de
+> yazılan "bir sonraki paket bu aracı sessizce yanlış hâle getirir"
+> riskinin somut kanıtı.
+
+#### b) Çocuk hükümlü indiriminin İKİ REJİMİ var
+
+| Suç tarihi | Rejim | Dayanak |
+|---|---|---|
+| **30.03.2020 öncesi** | 15 yaş altı: 1 gün = **3 gün** · 18 yaş altı: 1 gün = **2 gün** | Geçici m.6/4 |
+| **Güncel** | Yalnızca 15 yaş altı: 1 gün = **2 gün**. 15-18 yaş için ayrı indirim **yok** | m.107/5 (7593 ile değişik) |
+
+Formdaki **suç tarihi** alanı bu iki daldan birini seçmeli.
+
+> **v1 kapsamı değişmiyor.** Çocuk hükümlü (SSÇ) § 1.1b'de v1 dışında
+> bırakılmıştı; bu bulgu o kararı değiştirmiyor, **v2 için kaydediliyor.**
+> Ama araç v1'de SSÇ'yi hesaplamadığına göre, kapsam notundaki "çocuk
+> hükümlüler bu sürümde kapsam dışıdır" cümlesi daha da gerekli hâle
+> geldi: iki ayrı rejim var ve ikisi de basit değil.
+
+#### c) m.108 — ikinci tekerrürde KS yasağı KALKMIŞ
+
+7550 sayılı Kanun (2025) ile değişmiş: ikinci defa tekerrürde koşullu
+salıverilme artık **tamamen yasak değil**; süreli hapiste oran **3/4'e
+çıkarılarak** uygulanıyor.
+
+Bu, 1.4 tablosundaki "İkinci defa mükerrir → 3/4" satırını **doğruluyor**
+ve 1.12'deki "ikinci tekerrürde 3/4 bir tarih penceresiyle sınırlı mı"
+sorusunu da cevapsız bırakmıyor: sınır tarih penceresi değil, kanun
+değişikliğinin kendisi. *(Bir ikincil kaynak 01.06.2024 – 04.06.2025
+aralığı iddia ediyordu; resmî metinde böyle bir pencere yok.)*
 
 ## 2. Araç Değer Kaybı Hesaplama
 
